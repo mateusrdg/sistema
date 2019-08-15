@@ -24,17 +24,8 @@ DROP TABLE IF EXISTS `caixa`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `caixa` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `valor` decimal(19,2) NOT NULL,
-  `tipo_movimentacao` int(11) NOT NULL,
-  `data` datetime NOT NULL,
-  `hora` datetime NOT NULL,
-  `conta_pagar_id` int(11) DEFAULT NULL,
-  `conta_receber_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_caixa_conta_pagar_idx` (`conta_pagar_id`),
-  KEY `fk_caixa_conta_receber_idx` (`conta_receber_id`),
-  CONSTRAINT `fk_caixa_conta_pagar` FOREIGN KEY (`conta_pagar_id`) REFERENCES `conta_pagar` (`id`),
-  CONSTRAINT `fk_caixa_conta_receber` FOREIGN KEY (`conta_receber_id`) REFERENCES `conta_receber` (`id`)
+  `nome` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -45,6 +36,36 @@ CREATE TABLE `caixa` (
 LOCK TABLES `caixa` WRITE;
 /*!40000 ALTER TABLE `caixa` DISABLE KEYS */;
 /*!40000 ALTER TABLE `caixa` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `caixa_movimentacao`
+--
+
+DROP TABLE IF EXISTS `caixa_movimentacao`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `caixa_movimentacao` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `status` int(11) NOT NULL,
+  `data_abertura` datetime NOT NULL,
+  `hora_abertura` datetime NOT NULL,
+  `data_fechamento` datetime DEFAULT NULL,
+  `hora_fechamento` datetime DEFAULT NULL,
+  `caixa_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_caixa_movimentacao_caixa_idx` (`caixa_id`),
+  CONSTRAINT `fk_caixa_movimentacao_caixa` FOREIGN KEY (`caixa_id`) REFERENCES `caixa` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `caixa_movimentacao`
+--
+
+LOCK TABLES `caixa_movimentacao` WRITE;
+/*!40000 ALTER TABLE `caixa_movimentacao` DISABLE KEYS */;
+/*!40000 ALTER TABLE `caixa_movimentacao` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -117,9 +138,12 @@ CREATE TABLE `conta_pagar` (
   `data_pagamento` datetime DEFAULT NULL,
   `data_vencimento` datetime DEFAULT NULL,
   `forma_pagamento_pedido_id` int(11) DEFAULT NULL,
+  `parcela_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_conta_pagar_forma_pagamento_pedido_idx` (`forma_pagamento_pedido_id`),
-  CONSTRAINT `fk_conta_pagar_forma_pagamento_pedido` FOREIGN KEY (`forma_pagamento_pedido_id`) REFERENCES `forma_pagamento_pedido` (`id`)
+  KEY `fk_conta_pagar_parcela_id_idx` (`parcela_id`),
+  CONSTRAINT `fk_conta_pagar_forma_pagamento_pedido` FOREIGN KEY (`forma_pagamento_pedido_id`) REFERENCES `forma_pagamento_pedido` (`id`),
+  CONSTRAINT `fk_conta_pagar_parcela_id` FOREIGN KEY (`parcela_id`) REFERENCES `parcela` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -147,9 +171,12 @@ CREATE TABLE `conta_receber` (
   `data_pagamento` datetime DEFAULT NULL,
   `data_vencimento` datetime DEFAULT NULL,
   `forma_pagamento_pedido_id` int(11) DEFAULT NULL,
+  `parcela_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_conta_receber_forma_pagamento_pedido_idx` (`forma_pagamento_pedido_id`),
-  CONSTRAINT `fk_conta_receber_forma_pagamento_pedido` FOREIGN KEY (`forma_pagamento_pedido_id`) REFERENCES `forma_pagamento_pedido` (`id`)
+  KEY `fk_conta_receber_parcela_id_idx` (`parcela_id`),
+  CONSTRAINT `fk_conta_receber_forma_pagamento_pedido` FOREIGN KEY (`forma_pagamento_pedido_id`) REFERENCES `forma_pagamento_pedido` (`id`),
+  CONSTRAINT `fk_conta_receber_parcela_id` FOREIGN KEY (`parcela_id`) REFERENCES `parcela` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -280,7 +307,7 @@ DROP TABLE IF EXISTS `forma_pagamento`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `forma_pagamento` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `descricao` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `tipo` int(11) NOT NULL,
   PRIMARY KEY (`id`)
@@ -312,9 +339,9 @@ CREATE TABLE `forma_pagamento_pedido` (
   `pedido_venda_id` int(11) DEFAULT NULL,
   `pedido_compra_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_forma_pagamento_pedido_forma_pagamento_idx` (`forma_pagamento_id`),
   KEY `fk_forma_pagamento_pedido_pedido_venda_idx` (`pedido_venda_id`),
   KEY `fk_forma_pagamento_pedido_pedido_compra_idx` (`pedido_compra_id`),
+  KEY `fk_forma_pagamento_pedido_forma_pagamento_idx` (`forma_pagamento_id`),
   CONSTRAINT `fk_forma_pagamento_pedido_forma_pagamento` FOREIGN KEY (`forma_pagamento_id`) REFERENCES `forma_pagamento` (`id`),
   CONSTRAINT `fk_forma_pagamento_pedido_pedido_compra` FOREIGN KEY (`pedido_compra_id`) REFERENCES `pedido_compra` (`id`),
   CONSTRAINT `fk_forma_pagamento_pedido_pedido_venda` FOREIGN KEY (`pedido_venda_id`) REFERENCES `pedido_venda` (`id`)
@@ -412,6 +439,41 @@ LOCK TABLES `grupo` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `movimentacao`
+--
+
+DROP TABLE IF EXISTS `movimentacao`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `movimentacao` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `data` datetime NOT NULL,
+  `hora` datetime NOT NULL,
+  `valor` decimal(19,2) NOT NULL,
+  `tipo_movimentacao` int(11) NOT NULL,
+  `caixa_movimentacao_id` int(11) NOT NULL,
+  `conta_pagar_id` int(11) DEFAULT NULL,
+  `conta_receber_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_movimentacao_conta_receber_idx` (`conta_receber_id`),
+  KEY `fk_movimentacao_conta_pagar_idx` (`conta_pagar_id`),
+  KEY `fk_movimentacao_caixa_movimentacao_idx` (`caixa_movimentacao_id`),
+  CONSTRAINT `fk_movimentacao_caixa_movimentacao` FOREIGN KEY (`caixa_movimentacao_id`) REFERENCES `caixa_movimentacao` (`id`),
+  CONSTRAINT `fk_movimentacao_conta_pagar` FOREIGN KEY (`conta_pagar_id`) REFERENCES `conta_pagar` (`id`),
+  CONSTRAINT `fk_movimentacao_conta_receber` FOREIGN KEY (`conta_receber_id`) REFERENCES `conta_receber` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `movimentacao`
+--
+
+LOCK TABLES `movimentacao` WRITE;
+/*!40000 ALTER TABLE `movimentacao` DISABLE KEYS */;
+/*!40000 ALTER TABLE `movimentacao` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `orcamento`
 --
 
@@ -461,6 +523,35 @@ CREATE TABLE `pais` (
 LOCK TABLES `pais` WRITE;
 /*!40000 ALTER TABLE `pais` DISABLE KEYS */;
 /*!40000 ALTER TABLE `pais` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `parcela`
+--
+
+DROP TABLE IF EXISTS `parcela`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `parcela` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `forma_pagamento_pedido_id` int(11) NOT NULL,
+  `valor` decimal(19,2) NOT NULL,
+  `status` int(11) NOT NULL,
+  `data_vencimento` datetime NOT NULL,
+  `data_pagamento` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_parcela_forma_pagamento_pedido_idx` (`forma_pagamento_pedido_id`),
+  CONSTRAINT `fk_parcela_forma_pagamento_pedido` FOREIGN KEY (`forma_pagamento_pedido_id`) REFERENCES `forma_pagamento_pedido` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `parcela`
+--
+
+LOCK TABLES `parcela` WRITE;
+/*!40000 ALTER TABLE `parcela` DISABLE KEYS */;
+/*!40000 ALTER TABLE `parcela` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -750,4 +841,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-08-12 23:05:13
+-- Dump completed on 2019-08-15 19:09:46
