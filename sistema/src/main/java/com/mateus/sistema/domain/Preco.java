@@ -18,7 +18,7 @@ public class Preco implements Serializable {
 
 	public Preco(BigDecimal valor, TipoPreco tipo) {
 		this.valor = valor;
-		this.tipo = tipo.getCod();
+		this.tipo = (tipo == null) ? null : tipo.getCod();
 	}
 	
 	public BigDecimal getValor() {
