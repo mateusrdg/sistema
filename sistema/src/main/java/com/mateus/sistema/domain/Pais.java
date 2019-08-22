@@ -1,18 +1,33 @@
 package com.mateus.sistema.domain;
 
 import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Pais implements Serializable {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Version;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
+@Entity(name = "pais")
+public class Pais implements Serializable {
+	@Version
 	private static final long serialVersionUID = 1L;
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
 	private String codigo;
 	private String sigla;
-
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "pais")
 	private List<Estado> estados = new ArrayList<Estado>();
 	
 	public Pais() {

@@ -4,18 +4,30 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Entity(name="estado")
 public class Estado implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
+	@Column(name = "codigo")
 	private String codIBGE;
 	private String sigla;
-
+	@ManyToOne
+	@JoinColumn(name = "pais_id")
 	private Pais pais;
 	
-	private List<Cidade> cidades = new ArrayList<Cidade>();
+	//private List<Cidade> cidades = new ArrayList<Cidade>();
 	
 	public Estado() {
 	}
@@ -60,13 +72,13 @@ public class Estado implements Serializable {
 		this.sigla = sigla;
 	}
 
-	public List<Cidade> getCidades() {
-		return cidades;
-	}
+	//public List<Cidade> getCidades() {
+	//	return cidades;
+	//}
 
-	public void setCidades(List<Cidade> cidades) {
-		this.cidades = cidades;
-	}
+	//public void setCidades(List<Cidade> cidades) {
+	//	this.cidades = cidades;
+	//}
 
 	public Pais getPais() {
 		return pais;
