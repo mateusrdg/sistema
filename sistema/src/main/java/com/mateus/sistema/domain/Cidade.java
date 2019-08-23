@@ -4,25 +4,41 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Version;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
 public class Cidade implements Serializable {
-
+	@Version
 	private static final long serialVersionUID = 1L;
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
-	private String codIBGE;
-	
+	private String codigoIBGE;
+	@ManyToOne
+	@JoinColumn(name = "estado_id")
 	private Estado estado;
 
+	@JsonIgnore
+	@OneToMany(mappedBy = "cidade")
 	private List<Endereco> enderecos = new ArrayList<Endereco>();
 	
 	public Cidade() {
 	}
 
-	public Cidade(Integer id, String nome, String codIBGE, Estado estado) {
+	public Cidade(Integer id, String nome, String codigoIBGE, Estado estado) {
 		this.id = id;
 		this.nome = nome;
-		this.codIBGE = codIBGE;
+		this.codigoIBGE = codigoIBGE;
 		this.estado = estado;
 	}
 
@@ -43,11 +59,11 @@ public class Cidade implements Serializable {
 	}
 
 	public String getCodIBGE() {
-		return codIBGE;
+		return codigoIBGE;
 	}
 
-	public void setCodIBGE(String codIBGE) {
-		this.codIBGE = codIBGE;
+	public void setCodIBGE(String codigoIBGE) {
+		this.codigoIBGE = codigoIBGE;
 	}
 
 	public Estado getEstado() {
