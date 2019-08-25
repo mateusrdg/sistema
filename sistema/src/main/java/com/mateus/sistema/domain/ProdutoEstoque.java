@@ -3,27 +3,45 @@ package com.mateus.sistema.domain;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class EstoqueProduto implements Serializable {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+@Entity
+public class ProdutoEstoque implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 	
-	private EstoqueProdutoPK id = new EstoqueProdutoPK();
+	@ManyToOne
+	@JoinColumn(name="estoque_id")
+	private Estoque estoque;
+	
+	@ManyToOne
+	@JoinColumn(name="produto_id")
+	private Produto produto;
+	
 	private BigDecimal quantidade;
 	
-	public EstoqueProduto() {
+	public ProdutoEstoque() {
 	}
 
-	public EstoqueProduto(Estoque estoque, Produto produto, BigDecimal quantidade) {
-		this.id.setEstoque(estoque);
-		this.id.setProduto(produto);
+	public ProdutoEstoque(Integer id, Estoque estoque, Produto produto, BigDecimal quantidade) {
+		this.id = id;
+		this.estoque = estoque;
+		this.produto = produto;
 		this.quantidade = quantidade;
 	}
 
-	public EstoqueProdutoPK getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(EstoqueProdutoPK id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -51,7 +69,7 @@ public class EstoqueProduto implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		EstoqueProduto other = (EstoqueProduto) obj;
+		ProdutoEstoque other = (ProdutoEstoque) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -59,5 +77,7 @@ public class EstoqueProduto implements Serializable {
 			return false;
 		return true;
 	}
+
+	
 
 }

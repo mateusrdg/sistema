@@ -4,14 +4,26 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Grupo implements Serializable {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Version;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+@Entity(name = "grupo")
+public class Grupo implements Serializable {
+	@Version
 	private static final long serialVersionUID = 1L;
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String descricao;
 	
-	private List<SubGrupo> subGrupos = new ArrayList<SubGrupo>();
+	@OneToMany(mappedBy = "grupo")
+	@JsonIgnore
+	private List<Subgrupo> subGrupos = new ArrayList<Subgrupo>();
 	
 	public Grupo() {
 	}
@@ -37,11 +49,11 @@ public class Grupo implements Serializable {
 		this.descricao = descricao;
 	}
 	
-	public List<SubGrupo> getSubGrupos() {
+	public List<Subgrupo> getSubGrupos() {
 		return subGrupos;
 	}
 
-	public void setSubGrupos(List<SubGrupo> subGrupos) {
+	public void setSubGrupos(List<Subgrupo> subGrupos) {
 		this.subGrupos = subGrupos;
 	}
 	

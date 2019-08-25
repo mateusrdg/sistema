@@ -5,31 +5,45 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Version;
+@Entity
 public class Produto implements Serializable {
-
+	@Version
 	private static final long serialVersionUID = 1L;
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String descricao;
 	private Calendar dataCadastro;
 	private Boolean ativo;
-
-	private SubGrupo subgrupo;
 	
+	@ManyToMany
+	@JoinTable(name="produto_subgrupo", joinColumns = @JoinColumn (name="produto_id"), inverseJoinColumns = @JoinColumn(name="subgrupo_id"))
+	private List<Subgrupo> subgrupos = new ArrayList<Subgrupo>();
+	
+	@OneToMany (mappedBy = "produto")
 	private List<Preco> precos = new ArrayList<Preco>();
-
-	private List<EstoqueProduto> estoquesProduto = new ArrayList<EstoqueProduto>();
+	
+	@OneToMany(mappedBy = "produto")
+	private List<ProdutoEstoque> produtoEstoque = new ArrayList<ProdutoEstoque>();
 	
 	public Produto() {
 	}
 
-	public Produto(Integer id, String descricao, Calendar dataCadastro, Boolean ativo, SubGrupo subgrupo) {
+	public Produto(Integer id, String descricao, Calendar dataCadastro, Boolean ativo) {
 		super();
 		this.id = id;
 		this.descricao = descricao;
 		this.dataCadastro = dataCadastro;
 		this.ativo = ativo;
-		this.subgrupo = subgrupo;
 	}
 
 	public Integer getId() {
@@ -64,13 +78,6 @@ public class Produto implements Serializable {
 		this.ativo = ativo;
 	}
 	
-	public SubGrupo getSubgrupo() {
-		return subgrupo;
-	}
-
-	public void setSubgrupo(SubGrupo subgrupo) {
-		this.subgrupo = subgrupo;
-	}
 
 	public List<Preco> getPrecos() {
 		return precos;
@@ -80,13 +87,22 @@ public class Produto implements Serializable {
 		this.precos = precos;
 	}
 	
-	public List<EstoqueProduto> getEstoquesProduto() {
-		return estoquesProduto;
+	public List<ProdutoEstoque> getEstoquesProduto() {
+		return produtoEstoque;
 	}
 
-	public void setEstoquesProduto(List<EstoqueProduto> estoquesProduto) {
-		this.estoquesProduto = estoquesProduto;
+	public void setEstoquesProduto(List<ProdutoEstoque> estoquesProduto) {
+		this.produtoEstoque = estoquesProduto;
 	}
+	
+	public List<Subgrupo> getSubgrupos() {
+		return subgrupos;
+	}
+
+	public void setSubgrupos(List<Subgrupo> subgrupos) {
+		this.subgrupos = subgrupos;
+	}
+
 	
 	@Override
 	public int hashCode() {
@@ -113,4 +129,5 @@ public class Produto implements Serializable {
 		return true;
 	}
 
+	
 }

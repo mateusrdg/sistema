@@ -1,15 +1,28 @@
 package com.mateus.sistema.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Version;
+@Entity(name ="estoque")
 public class Estoque implements Serializable {
-
+	@Version
 	private static final long serialVersionUID = 1L;
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String descricao;
 	
-	//private List<SubGrupo> subGrupos = new ArrayList<SubGrupo>();
+	@OneToMany
+	@JoinColumn(name= "estoque_id")
+	private List<ProdutoEstoque> estoqueProduto = new ArrayList<ProdutoEstoque>();
 	
 	public Estoque() {
 	}
@@ -33,6 +46,14 @@ public class Estoque implements Serializable {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+	
+	public List<ProdutoEstoque> getEstoqueProduto() {
+		return estoqueProduto;
+	}
+
+	public void setEstoqueProduto(List<ProdutoEstoque> estoqueProduto) {
+		this.estoqueProduto = estoqueProduto;
 	}
 	
 	@Override

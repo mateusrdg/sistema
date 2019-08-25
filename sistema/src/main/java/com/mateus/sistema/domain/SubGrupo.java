@@ -4,20 +4,36 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SubGrupo implements Serializable {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Version;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity(name= "subgrupo")
+public class Subgrupo implements Serializable {
+	@Version
 	private static final long serialVersionUID = 1L;
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String descricao;
+	@ManyToOne
+	@JoinColumn(name = "grupo_id")
 	private Grupo grupo;
-
+	@JsonIgnore
+	@ManyToMany(mappedBy = "subgrupos")
 	private List<Produto> produtos = new ArrayList<Produto>();
 
-	public SubGrupo() {
+	public Subgrupo() {
 	}
 
-	public SubGrupo(Integer id, String descricao, Grupo grupo) {
+	public Subgrupo(Integer id, String descricao, Grupo grupo) {
 		this.id = id;
 		this.descricao = descricao;
 		this.grupo = grupo;
@@ -71,7 +87,7 @@ public class SubGrupo implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		SubGrupo other = (SubGrupo) obj;
+		Subgrupo other = (Subgrupo) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
