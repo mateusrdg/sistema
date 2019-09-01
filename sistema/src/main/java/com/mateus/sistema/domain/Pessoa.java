@@ -3,39 +3,55 @@ package com.mateus.sistema.domain;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.Transient;
+
+import com.mateus.sistema.domain.enums.Estado;
+import com.mateus.sistema.domain.enums.TipoCliente;
 import com.mateus.sistema.domain.enums.TipoPessoa;
 
-public class Pessoa implements Serializable {
+
+//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+
+
+@MappedSuperclass
+public abstract class Pessoa implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)//, generator = "id")
 	private Integer id;
-
+	
+	@Transient
+	private Integer tipo;
 	private String nome;
 	private String email;
 	private String cpfCnpj;
 	private Calendar dataCadastro;
+	
+	private Integer estado;
+	
+	@Transient
+	private List<PessoaEndereco> enderecos = new ArrayList<PessoaEndereco>();
 
-	private Integer tipoPessoa;
-	private Boolean ativo;
-
-	private List<Endereco> enderecos = new ArrayList<Endereco>();
-
-	private Set<String> telefones = new HashSet<String>();
+	//private Set<String> telefones = new HashSet<String>();
 	
 	public Pessoa() {
 	}
 
-	public Pessoa(Integer id, String nome, String email, Calendar dataCadastro, String cpfCnpj, TipoPessoa tipo) {
+	public Pessoa(Integer id, TipoPessoa tipo ,String nome, String email, Calendar dataCadastro, String cpfCnpj) {
 		this.id = id;
 		this.nome = nome;
+		this.tipo = (tipo == null) ? null : tipo.getCod();
 		this.email = email;
 		this.dataCadastro = dataCadastro;
-		this.tipoPessoa = (tipo == null) ? null : tipo.getCod();
+		this.cpfCnpj = cpfCnpj;
+		this.estado = Estado.ATIVO.getCod(); 
 	}
 
 	public String getNome() {
@@ -78,37 +94,46 @@ public class Pessoa implements Serializable {
 		this.dataCadastro = dataCadastro;
 	}
 
-	public TipoPessoa getTipoPessoa() {
-		return TipoPessoa.toEnum(tipoPessoa);
+	public TipoCliente getTipoPessoa() {
+		return TipoCliente.toEnum(tipo);
 	}
 
-	public void setTipoPessoa(TipoPessoa tipoPessoa) {
-		this.tipoPessoa = tipoPessoa.getCod();
+	public void setTipoPessoa(TipoCliente tipoPessoa) {
+		this.tipo = tipoPessoa.getCod();
 	}
 
-	public Boolean getAtivo() {
-		return ativo;
-	}
 
-	public void setAtivo(Boolean ativo) {
-		this.ativo = ativo;
-	}
-
-	public List<Endereco> getEnderecos() {
+	public List<PessoaEndereco> getEnderecos() {
 		return enderecos;
 	}
 
-	public void setEnderecos(List<Endereco> enderecos) {
+	public void setEnderecos(List<PessoaEndereco> enderecos) {
 		this.enderecos = enderecos;
 	}
 
-	public Set<String> getTelefones() {
-		return telefones;
+//	public Set<String> getTelefones() {
+//		return telefones;
+//	}
+//
+//	public void setTelefones(Set<String> telefones) {
+//		this.telefones = telefones;
+//	}	
+//	
+	public TipoPessoa getTipo() {
+		return TipoPessoa.toEnum(tipo);
 	}
 
-	public void setTelefones(Set<String> telefones) {
-		this.telefones = telefones;
-	}	
+	public void setTipo(TipoPessoa tipo) {
+		this.tipo = tipo.getCod();
+	}
+	
+	public Estado getEstado() {
+		return Estado.toEnum(estado);
+	}
+
+	public void setEstado(Estado estado) {
+		this.estado = estado.getCod();
+	}
 	
 	@Override
 	public int hashCode() {

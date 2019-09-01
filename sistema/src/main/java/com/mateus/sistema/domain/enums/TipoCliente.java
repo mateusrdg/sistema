@@ -1,16 +1,15 @@
 package com.mateus.sistema.domain.enums;
 
-import com.mateus.sistema.domain.enums.TipoPessoa;
+import com.mateus.sistema.domain.enums.TipoCliente;
 
-public enum TipoPessoa {
-	CLIENTE(1, "Cliente"), 
-	FORNECEDOR(2, "Fornecedor"),
-	FUNCIONARIO(3, "Funcionario");
+public enum TipoCliente {
+	PESSOAFISICA(1, "Pessoa Física"), 
+	PESSOAJURIDICA(2, "Pessoa Jurídica");
 	
 	private Integer cod;
 	private String descricao;
 
-	private TipoPessoa(Integer cod, String descricao) {
+	private TipoCliente(Integer cod, String descricao) {
 		this.cod = cod;
 		this.descricao = descricao;
 	}
@@ -23,11 +22,11 @@ public enum TipoPessoa {
 		return this.descricao;
 	}
 	
-	public static TipoPessoa toEnum(Integer cod) {
+	public static TipoCliente toEnum(Integer cod) {
 		if (cod == null) {
 			return null;
 		}
-		for (TipoPessoa x : TipoPessoa.values()) {
+		for (TipoCliente x : TipoCliente.values()) {
 			if (cod.equals(x.getCod())) {
 				return x;
 			}

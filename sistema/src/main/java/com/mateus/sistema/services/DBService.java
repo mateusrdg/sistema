@@ -8,23 +8,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mateus.sistema.domain.Cidade;
+import com.mateus.sistema.domain.Cliente;
 import com.mateus.sistema.domain.Endereco;
 import com.mateus.sistema.domain.Estado;
 import com.mateus.sistema.domain.Estoque;
-import com.mateus.sistema.domain.ProdutoEstoque;
+import com.mateus.sistema.domain.Fornecedor;
+import com.mateus.sistema.domain.Funcionario;
 import com.mateus.sistema.domain.Grupo;
 import com.mateus.sistema.domain.Pais;
+import com.mateus.sistema.domain.PessoaEndereco;
 import com.mateus.sistema.domain.Preco;
 import com.mateus.sistema.domain.Produto;
+import com.mateus.sistema.domain.ProdutoEstoque;
 import com.mateus.sistema.domain.Subgrupo;
+import com.mateus.sistema.domain.enums.TipoCliente;
+import com.mateus.sistema.domain.enums.TipoFuncionario;
 import com.mateus.sistema.domain.enums.TipoPreco;
 import com.mateus.sistema.repository.CidadeRepository;
+import com.mateus.sistema.repository.ClienteRepository;
 import com.mateus.sistema.repository.EnderecoRepository;
 import com.mateus.sistema.repository.EstadoRepository;
 import com.mateus.sistema.repository.EstoqueProdutoRepository;
 import com.mateus.sistema.repository.EstoqueRepository;
+import com.mateus.sistema.repository.FornecedorRepository;
+import com.mateus.sistema.repository.FuncionarioRepository;
 import com.mateus.sistema.repository.GrupoRepository;
 import com.mateus.sistema.repository.PaisRepository;
+import com.mateus.sistema.repository.PessoaEnderecoRepository;
 import com.mateus.sistema.repository.PrecoRepository;
 import com.mateus.sistema.repository.ProdutoRepository;
 import com.mateus.sistema.repository.SubgrupoRepository;
@@ -51,6 +61,14 @@ public class DBService {
 	private PrecoRepository precoRepo;
 	@Autowired
 	private EstoqueProdutoRepository estoqueProdutoRepo;
+	@Autowired
+	private ClienteRepository clienteRepo;
+	@Autowired
+	private FornecedorRepository fornecedorRepo;
+	@Autowired
+	private FuncionarioRepository funcionarioRepo;
+	@Autowired
+	private PessoaEnderecoRepository pessoaEnderecoRepo;
 	
 	public void instantiateTestDatabase() {
 		Pais pais = new Pais(null, "Brasil", "10", "BR");
@@ -112,5 +130,26 @@ public class DBService {
 		ProdutoEstoque estoqueProduto5 = new ProdutoEstoque(null, estoque1, produto4, new BigDecimal(35));
 		
 		estoqueProdutoRepo.saveAll(Arrays.asList(estoqueProduto1,estoqueProduto2,estoqueProduto3,estoqueProduto3,estoqueProduto4,estoqueProduto5));
+	
+		Cliente cliente1 = new Cliente(null, "Mateus", "mateusrodrigues-cp@hotmail.com", Calendar.getInstance(), "60541329383", TipoCliente.PESSOAFISICA);
+		Cliente cliente2 = new Cliente(null, "João", "joao@gmail.com", Calendar.getInstance(), "547465444", TipoCliente.PESSOAFISICA);
+		Cliente cliente3 = new Cliente(null, "Maria", "maria@hotmail.com", Calendar.getInstance(), "326544477", TipoCliente.PESSOAJURIDICA);
+		clienteRepo.saveAll(Arrays.asList(cliente1,cliente2,cliente3));
+		
+		Fornecedor fornecedor1 = new Fornecedor(null, "Nome Empresa", "empresa@empresa.com", Calendar.getInstance(), "326544477", "Nome fantasia");
+		Fornecedor fornecedor2 = new Fornecedor(null, "Nome Empresa2", "empresa2@empresa2.com", Calendar.getInstance(), "21457487", "Nome fantasia2");
+		fornecedorRepo.saveAll(Arrays.asList(fornecedor1,fornecedor2));
+		
+		Funcionario funcionario1 = new Funcionario(null, "Berg", "berg@corre.com", Calendar.getInstance(), "548784554", TipoFuncionario.VENDEDOR);
+		Funcionario funcionario2= new Funcionario(null, "joana", "joana@gmail.com", Calendar.getInstance(), "545456444", TipoFuncionario.GERENTE);
+		funcionarioRepo.saveAll(Arrays.asList(funcionario1,funcionario2));
+		
+		PessoaEndereco pe1 = new PessoaEndereco(null, cliente1, endereco1);
+		PessoaEndereco pe2 = new PessoaEndereco(null, cliente1, endereco2);
+		PessoaEndereco pe3 = new PessoaEndereco(null, fornecedor1, endereco3);
+		PessoaEndereco pe4 = new PessoaEndereco(null, funcionario1, endereco4);
+		
+		pessoaEnderecoRepo.saveAll(Arrays.asList(pe1,pe2,pe3,pe4));
+		
 	}
 }

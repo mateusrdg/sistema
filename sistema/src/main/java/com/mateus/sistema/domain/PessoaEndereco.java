@@ -1,33 +1,42 @@
 package com.mateus.sistema.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Version;
-@Entity(name ="estoque")
-public class Estoque implements Serializable {
-	@Version
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.mateus.sistema.domain.enums.TipoPessoa;
+@Entity
+public class PessoaEndereco implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String descricao;
 	
-	@OneToMany(mappedBy = "estoque")
-	private List<ProdutoEstoque> estoqueProduto = new ArrayList<ProdutoEstoque>();
 	
-	public Estoque() {
+	@Column(name = "pessoa_id")
+	private Integer pessoa;
+	
+	@ManyToOne
+	@JoinColumn(name="endereco_id")
+	private Endereco endereco;
+	
+	private Integer tipo;
+	
+	public PessoaEndereco() {
 	}
 
-	public Estoque(Integer id, String descricao) {
+	public PessoaEndereco(Integer id, Pessoa pessoa, Endereco endereco ) {
 		this.id = id;
-		this.descricao = descricao;
+		this.pessoa = pessoa.getId();
+		this.tipo = pessoa.getTipo().getCod();
+		this.endereco = endereco;
 	}
 
 	public Integer getId() {
@@ -38,22 +47,22 @@ public class Estoque implements Serializable {
 		this.id = id;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public TipoPessoa getTipo() {
+		return TipoPessoa.toEnum(tipo);
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setTipo(TipoPessoa tipo) {
+		this.tipo = tipo.getCod();
 	}
 	
-	public List<ProdutoEstoque> getEstoqueProduto() {
-		return estoqueProduto;
+	public Endereco getEndereco() {
+		return endereco;
 	}
 
-	public void setEstoqueProduto(List<ProdutoEstoque> estoqueProduto) {
-		this.estoqueProduto = estoqueProduto;
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -70,7 +79,7 @@ public class Estoque implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Estoque other = (Estoque) obj;
+		PessoaEndereco other = (PessoaEndereco) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -78,5 +87,7 @@ public class Estoque implements Serializable {
 			return false;
 		return true;
 	}
+
+	
 
 }
