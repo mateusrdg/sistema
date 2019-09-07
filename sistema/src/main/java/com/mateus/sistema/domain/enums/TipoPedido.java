@@ -1,15 +1,16 @@
 package com.mateus.sistema.domain.enums;
 
-import com.mateus.sistema.domain.enums.TipoPedidoVenda;
+import com.mateus.sistema.domain.enums.TipoPedido;
 
-public enum TipoPedidoVenda {
+public enum TipoPedido {
 	VENDA(1, "Venda"), 
-	ORCAMENTO(2, "Orçamento");
-	
+	COMPRA(2, "Compra"), 
+	ORCAMENTO(3, "Orcamento");
+
 	private Integer cod;
 	private String descricao;
 
-	private TipoPedidoVenda(Integer cod, String descricao) {
+	private TipoPedido(Integer cod, String descricao) {
 		this.cod = cod;
 		this.descricao = descricao;
 	}
@@ -21,19 +22,19 @@ public enum TipoPedidoVenda {
 	public String getDescricao() {
 		return this.descricao;
 	}
-	
-	public static TipoPedidoVenda toEnum(Integer cod) {
+
+	public static TipoPedido toEnum(Integer cod) {
 		if (cod == null) {
 			return null;
 		}
-		for (TipoPedidoVenda x : TipoPedidoVenda.values()) {
+		for (TipoPedido x : TipoPedido.values()) {
 			if (cod.equals(x.getCod())) {
 				return x;
 			}
 		}
-		
+
 		throw new IllegalArgumentException("Id inválido " + cod);
-		
+
 	}
 
 }

@@ -4,16 +4,30 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Version;
+
 import com.mateus.sistema.domain.enums.EstadoPagamento;
-
+@Entity
+@Table(name = "parcela")
 public class Parcela implements Serializable {
-
+	@Version
 	private static final long serialVersionUID = 1L;
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@ManyToOne
+	@JoinColumn(name = "forma_pagamento_pedido_id")
 	private FormaPagamento formaPagamento;
 	private BigDecimal valor;
-	private EstadoPagamento estado;
+	
+	private Integer estado;
 	private Calendar dataVencimento;
 	private Calendar dataPagamento;
 
@@ -25,7 +39,7 @@ public class Parcela implements Serializable {
 		this.id = id;
 		this.formaPagamento = formaPagamento;
 		this.valor = valor;
-		this.estado = estado;
+		this.estado = (estado == null) ? null : estado.getCod();;
 		this.dataVencimento = dataVencimento;
 		this.dataPagamento = dataPagamento;
 	}
@@ -55,11 +69,11 @@ public class Parcela implements Serializable {
 	}
 
 	public EstadoPagamento getEstado() {
-		return estado;
+		return EstadoPagamento.toEnum(estado);
 	}
 
 	public void setEstado(EstadoPagamento estado) {
-		this.estado = estado;
+		this.estado = estado.getCod();
 	}
 
 	public Calendar getDataVencimento() {

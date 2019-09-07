@@ -15,17 +15,20 @@ import javax.persistence.Version;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity(name= "subgrupo")
+@Entity(name = "subgrupo")
 public class Subgrupo implements Serializable {
 	@Version
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
 	private String descricao;
+	
 	@ManyToOne
 	@JoinColumn(name = "grupo_id")
 	private Grupo grupo;
+	
 	@JsonIgnore
 	@ManyToMany(mappedBy = "subgrupos")
 	private List<Produto> produtos = new ArrayList<Produto>();

@@ -6,29 +6,54 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Version;
+
 import com.mateus.sistema.domain.enums.EstadoPagamento;
+import com.mateus.sistema.domain.enums.TipoPedido;
 
+@Entity
+@Table(name = "forma_pagamento_pedido")
 public class FormaPagamentoPedido implements Serializable {
-
+	@Version
 	private static final long serialVersionUID = 1L;
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@Column(name = "pedido_id")
+	private Integer pedidoId;
 
-	private Pedido pedido;
+	@Column(name = "tipo_pedido")
+	private Integer tipoPedido;
+
+	@ManyToOne
+	@JoinColumn(name = "forma_pagamento_id")
 	private FormaPagamento formaPagamento;
 
 	private Calendar data;
 	private BigDecimal valor;
+	@Column(name = "estado")
 	private Integer estado;
+	@OneToMany(mappedBy = "formaPagamento")
 	private List<Parcela> parcelas = new ArrayList<Parcela>();
 
 	public FormaPagamentoPedido() {
 	}
 
-	public FormaPagamentoPedido(Integer id, Pedido pedido, FormaPagamento formaPagamento, Calendar data,
-			BigDecimal valor, EstadoPagamento estado) {
+	public FormaPagamentoPedido(Integer id, Pedido pedido, TipoPedido tipo, FormaPagamento formaPagamento,
+			Calendar data, BigDecimal valor, EstadoPagamento estado) {
 		this.id = id;
-		this.pedido = pedido;
+		this.pedidoId = pedido.getId();
+		this.tipoPedido = (tipo == null) ? null : tipo.getCod();
 		this.formaPagamento = formaPagamento;
 		this.data = data;
 		this.valor = valor;
@@ -44,12 +69,12 @@ public class FormaPagamentoPedido implements Serializable {
 		this.id = id;
 	}
 
-	public Pedido getPedido() {
-		return pedido;
+	public TipoPedido getPedido() {
+		return TipoPedido.toEnum(tipoPedido);
 	}
 
-	public void setPedido(Pedido pedido) {
-		this.pedido = pedido;
+	public void setPedido(TipoPedido tipo) {
+		this.tipoPedido = tipo.getCod();
 	}
 
 	public FormaPagamento getFormaPagamento() {
@@ -90,6 +115,14 @@ public class FormaPagamentoPedido implements Serializable {
 
 	public void setParcelas(List<Parcela> parcelas) {
 		this.parcelas = parcelas;
+	}
+
+	public Integer getPedidoId() {
+		return pedidoId;
+	}
+
+	public void setPedidoId(Pedido pedido) {
+		this.pedidoId = pedido.getId();
 	}
 
 	@Override
