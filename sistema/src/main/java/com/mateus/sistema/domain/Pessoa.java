@@ -15,16 +15,12 @@ import com.mateus.sistema.domain.enums.Estado;
 import com.mateus.sistema.domain.enums.TipoCliente;
 import com.mateus.sistema.domain.enums.TipoPessoa;
 
-
-//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-
-
 @MappedSuperclass
 public abstract class Pessoa implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)//, generator = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
 	@Transient

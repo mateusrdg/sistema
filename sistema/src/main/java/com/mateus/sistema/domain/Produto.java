@@ -13,7 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 import javax.persistence.Version;
+
 @Entity
 public class Produto implements Serializable {
 	@Version
@@ -24,17 +26,22 @@ public class Produto implements Serializable {
 	private String descricao;
 	private Calendar dataCadastro;
 	private Boolean ativo;
-	
+
 	@ManyToMany
-	@JoinTable(name="produto_subgrupo", joinColumns = @JoinColumn (name="produto_id"), inverseJoinColumns = @JoinColumn(name="subgrupo_id"))
+	@JoinTable(name = "produto_subgrupo", joinColumns = @JoinColumn(name = "produto_id"), inverseJoinColumns = @JoinColumn(name = "subgrupo_id"))
 	private List<Subgrupo> subgrupos = new ArrayList<Subgrupo>();
-	
-	@OneToMany (mappedBy = "produto")
+
+	@OneToMany(mappedBy = "produto")
 	private List<Preco> precos = new ArrayList<Preco>();
-	
+
 	@OneToMany(mappedBy = "produto")
 	private List<ProdutoEstoque> produtoEstoque = new ArrayList<ProdutoEstoque>();
-	
+
+	@Transient
+	// @JsonIgnore
+	// @OneToMany(mappedBy = "produto")
+	private List<ItemPedido> itens = new ArrayList<ItemPedido>();
+
 	public Produto() {
 	}
 
@@ -77,7 +84,6 @@ public class Produto implements Serializable {
 	public void setAtivo(Boolean ativo) {
 		this.ativo = ativo;
 	}
-	
 
 	public List<Preco> getPrecos() {
 		return precos;
@@ -86,7 +92,7 @@ public class Produto implements Serializable {
 	public void setPrecos(List<Preco> precos) {
 		this.precos = precos;
 	}
-	
+
 	public List<ProdutoEstoque> getEstoquesProduto() {
 		return produtoEstoque;
 	}
@@ -94,7 +100,7 @@ public class Produto implements Serializable {
 	public void setEstoquesProduto(List<ProdutoEstoque> estoquesProduto) {
 		this.produtoEstoque = estoquesProduto;
 	}
-	
+
 	public List<Subgrupo> getSubgrupos() {
 		return subgrupos;
 	}
@@ -103,7 +109,14 @@ public class Produto implements Serializable {
 		this.subgrupos = subgrupos;
 	}
 
-	
+	public List<ItemPedido> getItens() {
+		return itens;
+	}
+
+	public void setItens(List<ItemPedido> itens) {
+		this.itens = itens;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -129,5 +142,4 @@ public class Produto implements Serializable {
 		return true;
 	}
 
-	
 }

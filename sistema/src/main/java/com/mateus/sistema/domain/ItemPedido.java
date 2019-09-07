@@ -3,26 +3,31 @@ package com.mateus.sistema.domain;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class ItemPedido implements Serializable {
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+
+@MappedSuperclass
+public abstract class ItemPedido implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
-	private Pedido pedido;
-	private Produto produto;
-	
+
 	private BigDecimal quantidade;
 	private BigDecimal preco;
 	private BigDecimal desconto;
-	
+
 	public ItemPedido() {
 	}
-	
-	public ItemPedido(Integer id, Pedido pedido, Produto produto, BigDecimal quantidade, BigDecimal preco, BigDecimal desconto) {
+
+	public ItemPedido(Integer id, BigDecimal quantidade, BigDecimal preco, BigDecimal desconto) {
 		this.id = id;
-		this.pedido = pedido;
-		this.produto = produto;
+		// this.pedido = pedido;
+		// this.produto = produto;
 		this.quantidade = quantidade;
 		this.preco = preco;
 		this.desconto = desconto;
@@ -34,23 +39,6 @@ public class ItemPedido implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-
-	public Pedido getPedido() {
-		return pedido;
-	}
-
-	public void setPedido(Pedido pedido) {
-		this.pedido = pedido;
-	}
-
-	public Produto getProduto() {
-		return produto;
-	}
-
-	public void setProduto(Produto produto) {
-		this.produto = produto;
 	}
 
 	public BigDecimal getQuantidade() {
@@ -101,5 +89,5 @@ public class ItemPedido implements Serializable {
 			return false;
 		return true;
 	}
-	
+
 }

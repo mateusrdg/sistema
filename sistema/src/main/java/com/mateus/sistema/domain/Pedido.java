@@ -5,16 +5,24 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class Pedido implements Serializable {
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.Transient;
+@MappedSuperclass
+public abstract class Pedido implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private Calendar data;
 	private Calendar hora;
-
-	private List<ItemPedido> itens = new ArrayList<ItemPedido>();
-
+	
+	
+	//@JsonIgnore
+	@Transient
 	private List<FormaPagamento> formasPagamento = new ArrayList<FormaPagamento>();
 
 	public Pedido() {
@@ -50,13 +58,6 @@ public class Pedido implements Serializable {
 		this.hora = hora;
 	}
 
-	public List<ItemPedido> getItens() {
-		return itens;
-	}
-
-	public void setItens(List<ItemPedido> itens) {
-		this.itens = itens;
-	}
 
 	public List<FormaPagamento> getFormasPagamento() {
 		return formasPagamento;
