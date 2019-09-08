@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
@@ -43,8 +44,12 @@ public class FormaPagamentoPedido implements Serializable {
 	private BigDecimal valor;
 	@Column(name = "estado")
 	private Integer estado;
-	@OneToMany(mappedBy = "formaPagamento")
+	
+	@OneToMany(mappedBy = "formaPagamentoPedido")
 	private List<Parcela> parcelas = new ArrayList<Parcela>();
+	
+	@OneToOne(mappedBy = "formaPagamentoPedido")
+	private ContaPagar conta;
 
 	public FormaPagamentoPedido() {
 	}
@@ -124,7 +129,7 @@ public class FormaPagamentoPedido implements Serializable {
 	public void setPedidoId(Pedido pedido) {
 		this.pedidoId = pedido.getId();
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

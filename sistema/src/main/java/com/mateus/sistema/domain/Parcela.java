@@ -10,11 +10,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
 import com.mateus.sistema.domain.enums.EstadoPagamento;
-@Entity
+@Entity(name = "Parcela")
 @Table(name = "parcela")
 public class Parcela implements Serializable {
 	@Version
@@ -24,20 +25,23 @@ public class Parcela implements Serializable {
 	private Integer id;
 	@ManyToOne
 	@JoinColumn(name = "forma_pagamento_pedido_id")
-	private FormaPagamento formaPagamento;
+	private FormaPagamentoPedido formaPagamentoPedido;
 	private BigDecimal valor;
 	
 	private Integer estado;
 	private Calendar dataVencimento;
 	private Calendar dataPagamento;
+	
+	@OneToOne(mappedBy = "parcela")
+	private ContaPagar conta;
 
 	public Parcela() {
 	}
 
-	public Parcela(Integer id, FormaPagamento formaPagamento, BigDecimal valor, EstadoPagamento estado, Calendar dataVencimento, Calendar dataPagamento) {
+	public Parcela(Integer id, FormaPagamentoPedido formaPagamentoPedido, BigDecimal valor, EstadoPagamento estado, Calendar dataVencimento, Calendar dataPagamento) {
 		super();
 		this.id = id;
-		this.formaPagamento = formaPagamento;
+		this.formaPagamentoPedido = formaPagamentoPedido;
 		this.valor = valor;
 		this.estado = (estado == null) ? null : estado.getCod();;
 		this.dataVencimento = dataVencimento;
@@ -52,12 +56,12 @@ public class Parcela implements Serializable {
 		this.id = id;
 	}
 
-	public FormaPagamento getFormaPagamento() {
-		return formaPagamento;
+	public FormaPagamentoPedido getFormaPagamento() {
+		return formaPagamentoPedido;
 	}
 
-	public void setFormaPagamento(FormaPagamento formaPagamento) {
-		this.formaPagamento = formaPagamento;
+	public void setFormaPagamento(FormaPagamentoPedido formaPagamento) {
+		this.formaPagamentoPedido = formaPagamento;
 	}
 
 	public BigDecimal getValor() {

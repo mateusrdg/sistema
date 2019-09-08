@@ -4,8 +4,13 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import com.mateus.sistema.domain.enums.EstadoPagamento;
 
+@Entity
+@Table(name = "conta_receber")
 public class ContaReceber extends Conta implements Serializable {
 
 	private static final long serialVersionUID = 1L;

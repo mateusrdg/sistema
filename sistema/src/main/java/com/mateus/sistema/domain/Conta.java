@@ -4,12 +4,22 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToOne;
+import javax.persistence.Version;
+
 import com.mateus.sistema.domain.enums.EstadoPagamento;
 
-public class Conta implements Serializable {
-
+@MappedSuperclass
+public abstract class Conta implements Serializable {
+	@Version	
 	private static final long serialVersionUID = 1L;
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private Calendar data;
 	private Calendar hora;
@@ -17,9 +27,14 @@ public class Conta implements Serializable {
 	private Integer estado;
 	private Calendar dataPagamento;
 	private Calendar dataVencimento;
+	
+	@OneToOne
+	@JoinColumn(name = "forma_pagamento_pedido_id")
 	private FormaPagamentoPedido formaPagamentoPedido;
+	@OneToOne
+	@JoinColumn(name = "parcela_id")
 	private Parcela parcela;
-
+	
 	public Conta() {
 	}
 

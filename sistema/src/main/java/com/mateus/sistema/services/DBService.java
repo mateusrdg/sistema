@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.mateus.sistema.domain.Cidade;
 import com.mateus.sistema.domain.Cliente;
+import com.mateus.sistema.domain.ContaPagar;
+import com.mateus.sistema.domain.ContaReceber;
 import com.mateus.sistema.domain.Endereco;
 import com.mateus.sistema.domain.Estado;
 import com.mateus.sistema.domain.Estoque;
@@ -38,6 +40,8 @@ import com.mateus.sistema.domain.enums.TipoPedido;
 import com.mateus.sistema.domain.enums.TipoPreco;
 import com.mateus.sistema.repository.CidadeRepository;
 import com.mateus.sistema.repository.ClienteRepository;
+import com.mateus.sistema.repository.ContaPagarRepository;
+import com.mateus.sistema.repository.ContaReceberRepository;
 import com.mateus.sistema.repository.EnderecoRepository;
 import com.mateus.sistema.repository.EstadoRepository;
 import com.mateus.sistema.repository.EstoqueProdutoRepository;
@@ -108,7 +112,11 @@ public class DBService {
 	private FormaPagamentoPedidoRepository formaPagamentoPedidoRepo;
 	@Autowired
 	private ParcelaRepository parcelaRepo;
-
+	@Autowired
+	private ContaReceberRepository contaReceberRepo;
+	@Autowired
+	private ContaPagarRepository contaPagarRepo;
+	
 	public void instantiateTestDatabase() {
 		Pais pais = new Pais(null, "Brasil", "10", "BR");
 		paisRepo.saveAll(Arrays.asList(pais));
@@ -237,10 +245,22 @@ public class DBService {
 		
 		formaPagamentoPedidoRepo.saveAll(Arrays.asList(formaPagamentoPedido1, formaPagamentoPedido2, formaPagamentoPedido3));
 		
-		Parcela parcela1 = new Parcela(null, formaPagamento2, new BigDecimal(45), EstadoPagamento.PENDENTE, Calendar.getInstance(), null); 
-		Parcela parcela2 = new Parcela(null, formaPagamento2, new BigDecimal(45), EstadoPagamento.PENDENTE, Calendar.getInstance(), null); 
+		Parcela parcela1 = new Parcela(null, formaPagamentoPedido2, new BigDecimal(45), EstadoPagamento.PENDENTE, Calendar.getInstance(), null); 
+		Parcela parcela2 = new Parcela(null, formaPagamentoPedido3, new BigDecimal(45), EstadoPagamento.PENDENTE, Calendar.getInstance(), null); 
 		parcelaRepo.saveAll(Arrays.asList(parcela1, parcela2));
 		
+		
+		ContaPagar conta1 = new ContaPagar(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(200), EstadoPagamento.QUITADO, null,
+				Calendar.getInstance(), formaPagamentoPedido1, null);
+		ContaReceber conta2 = new ContaReceber(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(10), EstadoPagamento.QUITADO, null,
+				Calendar.getInstance(), formaPagamentoPedido2, null);
+		ContaReceber conta3 = new ContaReceber(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(45), EstadoPagamento.PENDENTE, null,
+				Calendar.getInstance(), null, parcela1);
+		ContaReceber conta4 = new ContaReceber(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(45), EstadoPagamento.PENDENTE, null,
+				Calendar.getInstance(), null, parcela2);
+		
+		contaPagarRepo.saveAll(Arrays.asList(conta1));
+		contaReceberRepo.saveAll(Arrays.asList(conta2, conta3, conta4));
 		
 	}
 }
