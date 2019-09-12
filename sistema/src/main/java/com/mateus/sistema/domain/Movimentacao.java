@@ -4,31 +4,47 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Version;
+
 import com.mateus.sistema.domain.enums.TipoMovimentacao;
-
+@Entity(name = "Movimentacao")
+@Table(name = "movimentacao")
 public class Movimentacao implements Serializable {
-
+	@Version
 	private static final long serialVersionUID = 1L;
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private Calendar data;
 	private Calendar hora;
 	private BigDecimal valor;
 	private Integer tipo;
-	private Conta conta;
-
+	@Column(name = "conta_id")
+	private Integer conta;
+	@ManyToOne
+	@JoinColumn(name = "caixa_movimentacao_id") 
+	private CaixaMovimentacao caixaMovimentacao;
+	
 	public Movimentacao() {
 	}
 
-	public Movimentacao(Integer id, Calendar data, Calendar hora, BigDecimal valor, TipoMovimentacao tipo,
-			Conta conta) {
+	public Movimentacao(Integer id, CaixaMovimentacao caixaMovimentacao , Conta conta,  Calendar data, Calendar hora, BigDecimal valor, TipoMovimentacao tipo) {
 		super();
 		this.id = id;
+		this.caixaMovimentacao = caixaMovimentacao;
+		this.conta = conta.getId();
 		this.data = data;
 		this.hora = hora;
 		this.valor = valor;
 		this.tipo = (tipo == null) ? null : tipo.getCod();
-		this.setConta(conta);
 	}
 
 	public Integer getId() {
@@ -71,14 +87,22 @@ public class Movimentacao implements Serializable {
 		this.tipo = tipo.getCod();
 	}
 
-	public Conta getConta() {
+	public Integer getConta() {
 		return conta;
 	}
 
 	public void setConta(Conta conta) {
-		this.conta = conta;
+		this.conta = conta.getId();
+	}
+	
+	public CaixaMovimentacao getCaixaMovimentacao() {
+		return caixaMovimentacao;
 	}
 
+	public void setCaixaMovimentacao(CaixaMovimentacao caixaMovimentacao) {
+		this.caixaMovimentacao = caixaMovimentacao;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -7,16 +7,16 @@ import java.util.Calendar;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 import javax.persistence.Version;
 
 import com.mateus.sistema.domain.enums.EstadoPagamento;
+import com.mateus.sistema.domain.enums.TipoConta;
 
 @MappedSuperclass
 public abstract class Conta implements Serializable {
-	@Version	
+	@Version
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,30 +27,23 @@ public abstract class Conta implements Serializable {
 	private Integer estado;
 	private Calendar dataPagamento;
 	private Calendar dataVencimento;
-	
-	@OneToOne
-	@JoinColumn(name = "forma_pagamento_pedido_id")
-	private FormaPagamentoPedido formaPagamentoPedido;
-	@OneToOne
-	@JoinColumn(name = "parcela_id")
-	private Parcela parcela;
-	
+	@Transient
+	private Integer tipo;
+
 	public Conta() {
 	}
 
-	public Conta(Integer id, Calendar data, Calendar hora, BigDecimal valor, EstadoPagamento estado,
-			Calendar dataPagamento, Calendar dataVencimento, FormaPagamentoPedido formaPagamentoPedido,
-			Parcela parcela) {
+	public Conta(Integer id, TipoConta tipo, Calendar data, Calendar hora, BigDecimal valor, EstadoPagamento estado,
+			Calendar dataPagamento, Calendar dataVencimento) {
 		super();
 		this.id = id;
+		this.tipo = (tipo == null) ? null : tipo.getCod();
 		this.data = data;
 		this.hora = hora;
 		this.valor = valor;
-		this.estado = (estado == null) ? null : estado.getCod();;
+		this.estado = (estado == null) ? null : estado.getCod();
 		this.dataPagamento = dataPagamento;
 		this.dataVencimento = dataVencimento;
-		this.formaPagamentoPedido = formaPagamentoPedido;
-		this.parcela = parcela;
 	}
 
 	public Integer getId() {
@@ -109,20 +102,12 @@ public abstract class Conta implements Serializable {
 		this.dataVencimento = dataVencimento;
 	}
 
-	public FormaPagamentoPedido getFormaPagamentoPedido() {
-		return formaPagamentoPedido;
+	public TipoConta getTipo() {
+		return TipoConta.toEnum(tipo);
 	}
 
-	public void setFormaPagamentoPedido(FormaPagamentoPedido formaPagamentoPedido) {
-		this.formaPagamentoPedido = formaPagamentoPedido;
-	}
-
-	public Parcela getParcela() {
-		return parcela;
-	}
-
-	public void setParcela(Parcela parcela) {
-		this.parcela = parcela;
+	public void setTipo(TipoConta tipo) {
+		this.tipo = tipo.getCod();
 	}
 
 	@Override

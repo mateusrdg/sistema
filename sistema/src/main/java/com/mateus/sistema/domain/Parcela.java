@@ -4,46 +4,35 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
 
 import com.mateus.sistema.domain.enums.EstadoPagamento;
-@Entity(name = "Parcela")
-@Table(name = "parcela")
-public class Parcela implements Serializable {
+
+@MappedSuperclass
+public abstract class Parcela implements Serializable {
 	@Version
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-	@ManyToOne
-	@JoinColumn(name = "forma_pagamento_pedido_id")
-	private FormaPagamentoPedido formaPagamentoPedido;
+	private Integer id;;
 	private BigDecimal valor;
-	
 	private Integer estado;
 	private Calendar dataVencimento;
 	private Calendar dataPagamento;
-	
-	@OneToOne(mappedBy = "parcela")
-	private ContaPagar conta;
 
 	public Parcela() {
 	}
 
-	public Parcela(Integer id, FormaPagamentoPedido formaPagamentoPedido, BigDecimal valor, EstadoPagamento estado, Calendar dataVencimento, Calendar dataPagamento) {
+	public Parcela(Integer id, BigDecimal valor, EstadoPagamento estado, Calendar dataVencimento,
+			Calendar dataPagamento) {
 		super();
 		this.id = id;
-		this.formaPagamentoPedido = formaPagamentoPedido;
 		this.valor = valor;
-		this.estado = (estado == null) ? null : estado.getCod();;
+		this.estado = (estado == null) ? null : estado.getCod();
 		this.dataVencimento = dataVencimento;
 		this.dataPagamento = dataPagamento;
 	}
@@ -54,14 +43,6 @@ public class Parcela implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public FormaPagamentoPedido getFormaPagamento() {
-		return formaPagamentoPedido;
-	}
-
-	public void setFormaPagamento(FormaPagamentoPedido formaPagamento) {
-		this.formaPagamentoPedido = formaPagamento;
 	}
 
 	public BigDecimal getValor() {

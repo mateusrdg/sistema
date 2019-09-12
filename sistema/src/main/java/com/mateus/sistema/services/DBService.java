@@ -15,7 +15,8 @@ import com.mateus.sistema.domain.Endereco;
 import com.mateus.sistema.domain.Estado;
 import com.mateus.sistema.domain.Estoque;
 import com.mateus.sistema.domain.FormaPagamento;
-import com.mateus.sistema.domain.FormaPagamentoPedido;
+import com.mateus.sistema.domain.FormaPagamentoCompra;
+import com.mateus.sistema.domain.FormaPagamentoVenda;
 import com.mateus.sistema.domain.Fornecedor;
 import com.mateus.sistema.domain.Funcionario;
 import com.mateus.sistema.domain.Grupo;
@@ -24,7 +25,7 @@ import com.mateus.sistema.domain.ItemPedidoCompra;
 import com.mateus.sistema.domain.ItemPedidoVenda;
 import com.mateus.sistema.domain.Orcamento;
 import com.mateus.sistema.domain.Pais;
-import com.mateus.sistema.domain.Parcela;
+import com.mateus.sistema.domain.ParcelaVenda;
 import com.mateus.sistema.domain.PedidoCompra;
 import com.mateus.sistema.domain.PedidoVenda;
 import com.mateus.sistema.domain.PessoaEndereco;
@@ -36,7 +37,6 @@ import com.mateus.sistema.domain.enums.EstadoPagamento;
 import com.mateus.sistema.domain.enums.TipoCliente;
 import com.mateus.sistema.domain.enums.TipoFormaPagamento;
 import com.mateus.sistema.domain.enums.TipoFuncionario;
-import com.mateus.sistema.domain.enums.TipoPedido;
 import com.mateus.sistema.domain.enums.TipoPreco;
 import com.mateus.sistema.repository.CidadeRepository;
 import com.mateus.sistema.repository.ClienteRepository;
@@ -46,8 +46,9 @@ import com.mateus.sistema.repository.EnderecoRepository;
 import com.mateus.sistema.repository.EstadoRepository;
 import com.mateus.sistema.repository.EstoqueProdutoRepository;
 import com.mateus.sistema.repository.EstoqueRepository;
-import com.mateus.sistema.repository.FormaPagamentoPedidoRepository;
+import com.mateus.sistema.repository.FormaPagamentoCompraRepository;
 import com.mateus.sistema.repository.FormaPagamentoRepository;
+import com.mateus.sistema.repository.FormaPagamentoVendaRepository;
 import com.mateus.sistema.repository.FornecedorRepository;
 import com.mateus.sistema.repository.FuncionarioRepository;
 import com.mateus.sistema.repository.GrupoRepository;
@@ -56,7 +57,8 @@ import com.mateus.sistema.repository.ItemPedidoCompraRepository;
 import com.mateus.sistema.repository.ItemPedidoVendaRepository;
 import com.mateus.sistema.repository.OrcamentoRepository;
 import com.mateus.sistema.repository.PaisRepository;
-import com.mateus.sistema.repository.ParcelaRepository;
+import com.mateus.sistema.repository.ParcelaCompraRepository;
+import com.mateus.sistema.repository.ParcelaVendaRepository;
 import com.mateus.sistema.repository.PedidoCompraRepository;
 import com.mateus.sistema.repository.PedidoVendaRepository;
 import com.mateus.sistema.repository.PessoaEnderecoRepository;
@@ -109,9 +111,13 @@ public class DBService {
 	@Autowired
 	private FormaPagamentoRepository formaPagamentoRepo;
 	@Autowired
-	private FormaPagamentoPedidoRepository formaPagamentoPedidoRepo;
+	private FormaPagamentoCompraRepository formaPagamentoCompraRepo;
 	@Autowired
-	private ParcelaRepository parcelaRepo;
+	private FormaPagamentoVendaRepository formaPagamentoVendaRepo;
+	@Autowired
+	private ParcelaCompraRepository parcelaCompraRepo;
+	@Autowired
+	private ParcelaVendaRepository parcelaVendaRepo;
 	@Autowired
 	private ContaReceberRepository contaReceberRepo;
 	@Autowired
@@ -234,25 +240,26 @@ public class DBService {
 		
 		formaPagamentoRepo.saveAll(Arrays.asList(formaPagamento1, formaPagamento2));
 		
-		FormaPagamentoPedido formaPagamentoPedido1 = new FormaPagamentoPedido(null, compra,TipoPedido.COMPRA, formaPagamento1, 
+		FormaPagamentoCompra formaPagamentoPedido1 = new FormaPagamentoCompra(null, compra, formaPagamento1, 
 				Calendar.getInstance(), new BigDecimal(200), EstadoPagamento.QUITADO);
 		
-		FormaPagamentoPedido formaPagamentoPedido2 = new FormaPagamentoPedido(null, venda,TipoPedido.VENDA, formaPagamento1, 
+		FormaPagamentoVenda formaPagamentoPedido2 = new FormaPagamentoVenda(null, venda, formaPagamento1, 
 				Calendar.getInstance(), new BigDecimal(10), EstadoPagamento.QUITADO);
 		
-		FormaPagamentoPedido formaPagamentoPedido3 = new FormaPagamentoPedido(null, venda,TipoPedido.VENDA, formaPagamento2, 
+		FormaPagamentoVenda formaPagamentoPedido3 = new FormaPagamentoVenda(null, venda, formaPagamento2, 
 				Calendar.getInstance(), new BigDecimal(90), EstadoPagamento.PENDENTE);
 		
-		formaPagamentoPedidoRepo.saveAll(Arrays.asList(formaPagamentoPedido1, formaPagamentoPedido2, formaPagamentoPedido3));
+		formaPagamentoCompraRepo.saveAll(Arrays.asList(formaPagamentoPedido1));
+		formaPagamentoVendaRepo.saveAll(Arrays.asList(formaPagamentoPedido2, formaPagamentoPedido3));
 		
-		Parcela parcela1 = new Parcela(null, formaPagamentoPedido2, new BigDecimal(45), EstadoPagamento.PENDENTE, Calendar.getInstance(), null); 
-		Parcela parcela2 = new Parcela(null, formaPagamentoPedido3, new BigDecimal(45), EstadoPagamento.PENDENTE, Calendar.getInstance(), null); 
-		parcelaRepo.saveAll(Arrays.asList(parcela1, parcela2));
+		ParcelaVenda parcela1 = new ParcelaVenda(null, formaPagamentoPedido2, new BigDecimal(45), EstadoPagamento.PENDENTE, Calendar.getInstance(), null); 
+		ParcelaVenda parcela2 = new ParcelaVenda(null, formaPagamentoPedido3, new BigDecimal(45), EstadoPagamento.PENDENTE, Calendar.getInstance(), null); 
+		parcelaVendaRepo.saveAll(Arrays.asList(parcela1, parcela2));
 		
 		
-		ContaPagar conta1 = new ContaPagar(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(200), EstadoPagamento.QUITADO, null,
+		ContaPagar conta1 = new ContaPagar(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(200), EstadoPagamento.QUITADO, Calendar.getInstance(),
 				Calendar.getInstance(), formaPagamentoPedido1, null);
-		ContaReceber conta2 = new ContaReceber(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(10), EstadoPagamento.QUITADO, null,
+		ContaReceber conta2 = new ContaReceber(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(10), EstadoPagamento.QUITADO, Calendar.getInstance(),
 				Calendar.getInstance(), formaPagamentoPedido2, null);
 		ContaReceber conta3 = new ContaReceber(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(45), EstadoPagamento.PENDENTE, null,
 				Calendar.getInstance(), null, parcela1);

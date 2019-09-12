@@ -5,19 +5,36 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Version;
+
+@Entity(name = "CaixaMovimentacao")
+@Table(name = "caixa_movimentacao")
 public class CaixaMovimentacao implements Serializable {
-
+	@Version
 	private static final long serialVersionUID = 1L;
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private Integer estado;
 	private Calendar dataAbertura;
 	private Calendar horaAbertura;
 	private Calendar dataFechamento;
 	private Calendar horaFechamento;
+	@ManyToOne
+	@JoinColumn(name = "caixa_id")
 	private Caixa caixa;
+	@ManyToOne
+	@JoinColumn(name = "funcionario_id")
 	private Funcionario funcionario;
-
+	@OneToMany(mappedBy = "caixaMovimentacao")
 	private List<Movimentacao> movimentacoes = new ArrayList<Movimentacao>();
 
 	public CaixaMovimentacao() {

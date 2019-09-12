@@ -24,6 +24,10 @@ public class PedidoCompra extends Pedido implements Serializable {
 	@OneToMany(mappedBy = "pedido")
 	private List<ItemPedidoCompra> itens = new ArrayList<ItemPedidoCompra>();
 	
+	
+	@OneToMany(mappedBy = "pedido")
+	private List<FormaPagamentoCompra> pagamentos = new ArrayList<FormaPagamentoCompra>();
+	
 	public PedidoCompra() {
 	}
 	
