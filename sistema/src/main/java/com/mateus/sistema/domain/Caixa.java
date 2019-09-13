@@ -13,13 +13,19 @@ import javax.persistence.Table;
 public class Caixa implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String descricao;
 
 	public Caixa() {
+	}
+
+	public Caixa(Integer id, String descricao) {
+		super();
+		this.id = id;
+		this.descricao = descricao;
 	}
 
 	public Integer getId() {

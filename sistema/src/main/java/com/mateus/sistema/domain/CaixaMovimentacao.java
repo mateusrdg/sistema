@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import com.mateus.sistema.domain.enums.EstadoCaixa;
+
 @Entity(name = "CaixaMovimentacao")
 @Table(name = "caixa_movimentacao")
 public class CaixaMovimentacao implements Serializable {
@@ -40,11 +42,11 @@ public class CaixaMovimentacao implements Serializable {
 	public CaixaMovimentacao() {
 	}
 
-	public CaixaMovimentacao(Integer id, Integer estado, Calendar dataAbertura, Calendar horaAbertura,
+	public CaixaMovimentacao(Integer id, EstadoCaixa estado, Calendar dataAbertura, Calendar horaAbertura,
 			Calendar dataFechamento, Calendar horaFechamento, Caixa caixa, Funcionario funcionario) {
 		super();
 		this.id = id;
-		this.estado = estado;
+		this.estado = (estado == null) ? null : estado.getCod();;
 		this.dataAbertura = dataAbertura;
 		this.horaAbertura = horaAbertura;
 		this.dataFechamento = dataFechamento;
@@ -61,12 +63,12 @@ public class CaixaMovimentacao implements Serializable {
 		this.id = id;
 	}
 
-	public Integer getEstado() {
-		return estado;
+	public EstadoCaixa getEstado() {
+		return EstadoCaixa.toEnum(estado);
 	}
 
-	public void setEstado(Integer estado) {
-		this.estado = estado;
+	public void setEstado(EstadoCaixa estado) {
+		this.estado = estado.getCod();
 	}
 
 	public Calendar getDataAbertura() {

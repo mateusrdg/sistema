@@ -28,7 +28,7 @@ public class Movimentacao implements Serializable {
 	private BigDecimal valor;
 	private Integer tipo;
 	@Column(name = "conta_id")
-	private Integer conta;
+	private Integer contaId;
 	@ManyToOne
 	@JoinColumn(name = "caixa_movimentacao_id") 
 	private CaixaMovimentacao caixaMovimentacao;
@@ -36,11 +36,11 @@ public class Movimentacao implements Serializable {
 	public Movimentacao() {
 	}
 
-	public Movimentacao(Integer id, CaixaMovimentacao caixaMovimentacao , Conta conta,  Calendar data, Calendar hora, BigDecimal valor, TipoMovimentacao tipo) {
+	public Movimentacao(Integer id, CaixaMovimentacao caixaMovimentacao , Integer contaId,  Calendar data, Calendar hora, BigDecimal valor, TipoMovimentacao tipo) {
 		super();
 		this.id = id;
 		this.caixaMovimentacao = caixaMovimentacao;
-		this.conta = conta.getId();
+		this.contaId = contaId;
 		this.data = data;
 		this.hora = hora;
 		this.valor = valor;
@@ -88,11 +88,11 @@ public class Movimentacao implements Serializable {
 	}
 
 	public Integer getConta() {
-		return conta;
+		return contaId;
 	}
 
-	public void setConta(Conta conta) {
-		this.conta = conta.getId();
+	public void setConta(Integer contaId) {
+		this.contaId = contaId;
 	}
 	
 	public CaixaMovimentacao getCaixaMovimentacao() {

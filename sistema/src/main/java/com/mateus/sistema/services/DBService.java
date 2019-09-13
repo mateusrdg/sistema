@@ -7,6 +7,8 @@ import java.util.Calendar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mateus.sistema.domain.Caixa;
+import com.mateus.sistema.domain.CaixaMovimentacao;
 import com.mateus.sistema.domain.Cidade;
 import com.mateus.sistema.domain.Cliente;
 import com.mateus.sistema.domain.ContaPagar;
@@ -23,6 +25,7 @@ import com.mateus.sistema.domain.Grupo;
 import com.mateus.sistema.domain.ItemOrcamento;
 import com.mateus.sistema.domain.ItemPedidoCompra;
 import com.mateus.sistema.domain.ItemPedidoVenda;
+import com.mateus.sistema.domain.Movimentacao;
 import com.mateus.sistema.domain.Orcamento;
 import com.mateus.sistema.domain.Pais;
 import com.mateus.sistema.domain.ParcelaVenda;
@@ -33,11 +36,15 @@ import com.mateus.sistema.domain.Preco;
 import com.mateus.sistema.domain.Produto;
 import com.mateus.sistema.domain.ProdutoEstoque;
 import com.mateus.sistema.domain.Subgrupo;
+import com.mateus.sistema.domain.enums.EstadoCaixa;
 import com.mateus.sistema.domain.enums.EstadoPagamento;
 import com.mateus.sistema.domain.enums.TipoCliente;
 import com.mateus.sistema.domain.enums.TipoFormaPagamento;
 import com.mateus.sistema.domain.enums.TipoFuncionario;
+import com.mateus.sistema.domain.enums.TipoMovimentacao;
 import com.mateus.sistema.domain.enums.TipoPreco;
+import com.mateus.sistema.repository.CaixaMovimentacaoRepository;
+import com.mateus.sistema.repository.CaixaRepository;
 import com.mateus.sistema.repository.CidadeRepository;
 import com.mateus.sistema.repository.ClienteRepository;
 import com.mateus.sistema.repository.ContaPagarRepository;
@@ -55,6 +62,7 @@ import com.mateus.sistema.repository.GrupoRepository;
 import com.mateus.sistema.repository.ItemOrcamentoRepository;
 import com.mateus.sistema.repository.ItemPedidoCompraRepository;
 import com.mateus.sistema.repository.ItemPedidoVendaRepository;
+import com.mateus.sistema.repository.MovimentacaoRepository;
 import com.mateus.sistema.repository.OrcamentoRepository;
 import com.mateus.sistema.repository.PaisRepository;
 import com.mateus.sistema.repository.ParcelaCompraRepository;
@@ -122,7 +130,13 @@ public class DBService {
 	private ContaReceberRepository contaReceberRepo;
 	@Autowired
 	private ContaPagarRepository contaPagarRepo;
-	
+	@Autowired
+	private CaixaRepository caixaRepo;
+	@Autowired
+	private CaixaMovimentacaoRepository caixaMovimentacaoRepo;
+	@Autowired
+	private MovimentacaoRepository movimentacaoRepo;
+
 	public void instantiateTestDatabase() {
 		Pais pais = new Pais(null, "Brasil", "10", "BR");
 		paisRepo.saveAll(Arrays.asList(pais));
@@ -237,37 +251,57 @@ public class DBService {
 
 		FormaPagamento formaPagamento1 = new FormaPagamento(null, "dinheiro", TipoFormaPagamento.AVISTA);
 		FormaPagamento formaPagamento2 = new FormaPagamento(null, "a prazo", TipoFormaPagamento.PRAZO);
-		
+
 		formaPagamentoRepo.saveAll(Arrays.asList(formaPagamento1, formaPagamento2));
-		
-		FormaPagamentoCompra formaPagamentoPedido1 = new FormaPagamentoCompra(null, compra, formaPagamento1, 
+
+		FormaPagamentoCompra formaPagamentoPedido1 = new FormaPagamentoCompra(null, compra, formaPagamento1,
 				Calendar.getInstance(), new BigDecimal(200), EstadoPagamento.QUITADO);
-		
-		FormaPagamentoVenda formaPagamentoPedido2 = new FormaPagamentoVenda(null, venda, formaPagamento1, 
+
+		FormaPagamentoVenda formaPagamentoPedido2 = new FormaPagamentoVenda(null, venda, formaPagamento1,
 				Calendar.getInstance(), new BigDecimal(10), EstadoPagamento.QUITADO);
-		
-		FormaPagamentoVenda formaPagamentoPedido3 = new FormaPagamentoVenda(null, venda, formaPagamento2, 
+
+		FormaPagamentoVenda formaPagamentoPedido3 = new FormaPagamentoVenda(null, venda, formaPagamento2,
 				Calendar.getInstance(), new BigDecimal(90), EstadoPagamento.PENDENTE);
-		
+
 		formaPagamentoCompraRepo.saveAll(Arrays.asList(formaPagamentoPedido1));
 		formaPagamentoVendaRepo.saveAll(Arrays.asList(formaPagamentoPedido2, formaPagamentoPedido3));
-		
-		ParcelaVenda parcela1 = new ParcelaVenda(null, formaPagamentoPedido2, new BigDecimal(45), EstadoPagamento.PENDENTE, Calendar.getInstance(), null); 
-		ParcelaVenda parcela2 = new ParcelaVenda(null, formaPagamentoPedido3, new BigDecimal(45), EstadoPagamento.PENDENTE, Calendar.getInstance(), null); 
+
+		ParcelaVenda parcela1 = new ParcelaVenda(null, formaPagamentoPedido2, new BigDecimal(45),
+				EstadoPagamento.PENDENTE, Calendar.getInstance(), null);
+		ParcelaVenda parcela2 = new ParcelaVenda(null, formaPagamentoPedido3, new BigDecimal(45),
+				EstadoPagamento.PENDENTE, Calendar.getInstance(), null);
 		parcelaVendaRepo.saveAll(Arrays.asList(parcela1, parcela2));
-		
-		
-		ContaPagar conta1 = new ContaPagar(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(200), EstadoPagamento.QUITADO, Calendar.getInstance(),
-				Calendar.getInstance(), formaPagamentoPedido1, null);
-		ContaReceber conta2 = new ContaReceber(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(10), EstadoPagamento.QUITADO, Calendar.getInstance(),
-				Calendar.getInstance(), formaPagamentoPedido2, null);
-		ContaReceber conta3 = new ContaReceber(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(45), EstadoPagamento.PENDENTE, null,
-				Calendar.getInstance(), null, parcela1);
-		ContaReceber conta4 = new ContaReceber(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(45), EstadoPagamento.PENDENTE, null,
-				Calendar.getInstance(), null, parcela2);
-		
+
+		ContaPagar conta1 = new ContaPagar(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(200),
+				EstadoPagamento.QUITADO, Calendar.getInstance(), Calendar.getInstance(), formaPagamentoPedido1, null);
+		ContaReceber conta2 = new ContaReceber(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(10),
+				EstadoPagamento.QUITADO, Calendar.getInstance(), Calendar.getInstance(), formaPagamentoPedido2, null);
+		ContaReceber conta3 = new ContaReceber(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(45),
+				EstadoPagamento.PENDENTE, null, Calendar.getInstance(), null, parcela1);
+		ContaReceber conta4 = new ContaReceber(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(45),
+				EstadoPagamento.PENDENTE, null, Calendar.getInstance(), null, parcela2);
+
 		contaPagarRepo.saveAll(Arrays.asList(conta1));
 		contaReceberRepo.saveAll(Arrays.asList(conta2, conta3, conta4));
-		
+
+		Caixa caixa1 = new Caixa(null, "caixa1");
+		Caixa caixa2 = new Caixa(null, "caixa2");
+
+		caixaRepo.saveAll(Arrays.asList(caixa1, caixa2));
+
+		CaixaMovimentacao caixaMov1 = new CaixaMovimentacao(null, EstadoCaixa.ABERTO, Calendar.getInstance(),
+				Calendar.getInstance(), null, null, caixa1, funcionario1);
+		CaixaMovimentacao caixaMov2 = new CaixaMovimentacao(null, EstadoCaixa.FECHADO, Calendar.getInstance(),
+				Calendar.getInstance(), Calendar.getInstance(), Calendar.getInstance(), caixa2, funcionario2);
+
+		caixaMovimentacaoRepo.saveAll(Arrays.asList(caixaMov1, caixaMov2));
+
+		Movimentacao mov1 = new Movimentacao(null, caixaMov1, conta1.getId(), Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(200), TipoMovimentacao.SAIDA);
+		Movimentacao mov2 = new Movimentacao(null, caixaMov1, conta2.getId(), Calendar.getInstance(), Calendar.getInstance(),new BigDecimal(10), TipoMovimentacao.ENTRADA);
+		Movimentacao mov3 = new Movimentacao(null, caixaMov1, conta3.getId(), Calendar.getInstance(), Calendar.getInstance(),new BigDecimal(45), TipoMovimentacao.ENTRADA);
+		Movimentacao mov4 = new Movimentacao(null, caixaMov1, conta4.getId(), Calendar.getInstance(), Calendar.getInstance(),new BigDecimal(45), TipoMovimentacao.ENTRADA);
+		Movimentacao mov5 = new Movimentacao(null, caixaMov2, null, Calendar.getInstance(), Calendar.getInstance(),new BigDecimal(200), TipoMovimentacao.SANGRIA);
+
+		movimentacaoRepo.saveAll(Arrays.asList(mov1, mov2, mov3, mov4, mov5)) ;
 	}
 }
