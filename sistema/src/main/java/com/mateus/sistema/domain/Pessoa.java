@@ -34,8 +34,8 @@ public abstract class Pessoa implements Serializable {
 	
 	@Transient
 	private List<PessoaEndereco> enderecos = new ArrayList<PessoaEndereco>();
-
-	//private Set<String> telefones = new HashSet<String>();
+	@Transient
+	private List<PessoaTelefone> telefones = new ArrayList<PessoaTelefone>();
 	
 	public Pessoa() {
 	}
@@ -106,15 +106,16 @@ public abstract class Pessoa implements Serializable {
 	public void setEnderecos(List<PessoaEndereco> enderecos) {
 		this.enderecos = enderecos;
 	}
+	
+	
+	public List<PessoaTelefone> getTelefones() {
+		return telefones;
+	}
 
-//	public Set<String> getTelefones() {
-//		return telefones;
-//	}
-//
-//	public void setTelefones(Set<String> telefones) {
-//		this.telefones = telefones;
-//	}	
-//	
+	public void setTelefones(List<PessoaTelefone> telefones) {
+		this.telefones = telefones;
+	}	
+	
 	public TipoPessoa getTipo() {
 		return TipoPessoa.toEnum(tipo);
 	}

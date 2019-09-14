@@ -8,45 +8,30 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Version;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-@Entity
-public class Endereco implements Serializable {
+
+@Entity(name = "telefone")
+public class Telefone implements Serializable {
 	@Version
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String rua;
-	private String numero; 
-	private String cep;
-	private String complemento;
-	private String bairro;
+	private String numero;
 	
-	@ManyToOne
-	@JoinColumn(name = "cidade_id")
-	private Cidade cidade;
-
 	@OneToMany(mappedBy = "endereco")
 	@JsonIgnore
-	private List<PessoaEndereco> pessoaEnderecos = new ArrayList<PessoaEndereco>();
+	private List<PessoaEndereco> pessoaTelefones = new ArrayList<PessoaEndereco>();
 
-	public Endereco() {
+	public Telefone() {
 	}
 
-	public Endereco(Integer id, String rua, String numero, String cep, String complemento, String bairro, Cidade cidade) {
-		super();
+	public Telefone(Integer id, String numero) {
 		this.id = id;
-		this.rua = rua;
 		this.numero = numero;
-		this.cep = cep;
-		this.complemento = complemento;
-		this.bairro = bairro;
-		this.cidade = cidade;
 	}
 
 	public Integer getId() {
@@ -57,52 +42,12 @@ public class Endereco implements Serializable {
 		this.id = id;
 	}
 
-	public String getRua() {
-		return rua;
-	}
-
-	public void setRua(String rua) {
-		this.rua = rua;
-	}
-
 	public String getNumero() {
 		return numero;
 	}
 
 	public void setNumero(String numero) {
 		this.numero = numero;
-	}
-
-	public String getCep() {
-		return cep;
-	}
-
-	public void setCep(String cep) {
-		this.cep = cep;
-	}
-
-	public String getComplemento() {
-		return complemento;
-	}
-
-	public void setComplemento(String complemento) {
-		this.complemento = complemento;
-	}
-
-	public String getBairro() {
-		return bairro;
-	}
-
-	public void setBairro(String bairro) {
-		this.bairro = bairro;
-	}
-
-	public Cidade getCidade() {
-		return cidade;
-	}
-
-	public void setCidade(Cidade cidade) {
-		this.cidade = cidade;
 	}
 
 	@Override
@@ -121,7 +66,7 @@ public class Endereco implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Endereco other = (Endereco) obj;
+		Telefone other = (Telefone) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -129,8 +74,5 @@ public class Endereco implements Serializable {
 			return false;
 		return true;
 	}
-	
-	
-	
-	
+
 }

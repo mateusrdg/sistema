@@ -12,33 +12,34 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.mateus.sistema.domain.enums.TipoPessoa;
-
-@Entity(name = "PessoaEndereco")
-@Table(name = "pessoa_endereco")
-public class PessoaEndereco implements Serializable {
+@Entity(name="PessoaTelefone")
+@Table(name = "pessoa_telefone")
+public class PessoaTelefone implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-
+	
+	
 	@Column(name = "pessoa_id")
 	private Integer pessoa;
-
+	
 	@ManyToOne
-	@JoinColumn(name = "endereco_id")
-	private Endereco endereco;
-
+	@JoinColumn(name="telefone_id")
+	private Telefone telefone;
+	
+	@Column(name = "tipo")
 	private Integer tipo;
-
-	public PessoaEndereco() {
+	
+	public PessoaTelefone() {
 	}
 
-	public PessoaEndereco(Integer id, Pessoa pessoa, Endereco endereco) {
+	public PessoaTelefone(Integer id, Pessoa pessoa, Telefone telefone ) {
 		this.id = id;
 		this.pessoa = pessoa.getId();
 		this.tipo = pessoa.getTipo().getCod();
-		this.endereco = endereco;
+		this.telefone = telefone;
 	}
 
 	public Integer getId() {
@@ -56,13 +57,13 @@ public class PessoaEndereco implements Serializable {
 	public void setTipo(TipoPessoa tipo) {
 		this.tipo = tipo.getCod();
 	}
-
-	public Endereco getEndereco() {
-		return endereco;
+	
+	public Telefone getTelefone() {
+		return telefone;
 	}
 
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
+	public void setTelefone(Telefone telefone) {
+		this.telefone = telefone;
 	}
 
 	@Override
@@ -81,7 +82,7 @@ public class PessoaEndereco implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		PessoaEndereco other = (PessoaEndereco) obj;
+		PessoaTelefone other = (PessoaTelefone) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -89,5 +90,7 @@ public class PessoaEndereco implements Serializable {
 			return false;
 		return true;
 	}
+
+	
 
 }

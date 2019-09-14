@@ -32,10 +32,12 @@ import com.mateus.sistema.domain.ParcelaVenda;
 import com.mateus.sistema.domain.PedidoCompra;
 import com.mateus.sistema.domain.PedidoVenda;
 import com.mateus.sistema.domain.PessoaEndereco;
+import com.mateus.sistema.domain.PessoaTelefone;
 import com.mateus.sistema.domain.Preco;
 import com.mateus.sistema.domain.Produto;
 import com.mateus.sistema.domain.ProdutoEstoque;
 import com.mateus.sistema.domain.Subgrupo;
+import com.mateus.sistema.domain.Telefone;
 import com.mateus.sistema.domain.enums.EstadoCaixa;
 import com.mateus.sistema.domain.enums.EstadoPagamento;
 import com.mateus.sistema.domain.enums.TipoCliente;
@@ -70,9 +72,11 @@ import com.mateus.sistema.repository.ParcelaVendaRepository;
 import com.mateus.sistema.repository.PedidoCompraRepository;
 import com.mateus.sistema.repository.PedidoVendaRepository;
 import com.mateus.sistema.repository.PessoaEnderecoRepository;
+import com.mateus.sistema.repository.PessoaTelefoneRepository;
 import com.mateus.sistema.repository.PrecoRepository;
 import com.mateus.sistema.repository.ProdutoRepository;
 import com.mateus.sistema.repository.SubgrupoRepository;
+import com.mateus.sistema.repository.TelefoneRepository;
 
 @Service
 public class DBService {
@@ -136,6 +140,10 @@ public class DBService {
 	private CaixaMovimentacaoRepository caixaMovimentacaoRepo;
 	@Autowired
 	private MovimentacaoRepository movimentacaoRepo;
+	@Autowired
+	private TelefoneRepository telefoneRepo;
+	@Autowired 
+	private PessoaTelefoneRepository pessoaTelefoneRepo;
 
 	public void instantiateTestDatabase() {
 		Pais pais = new Pais(null, "Brasil", "10", "BR");
@@ -223,6 +231,19 @@ public class DBService {
 		PessoaEndereco pe3 = new PessoaEndereco(null, fornecedor1, endereco3);
 		PessoaEndereco pe4 = new PessoaEndereco(null, funcionario1, endereco4);
 
+		Telefone tel1 = new Telefone(null, "989311995");
+		Telefone tel2 = new Telefone(null, "111111111");
+		Telefone tel3 = new Telefone(null, "222222222");
+		Telefone tel4 = new Telefone(null, "333333333");
+		
+		telefoneRepo.saveAll(Arrays.asList(tel1,tel2,tel3,tel4));
+		
+		PessoaTelefone pessoaTel1 = new PessoaTelefone(null, cliente1, tel1);
+		PessoaTelefone pessoaTel2 = new PessoaTelefone(null, funcionario1, tel1);
+		PessoaTelefone pessoaTel3 = new PessoaTelefone(null, fornecedor1, tel1);
+		
+		pessoaTelefoneRepo.saveAll(Arrays.asList(pessoaTel1,pessoaTel2,pessoaTel3));
+		
 		pessoaEnderecoRepo.saveAll(Arrays.asList(pe1, pe2, pe3, pe4));
 
 		PedidoVenda venda = new PedidoVenda(null, Calendar.getInstance(), Calendar.getInstance(), cliente1,
