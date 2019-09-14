@@ -9,11 +9,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Version;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity(name = "subgrupo")
 public class Subgrupo implements Serializable {
@@ -22,16 +20,15 @@ public class Subgrupo implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	private String descricao;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "grupo_id")
 	private Grupo grupo;
-	
-	@JsonIgnore
-	@ManyToMany(mappedBy = "subgrupos")
-	private List<Produto> produtos = new ArrayList<Produto>();
+
+	@OneToMany(mappedBy = "subgrupo")
+	private List<ProdutoSubgrupo> produtoSubgrupos = new ArrayList<ProdutoSubgrupo>();
 
 	public Subgrupo() {
 	}
@@ -66,12 +63,12 @@ public class Subgrupo implements Serializable {
 		this.grupo = grupo;
 	}
 
-	public List<Produto> getProdutos() {
-		return produtos;
+	public List<ProdutoSubgrupo> getProdutoSubgrupos() {
+		return produtoSubgrupos;
 	}
 
-	public void setProdutos(List<Produto> produtos) {
-		this.produtos = produtos;
+	public void setProdutoSubgrupos(List<ProdutoSubgrupo> produtoSubgrupos) {
+		this.produtoSubgrupos = produtoSubgrupos;
 	}
 
 	@Override

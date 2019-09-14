@@ -9,9 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 import javax.persistence.Version;
@@ -27,19 +24,16 @@ public class Produto implements Serializable {
 	private Calendar dataCadastro;
 	private Boolean ativo;
 
-	@ManyToMany
-	@JoinTable(name = "produto_subgrupo", joinColumns = @JoinColumn(name = "produto_id"), inverseJoinColumns = @JoinColumn(name = "subgrupo_id"))
-	private List<Subgrupo> subgrupos = new ArrayList<Subgrupo>();
-
 	@OneToMany(mappedBy = "produto")
 	private List<Preco> precos = new ArrayList<Preco>();
 
 	@OneToMany(mappedBy = "produto")
 	private List<ProdutoEstoque> produtoEstoque = new ArrayList<ProdutoEstoque>();
 
+	@OneToMany(mappedBy = "produto")
+	private List<ProdutoSubgrupo> produtoSubgrupo = new ArrayList<ProdutoSubgrupo>();
+
 	@Transient
-	// @JsonIgnore
-	// @OneToMany(mappedBy = "produto")
 	private List<ItemPedido> itens = new ArrayList<ItemPedido>();
 
 	public Produto() {
@@ -101,20 +95,28 @@ public class Produto implements Serializable {
 		this.produtoEstoque = estoquesProduto;
 	}
 
-	public List<Subgrupo> getSubgrupos() {
-		return subgrupos;
-	}
-
-	public void setSubgrupos(List<Subgrupo> subgrupos) {
-		this.subgrupos = subgrupos;
-	}
-
 	public List<ItemPedido> getItens() {
 		return itens;
 	}
 
 	public void setItens(List<ItemPedido> itens) {
 		this.itens = itens;
+	}
+
+	public List<ProdutoEstoque> getProdutoEstoque() {
+		return produtoEstoque;
+	}
+
+	public void setProdutoEstoque(List<ProdutoEstoque> produtoEstoque) {
+		this.produtoEstoque = produtoEstoque;
+	}
+
+	public List<ProdutoSubgrupo> getProdutoSubgrupo() {
+		return produtoSubgrupo;
+	}
+
+	public void setProdutoSubgrupo(List<ProdutoSubgrupo> produtoSubgrupo) {
+		this.produtoSubgrupo = produtoSubgrupo;
 	}
 
 	@Override

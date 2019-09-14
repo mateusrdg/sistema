@@ -38,6 +38,7 @@ import com.mateus.sistema.domain.PessoaTelefone;
 import com.mateus.sistema.domain.Preco;
 import com.mateus.sistema.domain.Produto;
 import com.mateus.sistema.domain.ProdutoEstoque;
+import com.mateus.sistema.domain.ProdutoSubgrupo;
 import com.mateus.sistema.domain.Subgrupo;
 import com.mateus.sistema.domain.Telefone;
 import com.mateus.sistema.domain.enums.EstadoCaixa;
@@ -78,6 +79,7 @@ import com.mateus.sistema.repository.PessoaEnderecoRepository;
 import com.mateus.sistema.repository.PessoaTelefoneRepository;
 import com.mateus.sistema.repository.PrecoRepository;
 import com.mateus.sistema.repository.ProdutoRepository;
+import com.mateus.sistema.repository.ProdutoSubgrupoRepository;
 import com.mateus.sistema.repository.SubgrupoRepository;
 import com.mateus.sistema.repository.TelefoneRepository;
 
@@ -149,7 +151,8 @@ public class DBService {
 	private PessoaTelefoneRepository pessoaTelefoneRepo;
 	@Autowired
 	private EntradaEstoqueRepository entradaEstoqueRepo;
-	
+	@Autowired
+	private ProdutoSubgrupoRepository produtoSubgrupoRepository;
 
 	public void instantiateTestDatabase() {
 		
@@ -189,6 +192,12 @@ public class DBService {
 		Produto produto3 = new Produto(null, "produto3", Calendar.getInstance(), true);
 		Produto produto4 = new Produto(null, "produto4", Calendar.getInstance(), true);
 
+		ProdutoSubgrupo prodSubgrupo1 = new ProdutoSubgrupo(null, subgrupo1, produto1);
+		ProdutoSubgrupo prodSubgrupo2 = new ProdutoSubgrupo(null, subgrupo2, produto1);
+		ProdutoSubgrupo prodSubgrupo3 = new ProdutoSubgrupo(null, subgrupo1, produto2);
+		ProdutoSubgrupo prodSubgrupo4 = new ProdutoSubgrupo(null, subgrupo3, produto4);
+		
+		
 		Preco preco1 = new Preco(null, produto1, new BigDecimal(100.00), TipoPreco.AVISTA);
 		Preco preco2 = new Preco(null, produto2, new BigDecimal(200.00), TipoPreco.AVISTA);
 		Preco preco3 = new Preco(null, produto3, new BigDecimal(300.00), TipoPreco.AVISTA);
@@ -201,7 +210,7 @@ public class DBService {
 		produto4.getPrecos().addAll(Arrays.asList(preco4));
 
 		produtoRepo.saveAll(Arrays.asList(produto1, produto2, produto3, produto4));
-
+		produtoSubgrupoRepository.saveAll(Arrays.asList(prodSubgrupo1,prodSubgrupo2,prodSubgrupo3,prodSubgrupo4));
 		precoRepo.saveAll(Arrays.asList(preco1, preco2, preco3, preco4, preco5));
 
 		ProdutoEstoque estoqueProduto1 = new ProdutoEstoque(null, estoque1, produto1, new BigDecimal(5));

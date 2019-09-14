@@ -6,29 +6,32 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Version;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
-import com.mateus.sistema.domain.enums.TipoFormaPagamento;
+@Entity
+public class ProdutoSubgrupo implements Serializable {
 
-@Entity(name = "FormaPagamento")
-@Table(name = "forma_pagamento")
-public class FormaPagamento implements Serializable {
-	@Version
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String descricao;
-	private Integer tipo;
 
-	public FormaPagamento() {
+	@ManyToOne
+	@JoinColumn(name = "subgrupo_id")
+	private Subgrupo subgrupo;
+
+	@ManyToOne
+	@JoinColumn(name = "produto_id")
+	private Produto produto;
+
+	public ProdutoSubgrupo() {
 	}
 
-	public FormaPagamento(Integer id, String descricao, TipoFormaPagamento tipo) {
+	public ProdutoSubgrupo(Integer id, Subgrupo subgrupo, Produto produto) {
 		this.id = id;
-		this.descricao = descricao;
-		this.tipo = (tipo == null) ? null : tipo.getCod();
+		this.subgrupo = subgrupo;
+		this.produto = produto;
 	}
 
 	public Integer getId() {
@@ -39,20 +42,20 @@ public class FormaPagamento implements Serializable {
 		this.id = id;
 	}
 
-	public String getDescricao() {
-		return descricao;
+	public Subgrupo getSubgrupo() {
+		return subgrupo;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setSubgrupo(Subgrupo subgrupo) {
+		this.subgrupo = subgrupo;
 	}
 
-	public Integer getTipo() {
-		return tipo;
+	public Produto getProduto() {
+		return produto;
 	}
 
-	public void setTipo(Integer tipo) {
-		this.tipo = tipo;
+	public void setProduto(Produto produto) {
+		this.produto = produto;
 	}
 
 	@Override
@@ -71,7 +74,7 @@ public class FormaPagamento implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		FormaPagamento other = (FormaPagamento) obj;
+		ProdutoSubgrupo other = (ProdutoSubgrupo) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

@@ -11,11 +11,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Version;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity(name="estado")
+@Entity(name="Estado")
+@Table(name ="estado")
 public class Estado implements Serializable {
 	@Version
 	private static final long serialVersionUID = 1L;

@@ -9,10 +9,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Version;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-@Entity(name = "grupo")
+@Entity(name = "Grupo")
+@Table(name ="grupo")
 public class Grupo implements Serializable {
 	@Version
 	private static final long serialVersionUID = 1L;

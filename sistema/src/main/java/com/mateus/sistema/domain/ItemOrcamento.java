@@ -6,8 +6,10 @@ import java.math.BigDecimal;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-@Entity(name = "orcamento_item")
+@Entity
+@Table(name ="orcamento_item")
 public class ItemOrcamento extends ItemPedido implements Serializable {
 
 	private static final long serialVersionUID = 1L;

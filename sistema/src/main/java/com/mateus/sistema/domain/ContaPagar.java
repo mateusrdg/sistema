@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import com.mateus.sistema.domain.enums.EstadoPagamento;
 import com.mateus.sistema.domain.enums.TipoConta;
 
-@Entity
+@Entity(name = "ContaPagar")
 @Table(name = "conta_pagar")
 public class ContaPagar extends Conta implements Serializable {
 
