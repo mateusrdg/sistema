@@ -14,6 +14,7 @@ import com.mateus.sistema.domain.Cliente;
 import com.mateus.sistema.domain.ContaPagar;
 import com.mateus.sistema.domain.ContaReceber;
 import com.mateus.sistema.domain.Endereco;
+import com.mateus.sistema.domain.EntradaEstoque;
 import com.mateus.sistema.domain.Estado;
 import com.mateus.sistema.domain.Estoque;
 import com.mateus.sistema.domain.FormaPagamento;
@@ -28,6 +29,7 @@ import com.mateus.sistema.domain.ItemPedidoVenda;
 import com.mateus.sistema.domain.Movimentacao;
 import com.mateus.sistema.domain.Orcamento;
 import com.mateus.sistema.domain.Pais;
+import com.mateus.sistema.domain.ParcelaCompra;
 import com.mateus.sistema.domain.ParcelaVenda;
 import com.mateus.sistema.domain.PedidoCompra;
 import com.mateus.sistema.domain.PedidoVenda;
@@ -52,6 +54,7 @@ import com.mateus.sistema.repository.ClienteRepository;
 import com.mateus.sistema.repository.ContaPagarRepository;
 import com.mateus.sistema.repository.ContaReceberRepository;
 import com.mateus.sistema.repository.EnderecoRepository;
+import com.mateus.sistema.repository.EntradaEstoqueRepository;
 import com.mateus.sistema.repository.EstadoRepository;
 import com.mateus.sistema.repository.EstoqueProdutoRepository;
 import com.mateus.sistema.repository.EstoqueRepository;
@@ -144,8 +147,12 @@ public class DBService {
 	private TelefoneRepository telefoneRepo;
 	@Autowired 
 	private PessoaTelefoneRepository pessoaTelefoneRepo;
+	@Autowired
+	private EntradaEstoqueRepository entradaEstoqueRepo;
+	
 
 	public void instantiateTestDatabase() {
+		
 		Pais pais = new Pais(null, "Brasil", "10", "BR");
 		paisRepo.saveAll(Arrays.asList(pais));
 
@@ -291,8 +298,14 @@ public class DBService {
 				EstadoPagamento.PENDENTE, Calendar.getInstance(), null);
 		ParcelaVenda parcela2 = new ParcelaVenda(null, formaPagamentoPedido3, new BigDecimal(45),
 				EstadoPagamento.PENDENTE, Calendar.getInstance(), null);
+		
+		ParcelaCompra parcela3 = new ParcelaCompra(null, formaPagamentoPedido1, new BigDecimal(45),
+				EstadoPagamento.QUITADO, Calendar.getInstance(), Calendar.getInstance());
+		
 		parcelaVendaRepo.saveAll(Arrays.asList(parcela1, parcela2));
+		parcelaCompraRepo.saveAll(Arrays.asList(parcela3));
 
+		
 		ContaPagar conta1 = new ContaPagar(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(200),
 				EstadoPagamento.QUITADO, Calendar.getInstance(), Calendar.getInstance(), formaPagamentoPedido1, null);
 		ContaReceber conta2 = new ContaReceber(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(10),
@@ -324,5 +337,9 @@ public class DBService {
 		Movimentacao mov5 = new Movimentacao(null, caixaMov2, null, Calendar.getInstance(), Calendar.getInstance(),new BigDecimal(200), TipoMovimentacao.SANGRIA);
 
 		movimentacaoRepo.saveAll(Arrays.asList(mov1, mov2, mov3, mov4, mov5)) ;
+		
+		EntradaEstoque entrada1 = new EntradaEstoque(null, Calendar.getInstance(), Calendar.getInstance(), itemCompra, estoque1);
+		
+		entradaEstoqueRepo.saveAll(Arrays.asList(entrada1));
 	}
 }

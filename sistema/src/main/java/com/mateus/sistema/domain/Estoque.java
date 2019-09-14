@@ -10,7 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Version;
-@Entity(name ="estoque")
+
+@Entity(name = "estoque")
 public class Estoque implements Serializable {
 	@Version
 	private static final long serialVersionUID = 1L;
@@ -18,10 +19,13 @@ public class Estoque implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String descricao;
-	
+
 	@OneToMany(mappedBy = "estoque")
 	private List<ProdutoEstoque> estoqueProduto = new ArrayList<ProdutoEstoque>();
-	
+
+	@OneToMany(mappedBy = "estoque")
+	private List<EntradaEstoque> entradas = new ArrayList<EntradaEstoque>();
+
 	public Estoque() {
 	}
 
@@ -45,7 +49,7 @@ public class Estoque implements Serializable {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	
+
 	public List<ProdutoEstoque> getEstoqueProduto() {
 		return estoqueProduto;
 	}
@@ -53,7 +57,15 @@ public class Estoque implements Serializable {
 	public void setEstoqueProduto(List<ProdutoEstoque> estoqueProduto) {
 		this.estoqueProduto = estoqueProduto;
 	}
-	
+
+	public List<EntradaEstoque> getEntradas() {
+		return entradas;
+	}
+
+	public void setEntradas(List<EntradaEstoque> entradas) {
+		this.entradas = entradas;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

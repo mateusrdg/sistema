@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity(name = "pedido_compra_item")
 public class ItemPedidoCompra extends ItemPedido implements Serializable {
@@ -20,6 +21,11 @@ public class ItemPedidoCompra extends ItemPedido implements Serializable {
 	@JoinColumn(name = "produto_id")
 	private Produto produto;
 
+	@OneToOne(mappedBy = "item")
+	private EntradaEstoque entrada;
+
+	private Boolean gerouEstoque;
+	
 	public ItemPedidoCompra() {
 	}
 
@@ -44,6 +50,22 @@ public class ItemPedidoCompra extends ItemPedido implements Serializable {
 
 	public void setProduto(Produto produto) {
 		this.produto = produto;
+	}
+
+	public EntradaEstoque getEntrada() {
+		return entrada;
+	}
+
+	public void setEntrada(EntradaEstoque entrada) {
+		this.entrada = entrada;
+	}
+
+	public Boolean getGerouEstoque() {
+		return gerouEstoque;
+	}
+
+	public void setGerouEstoque(Boolean gerouEstoque) {
+		this.gerouEstoque = gerouEstoque;
 	}
 
 }

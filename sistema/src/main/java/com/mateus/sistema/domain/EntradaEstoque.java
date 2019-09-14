@@ -1,24 +1,45 @@
 package com.mateus.sistema.domain;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Calendar;
 
-public class EntradaEstoque implements Serializable {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Version;
 
+@Entity(name = "EntradaEstoque")
+@Table(name = "entrada_estoque")
+public class EntradaEstoque implements Serializable {
+	@Version
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	private BigDecimal quantidade;
 	private Calendar data;
 	private Calendar hora;
-	private ItemPedido item;
+	@OneToOne
+	@JoinColumn(name = "pedido_compra_item_id")
+	private ItemPedidoCompra item;
+	@ManyToOne
+	@JoinColumn(name = "estoque_id")
 	private Estoque estoque;
 
 	public EntradaEstoque() {
 	}
 
-	public EntradaEstoque(Integer id, Calendar data, Calendar hora, ItemPedido item, Estoque estoque) {
+	public EntradaEstoque(Integer id, Calendar data, Calendar hora, ItemPedidoCompra item, Estoque estoque) {
 		super();
 		this.id = id;
+		this.quantidade = item.getQuantidade();
 		this.data = data;
 		this.hora = hora;
 		this.item = item;
@@ -49,11 +70,11 @@ public class EntradaEstoque implements Serializable {
 		this.hora = hora;
 	}
 
-	public ItemPedido getItem() {
+	public ItemPedidoCompra getItem() {
 		return item;
 	}
 
-	public void setItem(ItemPedido item) {
+	public void setItem(ItemPedidoCompra item) {
 		this.item = item;
 	}
 
@@ -63,6 +84,14 @@ public class EntradaEstoque implements Serializable {
 
 	public void setEstoque(Estoque estoque) {
 		this.estoque = estoque;
+	}
+
+	public BigDecimal getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(BigDecimal quantidade) {
+		this.quantidade = quantidade;
 	}
 
 	@Override
