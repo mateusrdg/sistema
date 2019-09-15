@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity(name = "CompraItem")
 @Table(name = "compra_item")
-public class CompraItem extends ItemPedido implements Serializable {
+public class CompraItem extends PedidoItem implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

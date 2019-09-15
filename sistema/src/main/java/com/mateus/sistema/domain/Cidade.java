@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,8 +23,10 @@ public class Cidade implements Serializable {
 	@Version
 	private static final long serialVersionUID = 1L;
 	@Id
+	@Column(name = "id", unique = true, nullable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
+	
 	private String nome;
 	private String codigoIBGE;
 	@ManyToOne
@@ -37,18 +40,26 @@ public class Cidade implements Serializable {
 	public Cidade() {
 	}
 
-	public Cidade(Integer id, String nome, String codigoIBGE, Estado estado) {
+	public Cidade(Long id, String nome, String codigoIBGE, Estado estado) {
 		this.id = id;
 		this.nome = nome;
 		this.codigoIBGE = codigoIBGE;
 		this.estado = estado;
 	}
 
-	public Integer getId() {
+	public String getCodigoIBGE() {
+		return codigoIBGE;
+	}
+
+	public void setCodigoIBGE(String codigoIBGE) {
+		this.codigoIBGE = codigoIBGE;
+	}
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

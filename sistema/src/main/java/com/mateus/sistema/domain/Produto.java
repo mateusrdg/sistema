@@ -34,7 +34,7 @@ public class Produto implements Serializable {
 	private List<ProdutoSubgrupo> produtoSubgrupo = new ArrayList<ProdutoSubgrupo>();
 
 	@Transient
-	private List<ItemPedido> itens = new ArrayList<ItemPedido>();
+	private List<PedidoItem> itens = new ArrayList<PedidoItem>();
 
 	public Produto() {
 	}
@@ -95,11 +95,11 @@ public class Produto implements Serializable {
 		this.produtoEstoque = estoquesProduto;
 	}
 
-	public List<ItemPedido> getItens() {
+	public List<PedidoItem> getItens() {
 		return itens;
 	}
 
-	public void setItens(List<ItemPedido> itens) {
+	public void setItens(List<PedidoItem> itens) {
 		this.itens = itens;
 	}
 

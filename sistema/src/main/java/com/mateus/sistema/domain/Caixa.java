@@ -2,6 +2,7 @@ package com.mateus.sistema.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,24 +16,26 @@ public class Caixa implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@Column(name = "id", unique = true, nullable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
+	@Column(name = "descricao", length = 255)
 	private String descricao;
 
 	public Caixa() {
 	}
 
-	public Caixa(Integer id, String descricao) {
+	public Caixa(Long id, String descricao) {
 		super();
 		this.id = id;
 		this.descricao = descricao;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

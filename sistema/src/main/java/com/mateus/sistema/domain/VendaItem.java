@@ -9,7 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 @Entity(name = "Venda")
 @Table(name = "venda_item")
-public class VendaItem extends ItemPedido implements Serializable {
+public class VendaItem extends PedidoItem implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Version;
 
 import com.mateus.sistema.domain.enums.EstadoCaixa;
@@ -22,14 +25,22 @@ import com.mateus.sistema.domain.enums.EstadoCaixa;
 public class CaixaMovimentacao implements Serializable {
 	@Version
 	private static final long serialVersionUID = 1L;
+
 	@Id
+	@Column(name = "id", unique = true, nullable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
+
 	private Integer estado;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "data_abertura")
 	private Calendar dataAbertura;
-	private Calendar horaAbertura;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "data_fechamento")
 	private Calendar dataFechamento;
-	private Calendar horaFechamento;
+
 	@ManyToOne
 	@JoinColumn(name = "caixa_id")
 	private Caixa caixa;
@@ -42,24 +53,22 @@ public class CaixaMovimentacao implements Serializable {
 	public CaixaMovimentacao() {
 	}
 
-	public CaixaMovimentacao(Integer id, EstadoCaixa estado, Calendar dataAbertura, Calendar horaAbertura,
-			Calendar dataFechamento, Calendar horaFechamento, Caixa caixa, Funcionario funcionario) {
+	public CaixaMovimentacao(Long id, EstadoCaixa estado, Calendar dataAbertura, Calendar dataFechamento,
+			Caixa caixa, Funcionario funcionario) {
 		super();
 		this.id = id;
-		this.estado = (estado == null) ? null : estado.getCod();;
+		this.estado = (estado == null) ? null : estado.getCod();
 		this.dataAbertura = dataAbertura;
-		this.horaAbertura = horaAbertura;
 		this.dataFechamento = dataFechamento;
-		this.horaFechamento = horaFechamento;
 		this.caixa = caixa;
 		this.funcionario = funcionario;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -79,28 +88,12 @@ public class CaixaMovimentacao implements Serializable {
 		this.dataAbertura = dataAbertura;
 	}
 
-	public Calendar getHoraAbertura() {
-		return horaAbertura;
-	}
-
-	public void setHoraAbertura(Calendar horaAbertura) {
-		this.horaAbertura = horaAbertura;
-	}
-
 	public Calendar getDataFechamento() {
 		return dataFechamento;
 	}
 
 	public void setDataFechamento(Calendar dataFechamento) {
 		this.dataFechamento = dataFechamento;
-	}
-
-	public Calendar getHoraFechamento() {
-		return horaFechamento;
-	}
-
-	public void setHoraFechamento(Calendar horaFechamento) {
-		this.horaFechamento = horaFechamento;
 	}
 
 	public Caixa getCaixa() {

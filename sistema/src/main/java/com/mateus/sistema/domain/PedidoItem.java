@@ -3,13 +3,14 @@ package com.mateus.sistema.domain;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public abstract class ItemPedido implements Serializable {
+public abstract class PedidoItem implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -19,12 +20,13 @@ public abstract class ItemPedido implements Serializable {
 
 	private BigDecimal quantidade;
 	private BigDecimal preco;
+	@Column(name = "desconto", precision = 19, scale = 4)
 	private BigDecimal desconto;
 
-	public ItemPedido() {
+	public PedidoItem() {
 	}
 
-	public ItemPedido(Integer id, BigDecimal quantidade, BigDecimal preco, BigDecimal desconto) {
+	public PedidoItem(Integer id, BigDecimal quantidade, BigDecimal preco, BigDecimal desconto) {
 		this.id = id;
 		// this.pedido = pedido;
 		// this.produto = produto;
@@ -81,7 +83,7 @@ public abstract class ItemPedido implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ItemPedido other = (ItemPedido) obj;
+		PedidoItem other = (PedidoItem) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

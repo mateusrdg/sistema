@@ -147,7 +147,7 @@ public class DBService {
 	private MovimentacaoRepository movimentacaoRepo;
 	@Autowired
 	private TelefoneRepository telefoneRepo;
-	@Autowired 
+	@Autowired
 	private PessoaTelefoneRepository pessoaTelefoneRepo;
 	@Autowired
 	private EntradaEstoqueRepository entradaEstoqueRepo;
@@ -155,7 +155,7 @@ public class DBService {
 	private ProdutoSubgrupoRepository produtoSubgrupoRepository;
 
 	public void instantiateTestDatabase() {
-		
+
 		Pais pais = new Pais(null, "Brasil", "10", "BR");
 		paisRepo.saveAll(Arrays.asList(pais));
 
@@ -196,8 +196,7 @@ public class DBService {
 		ProdutoSubgrupo prodSubgrupo2 = new ProdutoSubgrupo(null, subgrupo2, produto1);
 		ProdutoSubgrupo prodSubgrupo3 = new ProdutoSubgrupo(null, subgrupo1, produto2);
 		ProdutoSubgrupo prodSubgrupo4 = new ProdutoSubgrupo(null, subgrupo3, produto4);
-		
-		
+
 		Preco preco1 = new Preco(null, produto1, new BigDecimal(100.00), TipoPreco.AVISTA);
 		Preco preco2 = new Preco(null, produto2, new BigDecimal(200.00), TipoPreco.AVISTA);
 		Preco preco3 = new Preco(null, produto3, new BigDecimal(300.00), TipoPreco.AVISTA);
@@ -210,7 +209,7 @@ public class DBService {
 		produto4.getPrecos().addAll(Arrays.asList(preco4));
 
 		produtoRepo.saveAll(Arrays.asList(produto1, produto2, produto3, produto4));
-		produtoSubgrupoRepository.saveAll(Arrays.asList(prodSubgrupo1,prodSubgrupo2,prodSubgrupo3,prodSubgrupo4));
+		produtoSubgrupoRepository.saveAll(Arrays.asList(prodSubgrupo1, prodSubgrupo2, prodSubgrupo3, prodSubgrupo4));
 		precoRepo.saveAll(Arrays.asList(preco1, preco2, preco3, preco4, preco5));
 
 		ProdutoEstoque estoqueProduto1 = new ProdutoEstoque(null, estoque1, produto1, new BigDecimal(5));
@@ -251,23 +250,21 @@ public class DBService {
 		Telefone tel2 = new Telefone(null, "111111111");
 		Telefone tel3 = new Telefone(null, "222222222");
 		Telefone tel4 = new Telefone(null, "333333333");
-		
-		telefoneRepo.saveAll(Arrays.asList(tel1,tel2,tel3,tel4));
-		
+
+		telefoneRepo.saveAll(Arrays.asList(tel1, tel2, tel3, tel4));
+
 		PessoaTelefone pessoaTel1 = new PessoaTelefone(null, cliente1, tel1);
 		PessoaTelefone pessoaTel2 = new PessoaTelefone(null, funcionario1, tel1);
 		PessoaTelefone pessoaTel3 = new PessoaTelefone(null, fornecedor1, tel1);
-		
-		pessoaTelefoneRepo.saveAll(Arrays.asList(pessoaTel1,pessoaTel2,pessoaTel3));
-		
+
+		pessoaTelefoneRepo.saveAll(Arrays.asList(pessoaTel1, pessoaTel2, pessoaTel3));
+
 		pessoaEnderecoRepo.saveAll(Arrays.asList(pe1, pe2, pe3, pe4));
 
-		Venda venda = new Venda(null, Calendar.getInstance(), Calendar.getInstance(), cliente1,
-				funcionario1);
+		Venda venda = new Venda(null, Calendar.getInstance(), Calendar.getInstance(), cliente1, funcionario1);
 		pedidoVendaRepo.saveAll(Arrays.asList(venda));
 
-		Compra compra = new Compra(null, Calendar.getInstance(), Calendar.getInstance(), fornecedor2,
-				funcionario2);
+		Compra compra = new Compra(null, Calendar.getInstance(), Calendar.getInstance(), fornecedor2, funcionario2);
 		pedidoCompraRepo.saveAll(Arrays.asList(compra));
 
 		Orcamento orcamento = new Orcamento(null, Calendar.getInstance(), Calendar.getInstance(), cliente2,
@@ -278,8 +275,8 @@ public class DBService {
 				new BigDecimal(0));
 		itemPedidoVendaRepo.saveAll(Arrays.asList(itemVenda));
 
-		CompraItem itemCompra = new CompraItem(null, compra, produto2, new BigDecimal(10),
-				new BigDecimal(2), new BigDecimal(0));
+		CompraItem itemCompra = new CompraItem(null, compra, produto2, new BigDecimal(10), new BigDecimal(2),
+				new BigDecimal(0));
 		itemPedidoCompraRepo.saveAll(Arrays.asList(itemCompra));
 
 		OrcamentoItem itemOrcamento = new OrcamentoItem(null, orcamento, produto3, new BigDecimal(10),
@@ -307,14 +304,13 @@ public class DBService {
 				EstadoPagamento.PENDENTE, Calendar.getInstance(), null);
 		ParcelaVenda parcela2 = new ParcelaVenda(null, formaPagamentoPedido3, new BigDecimal(45),
 				EstadoPagamento.PENDENTE, Calendar.getInstance(), null);
-		
+
 		ParcelaCompra parcela3 = new ParcelaCompra(null, formaPagamentoPedido1, new BigDecimal(45),
 				EstadoPagamento.QUITADO, Calendar.getInstance(), Calendar.getInstance());
-		
+
 		parcelaVendaRepo.saveAll(Arrays.asList(parcela1, parcela2));
 		parcelaCompraRepo.saveAll(Arrays.asList(parcela3));
 
-		
 		ContaPagar conta1 = new ContaPagar(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(200),
 				EstadoPagamento.QUITADO, Calendar.getInstance(), Calendar.getInstance(), formaPagamentoPedido1, null);
 		ContaReceber conta2 = new ContaReceber(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(10),
@@ -332,23 +328,29 @@ public class DBService {
 
 		caixaRepo.saveAll(Arrays.asList(caixa1, caixa2));
 
-		CaixaMovimentacao caixaMov1 = new CaixaMovimentacao(null, EstadoCaixa.ABERTO, Calendar.getInstance(),
-				Calendar.getInstance(), null, null, caixa1, funcionario1);
+		CaixaMovimentacao caixaMov1 = new CaixaMovimentacao(null, EstadoCaixa.ABERTO, Calendar.getInstance(), null,
+				caixa1, funcionario1);
 		CaixaMovimentacao caixaMov2 = new CaixaMovimentacao(null, EstadoCaixa.FECHADO, Calendar.getInstance(),
-				Calendar.getInstance(), Calendar.getInstance(), Calendar.getInstance(), caixa2, funcionario2);
+				Calendar.getInstance(), caixa2, funcionario2);
 
 		caixaMovimentacaoRepo.saveAll(Arrays.asList(caixaMov1, caixaMov2));
 
-		Movimentacao mov1 = new Movimentacao(null, caixaMov1, conta1.getId(), Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(200), TipoMovimentacao.SAIDA);
-		Movimentacao mov2 = new Movimentacao(null, caixaMov1, conta2.getId(), Calendar.getInstance(), Calendar.getInstance(),new BigDecimal(10), TipoMovimentacao.ENTRADA);
-		Movimentacao mov3 = new Movimentacao(null, caixaMov1, conta3.getId(), Calendar.getInstance(), Calendar.getInstance(),new BigDecimal(45), TipoMovimentacao.ENTRADA);
-		Movimentacao mov4 = new Movimentacao(null, caixaMov1, conta4.getId(), Calendar.getInstance(), Calendar.getInstance(),new BigDecimal(45), TipoMovimentacao.ENTRADA);
-		Movimentacao mov5 = new Movimentacao(null, caixaMov2, null, Calendar.getInstance(), Calendar.getInstance(),new BigDecimal(200), TipoMovimentacao.SANGRIA);
+		Movimentacao mov1 = new Movimentacao(null, caixaMov1, conta1.getId(), Calendar.getInstance(),
+				Calendar.getInstance(), new BigDecimal(200), TipoMovimentacao.SAIDA);
+		Movimentacao mov2 = new Movimentacao(null, caixaMov1, conta2.getId(), Calendar.getInstance(),
+				Calendar.getInstance(), new BigDecimal(10), TipoMovimentacao.ENTRADA);
+		Movimentacao mov3 = new Movimentacao(null, caixaMov1, conta3.getId(), Calendar.getInstance(),
+				Calendar.getInstance(), new BigDecimal(45), TipoMovimentacao.ENTRADA);
+		Movimentacao mov4 = new Movimentacao(null, caixaMov1, conta4.getId(), Calendar.getInstance(),
+				Calendar.getInstance(), new BigDecimal(45), TipoMovimentacao.ENTRADA);
+		Movimentacao mov5 = new Movimentacao(null, caixaMov2, null, Calendar.getInstance(), Calendar.getInstance(),
+				new BigDecimal(200), TipoMovimentacao.SANGRIA);
 
-		movimentacaoRepo.saveAll(Arrays.asList(mov1, mov2, mov3, mov4, mov5)) ;
-		
-		EntradaEstoque entrada1 = new EntradaEstoque(null, Calendar.getInstance(), Calendar.getInstance(), itemCompra, estoque1);
-		
+		movimentacaoRepo.saveAll(Arrays.asList(mov1, mov2, mov3, mov4, mov5));
+
+		EntradaEstoque entrada1 = new EntradaEstoque(null, Calendar.getInstance(), Calendar.getInstance(), itemCompra,
+				estoque1);
+
 		entradaEstoqueRepo.saveAll(Arrays.asList(entrada1));
 	}
 }
