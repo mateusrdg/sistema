@@ -7,24 +7,24 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-@Entity
-@Table(name = "pedido_venda_item")
-public class ItemPedidoVenda extends ItemPedido implements Serializable {
+@Entity(name = "Venda")
+@Table(name = "venda_item")
+public class VendaItem extends ItemPedido implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne
-	@JoinColumn(name = "pedido_venda_id", referencedColumnName = "id")
-	private PedidoVenda pedido;
+	@JoinColumn(name = "venda_id", referencedColumnName = "id")
+	private Venda pedido;
 	
 	@ManyToOne
 	@JoinColumn(name = "produto_id")
 	private Produto produto;
 	
-	public ItemPedidoVenda() {
+	public VendaItem() {
 	}
 
-	public ItemPedidoVenda(Integer id, PedidoVenda pedido, Produto produto, BigDecimal quantidade, BigDecimal preco,BigDecimal desconto) {
+	public VendaItem(Integer id, Venda pedido, Produto produto, BigDecimal quantidade, BigDecimal preco,BigDecimal desconto) {
 		super(id, quantidade, preco, desconto);
 		this.pedido = pedido;
 		this.produto = produto;
@@ -34,7 +34,7 @@ public class ItemPedidoVenda extends ItemPedido implements Serializable {
 		return pedido;
 	}
 
-	public void setPedido(PedidoVenda pedido) {
+	public void setPedido(Venda pedido) {
 		this.pedido = pedido;
 	}
 

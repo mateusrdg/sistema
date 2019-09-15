@@ -8,9 +8,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Entity
+@Entity(name = "OrcamentoItem")
 @Table(name ="orcamento_item")
-public class ItemOrcamento extends ItemPedido implements Serializable {
+public class OrcamentoItem extends ItemPedido implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -22,10 +22,10 @@ public class ItemOrcamento extends ItemPedido implements Serializable {
 	@JoinColumn(name = "produto_id")
 	private Produto produto;
 
-	public ItemOrcamento() {
+	public OrcamentoItem() {
 	}
 
-	public ItemOrcamento(Integer id, Orcamento pedido, Produto produto, BigDecimal quantidade, BigDecimal preco,
+	public OrcamentoItem(Integer id, Orcamento pedido, Produto produto, BigDecimal quantidade, BigDecimal preco,
 			BigDecimal desconto) {
 		super(id, quantidade, preco, desconto);
 		this.pedido = pedido;

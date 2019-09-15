@@ -23,16 +23,16 @@ import com.mateus.sistema.domain.FormaPagamentoVenda;
 import com.mateus.sistema.domain.Fornecedor;
 import com.mateus.sistema.domain.Funcionario;
 import com.mateus.sistema.domain.Grupo;
-import com.mateus.sistema.domain.ItemOrcamento;
-import com.mateus.sistema.domain.ItemPedidoCompra;
-import com.mateus.sistema.domain.ItemPedidoVenda;
+import com.mateus.sistema.domain.OrcamentoItem;
+import com.mateus.sistema.domain.CompraItem;
+import com.mateus.sistema.domain.VendaItem;
 import com.mateus.sistema.domain.Movimentacao;
 import com.mateus.sistema.domain.Orcamento;
 import com.mateus.sistema.domain.Pais;
 import com.mateus.sistema.domain.ParcelaCompra;
 import com.mateus.sistema.domain.ParcelaVenda;
-import com.mateus.sistema.domain.PedidoCompra;
-import com.mateus.sistema.domain.PedidoVenda;
+import com.mateus.sistema.domain.Compra;
+import com.mateus.sistema.domain.Venda;
 import com.mateus.sistema.domain.PessoaEndereco;
 import com.mateus.sistema.domain.PessoaTelefone;
 import com.mateus.sistema.domain.Preco;
@@ -65,16 +65,16 @@ import com.mateus.sistema.repository.FormaPagamentoVendaRepository;
 import com.mateus.sistema.repository.FornecedorRepository;
 import com.mateus.sistema.repository.FuncionarioRepository;
 import com.mateus.sistema.repository.GrupoRepository;
-import com.mateus.sistema.repository.ItemOrcamentoRepository;
-import com.mateus.sistema.repository.ItemPedidoCompraRepository;
-import com.mateus.sistema.repository.ItemPedidoVendaRepository;
+import com.mateus.sistema.repository.OrcamentoItemRepository;
+import com.mateus.sistema.repository.CompraItemRepository;
+import com.mateus.sistema.repository.VendaItemRepository;
 import com.mateus.sistema.repository.MovimentacaoRepository;
 import com.mateus.sistema.repository.OrcamentoRepository;
 import com.mateus.sistema.repository.PaisRepository;
 import com.mateus.sistema.repository.ParcelaCompraRepository;
 import com.mateus.sistema.repository.ParcelaVendaRepository;
-import com.mateus.sistema.repository.PedidoCompraRepository;
-import com.mateus.sistema.repository.PedidoVendaRepository;
+import com.mateus.sistema.repository.CompraRepository;
+import com.mateus.sistema.repository.VendaRepository;
 import com.mateus.sistema.repository.PessoaEnderecoRepository;
 import com.mateus.sistema.repository.PessoaTelefoneRepository;
 import com.mateus.sistema.repository.PrecoRepository;
@@ -114,17 +114,17 @@ public class DBService {
 	@Autowired
 	private PessoaEnderecoRepository pessoaEnderecoRepo;
 	@Autowired
-	private PedidoCompraRepository pedidoCompraRepo;
+	private CompraRepository pedidoCompraRepo;
 	@Autowired
-	private PedidoVendaRepository pedidoVendaRepo;
+	private VendaRepository pedidoVendaRepo;
 	@Autowired
 	private OrcamentoRepository orcamentoRepo;
 	@Autowired
-	private ItemPedidoVendaRepository itemPedidoVendaRepo;
+	private VendaItemRepository itemPedidoVendaRepo;
 	@Autowired
-	private ItemPedidoCompraRepository itemPedidoCompraRepo;
+	private CompraItemRepository itemPedidoCompraRepo;
 	@Autowired
-	private ItemOrcamentoRepository itemPedidoOrcamentoRepo;
+	private OrcamentoItemRepository itemPedidoOrcamentoRepo;
 	@Autowired
 	private FormaPagamentoRepository formaPagamentoRepo;
 	@Autowired
@@ -262,11 +262,11 @@ public class DBService {
 		
 		pessoaEnderecoRepo.saveAll(Arrays.asList(pe1, pe2, pe3, pe4));
 
-		PedidoVenda venda = new PedidoVenda(null, Calendar.getInstance(), Calendar.getInstance(), cliente1,
+		Venda venda = new Venda(null, Calendar.getInstance(), Calendar.getInstance(), cliente1,
 				funcionario1);
 		pedidoVendaRepo.saveAll(Arrays.asList(venda));
 
-		PedidoCompra compra = new PedidoCompra(null, Calendar.getInstance(), Calendar.getInstance(), fornecedor2,
+		Compra compra = new Compra(null, Calendar.getInstance(), Calendar.getInstance(), fornecedor2,
 				funcionario2);
 		pedidoCompraRepo.saveAll(Arrays.asList(compra));
 
@@ -274,15 +274,15 @@ public class DBService {
 				funcionario1, false);
 		orcamentoRepo.saveAll(Arrays.asList(orcamento));
 
-		ItemPedidoVenda itemVenda = new ItemPedidoVenda(null, venda, produto1, new BigDecimal(10), new BigDecimal(2),
+		VendaItem itemVenda = new VendaItem(null, venda, produto1, new BigDecimal(10), new BigDecimal(2),
 				new BigDecimal(0));
 		itemPedidoVendaRepo.saveAll(Arrays.asList(itemVenda));
 
-		ItemPedidoCompra itemCompra = new ItemPedidoCompra(null, compra, produto2, new BigDecimal(10),
+		CompraItem itemCompra = new CompraItem(null, compra, produto2, new BigDecimal(10),
 				new BigDecimal(2), new BigDecimal(0));
 		itemPedidoCompraRepo.saveAll(Arrays.asList(itemCompra));
 
-		ItemOrcamento itemOrcamento = new ItemOrcamento(null, orcamento, produto3, new BigDecimal(10),
+		OrcamentoItem itemOrcamento = new OrcamentoItem(null, orcamento, produto3, new BigDecimal(10),
 				new BigDecimal(2), new BigDecimal(0));
 		itemPedidoOrcamentoRepo.saveAll(Arrays.asList(itemOrcamento));
 

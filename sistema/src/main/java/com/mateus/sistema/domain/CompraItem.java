@@ -7,15 +7,17 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
-@Entity(name = "pedido_compra_item")
-public class ItemPedidoCompra extends ItemPedido implements Serializable {
+@Entity(name = "CompraItem")
+@Table(name = "compra_item")
+public class CompraItem extends ItemPedido implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne
-	@JoinColumn(name = "pedido_compra_id")
-	private PedidoCompra pedido;
+	@JoinColumn(name = "compra_id")
+	private Compra pedido;
 
 	@ManyToOne
 	@JoinColumn(name = "produto_id")
@@ -26,21 +28,21 @@ public class ItemPedidoCompra extends ItemPedido implements Serializable {
 
 	private Boolean gerouEstoque;
 	
-	public ItemPedidoCompra() {
+	public CompraItem() {
 	}
 
-	public ItemPedidoCompra(Integer id, PedidoCompra pedido, Produto produto, BigDecimal quantidade, BigDecimal preco,
+	public CompraItem(Integer id, Compra pedido, Produto produto, BigDecimal quantidade, BigDecimal preco,
 			BigDecimal desconto) {
 		super(id, quantidade, preco, desconto);
 		this.pedido = pedido;
 		this.produto = produto;
 	}
 
-	public PedidoCompra getPedido() {
+	public Compra getPedido() {
 		return pedido;
 	}
 
-	public void setPedido(PedidoCompra pedido) {
+	public void setPedido(Compra pedido) {
 		this.pedido = pedido;
 	}
 

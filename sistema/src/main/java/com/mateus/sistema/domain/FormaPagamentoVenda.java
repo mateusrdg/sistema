@@ -23,8 +23,8 @@ public class FormaPagamentoVenda extends FormaPagamentoPedido implements Seriali
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne
-	@JoinColumn(name = "pedido_id")
-	private PedidoVenda pedido;
+	@JoinColumn(name = "venda_id")
+	private Venda pedido;
 
 	@ManyToOne
 	@JoinColumn(name = "forma_pagamento_id")
@@ -39,7 +39,7 @@ public class FormaPagamentoVenda extends FormaPagamentoPedido implements Seriali
 	public FormaPagamentoVenda() {
 	}
 
-	public FormaPagamentoVenda(Integer id, PedidoVenda pedido, FormaPagamento formaPagamento, Calendar data, BigDecimal valor,
+	public FormaPagamentoVenda(Integer id, Venda pedido, FormaPagamento formaPagamento, Calendar data, BigDecimal valor,
 			EstadoPagamento estado) {
 		super(id, data, valor, estado);
 		this.pedido = pedido;

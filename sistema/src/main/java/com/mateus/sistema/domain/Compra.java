@@ -11,9 +11,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "pedido_compra")
-public class PedidoCompra extends Pedido implements Serializable {
+@Entity(name = "Compra")
+@Table(name = "compra")
+public class Compra extends Pedido implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -22,16 +22,16 @@ public class PedidoCompra extends Pedido implements Serializable {
 	private Fornecedor fornecedor;
 	
 	@OneToMany(mappedBy = "pedido")
-	private List<ItemPedidoCompra> itens = new ArrayList<ItemPedidoCompra>();
+	private List<CompraItem> itens = new ArrayList<CompraItem>();
 	
 	
 	@OneToMany(mappedBy = "pedido")
 	private List<FormaPagamentoCompra> pagamentos = new ArrayList<FormaPagamentoCompra>();
 	
-	public PedidoCompra() {
+	public Compra() {
 	}
 	
-	public PedidoCompra(Integer id, Calendar data, Calendar hora, Fornecedor fornecedor, Funcionario vendedor) {
+	public Compra(Integer id, Calendar data, Calendar hora, Fornecedor fornecedor, Funcionario vendedor) {
 		super(id, data, hora);
 		setFornecedor(fornecedor);
 	}
@@ -44,11 +44,11 @@ public class PedidoCompra extends Pedido implements Serializable {
 		this.fornecedor = fornecedor;
 	}
 	
-	public List<ItemPedidoCompra> getItens() {
+	public List<CompraItem> getItens() {
 		return itens;
 	}
 
-	public void setItens(List<ItemPedidoCompra> itens) {
+	public void setItens(List<CompraItem> itens) {
 		this.itens = itens;
 	}
 }

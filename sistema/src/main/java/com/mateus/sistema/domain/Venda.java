@@ -11,9 +11,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "pedido_venda")
-public class PedidoVenda extends Pedido implements Serializable {
+@Entity(name = "Venda")
+@Table(name = "venda")
+public class Venda extends Pedido implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -25,12 +25,12 @@ public class PedidoVenda extends Pedido implements Serializable {
 	private Funcionario vendedor;
 
 	@OneToMany(mappedBy = "pedido")
-	private List<ItemPedidoVenda> itens = new ArrayList<ItemPedidoVenda>();
+	private List<VendaItem> itens = new ArrayList<VendaItem>();
 
-	public PedidoVenda() {
+	public Venda() {
 	}
 
-	public PedidoVenda(Integer id, Calendar data, Calendar hora, Cliente cliente, Funcionario vendedor) {
+	public Venda(Integer id, Calendar data, Calendar hora, Cliente cliente, Funcionario vendedor) {
 		super(id, data, hora);
 		this.setCliente(cliente);
 		this.vendedor = vendedor;
@@ -52,11 +52,11 @@ public class PedidoVenda extends Pedido implements Serializable {
 		this.vendedor = vendedor;
 	}
 
-	public List<ItemPedidoVenda> getItens() {
+	public List<VendaItem> getItens() {
 		return itens;
 	}
 
-	public void setItens(List<ItemPedidoVenda> itens) {
+	public void setItens(List<VendaItem> itens) {
 		this.itens = itens;
 	}
 }

@@ -23,7 +23,7 @@ public class Orcamento extends Pedido implements Serializable {
 	private Funcionario vendedor;
 	
 	@OneToMany(mappedBy = "pedido")
-	private List<ItemOrcamento> itens = new ArrayList<ItemOrcamento>();
+	private List<OrcamentoItem> itens = new ArrayList<OrcamentoItem>();
 	
 	private Integer faturado;
 
@@ -53,11 +53,11 @@ public class Orcamento extends Pedido implements Serializable {
 		this.vendedor = vendedor;
 	}
 	
-	public List<ItemOrcamento> getItens() {
+	public List<OrcamentoItem> getItens() {
 		return itens;
 	}
 
-	public void setItens(List<ItemOrcamento> itens) {
+	public void setItens(List<OrcamentoItem> itens) {
 		this.itens = itens;
 	}
 

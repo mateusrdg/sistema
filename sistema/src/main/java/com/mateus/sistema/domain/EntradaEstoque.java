@@ -27,8 +27,8 @@ public class EntradaEstoque implements Serializable {
 	private Calendar data;
 	private Calendar hora;
 	@OneToOne
-	@JoinColumn(name = "pedido_compra_item_id")
-	private ItemPedidoCompra item;
+	@JoinColumn(name = "compra_item_id")
+	private CompraItem item;
 	@ManyToOne
 	@JoinColumn(name = "estoque_id")
 	private Estoque estoque;
@@ -36,7 +36,7 @@ public class EntradaEstoque implements Serializable {
 	public EntradaEstoque() {
 	}
 
-	public EntradaEstoque(Integer id, Calendar data, Calendar hora, ItemPedidoCompra item, Estoque estoque) {
+	public EntradaEstoque(Integer id, Calendar data, Calendar hora, CompraItem item, Estoque estoque) {
 		super();
 		this.id = id;
 		this.quantidade = item.getQuantidade();
@@ -70,11 +70,11 @@ public class EntradaEstoque implements Serializable {
 		this.hora = hora;
 	}
 
-	public ItemPedidoCompra getItem() {
+	public CompraItem getItem() {
 		return item;
 	}
 
-	public void setItem(ItemPedidoCompra item) {
+	public void setItem(CompraItem item) {
 		this.item = item;
 	}
 

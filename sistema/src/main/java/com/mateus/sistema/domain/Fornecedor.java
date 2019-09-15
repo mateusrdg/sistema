@@ -22,7 +22,7 @@ public class Fornecedor extends Pessoa implements Serializable {
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "fornecedor")
-	private List<PedidoCompra> pedidosCompra = new ArrayList<PedidoCompra>();
+	private List<Compra> pedidosCompra = new ArrayList<Compra>();
 
 	public Fornecedor() {
 	}
@@ -41,11 +41,11 @@ public class Fornecedor extends Pessoa implements Serializable {
 		this.nomeFantasia = nomeFantasia;
 	}
 
-	public List<PedidoCompra> getPedidosCompra() {
+	public List<Compra> getPedidosCompra() {
 		return pedidosCompra;
 	}
 
-	public void setPedidosCompra(List<PedidoCompra> pedidosCompra) {
+	public void setPedidosCompra(List<Compra> pedidosCompra) {
 		this.pedidosCompra = pedidosCompra;
 	}
 
