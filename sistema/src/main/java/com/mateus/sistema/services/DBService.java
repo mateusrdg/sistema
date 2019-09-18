@@ -352,5 +352,6 @@ public class DBService {
 				estoque1);
 
 		entradaEstoqueRepo.saveAll(Arrays.asList(entrada1));
+	
 	}
 }

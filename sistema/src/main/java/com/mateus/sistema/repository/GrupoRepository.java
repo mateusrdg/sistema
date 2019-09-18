@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.mateus.sistema.domain.Grupo;
 
 @Repository
-public interface GrupoRepository extends JpaRepository<Grupo,Integer> {
+public interface GrupoRepository extends JpaRepository<Grupo,Long> {
 
 }
