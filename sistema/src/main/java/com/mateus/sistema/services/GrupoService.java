@@ -15,10 +15,16 @@ public class GrupoService {
 	@Autowired
 	private GrupoRepository repo;
 	
+//	public Grupo find(Long id) {
+//		Optional<Grupo> obj = repo.findById(id);
+//		return obj.orElseThrow(() -> new ObjectNotFoundException(
+//				"Objeto não encontrado! Id:"+ id + ", Tipo: " + Grupo.class.getName()));
+//	}
+	
 	public Grupo find(Long id) {
 		Optional<Grupo> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! Id:"+ id + ", Tipo: " + Grupo.class.getName()));
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Grupo.class.getName()));
 	}
 
 	public List<Grupo> findAll() {

@@ -9,24 +9,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mateus.sistema.domain.Grupo;
-import com.mateus.sistema.services.GrupoService;
+import com.mateus.sistema.domain.Subgrupo;
+import com.mateus.sistema.services.SubgrupoService;
 
 @RestController
-@RequestMapping(value = "/grupos")
-public class GrupoResource {
+@RequestMapping(value = "/subgrupos")
+public class SubgrupoResource {
 	@Autowired 
-	private GrupoService service;
+	private SubgrupoService service;
 	
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
-	public ResponseEntity<Grupo> find(@PathVariable Long id){
-		Grupo obj = service.find(id);
+	public ResponseEntity<Subgrupo> find(@PathVariable Integer id){
+		Subgrupo obj = service.find(id);
 		return ResponseEntity.ok(obj);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<Grupo>> findAll() {
-		List<Grupo> list = service.findAll();
+	public ResponseEntity<List<Subgrupo>> findAll() {
+		List<Subgrupo> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	

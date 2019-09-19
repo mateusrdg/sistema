@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Version;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity(name = "subgrupo")
 public class Subgrupo implements Serializable {
 	@Version
@@ -22,11 +24,13 @@ public class Subgrupo implements Serializable {
 	private Integer id;
 
 	private String descricao;
-
+	
+	
 	@ManyToOne
 	@JoinColumn(name = "grupo_id")
 	private Grupo grupo;
-
+	
+	@JsonIgnore
 	@OneToMany(mappedBy = "subgrupo")
 	private List<ProdutoSubgrupo> produtoSubgrupos = new ArrayList<ProdutoSubgrupo>();
 
@@ -62,7 +66,7 @@ public class Subgrupo implements Serializable {
 	public void setGrupo(Grupo grupo) {
 		this.grupo = grupo;
 	}
-
+	
 	public List<ProdutoSubgrupo> getProdutoSubgrupos() {
 		return produtoSubgrupos;
 	}
