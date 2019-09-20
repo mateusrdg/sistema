@@ -90,8 +90,8 @@ public abstract class Pessoa implements Serializable {
 		this.dataCadastro = dataCadastro;
 	}
 
-	public TipoCliente getTipoPessoa() {
-		return TipoCliente.toEnum(tipo);
+	public TipoPessoa getTipoPessoa() {
+		return TipoPessoa.toEnum(tipo);
 	}
 
 	public void setTipoPessoa(TipoCliente tipoPessoa) {

@@ -7,5 +7,5 @@ import com.mateus.sistema.domain.Endereco;
 
 @Repository
 public interface EnderecoRepository extends JpaRepository<Endereco,Integer> {
-
+	List<Endereco> findByListId(List<Integer> list);
 }
