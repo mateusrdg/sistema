@@ -7,23 +7,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mateus.sistema.domain.Cliente;
-import com.mateus.sistema.domain.PessoaEndereco;
+import com.mateus.sistema.domain.enums.TipoPessoa;
 import com.mateus.sistema.repository.ClienteRepository;
-import com.mateus.sistema.repository.PessoaEnderecoRepository;
 import com.mateus.sistema.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class ClienteService {
 	@Autowired
 	private ClienteRepository repo;
-	@Autowired 
-	private PessoaEnderecoRepository pessoaEndRepo;
+	@Autowired
+	private PessoaService pessoaService;
 	
 	public Cliente find(Integer id) {
 		Optional<Cliente> obj = repo.findById(id);
-		Cliente cliente = obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
-		List<PessoaEndereco> list = pessoaEndRepo.findByTipoAndPessoa_id( cliente.getTipoPessoa(), cliente.getId());
-		return cliente;
+		Cliente pessoa = obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
+		pessoa.getEnderecos().addAll(pessoaService.findEnderecos(pessoa.getId(), TipoPessoa.CLIENTE));
+		pessoa.getTelefones().addAll(pessoaService.findTelefones(pessoa.getId(), TipoPessoa.CLIENTE));
+		return pessoa;
 	}
 
 	public List<Cliente> findAll() {

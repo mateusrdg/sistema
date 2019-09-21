@@ -11,8 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mateus.sistema.domain.enums.Estado;
-import com.mateus.sistema.domain.enums.TipoCliente;
 import com.mateus.sistema.domain.enums.TipoPessoa;
 
 @MappedSuperclass
@@ -22,7 +22,7 @@ public abstract class Pessoa implements Serializable {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+	@JsonIgnore
 	@Transient
 	private Integer tipo;
 	private String nome;
@@ -33,9 +33,9 @@ public abstract class Pessoa implements Serializable {
 	private Integer estado;
 	
 	@Transient
-	private List<PessoaEndereco> enderecos = new ArrayList<PessoaEndereco>();
+	private List<Endereco> enderecos = new ArrayList<Endereco>();
 	@Transient
-	private List<PessoaTelefone> telefones = new ArrayList<PessoaTelefone>();
+	private List<Telefone> telefones = new ArrayList<Telefone>();
 	
 	public Pessoa() {
 	}
@@ -90,29 +90,21 @@ public abstract class Pessoa implements Serializable {
 		this.dataCadastro = dataCadastro;
 	}
 
-	public TipoPessoa getTipoPessoa() {
-		return TipoPessoa.toEnum(tipo);
-	}
 
-	public void setTipoPessoa(TipoCliente tipoPessoa) {
-		this.tipo = tipoPessoa.getCod();
-	}
-
-
-	public List<PessoaEndereco> getEnderecos() {
+	public List<Endereco> getEnderecos() {
 		return enderecos;
 	}
 
-	public void setEnderecos(List<PessoaEndereco> enderecos) {
+	public void setEnderecos(List<Endereco> enderecos) {
 		this.enderecos = enderecos;
 	}
 	
 	
-	public List<PessoaTelefone> getTelefones() {
+	public List<Telefone> getTelefones() {
 		return telefones;
 	}
 
-	public void setTelefones(List<PessoaTelefone> telefones) {
+	public void setTelefones(List<Telefone> telefones) {
 		this.telefones = telefones;
 	}	
 	

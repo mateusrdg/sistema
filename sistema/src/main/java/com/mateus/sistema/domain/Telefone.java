@@ -13,7 +13,7 @@ import javax.persistence.Version;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity(name = "telefone")
+@Entity(name = "Telefone")
 public class Telefone implements Serializable {
 	@Version
 	private static final long serialVersionUID = 1L;
@@ -22,9 +22,9 @@ public class Telefone implements Serializable {
 	private Integer id;
 	private String numero;
 	
-	@OneToMany(mappedBy = "endereco")
 	@JsonIgnore
-	private List<PessoaEndereco> pessoaTelefones = new ArrayList<PessoaEndereco>();
+	@OneToMany(mappedBy = "telefone")
+	private List<PessoaTelefone> pessoaTelefones = new ArrayList<PessoaTelefone>();
 
 	public Telefone() {
 	}
@@ -48,6 +48,14 @@ public class Telefone implements Serializable {
 
 	public void setNumero(String numero) {
 		this.numero = numero;
+	}
+
+	public List<PessoaTelefone> getPessoaTelefones() {
+		return pessoaTelefones;
+	}
+
+	public void setPessoaTelefones(List<PessoaTelefone> pessoaTelefones) {
+		this.pessoaTelefones = pessoaTelefones;
 	}
 
 	@Override

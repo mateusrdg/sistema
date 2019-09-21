@@ -9,24 +9,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mateus.sistema.domain.Cliente;
-import com.mateus.sistema.services.ClienteService;
+import com.mateus.sistema.domain.Fornecedor;
+import com.mateus.sistema.services.FornecedorService;
 
 @RestController
-@RequestMapping(value = "/clientes")
-public class ClienteResource {
+@RequestMapping(value = "/fornecedores")
+public class FornecedorResource {
 	@Autowired 
-	private ClienteService service;
+	private FornecedorService service;
 	
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
-	public ResponseEntity<Cliente> find(@PathVariable Integer id){
-		Cliente obj = service.find(id);
+	public ResponseEntity<Fornecedor> find(@PathVariable Integer id){
+		Fornecedor obj = service.find(id);
 		return ResponseEntity.ok(obj);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<Cliente>> findAll() {
-		List<Cliente> list = service.findAll();
+	public ResponseEntity<List<Fornecedor>> findAll() {
+		List<Fornecedor> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
 	
