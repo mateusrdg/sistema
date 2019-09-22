@@ -1,5 +1,7 @@
 package com.mateus.sistema.resouces;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mateus.sistema.domain.Produto;
+import com.mateus.sistema.dto.ProdutoDTO;
 import com.mateus.sistema.services.ProdutoService;
 
 @RestController
@@ -18,16 +21,22 @@ public class ProdutoResource {
 	@Autowired 
 	private ProdutoService service;
 	
+	private List<ProdutoDTO> listDto = new ArrayList<ProdutoDTO>();;
+	
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
-	public ResponseEntity<Produto> find(@PathVariable Integer id){
+	public ResponseEntity<ProdutoDTO> find(@PathVariable Integer id){
 		Produto obj = service.find(id);
-		return ResponseEntity.ok(obj);
+		ProdutoDTO objDTO = new ProdutoDTO(obj);
+		return ResponseEntity.ok(objDTO);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<Produto>> findAll() {
+	public ResponseEntity<List<ProdutoDTO>> findAll() {
 		List<Produto> list = service.findAll();
-		return ResponseEntity.ok().body(list);
+		for (Produto obj : list) {
+			listDto.addAll(Arrays.asList(new ProdutoDTO(obj)));
+		}
+		return ResponseEntity.ok().body(listDto);
 	}
 	
 }
