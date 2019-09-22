@@ -25,7 +25,6 @@ public class Subgrupo implements Serializable {
 
 	private String descricao;
 	
-	
 	@ManyToOne
 	@JoinColumn(name = "grupo_id")
 	private Grupo grupo;

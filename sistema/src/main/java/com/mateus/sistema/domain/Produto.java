@@ -32,10 +32,10 @@ public class Produto implements Serializable {
 	@OneToMany(mappedBy = "produto")
 	private List<ProdutoEstoque> produtoEstoque = new ArrayList<ProdutoEstoque>();
 	
-	@JsonIgnore
 	@OneToMany(mappedBy = "produto")
 	private List<ProdutoSubgrupo> produtoSubgrupo = new ArrayList<ProdutoSubgrupo>();
-
+	
+	@JsonIgnore
 	@Transient
 	private List<PedidoItem> itens = new ArrayList<PedidoItem>();
 
@@ -98,16 +98,16 @@ public class Produto implements Serializable {
 		this.itens = itens;
 	}
 
+	public List<ProdutoSubgrupo> getProdutoSubgrupo() {
+		return produtoSubgrupo;
+	}
+
 	public List<ProdutoEstoque> getProdutoEstoque() {
 		return produtoEstoque;
 	}
 
 	public void setProdutoEstoque(List<ProdutoEstoque> produtoEstoque) {
 		this.produtoEstoque = produtoEstoque;
-	}
-
-	public List<ProdutoSubgrupo> getProdutoSubgrupo() {
-		return produtoSubgrupo;
 	}
 
 	public void setProdutoSubgrupo(List<ProdutoSubgrupo> produtoSubgrupo) {

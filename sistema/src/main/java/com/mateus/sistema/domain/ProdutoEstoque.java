@@ -9,10 +9,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity(name = "ProdutoEstoque")
 public class ProdutoEstoque implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	@JsonIgnore
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -21,6 +24,7 @@ public class ProdutoEstoque implements Serializable {
 	@JoinColumn(name="estoque_id")
 	private Estoque estoque;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="produto_id")
 	private Produto produto;
@@ -51,6 +55,22 @@ public class ProdutoEstoque implements Serializable {
 
 	public void setQuantidade(BigDecimal quantidade) {
 		this.quantidade = quantidade;
+	}
+	
+	public Estoque getEstoque() {
+		return estoque;
+	}
+
+	public void setEstoque(Estoque estoque) {
+		this.estoque = estoque;
+	}
+
+	public Produto getProduto() {
+		return produto;
+	}
+
+	public void setProduto(Produto produto) {
+		this.produto = produto;
 	}
 
 	@Override

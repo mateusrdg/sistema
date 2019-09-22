@@ -9,10 +9,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity(name = "ProdutoSubgrupo")
 public class ProdutoSubgrupo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	@JsonIgnore
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -21,6 +24,7 @@ public class ProdutoSubgrupo implements Serializable {
 	@JoinColumn(name = "subgrupo_id")
 	private Subgrupo subgrupo;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "produto_id")
 	private Produto produto;
