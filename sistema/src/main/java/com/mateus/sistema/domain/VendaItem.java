@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-@Entity(name = "Venda")
+@Entity(name = "VendaItem")
 @Table(name = "venda_item")
 public class VendaItem extends PedidoItem implements Serializable {
 

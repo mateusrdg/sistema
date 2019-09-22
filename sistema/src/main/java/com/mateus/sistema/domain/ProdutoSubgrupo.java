@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-@Entity
+@Entity(name = "ProdutoSubgrupo")
 public class ProdutoSubgrupo implements Serializable {
 
 	private static final long serialVersionUID = 1L;

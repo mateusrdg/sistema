@@ -15,7 +15,7 @@ import javax.persistence.Version;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity(name = "subgrupo")
+@Entity(name = "Subgrupo")
 public class Subgrupo implements Serializable {
 	@Version
 	private static final long serialVersionUID = 1L;

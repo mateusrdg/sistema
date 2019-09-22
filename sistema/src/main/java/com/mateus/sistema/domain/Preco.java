@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mateus.sistema.domain.enums.TipoPreco;
-@Entity(name = "preco")
+@Entity(name = "Preco")
 public class Preco implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
