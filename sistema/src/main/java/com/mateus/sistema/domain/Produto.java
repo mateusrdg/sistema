@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity(name = "Produto")
 public class Produto implements Serializable {
 	@Version
@@ -29,7 +31,8 @@ public class Produto implements Serializable {
 
 	@OneToMany(mappedBy = "produto")
 	private List<ProdutoEstoque> produtoEstoque = new ArrayList<ProdutoEstoque>();
-
+	
+	@JsonIgnore
 	@OneToMany(mappedBy = "produto")
 	private List<ProdutoSubgrupo> produtoSubgrupo = new ArrayList<ProdutoSubgrupo>();
 
@@ -85,14 +88,6 @@ public class Produto implements Serializable {
 
 	public void setPrecos(List<Preco> precos) {
 		this.precos = precos;
-	}
-
-	public List<ProdutoEstoque> getEstoquesProduto() {
-		return produtoEstoque;
-	}
-
-	public void setEstoquesProduto(List<ProdutoEstoque> estoquesProduto) {
-		this.produtoEstoque = estoquesProduto;
 	}
 
 	public List<PedidoItem> getItens() {
