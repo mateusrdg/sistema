@@ -9,7 +9,9 @@ import com.mateus.sistema.domain.ProdutoEstoque;
 public class ProdutoEstoqueDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private Estoque estoque;
+	private Integer id;
+	
+	private String descricao;
 
 	private BigDecimal quantidade;
 
@@ -17,12 +19,14 @@ public class ProdutoEstoqueDTO implements Serializable {
 	}
 
 	public ProdutoEstoqueDTO(Estoque estoque, BigDecimal quantidade) {
-		this.setEstoque(estoque);
+		this.setId(estoque.getId());
+		this.setDescricao(estoque.getDescricao());
 		this.setQuantidade(quantidade);
 	}
 	
 	public ProdutoEstoqueDTO(ProdutoEstoque produtoEstoque) {
-		this.setEstoque(produtoEstoque.getEstoque());
+		this.setId(produtoEstoque.getEstoque().getId());
+		this.setDescricao(produtoEstoque.getEstoque().getDescricao());
 		this.setQuantidade(produtoEstoque.getQuantidade());
 	}
 
@@ -34,11 +38,19 @@ public class ProdutoEstoqueDTO implements Serializable {
 		this.quantidade = quantidade;
 	}
 
-	public Estoque getEstoque() {
-		return estoque;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setEstoque(Estoque estoque) {
-		this.estoque = estoque;
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 }

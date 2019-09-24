@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mateus.sistema.domain.PedidoItem;
 import com.mateus.sistema.domain.Preco;
 import com.mateus.sistema.domain.Produto;
@@ -17,6 +18,7 @@ public class ProdutoDTO implements Serializable {
 
 	private Integer id;
 	private String descricao;
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Calendar dataCadastro;
 	private Boolean ativo;
 
