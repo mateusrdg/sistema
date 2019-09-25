@@ -18,7 +18,7 @@ public abstract class Parcela implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;;
+	private Integer id;
 	private BigDecimal valor;
 	private Integer estado;
 	private Calendar dataVencimento;

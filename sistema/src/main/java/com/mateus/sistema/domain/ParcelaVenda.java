@@ -11,6 +11,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mateus.sistema.domain.enums.EstadoPagamento;
 
 @Entity(name = "ParcelaVenda")
@@ -19,6 +20,7 @@ public class ParcelaVenda extends Parcela implements Serializable {
 	@Version
 	private static final long serialVersionUID = 1L;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "forma_pagamento_venda_id")
 	private FormaPagamentoVenda formaPagamentoVenda;

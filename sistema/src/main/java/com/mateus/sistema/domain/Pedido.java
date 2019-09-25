@@ -1,15 +1,12 @@
 package com.mateus.sistema.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.Transient;
 @MappedSuperclass
 public abstract class Pedido implements Serializable {
 
@@ -18,20 +15,13 @@ public abstract class Pedido implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private Calendar data;
-	private Calendar hora;
 	
-	
-	//@JsonIgnore
-	@Transient
-	private List<FormaPagamento> formasPagamento = new ArrayList<FormaPagamento>();
-
 	public Pedido() {
 	}
 
-	public Pedido(Integer id, Calendar data, Calendar hora) {
+	public Pedido(Integer id, Calendar data) {
 		this.id = id;
 		this.data = data;
-		this.hora = hora;
 	}
 
 	public Integer getId() {
@@ -50,23 +40,6 @@ public abstract class Pedido implements Serializable {
 		this.data = data;
 	}
 
-	public Calendar getHora() {
-		return hora;
-	}
-
-	public void setHora(Calendar hora) {
-		this.hora = hora;
-	}
-
-
-	public List<FormaPagamento> getFormasPagamento() {
-		return formasPagamento;
-	}
-
-	public void setFormasPagamento(List<FormaPagamento> formasPagamento) {
-		this.formasPagamento = formasPagamento;
-	}
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -26,12 +26,15 @@ public class Venda extends Pedido implements Serializable {
 
 	@OneToMany(mappedBy = "pedido")
 	private List<VendaItem> itens = new ArrayList<VendaItem>();
-
+	
+	@OneToMany(mappedBy = "pedido")
+	private List<FormaPagamentoVenda> formasPagamento = new ArrayList<FormaPagamentoVenda>();
+	
 	public Venda() {
 	}
 
-	public Venda(Integer id, Calendar data, Calendar hora, Cliente cliente, Funcionario vendedor) {
-		super(id, data, hora);
+	public Venda(Integer id, Calendar data, Cliente cliente, Funcionario vendedor) {
+		super(id, data);
 		this.setCliente(cliente);
 		this.vendedor = vendedor;
 	}
@@ -59,4 +62,14 @@ public class Venda extends Pedido implements Serializable {
 	public void setItens(List<VendaItem> itens) {
 		this.itens = itens;
 	}
+
+	public List<FormaPagamentoVenda> getFormasPagamento() {
+		return formasPagamento;
+	}
+
+	public void setFormasPagamento(List<FormaPagamentoVenda> formasPagamento) {
+		this.formasPagamento = formasPagamento;
+	}
+	
+	
 }

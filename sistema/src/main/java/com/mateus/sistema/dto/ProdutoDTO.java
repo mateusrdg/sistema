@@ -13,11 +13,9 @@ import com.mateus.sistema.domain.Produto;
 import com.mateus.sistema.domain.ProdutoEstoque;
 import com.mateus.sistema.domain.ProdutoSubgrupo;
 
-public class ProdutoDTO implements Serializable {
+public class ProdutoDTO extends BaseProdutoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private Integer id;
-	private String descricao;
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Calendar dataCadastro;
 	private Boolean ativo;
@@ -33,8 +31,7 @@ public class ProdutoDTO implements Serializable {
 
 	public ProdutoDTO(Integer id, String descricao, Calendar dataCadastro, Boolean ativo, List<PrecoDTO> precos,
 			List<ProdutoEstoqueDTO> estoques, List<ProdutoSubgrupoDTO> subgrupos, List<PedidoItem> itens) {
-		this.id = id;
-		this.descricao = descricao;
+		super(id, descricao);
 		this.dataCadastro = dataCadastro;
 		this.ativo = ativo;
 		this.precos = precos;
@@ -43,8 +40,7 @@ public class ProdutoDTO implements Serializable {
 	}
 
 	public ProdutoDTO(Produto produto) {
-		this.id = produto.getId();
-		this.descricao = produto.getDescricao();
+		super(produto);
 		this.dataCadastro = produto.getDataCadastro();
 		this.ativo = produto.getAtivo();
 
@@ -61,22 +57,6 @@ public class ProdutoDTO implements Serializable {
 		for (ProdutoSubgrupo produtoSubgrupo : produto.getProdutoSubgrupo()) {
 			this.subgrupos.addAll(Arrays.asList(new ProdutoSubgrupoDTO(produtoSubgrupo.getSubgrupo())));
 		}
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
 	}
 
 	public Calendar getDataCadastro() {

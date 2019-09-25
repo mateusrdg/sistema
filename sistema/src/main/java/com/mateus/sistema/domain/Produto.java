@@ -23,6 +23,7 @@ public class Produto implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String descricao;
+	private String referencia;
 	private Calendar dataCadastro;
 	private Boolean ativo;
 
@@ -42,10 +43,11 @@ public class Produto implements Serializable {
 	public Produto() {
 	}
 
-	public Produto(Integer id, String descricao, Calendar dataCadastro, Boolean ativo) {
+	public Produto(Integer id, String descricao, String referencia, Calendar dataCadastro, Boolean ativo) {
 		super();
 		this.id = id;
 		this.descricao = descricao;
+		this.referencia = referencia;
 		this.dataCadastro = dataCadastro;
 		this.ativo = ativo;
 	}
@@ -112,6 +114,14 @@ public class Produto implements Serializable {
 
 	public void setProdutoSubgrupo(List<ProdutoSubgrupo> produtoSubgrupo) {
 		this.produtoSubgrupo = produtoSubgrupo;
+	}
+	
+	public String getReferencia() {
+		return referencia;
+	}
+
+	public void setReferencia(String referencia) {
+		this.referencia = referencia;
 	}
 
 	@Override

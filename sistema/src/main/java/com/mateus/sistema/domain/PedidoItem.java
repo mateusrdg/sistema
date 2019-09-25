@@ -28,8 +28,6 @@ public abstract class PedidoItem implements Serializable {
 
 	public PedidoItem(Integer id, BigDecimal quantidade, BigDecimal preco, BigDecimal desconto) {
 		this.id = id;
-		// this.pedido = pedido;
-		// this.produto = produto;
 		this.quantidade = quantidade;
 		this.preco = preco;
 		this.desconto = desconto;

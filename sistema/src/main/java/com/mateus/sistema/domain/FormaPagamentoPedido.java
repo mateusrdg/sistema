@@ -60,12 +60,12 @@ public abstract class FormaPagamentoPedido implements Serializable {
 		this.valor = valor;
 	}
 
-	public Integer getEstado() {
-		return estado;
+	public EstadoPagamento getEstado() {
+		return EstadoPagamento.toEnum(estado);
 	}
 
-	public void setEstado(Integer estado) {
-		this.estado = estado;
+	public void setEstado(EstadoPagamento estado) {
+		this.estado = estado.getCod();
 	}
 
 	@Override

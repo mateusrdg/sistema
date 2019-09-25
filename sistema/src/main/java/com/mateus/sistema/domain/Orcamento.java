@@ -30,8 +30,8 @@ public class Orcamento extends Pedido implements Serializable {
 	public Orcamento() {
 	}
 	
-	public Orcamento(Integer id, Calendar data, Calendar hora, Cliente cliente, Funcionario vendedor, Boolean faturado) {
-		super(id, data, hora);
+	public Orcamento(Integer id, Calendar data, Cliente cliente, Funcionario vendedor, Boolean faturado) {
+		super(id, data);
 		this.setCliente(cliente);
 		this.vendedor = vendedor;
 		this.faturado = (faturado == true) ? 1 : 0;

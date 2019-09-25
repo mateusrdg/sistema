@@ -12,7 +12,6 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.mateus.sistema.domain.enums.Estado;
 import com.mateus.sistema.domain.enums.TipoPessoa;
 
 @MappedSuperclass
@@ -30,7 +29,7 @@ public abstract class Pessoa implements Serializable {
 	private String cpfCnpj;
 	private Calendar dataCadastro;
 	
-	private Integer estado;
+	private Boolean ativo;
 	
 	@Transient
 	private List<Endereco> enderecos = new ArrayList<Endereco>();
@@ -47,7 +46,7 @@ public abstract class Pessoa implements Serializable {
 		this.email = email;
 		this.dataCadastro = dataCadastro;
 		this.cpfCnpj = cpfCnpj;
-		this.estado = Estado.ATIVO.getCod(); 
+		this.ativo = true; 
 	}
 
 	public String getNome() {
@@ -116,12 +115,12 @@ public abstract class Pessoa implements Serializable {
 		this.tipo = tipo.getCod();
 	}
 	
-	public Estado getEstado() {
-		return Estado.toEnum(estado);
+	public Boolean getEstado() {
+		return ativo;
 	}
 
-	public void setEstado(Estado estado) {
-		this.estado = estado.getCod();
+	public void setEstado(Boolean estado) {
+		this.ativo = estado;
 	}
 	
 	@Override

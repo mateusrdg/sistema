@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mateus.sistema.domain.Venda;
+import com.mateus.sistema.dto.VendaDTO;
 import com.mateus.sistema.services.VendaService;
 
 @RestController
@@ -19,9 +20,10 @@ public class VendaResource {
 	private VendaService service;
 	
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
-	public ResponseEntity<Venda> find(@PathVariable Integer id){
+	public ResponseEntity<VendaDTO> find(@PathVariable Integer id){
 		Venda obj = service.find(id);
-		return ResponseEntity.ok(obj);
+		VendaDTO objDTO = new VendaDTO(obj);
+		return ResponseEntity.ok(objDTO);
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
