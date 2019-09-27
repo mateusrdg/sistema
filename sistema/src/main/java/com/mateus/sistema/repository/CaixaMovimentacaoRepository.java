@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.mateus.sistema.domain.CaixaMovimentacao;
 
 @Repository
-public interface CaixaMovimentacaoRepository extends JpaRepository<CaixaMovimentacao,Integer> {
+public interface CaixaMovimentacaoRepository extends JpaRepository<CaixaMovimentacao,Long> {
 
 }

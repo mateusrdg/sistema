@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mateus.sistema.domain.enums.TipoMovimentacao;
 @Entity(name = "Movimentacao")
 @Table(name = "movimentacao")
@@ -24,11 +25,11 @@ public class Movimentacao implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private Calendar data;
-	private Calendar hora;
 	private BigDecimal valor;
 	private Integer tipo;
 	@Column(name = "conta_id")
 	private Integer contaId;
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "caixa_movimentacao_id") 
 	private CaixaMovimentacao caixaMovimentacao;
@@ -36,13 +37,12 @@ public class Movimentacao implements Serializable {
 	public Movimentacao() {
 	}
 
-	public Movimentacao(Integer id, CaixaMovimentacao caixaMovimentacao , Integer contaId,  Calendar data, Calendar hora, BigDecimal valor, TipoMovimentacao tipo) {
+	public Movimentacao(Integer id, CaixaMovimentacao caixaMovimentacao , Integer contaId,  Calendar data, BigDecimal valor, TipoMovimentacao tipo) {
 		super();
 		this.id = id;
 		this.caixaMovimentacao = caixaMovimentacao;
 		this.contaId = contaId;
 		this.data = data;
-		this.hora = hora;
 		this.valor = valor;
 		this.tipo = (tipo == null) ? null : tipo.getCod();
 	}
@@ -61,14 +61,6 @@ public class Movimentacao implements Serializable {
 
 	public void setData(Calendar data) {
 		this.data = data;
-	}
-
-	public Calendar getHora() {
-		return hora;
-	}
-
-	public void setHora(Calendar hora) {
-		this.hora = hora;
 	}
 
 	public BigDecimal getValor() {

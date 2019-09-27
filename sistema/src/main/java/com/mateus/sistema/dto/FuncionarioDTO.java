@@ -4,21 +4,21 @@ import java.io.Serializable;
 
 import com.mateus.sistema.domain.Funcionario;
 
-public class VendedorDTO implements Serializable {
+public class FuncionarioDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
 	private String nome;
 
-	public VendedorDTO() {
+	public FuncionarioDTO() {
 	}
 
-	public VendedorDTO(Integer id, String nome, String email) {
+	public FuncionarioDTO(Integer id, String nome, String email) {
 		this.id = id;
 		this.nome = nome;
 	}
 
-	public VendedorDTO(Funcionario vendedor) {
+	public FuncionarioDTO(Funcionario vendedor) {
 		this.id = vendedor.getId();
 		this.nome = vendedor.getNome();
 	}

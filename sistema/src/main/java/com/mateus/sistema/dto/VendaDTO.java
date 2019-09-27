@@ -14,15 +14,14 @@ public class VendaDTO extends PedidoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private ClienteDTO cliente;
-	private VendedorDTO vendedor;
+	private FuncionarioDTO vendedor;
 	private List<VendaItemDTO> itens = new ArrayList<VendaItemDTO>();
 	private List<FormaPagamentoVendaDTO> formasPagamento = new ArrayList<FormaPagamentoVendaDTO>();
 
-	
 	public VendaDTO() {
 	}
-	
-	public VendaDTO(Integer id, Calendar data,ClienteDTO cliente, VendedorDTO vendedor, List<VendaItemDTO> itens,
+
+	public VendaDTO(Integer id, Calendar data, ClienteDTO cliente, FuncionarioDTO vendedor, List<VendaItemDTO> itens,
 			List<FormaPagamentoVendaDTO> formasPagamento) {
 		super(id, data);
 		this.cliente = cliente;
@@ -30,20 +29,19 @@ public class VendaDTO extends PedidoDTO implements Serializable {
 		this.itens = itens;
 		this.formasPagamento = formasPagamento;
 	}
-	
+
 	public VendaDTO(Venda venda) {
-		super(venda.getId(),venda.getData()) ;
+		super(venda.getId(), venda.getData());
 		this.cliente = new ClienteDTO(venda.getCliente());
-		this.vendedor = new VendedorDTO(venda.getVendedor());
+		this.vendedor = new FuncionarioDTO(venda.getVendedor());
 		for (FormaPagamentoVenda formaPagamentoPedido : venda.getFormasPagamento()) {
-			this.formasPagamento.addAll(Arrays.asList(new FormaPagamentoVendaDTO(formaPagamentoPedido) ));
+			this.formasPagamento.addAll(Arrays.asList(new FormaPagamentoVendaDTO(formaPagamentoPedido)));
 		}
-		
+
 		for (VendaItem itens : venda.getItens()) {
-			this.itens.addAll(Arrays.asList(new VendaItemDTO(itens) ));
+			this.itens.addAll(Arrays.asList(new VendaItemDTO(itens)));
 		}
 	}
-	
 
 	public ClienteDTO getCliente() {
 		return cliente;
@@ -53,11 +51,11 @@ public class VendaDTO extends PedidoDTO implements Serializable {
 		this.cliente = cliente;
 	}
 
-	public VendedorDTO getVendedor() {
+	public FuncionarioDTO getVendedor() {
 		return vendedor;
 	}
 
-	public void setVendedor(VendedorDTO vendedor) {
+	public void setVendedor(FuncionarioDTO vendedor) {
 		this.vendedor = vendedor;
 	}
 
