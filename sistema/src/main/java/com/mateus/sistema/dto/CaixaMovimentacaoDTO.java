@@ -2,12 +2,11 @@ package com.mateus.sistema.dto;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.mateus.sistema.domain.CaixaMovimentacao;
-import com.mateus.sistema.domain.Movimentacao;
 import com.mateus.sistema.domain.enums.EstadoCaixa;
 
 public class CaixaMovimentacaoDTO implements Serializable {
@@ -26,7 +25,7 @@ public class CaixaMovimentacaoDTO implements Serializable {
 	private FuncionarioDTO funcionario;
 
 	private List<MovimentacaoDTO> movimentacoes = new ArrayList<MovimentacaoDTO>();
-	
+
 	public CaixaMovimentacaoDTO() {
 	}
 
@@ -48,11 +47,10 @@ public class CaixaMovimentacaoDTO implements Serializable {
 		this.dataAbertura = caixaMovimentacao.getDataAbertura();
 		this.dataFechamento = caixaMovimentacao.getDataAbertura();
 		this.funcionario = new FuncionarioDTO(caixaMovimentacao.getFuncionario());
-		for (Movimentacao movimentacao : caixaMovimentacao.getMovimentacoes()) {
-			this.movimentacoes.addAll(Arrays.asList(new MovimentacaoDTO(movimentacao) ));
-		}
+		movimentacoes = caixaMovimentacao.getMovimentacoes().stream().map(obj -> new MovimentacaoDTO(obj))
+				.collect(Collectors.toList());
 	}
-	
+
 	public Long getId() {
 		return id;
 	}

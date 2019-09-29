@@ -3,16 +3,14 @@ package com.mateus.sistema.dto;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.mateus.sistema.domain.FormaPagamento;
 import com.mateus.sistema.domain.FormaPagamentoCompra;
 import com.mateus.sistema.domain.FormaPagamentoPedido;
 import com.mateus.sistema.domain.FormaPagamentoVenda;
-import com.mateus.sistema.domain.ParcelaCompra;
-import com.mateus.sistema.domain.ParcelaVenda;
 import com.mateus.sistema.domain.enums.EstadoPagamento;
 
 public class FormaPagamentoDTO implements Serializable {
@@ -40,15 +38,13 @@ public class FormaPagamentoDTO implements Serializable {
 
 	public FormaPagamentoDTO(FormaPagamentoPedido formaPagamentoPedido) {
 		if (formaPagamentoPedido instanceof FormaPagamentoVenda) {
-			for (ParcelaVenda parcela : ((FormaPagamentoVenda) formaPagamentoPedido).getParcelas()) {
-				this.parcelas.addAll(Arrays.asList(new ParcelaDTO(parcela)));
-			}
+			parcelas = ((FormaPagamentoVenda) formaPagamentoPedido).getParcelas().stream().map(obj -> new ParcelaDTO(obj))
+					.collect(Collectors.toList());
 		}
 		
 		if (formaPagamentoPedido instanceof FormaPagamentoCompra) {
-			for (ParcelaCompra parcela : ((FormaPagamentoCompra) formaPagamentoPedido).getParcelas()) {
-				this.parcelas.addAll(Arrays.asList(new ParcelaDTO(parcela)));
-			}
+			parcelas = ((FormaPagamentoCompra) formaPagamentoPedido).getParcelas().stream().map(obj -> new ParcelaDTO(obj))
+					.collect(Collectors.toList());
 		}
 		this.formaPagamento = formaPagamentoPedido.getFormaPagamento().getDescricao();
 		this.valor = formaPagamentoPedido.getValor();

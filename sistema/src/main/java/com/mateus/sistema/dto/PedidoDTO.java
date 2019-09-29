@@ -2,19 +2,14 @@ package com.mateus.sistema.dto;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.mateus.sistema.domain.Compra;
-import com.mateus.sistema.domain.CompraItem;
-import com.mateus.sistema.domain.FormaPagamentoCompra;
-import com.mateus.sistema.domain.FormaPagamentoVenda;
 import com.mateus.sistema.domain.Orcamento;
-import com.mateus.sistema.domain.OrcamentoItem;
 import com.mateus.sistema.domain.Pedido;
 import com.mateus.sistema.domain.Venda;
-import com.mateus.sistema.domain.VendaItem;
 
 public class PedidoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -34,27 +29,22 @@ public class PedidoDTO implements Serializable {
 
 	public PedidoDTO(Pedido pedido) {
 		if (pedido instanceof Venda) {
-			for (FormaPagamentoVenda formaPagamentoPedido : ((Venda) pedido).getFormasPagamento()) {
-				this.formasPagamento.addAll(Arrays.asList(new FormaPagamentoDTO(formaPagamentoPedido)));
-			}
-			for (VendaItem item : ((Venda) pedido).getItens()) {
-				this.itens.addAll(Arrays.asList(new PedidoItemDTO(item)));
-			}
+			formasPagamento = ((Venda) pedido).getFormasPagamento().stream().map(obj -> new FormaPagamentoDTO(obj))
+					.collect(Collectors.toList());
+			itens = ((Venda) pedido).getItens().stream().map(obj -> new PedidoItemDTO(obj))
+					.collect(Collectors.toList());
 		}
 
 		if (pedido instanceof Compra) {
-			for (FormaPagamentoCompra formaPagamentoPedido : ((Compra) pedido).getFormasPagamento()) {
-				this.formasPagamento.addAll(Arrays.asList(new FormaPagamentoDTO(formaPagamentoPedido)));
-			}
-			for (CompraItem item : ((Compra) pedido).getItens()) {
-				this.itens.addAll(Arrays.asList(new PedidoItemDTO(item)));
-			}
+			formasPagamento = ((Compra) pedido).getFormasPagamento().stream().map(obj -> new FormaPagamentoDTO(obj))
+					.collect(Collectors.toList());
+			itens = ((Compra) pedido).getItens().stream().map(obj -> new PedidoItemDTO(obj))
+					.collect(Collectors.toList());
 		}
-		
+
 		if (pedido instanceof Orcamento) {
-			for (OrcamentoItem item : ((Orcamento) pedido).getItens()) {
-				this.itens.addAll(Arrays.asList(new PedidoItemDTO(item)));
-			}
+			itens = ((Orcamento) pedido).getItens().stream().map(obj -> new PedidoItemDTO(obj))
+					.collect(Collectors.toList());
 		}
 		this.id = pedido.getId();
 		this.data = pedido.getData();

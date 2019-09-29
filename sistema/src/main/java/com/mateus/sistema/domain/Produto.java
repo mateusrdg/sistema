@@ -44,7 +44,6 @@ public class Produto implements Serializable {
 	}
 
 	public Produto(Long id, String descricao, String referencia, Calendar dataCadastro, Boolean ativo) {
-		super();
 		this.id = id;
 		this.descricao = descricao;
 		this.referencia = referencia;
