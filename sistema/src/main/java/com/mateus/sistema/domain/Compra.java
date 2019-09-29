@@ -21,19 +21,24 @@ public class Compra extends Pedido implements Serializable {
 	@JoinColumn(name = "fornecedor_id")
 	private Fornecedor fornecedor;
 	
+	@ManyToOne
+	@JoinColumn(name = "funcionario_id")
+	private Funcionario funcionario;
+	
 	@OneToMany(mappedBy = "pedido")
 	private List<CompraItem> itens = new ArrayList<CompraItem>();
 	
 	
 	@OneToMany(mappedBy = "pedido")
-	private List<FormaPagamentoCompra> pagamentos = new ArrayList<FormaPagamentoCompra>();
+	private List<FormaPagamentoCompra> formasPagamento = new ArrayList<FormaPagamentoCompra>();
 	
 	public Compra() {
 	}
 	
-	public Compra(Integer id, Calendar data, Fornecedor fornecedor, Funcionario vendedor) {
+	public Compra(Integer id, Calendar data, Fornecedor fornecedor, Funcionario funcionario) {
 		super(id, data);
 		setFornecedor(fornecedor);
+		this.funcionario = funcionario;
 	}
 
 	public Fornecedor getFornecedor() {
@@ -51,4 +56,32 @@ public class Compra extends Pedido implements Serializable {
 	public void setItens(List<CompraItem> itens) {
 		this.itens = itens;
 	}
+
+	public Funcionario getFuncionario() {
+		return funcionario;
+	}
+
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
+	}
+
+	public List<FormaPagamentoCompra> getFormasPagamento() {
+		return formasPagamento;
+	}
+
+	public void setFormasPagamentos(List<FormaPagamentoCompra> pagamentos) {
+		this.formasPagamento = pagamentos;
+	}
+
+	@Override
+	public Pessoa getCompradorVendedor() {
+		return this.funcionario;
+	}
+
+	@Override
+	public Pessoa getClienteFornecedor() {
+		return this.fornecedor;
+	}
+
+	
 }

@@ -8,11 +8,14 @@ import java.util.Calendar;
 import java.util.List;
 
 import com.mateus.sistema.domain.FormaPagamento;
+import com.mateus.sistema.domain.FormaPagamentoCompra;
+import com.mateus.sistema.domain.FormaPagamentoPedido;
 import com.mateus.sistema.domain.FormaPagamentoVenda;
+import com.mateus.sistema.domain.ParcelaCompra;
 import com.mateus.sistema.domain.ParcelaVenda;
 import com.mateus.sistema.domain.enums.EstadoPagamento;
 
-public class FormaPagamentoVendaDTO implements Serializable {
+public class FormaPagamentoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String formaPagamento;
@@ -22,11 +25,11 @@ public class FormaPagamentoVendaDTO implements Serializable {
 
 	List<ParcelaDTO> parcelas = new ArrayList<ParcelaDTO>();
 
-	public FormaPagamentoVendaDTO() {
+	public FormaPagamentoDTO() {
 
 	}
 
-	public FormaPagamentoVendaDTO(FormaPagamento formaPagamento, BigDecimal valor, Calendar data,
+	public FormaPagamentoDTO(FormaPagamento formaPagamento, BigDecimal valor, Calendar data,
 			EstadoPagamento estado, List<ParcelaDTO> parcelas) {
 		this.formaPagamento = formaPagamento.getDescricao();
 		this.valor = valor;
@@ -35,16 +38,25 @@ public class FormaPagamentoVendaDTO implements Serializable {
 		this.parcelas = parcelas;
 	}
 
-	public FormaPagamentoVendaDTO(FormaPagamentoVenda formaPagamentoPedido) {
+	public FormaPagamentoDTO(FormaPagamentoPedido formaPagamentoPedido) {
+		if (formaPagamentoPedido instanceof FormaPagamentoVenda) {
+			for (ParcelaVenda parcela : ((FormaPagamentoVenda) formaPagamentoPedido).getParcelas()) {
+				this.parcelas.addAll(Arrays.asList(new ParcelaDTO(parcela)));
+			}
+		}
+		
+		if (formaPagamentoPedido instanceof FormaPagamentoCompra) {
+			for (ParcelaCompra parcela : ((FormaPagamentoCompra) formaPagamentoPedido).getParcelas()) {
+				this.parcelas.addAll(Arrays.asList(new ParcelaDTO(parcela)));
+			}
+		}
 		this.formaPagamento = formaPagamentoPedido.getFormaPagamento().getDescricao();
 		this.valor = formaPagamentoPedido.getValor();
 		this.data = formaPagamentoPedido.getData();
 		this.estado = formaPagamentoPedido.getEstado();
-		for (ParcelaVenda parcela : formaPagamentoPedido.getParcelas()) {
-			this.parcelas.addAll(Arrays.asList(new ParcelaDTO(parcela)));
-		}
+		
 	}
-
+	
 	public String getFormaPagamento() {
 		return formaPagamento;
 	}

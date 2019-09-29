@@ -18,9 +18,9 @@ public class FuncionarioDTO implements Serializable {
 		this.nome = nome;
 	}
 
-	public FuncionarioDTO(Funcionario vendedor) {
-		this.id = vendedor.getId();
-		this.nome = vendedor.getNome();
+	public FuncionarioDTO(Funcionario funcionario) {
+		this.id = funcionario.getId();
+		this.nome = funcionario.getNome();
 	}
 
 	public Integer getId() {

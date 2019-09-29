@@ -24,6 +24,12 @@ public abstract class Pedido implements Serializable {
 		this.data = data;
 	}
 
+	//public abstract List<PedidoItem> getItensPedido();
+	public abstract Pessoa getCompradorVendedor();
+	
+	public abstract Pessoa getClienteFornecedor();
+	
+	
 	public Integer getId() {
 		return id;
 	}

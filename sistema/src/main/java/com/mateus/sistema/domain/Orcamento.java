@@ -68,5 +68,15 @@ public class Orcamento extends Pedido implements Serializable {
 	public void setFaturado(Integer faturado) {
 		this.faturado = faturado;
 	}
+
+	@Override
+	public Pessoa getCompradorVendedor() {
+		return this.getVendedor();
+	}
+
+	@Override
+	public Pessoa getClienteFornecedor() {
+		return this.getCliente();
+	}
 	
 }

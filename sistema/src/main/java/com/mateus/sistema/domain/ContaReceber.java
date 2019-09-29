@@ -18,10 +18,12 @@ public class ContaReceber extends Conta implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	
 	@OneToOne
 	@JoinColumn(name = "forma_pagamento_venda_id")
 	private FormaPagamentoVenda formaPagamentoVenda;
 
+	
 	@OneToOne
 	@JoinColumn(name = "parcela_venda_id")
 	private ParcelaVenda parcela;

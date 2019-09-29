@@ -18,18 +18,18 @@ public class OrcamentoItem extends PedidoItem implements Serializable {
 	@JoinColumn(name = "orcamento_id")
 	private Orcamento pedido;
 
-	@ManyToOne
-	@JoinColumn(name = "produto_id")
-	private Produto produto;
+//	@ManyToOne
+//	@JoinColumn(name = "produto_id")
+//	private Produto produto;
 
 	public OrcamentoItem() {
 	}
 
 	public OrcamentoItem(Integer id, Orcamento pedido, Produto produto, BigDecimal quantidade, BigDecimal preco,
 			BigDecimal desconto) {
-		super(id, quantidade, preco, desconto);
+		super(id, quantidade, preco, desconto, produto);
 		this.pedido = pedido;
-		this.produto = produto;
+		//this.produto = produto;
 	}
 
 	public Orcamento getOrcamento() {
@@ -40,12 +40,12 @@ public class OrcamentoItem extends PedidoItem implements Serializable {
 		this.pedido = pedido;
 	}
 
-	public Produto getProduto() {
-		return produto;
-	}
-
-	public void setProduto(Produto produto) {
-		this.produto = produto;
-	}
+//	public Produto getProduto() {
+//		return produto;
+//	}
+//
+//	public void setProduto(Produto produto) {
+//		this.produto = produto;
+//	}
 
 }

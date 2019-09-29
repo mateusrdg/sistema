@@ -8,6 +8,8 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
 import com.mateus.sistema.domain.enums.EstadoPagamento;
@@ -24,12 +26,18 @@ public abstract class FormaPagamentoPedido implements Serializable {
 	private Calendar data;
 	@Column(name = "estado")
 	private Integer estado;
+	
+	@ManyToOne
+	@JoinColumn(name = "forma_pagamento_id")
+	private FormaPagamento formaPagamento;
+
 
 	public FormaPagamentoPedido() {
 	}
 
-	public FormaPagamentoPedido(Integer id, Calendar data, BigDecimal valor, EstadoPagamento estado) {
+	public FormaPagamentoPedido(Integer id, FormaPagamento formaPagamento, Calendar data, BigDecimal valor, EstadoPagamento estado) {
 		this.id = id;
+		this.formaPagamento = formaPagamento;
 		this.data = data;
 		this.valor = valor;
 		this.estado = (estado == null) ? null : estado.getCod();
@@ -67,6 +75,14 @@ public abstract class FormaPagamentoPedido implements Serializable {
 	public void setEstado(EstadoPagamento estado) {
 		this.estado = estado.getCod();
 	}
+	
+	public FormaPagamento getFormaPagamento() {
+		return formaPagamento;
+	}
+
+	public void setFormaPagamento(FormaPagamento formaPagamento) {
+		this.formaPagamento = formaPagamento;
+	}
 
 	@Override
 	public int hashCode() {
@@ -92,5 +108,4 @@ public abstract class FormaPagamentoPedido implements Serializable {
 			return false;
 		return true;
 	}
-
 }

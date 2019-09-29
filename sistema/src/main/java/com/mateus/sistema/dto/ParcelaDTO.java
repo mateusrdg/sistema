@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 
 import com.mateus.sistema.domain.Parcela;
+import com.mateus.sistema.domain.ParcelaCompra;
 import com.mateus.sistema.domain.enums.EstadoPagamento;
 
 public class ParcelaDTO implements Serializable {
@@ -27,6 +28,13 @@ public class ParcelaDTO implements Serializable {
 	}
 	
 	public ParcelaDTO(Parcela parcela) {
+		this.valor = parcela.getValor();
+		this.estado = parcela.getEstado();
+		this.dataVencimento = parcela.getDataVencimento();
+		this.dataPagamento = parcela.getDataPagamento();
+	}
+	
+	public ParcelaDTO(ParcelaCompra parcela) {
 		this.valor = parcela.getValor();
 		this.estado = parcela.getEstado();
 		this.dataVencimento = parcela.getDataVencimento();

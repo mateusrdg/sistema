@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
@@ -23,14 +25,19 @@ public abstract class PedidoItem implements Serializable {
 	@Column(name = "desconto", precision = 19, scale = 4)
 	private BigDecimal desconto;
 
+	@ManyToOne
+	@JoinColumn(name = "produto_id")
+	private Produto produto;
+	
 	public PedidoItem() {
 	}
 
-	public PedidoItem(Integer id, BigDecimal quantidade, BigDecimal preco, BigDecimal desconto) {
+	public PedidoItem(Integer id, BigDecimal quantidade, BigDecimal preco, BigDecimal desconto, Produto produto) {
 		this.id = id;
 		this.quantidade = quantidade;
 		this.preco = preco;
 		this.desconto = desconto;
+		this.produto = produto;
 	}
 
 	public Integer getId() {
@@ -63,6 +70,14 @@ public abstract class PedidoItem implements Serializable {
 
 	public void setDesconto(BigDecimal desconto) {
 		this.desconto = desconto;
+	}
+	
+	public Produto getProduto() {
+		return produto;
+	}
+
+	public void setProduto(Produto produto) {
+		this.produto = produto;
 	}
 
 	@Override

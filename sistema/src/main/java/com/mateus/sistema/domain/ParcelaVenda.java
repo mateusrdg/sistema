@@ -20,9 +20,10 @@ public class ParcelaVenda extends Parcela implements Serializable {
 	@Version
 	private static final long serialVersionUID = 1L;
 
-	@JsonIgnore
+	
 	@ManyToOne
 	@JoinColumn(name = "forma_pagamento_venda_id")
+	@JsonIgnore
 	private FormaPagamentoVenda formaPagamentoVenda;
 
 	@OneToOne(mappedBy = "parcela")

@@ -28,9 +28,9 @@ public class FormaPagamentoVenda extends FormaPagamentoPedido implements Seriali
 	@JoinColumn(name = "venda_id")
 	private Venda pedido;
 
-	@ManyToOne
-	@JoinColumn(name = "forma_pagamento_id")
-	private FormaPagamento formaPagamento;
+//	@ManyToOne
+//	@JoinColumn(name = "forma_pagamento_id")
+//	private FormaPagamento formaPagamento;
 
 	@OneToMany(mappedBy = "formaPagamentoVenda")
 	private List<ParcelaVenda> parcelas = new ArrayList<ParcelaVenda>();
@@ -43,18 +43,11 @@ public class FormaPagamentoVenda extends FormaPagamentoPedido implements Seriali
 
 	public FormaPagamentoVenda(Integer id, Venda pedido, FormaPagamento formaPagamento, Calendar data, BigDecimal valor,
 			EstadoPagamento estado) {
-		super(id, data, valor, estado);
+		super(id, formaPagamento, data, valor, estado);
 		this.pedido = pedido;
-		this.formaPagamento = formaPagamento;
 	}
 
-	public FormaPagamento getFormaPagamento() {
-		return formaPagamento;
-	}
-
-	public void setFormaPagamento(FormaPagamento formaPagamento) {
-		this.formaPagamento = formaPagamento;
-	}
+	
 
 	public List<ParcelaVenda> getParcelas() {
 		return parcelas;

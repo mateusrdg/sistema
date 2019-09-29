@@ -70,6 +70,15 @@ public class Venda extends Pedido implements Serializable {
 	public void setFormasPagamento(List<FormaPagamentoVenda> formasPagamento) {
 		this.formasPagamento = formasPagamento;
 	}
-	
+
+	@Override
+	public Pessoa getCompradorVendedor() {
+		return this.vendedor;
+	}
+
+	@Override
+	public Pessoa getClienteFornecedor() {
+		return this.cliente;
+	}
 	
 }

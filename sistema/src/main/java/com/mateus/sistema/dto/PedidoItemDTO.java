@@ -3,9 +3,9 @@ package com.mateus.sistema.dto;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import com.mateus.sistema.domain.VendaItem;
+import com.mateus.sistema.domain.PedidoItem;
 
-public class VendaItemDTO implements Serializable {
+public class PedidoItemDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String referencia;
@@ -14,10 +14,10 @@ public class VendaItemDTO implements Serializable {
 	private BigDecimal preco;
 	private BigDecimal desconto;
 
-	public VendaItemDTO() {
+	public PedidoItemDTO() {
 	}
 
-	public VendaItemDTO(String referencia, String produto, BigDecimal quantidade, BigDecimal preco, BigDecimal desconto) {
+	public PedidoItemDTO(String referencia, String produto, BigDecimal quantidade, BigDecimal preco, BigDecimal desconto) {
 		this.referencia = referencia;
 		this.produto = produto;
 		this.quantidade = quantidade;
@@ -25,13 +25,21 @@ public class VendaItemDTO implements Serializable {
 		this.desconto = desconto;
 	}
 
-	public VendaItemDTO(VendaItem item) {
+	public PedidoItemDTO(PedidoItem item) {
 		this.referencia = item.getProduto().getReferencia();
 		this.produto = item.getProduto().getDescricao();
 		this.quantidade = item.getQuantidade();
 		this.preco = item.getPreco();
 		this.desconto = item.getDesconto();
 	}
+	
+// 	public PedidoItemDTO(CompraItem item) {
+//		this.referencia = item.getProduto().getReferencia();
+//		this.produto = item.getProduto().getDescricao();
+//		this.quantidade = item.getQuantidade();
+//		this.preco = item.getPreco();
+//		this.desconto = item.getDesconto();
+//	}
 
 	public String getReferencia() {
 		return referencia;

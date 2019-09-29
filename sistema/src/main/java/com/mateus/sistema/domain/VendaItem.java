@@ -20,17 +20,13 @@ public class VendaItem extends PedidoItem implements Serializable {
 	@JoinColumn(name = "venda_id", referencedColumnName = "id")
 	private Venda pedido;
 	
-	@ManyToOne
-	@JoinColumn(name = "produto_id")
-	private Produto produto;
-	
 	public VendaItem() {
 	}
 
 	public VendaItem(Integer id, Venda pedido, Produto produto, BigDecimal quantidade, BigDecimal preco,BigDecimal desconto) {
-		super(id, quantidade, preco, desconto);
+		super(id, quantidade, preco, desconto, produto);
 		this.pedido = pedido;
-		this.produto = produto;
+		//this.produto = produto;
 	}
 	
 	public Pedido getPedido() {
@@ -41,13 +37,13 @@ public class VendaItem extends PedidoItem implements Serializable {
 		this.pedido = pedido;
 	}
 
-	public Produto getProduto() {
-		return produto;
-	}
-
-	public void setProduto(Produto produto) {
-		this.produto = produto;
-	}
+//	public Produto getProduto() {
+//		return produto;
+//	}
+//
+//	public void setProduto(Produto produto) {
+//		this.produto = produto;
+//	}
 
 	
 }
