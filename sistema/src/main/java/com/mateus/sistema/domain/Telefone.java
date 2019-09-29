@@ -19,7 +19,7 @@ public class Telefone implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	private String numero;
 	
 	@JsonIgnore
@@ -29,16 +29,16 @@ public class Telefone implements Serializable {
 	public Telefone() {
 	}
 
-	public Telefone(Integer id, String numero) {
+	public Telefone(Long id, String numero) {
 		this.id = id;
 		this.numero = numero;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

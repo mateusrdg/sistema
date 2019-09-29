@@ -18,7 +18,7 @@ public class FornecedorService {
 	@Autowired
 	private PessoaService pessoaService;
 	
-	public Fornecedor find(Integer id) {
+	public Fornecedor find(Long id) {
 		Optional<Fornecedor> obj = repo.findById(id);
 		Fornecedor pessoa = obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Fornecedor.class.getName()));
 		pessoa.getEnderecos().addAll(pessoaService.findEnderecos(pessoa.getId(), TipoPessoa.FORNECEDOR));

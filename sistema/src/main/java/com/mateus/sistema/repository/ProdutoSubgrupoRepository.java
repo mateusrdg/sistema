@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.mateus.sistema.domain.ProdutoSubgrupo;
 
 @Repository
-public interface ProdutoSubgrupoRepository extends JpaRepository<ProdutoSubgrupo,Integer> {
+public interface ProdutoSubgrupoRepository extends JpaRepository<ProdutoSubgrupo,Long> {
 
 }

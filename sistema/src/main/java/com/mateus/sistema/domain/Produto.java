@@ -21,7 +21,7 @@ public class Produto implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	private String descricao;
 	private String referencia;
 	private Calendar dataCadastro;
@@ -43,7 +43,7 @@ public class Produto implements Serializable {
 	public Produto() {
 	}
 
-	public Produto(Integer id, String descricao, String referencia, Calendar dataCadastro, Boolean ativo) {
+	public Produto(Long id, String descricao, String referencia, Calendar dataCadastro, Boolean ativo) {
 		super();
 		this.id = id;
 		this.descricao = descricao;
@@ -52,11 +52,11 @@ public class Produto implements Serializable {
 		this.ativo = ativo;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

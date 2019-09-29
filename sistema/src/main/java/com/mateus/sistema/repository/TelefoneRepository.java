@@ -11,7 +11,7 @@ import com.mateus.sistema.domain.PessoaTelefone;
 import com.mateus.sistema.domain.Telefone;
 
 @Repository
-public interface TelefoneRepository extends JpaRepository<Telefone,Integer> {
+public interface TelefoneRepository extends JpaRepository<Telefone,Long> {
 	
 	@Query("SELECT DISTINCT obj FROM Telefone obj INNER JOIN obj.pessoaTelefones pt WHERE pt IN :pessoaTelefones")
 	List<Telefone> findDistinctByPessoaTelefone( @Param("pessoaTelefones") List<PessoaTelefone> telefones);

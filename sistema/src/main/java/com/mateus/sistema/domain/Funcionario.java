@@ -29,7 +29,7 @@ public class Funcionario extends Pessoa implements Serializable {
 	public Funcionario() {
 	}
 
-	public Funcionario(Integer id, String nome, String email, Calendar dataCadastro, String cpfCnpj,
+	public Funcionario(Long id, String nome, String email, Calendar dataCadastro, String cpfCnpj,
 			TipoFuncionario tipoFuncionario) {
 		super(id, TipoPessoa.FUNCIONARIO, nome, email, dataCadastro, cpfCnpj);
 		this.tipoFuncionario = (tipoFuncionario == null) ? null : tipoFuncionario.getCod();

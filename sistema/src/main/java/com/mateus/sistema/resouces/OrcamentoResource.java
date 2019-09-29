@@ -20,7 +20,7 @@ public class OrcamentoResource {
 	private OrcamentoService service;
 	
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
-	public ResponseEntity<VendaDTO> find(@PathVariable Integer id){
+	public ResponseEntity<VendaDTO> find(@PathVariable Long id){
 		Orcamento obj = service.find(id);
 		VendaDTO objDTO = new VendaDTO(obj);
 		return ResponseEntity.ok(objDTO);

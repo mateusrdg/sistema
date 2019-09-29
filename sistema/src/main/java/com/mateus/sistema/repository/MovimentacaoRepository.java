@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.mateus.sistema.domain.Movimentacao;
 
 @Repository
-public interface MovimentacaoRepository extends JpaRepository<Movimentacao,Integer> {
+public interface MovimentacaoRepository extends JpaRepository<Movimentacao,Long> {
 
 }

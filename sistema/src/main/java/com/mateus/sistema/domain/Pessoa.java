@@ -20,7 +20,7 @@ public abstract class Pessoa implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	@JsonIgnore
 	@Transient
 	private Integer tipo;
@@ -39,7 +39,7 @@ public abstract class Pessoa implements Serializable {
 	public Pessoa() {
 	}
 
-	public Pessoa(Integer id, TipoPessoa tipo ,String nome, String email, Calendar dataCadastro, String cpfCnpj) {
+	public Pessoa(Long id, TipoPessoa tipo ,String nome, String email, Calendar dataCadastro, String cpfCnpj) {
 		this.id = id;
 		this.nome = nome;
 		this.tipo = (tipo == null) ? null : tipo.getCod();
@@ -57,11 +57,11 @@ public abstract class Pessoa implements Serializable {
 		this.nome = nome;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

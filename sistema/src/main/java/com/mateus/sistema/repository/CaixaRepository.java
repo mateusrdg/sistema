@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.mateus.sistema.domain.Caixa;
 
 @Repository
-public interface CaixaRepository extends JpaRepository<Caixa,Integer> {
+public interface CaixaRepository extends JpaRepository<Caixa,Long> {
 
 }

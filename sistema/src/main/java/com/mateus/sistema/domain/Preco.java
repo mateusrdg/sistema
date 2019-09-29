@@ -18,7 +18,7 @@ public class Preco implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	
 	@ManyToOne
 	@JsonIgnore
@@ -32,7 +32,7 @@ public class Preco implements Serializable {
 	public Preco() {
 	}
 
-	public Preco(Integer id, Produto produto, BigDecimal valor, TipoPreco tipo) {
+	public Preco(Long id, Produto produto, BigDecimal valor, TipoPreco tipo) {
 		this.id = id;
 		this.produto = produto;
 		this.valor = valor;

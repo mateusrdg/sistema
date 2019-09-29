@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.mateus.sistema.domain.Preco;
 
 @Repository
-public interface PrecoRepository extends JpaRepository<Preco,Integer> {
+public interface PrecoRepository extends JpaRepository<Preco,Long> {
 
 }

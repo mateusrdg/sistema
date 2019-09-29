@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.mateus.sistema.domain.EntradaEstoque;
 
 @Repository
-public interface EntradaEstoqueRepository extends JpaRepository<EntradaEstoque,Integer> {
+public interface EntradaEstoqueRepository extends JpaRepository<EntradaEstoque,Long> {
 
 }

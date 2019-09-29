@@ -18,7 +18,7 @@ public class FuncionarioService {
 	@Autowired
 	private PessoaService pessoaService;
 	
-	public Funcionario find(Integer id) {
+	public Funcionario find(Long id) {
 		Optional<Funcionario> obj = repo.findById(id);
 		Funcionario pessoa = obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Funcionario.class.getName()));
 		pessoa.getEnderecos().addAll(pessoaService.findEnderecos(pessoa.getId(), TipoPessoa.FUNCIONARIO));

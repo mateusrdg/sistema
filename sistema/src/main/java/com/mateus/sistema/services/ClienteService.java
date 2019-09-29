@@ -18,7 +18,7 @@ public class ClienteService {
 	@Autowired
 	private PessoaService pessoaService;
 	
-	public Cliente find(Integer id) {
+	public Cliente find(Long id) {
 		Optional<Cliente> obj = repo.findById(id);
 		Cliente pessoa = obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
 		pessoa.getEnderecos().addAll(pessoaService.findEnderecos(pessoa.getId(), TipoPessoa.CLIENTE));

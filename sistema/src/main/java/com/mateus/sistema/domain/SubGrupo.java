@@ -21,7 +21,7 @@ public class Subgrupo implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 
 	private String descricao;
 	
@@ -36,17 +36,17 @@ public class Subgrupo implements Serializable {
 	public Subgrupo() {
 	}
 
-	public Subgrupo(Integer id, String descricao, Grupo grupo) {
+	public Subgrupo(Long id, String descricao, Grupo grupo) {
 		this.id = id;
 		this.descricao = descricao;
 		this.grupo = grupo;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

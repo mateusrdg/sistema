@@ -15,7 +15,7 @@ public class CompraDTO extends PedidoDTO implements Serializable {
 	public CompraDTO() {
 	}
 
-	public CompraDTO(Integer id, Calendar data, FornecedorDTO fornecedor, FuncionarioDTO funcionario, List<PedidoItemDTO> itens,
+	public CompraDTO(Long id, Calendar data, FornecedorDTO fornecedor, FuncionarioDTO funcionario, List<PedidoItemDTO> itens,
 			List<FormaPagamentoDTO> formasPagamento) {
 		super(id, data,  itens, formasPagamento);
 		this.fornecedor = fornecedor;

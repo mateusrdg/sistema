@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.mateus.sistema.domain.Fornecedor;
 
 @Repository
-public interface FornecedorRepository extends JpaRepository<Fornecedor,Integer> {
+public interface FornecedorRepository extends JpaRepository<Fornecedor,Long> {
 
 }

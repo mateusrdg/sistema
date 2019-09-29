@@ -18,7 +18,7 @@ public abstract class PedidoItem implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 
 	private BigDecimal quantidade;
 	private BigDecimal preco;
@@ -32,7 +32,7 @@ public abstract class PedidoItem implements Serializable {
 	public PedidoItem() {
 	}
 
-	public PedidoItem(Integer id, BigDecimal quantidade, BigDecimal preco, BigDecimal desconto, Produto produto) {
+	public PedidoItem(Long id, BigDecimal quantidade, BigDecimal preco, BigDecimal desconto, Produto produto) {
 		this.id = id;
 		this.quantidade = quantidade;
 		this.preco = preco;
@@ -40,11 +40,11 @@ public abstract class PedidoItem implements Serializable {
 		this.produto = produto;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

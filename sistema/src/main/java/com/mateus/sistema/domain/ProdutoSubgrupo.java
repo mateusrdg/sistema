@@ -18,7 +18,7 @@ public class ProdutoSubgrupo implements Serializable {
 	@JsonIgnore
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 
 	@ManyToOne
 	@JoinColumn(name = "subgrupo_id")
@@ -32,17 +32,17 @@ public class ProdutoSubgrupo implements Serializable {
 	public ProdutoSubgrupo() {
 	}
 
-	public ProdutoSubgrupo(Integer id, Subgrupo subgrupo, Produto produto) {
+	public ProdutoSubgrupo(Long id, Subgrupo subgrupo, Produto produto) {
 		this.id = id;
 		this.subgrupo = subgrupo;
 		this.produto = produto;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

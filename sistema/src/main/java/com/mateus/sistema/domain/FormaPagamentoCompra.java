@@ -36,7 +36,7 @@ public class FormaPagamentoCompra extends FormaPagamentoPedido implements Serial
 	public FormaPagamentoCompra() {
 	}
 
-	public FormaPagamentoCompra(Integer id, Compra pedido, FormaPagamento formaPagamento, Calendar data, BigDecimal valor,
+	public FormaPagamentoCompra(Long id, Compra pedido, FormaPagamento formaPagamento, Calendar data, BigDecimal valor,
 			EstadoPagamento estado) {
 		super(id, formaPagamento,data, valor, estado);
 		this.pedido = pedido;

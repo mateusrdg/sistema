@@ -13,28 +13,27 @@ public abstract class Pedido implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	private Calendar data;
 	
 	public Pedido() {
 	}
 
-	public Pedido(Integer id, Calendar data) {
+	public Pedido(Long id, Calendar data) {
 		this.id = id;
 		this.data = data;
 	}
 
-	//public abstract List<PedidoItem> getItensPedido();
 	public abstract Pessoa getCompradorVendedor();
 	
 	public abstract Pessoa getClienteFornecedor();
 	
 	
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

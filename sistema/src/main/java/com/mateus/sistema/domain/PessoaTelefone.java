@@ -19,11 +19,11 @@ public class PessoaTelefone implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	
 	
 	@Column(name = "pessoa_id")
-	private Integer pessoa;
+	private Long pessoa;
 	
 	@ManyToOne
 	@JoinColumn(name="telefone_id")
@@ -35,18 +35,18 @@ public class PessoaTelefone implements Serializable {
 	public PessoaTelefone() {
 	}
 
-	public PessoaTelefone(Integer id, Pessoa pessoa, Telefone telefone ) {
+	public PessoaTelefone(Long id, Pessoa pessoa, Telefone telefone ) {
 		this.id = id;
 		this.pessoa = pessoa.getId();
 		this.tipo = pessoa.getTipo().getCod();
 		this.telefone = telefone;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

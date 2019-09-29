@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.mateus.sistema.domain.CompraItem;
 
 @Repository
-public interface CompraItemRepository extends JpaRepository<CompraItem,Integer> {
+public interface CompraItemRepository extends JpaRepository<CompraItem,Long> {
 
 }

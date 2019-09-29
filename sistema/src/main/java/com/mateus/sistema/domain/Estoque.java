@@ -21,7 +21,7 @@ public class Estoque implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	private String descricao;
 
 	@JsonIgnore
@@ -35,16 +35,16 @@ public class Estoque implements Serializable {
 	public Estoque() {
 	}
 
-	public Estoque(Integer id, String descricao) {
+	public Estoque(Long id, String descricao) {
 		this.id = id;
 		this.descricao = descricao;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

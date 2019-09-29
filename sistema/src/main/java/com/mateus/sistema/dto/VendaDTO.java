@@ -17,7 +17,7 @@ public class VendaDTO extends PedidoDTO implements Serializable {
 	public VendaDTO() {
 	}
 
-	public VendaDTO(Integer id, Calendar data, ClienteDTO cliente, FuncionarioDTO vendedor, List<PedidoItemDTO> itens,
+	public VendaDTO(Long id, Calendar data, ClienteDTO cliente, FuncionarioDTO vendedor, List<PedidoItemDTO> itens,
 			List<FormaPagamentoDTO> formasPagamento) {
 		super(id, data, itens, formasPagamento);
 		this.cliente = cliente;

@@ -25,7 +25,7 @@ public class OrcamentoItem extends PedidoItem implements Serializable {
 	public OrcamentoItem() {
 	}
 
-	public OrcamentoItem(Integer id, Orcamento pedido, Produto produto, BigDecimal quantidade, BigDecimal preco,
+	public OrcamentoItem(Long id, Orcamento pedido, Produto produto, BigDecimal quantidade, BigDecimal preco,
 			BigDecimal desconto) {
 		super(id, quantidade, preco, desconto, produto);
 		this.pedido = pedido;

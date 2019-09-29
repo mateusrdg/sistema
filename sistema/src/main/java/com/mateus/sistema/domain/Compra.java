@@ -35,7 +35,7 @@ public class Compra extends Pedido implements Serializable {
 	public Compra() {
 	}
 	
-	public Compra(Integer id, Calendar data, Fornecedor fornecedor, Funcionario funcionario) {
+	public Compra(Long id, Calendar data, Fornecedor fornecedor, Funcionario funcionario) {
 		super(id, data);
 		setFornecedor(fornecedor);
 		this.funcionario = funcionario;

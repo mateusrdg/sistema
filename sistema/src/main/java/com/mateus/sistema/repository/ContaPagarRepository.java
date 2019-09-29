@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.mateus.sistema.domain.ContaPagar;
 
 @Repository
-public interface ContaPagarRepository extends JpaRepository<ContaPagar,Integer> {
+public interface ContaPagarRepository extends JpaRepository<ContaPagar,Long> {
 
 }

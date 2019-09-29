@@ -27,7 +27,7 @@ public class PessoaService {
 	@Autowired
 	private EnderecoRepository enderecoRepo;
 
-	public List<Telefone> findTelefones(Integer id, TipoPessoa tipo) {
+	public List<Telefone> findTelefones(Long id, TipoPessoa tipo) {
 		List<PessoaTelefone> list = pessoaTelRepo.findByTipoAndPessoaId(tipo.getCod(), id);
 		if (!list.isEmpty()) {
 			return telefoneRepo.findDistinctByPessoaTelefone(list);
@@ -36,7 +36,7 @@ public class PessoaService {
 		}
 	}
 
-	public List<Endereco> findEnderecos(Integer id, TipoPessoa tipo) {
+	public List<Endereco> findEnderecos(Long id, TipoPessoa tipo) {
 		List<PessoaEndereco> list = pessoaEndRepo.findByTipoAndPessoaId(tipo.getCod(), id);
 		if (!list.isEmpty()) {
 			return enderecoRepo.findDistinctByPessoaEndereco(list);

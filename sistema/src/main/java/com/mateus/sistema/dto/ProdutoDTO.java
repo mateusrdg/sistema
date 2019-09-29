@@ -29,7 +29,7 @@ public class ProdutoDTO extends BaseProdutoDTO implements Serializable {
 	public ProdutoDTO() {
 	}
 
-	public ProdutoDTO(Integer id, String descricao, Calendar dataCadastro, Boolean ativo, List<PrecoDTO> precos,
+	public ProdutoDTO(Long id, String descricao, Calendar dataCadastro, Boolean ativo, List<PrecoDTO> precos,
 			List<ProdutoEstoqueDTO> estoques, List<ProdutoSubgrupoDTO> subgrupos, List<PedidoItem> itens) {
 		super(id, descricao);
 		this.dataCadastro = dataCadastro;

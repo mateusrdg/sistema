@@ -18,7 +18,7 @@ public class ProdutoEstoque implements Serializable {
 	@JsonIgnore
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	
 	@ManyToOne
 	@JoinColumn(name="estoque_id")
@@ -34,18 +34,18 @@ public class ProdutoEstoque implements Serializable {
 	public ProdutoEstoque() {
 	}
 
-	public ProdutoEstoque(Integer id, Estoque estoque, Produto produto, BigDecimal quantidade) {
+	public ProdutoEstoque(Long id, Estoque estoque, Produto produto, BigDecimal quantidade) {
 		this.id = id;
 		this.estoque = estoque;
 		this.produto = produto;
 		this.quantidade = quantidade;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

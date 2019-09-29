@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.mateus.sistema.domain.Orcamento;
 
 @Repository
-public interface OrcamentoRepository extends JpaRepository<Orcamento,Integer> {
+public interface OrcamentoRepository extends JpaRepository<Orcamento,Long> {
 
 }

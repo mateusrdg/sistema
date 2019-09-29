@@ -10,8 +10,8 @@ import org.springframework.stereotype.Repository;
 import com.mateus.sistema.domain.PessoaTelefone;
 
 @Repository
-public interface PessoaTelefoneRepository extends JpaRepository<PessoaTelefone,Integer> {
+public interface PessoaTelefoneRepository extends JpaRepository<PessoaTelefone,Long> {
 	
 	@Query("SELECT obj FROM PessoaTelefone obj WHERE obj.tipo = :tipo AND obj.pessoa = :pessoaId")
-	List<PessoaTelefone> findByTipoAndPessoaId(@Param("tipo") Integer tipo, @Param("pessoaId") Integer pessoaId);
+	List<PessoaTelefone> findByTipoAndPessoaId(@Param("tipo") Integer tipo, @Param("pessoaId") Long pessoaId);
 }

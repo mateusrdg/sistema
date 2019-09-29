@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.mateus.sistema.domain.FormaPagamentoCompra;
 
 @Repository
-public interface FormaPagamentoCompraRepository extends JpaRepository<FormaPagamentoCompra,Integer> {
+public interface FormaPagamentoCompraRepository extends JpaRepository<FormaPagamentoCompra,Long> {
 
 }

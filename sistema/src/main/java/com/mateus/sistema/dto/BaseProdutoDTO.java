@@ -7,14 +7,14 @@ import com.mateus.sistema.domain.Produto;
 public class BaseProdutoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private Integer id;
+	private Long id;
 	private String descricao;
 	
 
 	public BaseProdutoDTO() {
 	}
 
-	public BaseProdutoDTO(Integer id, String descricao) {
+	public BaseProdutoDTO(Long id, String descricao) {
 		this.id = id;
 		this.descricao = descricao;
 		
@@ -25,11 +25,11 @@ public class BaseProdutoDTO implements Serializable {
 		this.descricao = produto.getDescricao();
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

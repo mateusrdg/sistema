@@ -20,7 +20,7 @@ public abstract class Conta implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	private Calendar data;
 	private Calendar hora;
 	private BigDecimal valor;
@@ -33,7 +33,7 @@ public abstract class Conta implements Serializable {
 	public Conta() {
 	}
 
-	public Conta(Integer id, TipoConta tipo, Calendar data, Calendar hora, BigDecimal valor, EstadoPagamento estado,
+	public Conta(Long id, TipoConta tipo, Calendar data, Calendar hora, BigDecimal valor, EstadoPagamento estado,
 			Calendar dataPagamento, Calendar dataVencimento) {
 		super();
 		this.id = id;
@@ -46,11 +46,11 @@ public abstract class Conta implements Serializable {
 		this.dataVencimento = dataVencimento;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

@@ -18,7 +18,7 @@ public abstract class Parcela implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	private BigDecimal valor;
 	private Integer estado;
 	private Calendar dataVencimento;
@@ -27,7 +27,7 @@ public abstract class Parcela implements Serializable {
 	public Parcela() {
 	}
 
-	public Parcela(Integer id, BigDecimal valor, EstadoPagamento estado, Calendar dataVencimento,
+	public Parcela(Long id, BigDecimal valor, EstadoPagamento estado, Calendar dataVencimento,
 			Calendar dataPagamento) {
 		super();
 		this.id = id;
@@ -37,11 +37,11 @@ public abstract class Parcela implements Serializable {
 		this.dataPagamento = dataPagamento;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

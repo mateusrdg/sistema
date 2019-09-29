@@ -21,7 +21,7 @@ public class Cliente extends Pessoa implements Serializable {
 	public Cliente() {
 	}
 
-	public Cliente(Integer id, String nome, String email, Calendar dataCadastro, String cpfCnpj, TipoCliente tipo) {
+	public Cliente(Long id, String nome, String email, Calendar dataCadastro, String cpfCnpj, TipoCliente tipo) {
 		super(id, TipoPessoa.CLIENTE, nome, email, dataCadastro, cpfCnpj);
 		this.tipoCliente = tipo.getCod();
 	}

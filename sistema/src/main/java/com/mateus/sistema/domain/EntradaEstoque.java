@@ -22,7 +22,7 @@ public class EntradaEstoque implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	private BigDecimal quantidade;
 	private Calendar data;
 	private Calendar hora;
@@ -36,7 +36,7 @@ public class EntradaEstoque implements Serializable {
 	public EntradaEstoque() {
 	}
 
-	public EntradaEstoque(Integer id, Calendar data, Calendar hora, CompraItem item, Estoque estoque) {
+	public EntradaEstoque(Long id, Calendar data, Calendar hora, CompraItem item, Estoque estoque) {
 		super();
 		this.id = id;
 		this.quantidade = item.getQuantidade();
@@ -46,11 +46,11 @@ public class EntradaEstoque implements Serializable {
 		this.estoque = estoque;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

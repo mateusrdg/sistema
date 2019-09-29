@@ -19,7 +19,7 @@ import com.mateus.sistema.domain.VendaItem;
 public class PedidoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private Integer id;
+	private Long id;
 	private Calendar data;
 	private List<PedidoItemDTO> itens = new ArrayList<PedidoItemDTO>();
 	private List<FormaPagamentoDTO> formasPagamento = new ArrayList<FormaPagamentoDTO>();
@@ -27,7 +27,7 @@ public class PedidoDTO implements Serializable {
 	public PedidoDTO() {
 	}
 
-	public PedidoDTO(Integer id, Calendar data, List<PedidoItemDTO> itens, List<FormaPagamentoDTO> formasPagamento) {
+	public PedidoDTO(Long id, Calendar data, List<PedidoItemDTO> itens, List<FormaPagamentoDTO> formasPagamento) {
 		this.id = id;
 		this.data = data;
 	}
@@ -61,11 +61,11 @@ public class PedidoDTO implements Serializable {
 
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

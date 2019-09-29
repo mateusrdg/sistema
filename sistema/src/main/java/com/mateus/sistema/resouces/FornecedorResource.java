@@ -19,7 +19,7 @@ public class FornecedorResource {
 	private FornecedorService service;
 	
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
-	public ResponseEntity<Fornecedor> find(@PathVariable Integer id){
+	public ResponseEntity<Fornecedor> find(@PathVariable Long id){
 		Fornecedor obj = service.find(id);
 		return ResponseEntity.ok(obj);
 	}

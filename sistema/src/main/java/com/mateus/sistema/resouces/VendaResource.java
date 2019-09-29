@@ -20,7 +20,7 @@ public class VendaResource {
 	private VendaService service;
 	
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
-	public ResponseEntity<VendaDTO> find(@PathVariable Integer id){
+	public ResponseEntity<VendaDTO> find(@PathVariable Long id){
 		Venda obj = service.find(id);
 		VendaDTO objDTO = new VendaDTO(obj);
 		return ResponseEntity.ok(objDTO);

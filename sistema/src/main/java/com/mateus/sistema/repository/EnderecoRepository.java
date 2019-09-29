@@ -11,7 +11,7 @@ import com.mateus.sistema.domain.Endereco;
 import com.mateus.sistema.domain.PessoaEndereco;
 
 @Repository
-public interface EnderecoRepository extends JpaRepository<Endereco,Integer> {
+public interface EnderecoRepository extends JpaRepository<Endereco,Long> {
 	
 	@Query("SELECT DISTINCT obj FROM Endereco obj INNER JOIN obj.pessoaEnderecos pe WHERE pe IN :pessoaEnderecos")
 	List<Endereco> findDistinctByPessoaEndereco( @Param("pessoaEnderecos") List<PessoaEndereco> enderecos);

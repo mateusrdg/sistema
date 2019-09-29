@@ -8,7 +8,7 @@ import com.mateus.sistema.domain.enums.TipoCliente;
 public class ClienteDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 
-	private Integer id;
+	private Long id;
 	private String nome;
 	private String email;
 	private String cpfCnpj;
@@ -17,7 +17,7 @@ public class ClienteDTO implements Serializable{
 	public ClienteDTO() {	
 	}
 	
-	public ClienteDTO(Integer id, String nome, String email, String cpfCnpj, TipoCliente tipoCliente) {
+	public ClienteDTO(Long id, String nome, String email, String cpfCnpj, TipoCliente tipoCliente) {
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
@@ -33,10 +33,10 @@ public class ClienteDTO implements Serializable{
 		this.tipoCliente = cliente.getTipoCliente();
 	}
 	
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getNome() {

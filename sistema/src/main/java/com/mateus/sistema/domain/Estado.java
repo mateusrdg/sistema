@@ -23,7 +23,7 @@ public class Estado implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	private String nome;
 	private String codigoIBGE;
 	private String sigla;
@@ -39,7 +39,7 @@ public class Estado implements Serializable {
 	public Estado() {
 	}
 
-	public Estado(Integer id, String nome, String codigoIBGE, String sigla, Pais pais) {
+	public Estado(Long id, String nome, String codigoIBGE, String sigla, Pais pais) {
 		this.id = id;
 		this.nome = nome;
 		this.codigoIBGE = codigoIBGE;
@@ -47,11 +47,11 @@ public class Estado implements Serializable {
 		this.pais = pais;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

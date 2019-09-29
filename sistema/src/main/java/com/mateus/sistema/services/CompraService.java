@@ -15,7 +15,7 @@ public class CompraService {
 	@Autowired
 	private CompraRepository repo;
 		
-	public Compra find(Integer id) {
+	public Compra find(Long id) {
 		Optional<Compra> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Compra.class.getName()));

@@ -29,7 +29,7 @@ public class ParcelaCompra extends Parcela implements Serializable {
 	public ParcelaCompra() {
 	}
 
-	public ParcelaCompra(Integer id, FormaPagamentoCompra formaPagamentoCompra, BigDecimal valor,
+	public ParcelaCompra(Long id, FormaPagamentoCompra formaPagamentoCompra, BigDecimal valor,
 			EstadoPagamento estado, Calendar dataVencimento, Calendar dataPagamento) {
 		super(id, valor, estado, dataVencimento, dataPagamento);
 		this.formaPagamentoCompra = formaPagamentoCompra;

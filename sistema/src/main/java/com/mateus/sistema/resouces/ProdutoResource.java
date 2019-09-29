@@ -24,7 +24,7 @@ public class ProdutoResource {
 	private List<ProdutoDTO> listDto = new ArrayList<ProdutoDTO>();;
 	
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
-	public ResponseEntity<ProdutoDTO> find(@PathVariable Integer id){
+	public ResponseEntity<ProdutoDTO> find(@PathVariable Long id){
 		Produto obj = service.find(id);
 		ProdutoDTO objDTO = new ProdutoDTO(obj);
 		return ResponseEntity.ok(objDTO);

@@ -27,7 +27,7 @@ public class Fornecedor extends Pessoa implements Serializable {
 	public Fornecedor() {
 	}
 
-	public Fornecedor(Integer id, String nome, String email, Calendar dataCadastro, String cpfCnpj,
+	public Fornecedor(Long id, String nome, String email, Calendar dataCadastro, String cpfCnpj,
 			String nomeFantasia) {
 		super(id, TipoPessoa.FORNECEDOR, nome, email, dataCadastro, cpfCnpj);
 		this.setNomeFantasia(nomeFantasia);

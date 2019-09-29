@@ -4,13 +4,13 @@ import com.mateus.sistema.domain.Fornecedor;
 
 public class FornecedorDTO {
 
-	private Integer id;
+	private Long id;
 	private String nome;
 
 	public FornecedorDTO() {
 	}
 
-	public FornecedorDTO(Integer id, String nome, String email) {
+	public FornecedorDTO(Long id, String nome, String email) {
 		this.id = id;
 		this.nome = nome;
 	}
@@ -20,11 +20,11 @@ public class FornecedorDTO {
 		this.nome = fornecedor.getNome();
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

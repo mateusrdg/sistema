@@ -15,7 +15,7 @@ public class OrcamentoService {
 	@Autowired
 	private OrcamentoRepository repo;
 		
-	public Orcamento find(Integer id) {
+	public Orcamento find(Long id) {
 		Optional<Orcamento> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Orcamento.class.getName()));

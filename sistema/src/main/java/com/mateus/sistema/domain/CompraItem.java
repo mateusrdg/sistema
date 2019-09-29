@@ -19,10 +19,6 @@ public class CompraItem extends PedidoItem implements Serializable {
 	@JoinColumn(name = "compra_id")
 	private Compra pedido;
 
-//	@ManyToOne
-//	@JoinColumn(name = "produto_id")
-//	private Produto produto;
-
 	@OneToOne(mappedBy = "item")
 	private EntradaEstoque entrada;
 
@@ -31,7 +27,7 @@ public class CompraItem extends PedidoItem implements Serializable {
 	public CompraItem() {
 	}
 
-	public CompraItem(Integer id, Compra pedido, Produto produto, BigDecimal quantidade, BigDecimal preco,
+	public CompraItem(Long id, Compra pedido, Produto produto, BigDecimal quantidade, BigDecimal preco,
 			BigDecimal desconto) {
 		super(id, quantidade, preco, desconto, produto);
 		this.pedido = pedido;
@@ -45,14 +41,6 @@ public class CompraItem extends PedidoItem implements Serializable {
 	public void setPedido(Compra pedido) {
 		this.pedido = pedido;
 	}
-
-//	public Produto getProduto() {
-//		return produto;
-//	}
-//
-//	public void setProduto(Produto produto) {
-//		this.produto = produto;
-//	}
 
 	public EntradaEstoque getEntrada() {
 		return entrada;

@@ -33,7 +33,7 @@ public class Venda extends Pedido implements Serializable {
 	public Venda() {
 	}
 
-	public Venda(Integer id, Calendar data, Cliente cliente, Funcionario vendedor) {
+	public Venda(Long id, Calendar data, Cliente cliente, Funcionario vendedor) {
 		super(id, data);
 		this.setCliente(cliente);
 		this.vendedor = vendedor;

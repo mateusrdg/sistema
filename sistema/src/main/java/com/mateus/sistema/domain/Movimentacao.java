@@ -23,12 +23,12 @@ public class Movimentacao implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	private Calendar data;
 	private BigDecimal valor;
 	private Integer tipo;
 	@Column(name = "conta_id")
-	private Integer contaId;
+	private Long contaId;
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "caixa_movimentacao_id") 
@@ -37,7 +37,7 @@ public class Movimentacao implements Serializable {
 	public Movimentacao() {
 	}
 
-	public Movimentacao(Integer id, CaixaMovimentacao caixaMovimentacao , Integer contaId,  Calendar data, BigDecimal valor, TipoMovimentacao tipo) {
+	public Movimentacao(Long id, CaixaMovimentacao caixaMovimentacao , Long contaId,  Calendar data, BigDecimal valor, TipoMovimentacao tipo) {
 		super();
 		this.id = id;
 		this.caixaMovimentacao = caixaMovimentacao;
@@ -47,11 +47,11 @@ public class Movimentacao implements Serializable {
 		this.tipo = (tipo == null) ? null : tipo.getCod();
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -79,11 +79,11 @@ public class Movimentacao implements Serializable {
 		this.tipo = tipo.getCod();
 	}
 
-	public Integer getConta() {
+	public Long getConta() {
 		return contaId;
 	}
 
-	public void setConta(Integer contaId) {
+	public void setConta(Long contaId) {
 		this.contaId = contaId;
 	}
 	

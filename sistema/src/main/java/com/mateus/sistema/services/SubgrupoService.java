@@ -16,7 +16,7 @@ public class SubgrupoService {
 	private SubgrupoRepository repo;
 	
 	
-	public Subgrupo find(Integer id) {
+	public Subgrupo find(Long id) {
 		Optional<Subgrupo> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Subgrupo.class.getName()));

@@ -20,7 +20,7 @@ public class CompraResource {
 	private CompraService service;
 	
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
-	public ResponseEntity<CompraDTO> find(@PathVariable Integer id){
+	public ResponseEntity<CompraDTO> find(@PathVariable Long id){
 		Compra obj = service.find(id);
 		CompraDTO objDTO = new CompraDTO(obj);
 		return ResponseEntity.ok(objDTO);
