@@ -2,16 +2,13 @@ package com.mateus.sistema.dto;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mateus.sistema.domain.PedidoItem;
-import com.mateus.sistema.domain.Preco;
 import com.mateus.sistema.domain.Produto;
-import com.mateus.sistema.domain.ProdutoEstoque;
-import com.mateus.sistema.domain.ProdutoSubgrupo;
 
 public class ProdutoDTO extends BaseProdutoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -29,9 +26,9 @@ public class ProdutoDTO extends BaseProdutoDTO implements Serializable {
 	public ProdutoDTO() {
 	}
 
-	public ProdutoDTO(Long id, String descricao, Calendar dataCadastro, Boolean ativo, List<PrecoDTO> precos,
+	public ProdutoDTO(Long id, String referencia, String descricao, Calendar dataCadastro, Boolean ativo, List<PrecoDTO> precos,
 			List<ProdutoEstoqueDTO> estoques, List<ProdutoSubgrupoDTO> subgrupos, List<PedidoItem> itens) {
-		super(id, descricao);
+		super(id, referencia, descricao);
 		this.dataCadastro = dataCadastro;
 		this.ativo = ativo;
 		this.precos = precos;
@@ -44,19 +41,11 @@ public class ProdutoDTO extends BaseProdutoDTO implements Serializable {
 		this.dataCadastro = produto.getDataCadastro();
 		this.ativo = produto.getAtivo();
 
-		// this.precos = produto.getPrecos().map(obj -> new PrecoDTO(obj));
-
-		for (Preco preco : produto.getPrecos()) {
-			this.precos.addAll(Arrays.asList(new PrecoDTO(preco)));
-		}
-
-		for (ProdutoEstoque produtoEstoque : produto.getProdutoEstoque()) {
-			this.estoques.addAll(Arrays.asList(new ProdutoEstoqueDTO(produtoEstoque)));
-		}
-
-		for (ProdutoSubgrupo produtoSubgrupo : produto.getProdutoSubgrupo()) {
-			this.subgrupos.addAll(Arrays.asList(new ProdutoSubgrupoDTO(produtoSubgrupo.getSubgrupo())));
-		}
+		precos = produto.getPrecos().stream().map(obj -> new PrecoDTO(obj)).collect(Collectors.toList());
+		estoques = produto.getProdutoEstoque().stream().map(obj -> new ProdutoEstoqueDTO(obj))
+				.collect(Collectors.toList());
+		subgrupos = produto.getProdutoSubgrupo().stream().map(obj -> new ProdutoSubgrupoDTO(obj.getSubgrupo()))
+				.collect(Collectors.toList());
 	}
 
 	public Calendar getDataCadastro() {

@@ -41,11 +41,26 @@ public class ProdutoResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	@RequestMapping(value = "{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> update (@RequestBody ProdutoDTO objDto, @PathVariable Long id){
+		Produto obj = service.fromDto(objDto);
+		obj.setId(id);
+		service.update(obj);
+		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@PathVariable Long id){
+		service.delete(id);
+		return ResponseEntity.noContent().build();
+	}
+	
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<List<ProdutoDTO>> findAll() {
 		List<Produto> list = service.findAll();
 		List<ProdutoDTO> listDto = list.stream().map(obj -> new ProdutoDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDto);
 	}
+	
 	
 }

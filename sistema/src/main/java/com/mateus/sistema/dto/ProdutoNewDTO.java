@@ -1,7 +1,6 @@
 package com.mateus.sistema.dto;
 
 import java.io.Serializable;
-import java.util.Calendar;
 
 import javax.validation.constraints.NotEmpty;
 

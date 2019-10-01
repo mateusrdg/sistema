@@ -8,29 +8,23 @@ public class BaseProdutoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
+	private String referencia;
 	private String descricao;
 	
 
 	public BaseProdutoDTO() {
 	}
 
-	public BaseProdutoDTO(Long id, String descricao) {
+	public BaseProdutoDTO(Long id , String referencia, String descricao) {
 		this.id = id;
+		this.referencia = referencia;
 		this.descricao = descricao;
-		
 	}
 
 	public BaseProdutoDTO(Produto produto) {
 		this.id = produto.getId();
+		this.referencia = produto.getReferencia();
 		this.descricao = produto.getDescricao();
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getDescricao() {
@@ -39,6 +33,22 @@ public class BaseProdutoDTO implements Serializable {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public String getReferencia() {
+		return referencia;
+	}
+
+	public void setReferencia(String referencia) {
+		this.referencia = referencia;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }
