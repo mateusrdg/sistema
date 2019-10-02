@@ -1,38 +1,33 @@
 package com.mateus.sistema.dto;
 
+import java.util.Calendar;
+
 import com.mateus.sistema.domain.Fornecedor;
 
-public class FornecedorDTO {
+public class FornecedorDTO extends PessoaDTO{
 
-	private Long id;
-	private String nome;
-
+	private String nomeFantasia;
+	
 	public FornecedorDTO() {
 	}
 
-	public FornecedorDTO(Long id, String nome, String email) {
-		this.id = id;
-		this.nome = nome;
+	public FornecedorDTO(Long id, String nome, String nomeFantasia, String email,  Calendar dataCadastro, String cpfCnpj, Boolean ativo ) {
+		super(id, nome, email, cpfCnpj, dataCadastro, ativo);
+		this.nomeFantasia = nomeFantasia;
 	}
 
-	public FornecedorDTO(Fornecedor fornecedor) {
-		this.id = fornecedor.getId();
-		this.nome = fornecedor.getNome();
+	public FornecedorDTO(Fornecedor Fornecedor) {
+		super(Fornecedor);		
+		this.nomeFantasia = Fornecedor.getNomeFantasia();
 	}
 
-	public Long getId() {
-		return id;
+	public String getNomeFantasia() {
+		return nomeFantasia;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setNomeFantasia(String nomeFantasia) {
+		this.nomeFantasia = nomeFantasia;
 	}
 
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+	
 }

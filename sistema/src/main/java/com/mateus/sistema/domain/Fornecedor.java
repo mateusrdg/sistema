@@ -10,7 +10,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.mateus.sistema.domain.enums.TipoPessoa;
 
 @Entity(name = "Fornecedor")
 @Table(name = "fornecedor")
@@ -29,7 +28,7 @@ public class Fornecedor extends Pessoa implements Serializable {
 
 	public Fornecedor(Long id, String nome, String email, Calendar dataCadastro, String cpfCnpj,
 			String nomeFantasia) {
-		super(id, TipoPessoa.FORNECEDOR, nome, email, dataCadastro, cpfCnpj);
+		super(id, nome, email, dataCadastro, cpfCnpj);
 		this.setNomeFantasia(nomeFantasia);
 	}
 

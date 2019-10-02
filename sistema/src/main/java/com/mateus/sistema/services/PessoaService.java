@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mateus.sistema.domain.Endereco;
+import com.mateus.sistema.domain.Pessoa;
 import com.mateus.sistema.domain.PessoaEndereco;
 import com.mateus.sistema.domain.PessoaTelefone;
 import com.mateus.sistema.domain.Telefone;
@@ -44,6 +45,17 @@ public class PessoaService {
 			return null;
 		}
 
+	}
+	
+	public void updateData(Pessoa newObj, Pessoa obj) {
+		newObj.setId(obj.getId());
+		newObj.setNome(obj.getNome());
+		newObj.setEmail(obj.getEmail());
+		newObj.setDataCadastro(obj.getDataCadastro());
+		newObj.setAtivo(obj.getAtivo());
+		newObj.setCpfCnpj(obj.getCpfCnpj());
+		newObj.setEnderecos(obj.getEnderecos());
+		newObj.setTelefones(obj.getTelefones());
 	}
 
 }

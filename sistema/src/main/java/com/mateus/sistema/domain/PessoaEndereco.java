@@ -37,7 +37,13 @@ public class PessoaEndereco implements Serializable {
 	public PessoaEndereco(Long id, Pessoa pessoa, Endereco endereco) {
 		this.id = id;
 		this.pessoa = pessoa.getId();
-		this.tipo = pessoa.getTipo().getCod();
+		if (pessoa instanceof Cliente) {
+			this.tipo = TipoPessoa.CLIENTE.getCod();
+		} else if (pessoa instanceof Funcionario) {
+			this.tipo = TipoPessoa.FUNCIONARIO.getCod();
+		} else if (pessoa instanceof Fornecedor) {
+			this.tipo = TipoPessoa.FORNECEDOR.getCod();
+		}
 		this.endereco = endereco;
 	}
 

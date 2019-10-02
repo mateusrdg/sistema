@@ -12,7 +12,6 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.mateus.sistema.domain.enums.TipoPessoa;
 
 @MappedSuperclass
 public abstract class Pessoa implements Serializable {
@@ -23,7 +22,7 @@ public abstract class Pessoa implements Serializable {
 	private Long id;
 	@JsonIgnore
 	@Transient
-	private Integer tipo;
+	//private Integer tipo;
 	private String nome;
 	private String email;
 	private String cpfCnpj;
@@ -39,10 +38,10 @@ public abstract class Pessoa implements Serializable {
 	public Pessoa() {
 	}
 
-	public Pessoa(Long id, TipoPessoa tipo ,String nome, String email, Calendar dataCadastro, String cpfCnpj) {
+	public Pessoa(Long id,String nome, String email, Calendar dataCadastro, String cpfCnpj) {
 		this.id = id;
 		this.nome = nome;
-		this.tipo = (tipo == null) ? null : tipo.getCod();
+		//this.tipo = (tipo == null) ? null : tipo.getCod();
 		this.email = email;
 		this.dataCadastro = dataCadastro;
 		this.cpfCnpj = cpfCnpj;
@@ -107,19 +106,19 @@ public abstract class Pessoa implements Serializable {
 		this.telefones = telefones;
 	}	
 	
-	public TipoPessoa getTipo() {
-		return TipoPessoa.toEnum(tipo);
-	}
-
-	public void setTipo(TipoPessoa tipo) {
-		this.tipo = tipo.getCod();
-	}
-	
-	public Boolean getEstado() {
+//	public TipoPessoa getTipo() {
+//		return TipoPessoa.toEnum(tipo);
+//	}
+//
+//	public void setTipo(TipoPessoa tipo) {
+//		this.tipo = tipo.getCod();
+//	}
+//	
+	public Boolean getAtivo() {
 		return ativo;
 	}
 
-	public void setEstado(Boolean estado) {
+	public void setAtivo(Boolean estado) {
 		this.ativo = estado;
 	}
 	

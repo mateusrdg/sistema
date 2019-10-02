@@ -12,7 +12,6 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mateus.sistema.domain.enums.TipoFuncionario;
-import com.mateus.sistema.domain.enums.TipoPessoa;
 
 @Entity(name = "Funcionario")
 @Table(name = "funcionario")
@@ -31,7 +30,7 @@ public class Funcionario extends Pessoa implements Serializable {
 
 	public Funcionario(Long id, String nome, String email, Calendar dataCadastro, String cpfCnpj,
 			TipoFuncionario tipoFuncionario) {
-		super(id, TipoPessoa.FUNCIONARIO, nome, email, dataCadastro, cpfCnpj);
+		super(id, nome, email, dataCadastro, cpfCnpj);
 		this.tipoFuncionario = (tipoFuncionario == null) ? null : tipoFuncionario.getCod();
 	}
 

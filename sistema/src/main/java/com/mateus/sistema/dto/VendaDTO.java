@@ -4,20 +4,18 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
 
-import com.mateus.sistema.domain.Cliente;
-import com.mateus.sistema.domain.Funcionario;
 import com.mateus.sistema.domain.Pedido;
 
 public class VendaDTO extends PedidoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private ClienteDTO cliente;
-	private FuncionarioDTO vendedor;
+	private PessoaDTO cliente;
+	private PessoaDTO vendedor;
 	
 	public VendaDTO() {
 	}
 
-	public VendaDTO(Long id, Calendar data, ClienteDTO cliente, FuncionarioDTO vendedor, List<PedidoItemDTO> itens,
+	public VendaDTO(Long id, Calendar data, PessoaDTO cliente, PessoaDTO vendedor, List<PedidoItemDTO> itens,
 			List<FormaPagamentoDTO> formasPagamento) {
 		super(id, data, itens, formasPagamento);
 		this.cliente = cliente;
@@ -26,24 +24,24 @@ public class VendaDTO extends PedidoDTO implements Serializable {
 
 	public VendaDTO(Pedido pedido) {
 		super(pedido);
-		this.cliente = new ClienteDTO((Cliente) pedido.getClienteFornecedor());
-		this.vendedor = new FuncionarioDTO((Funcionario) pedido.getCompradorVendedor());
+		this.cliente = new PessoaDTO(pedido.getClienteFornecedor());
+		this.vendedor = new PessoaDTO(pedido.getCompradorVendedor());
 		
 	}
 
-	public ClienteDTO getCliente() {
+	public PessoaDTO getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(ClienteDTO cliente) {
+	public void setCliente(PessoaDTO cliente) {
 		this.cliente = cliente;
 	}
 
-	public FuncionarioDTO getVendedor() {
+	public PessoaDTO getVendedor() {
 		return vendedor;
 	}
 
-	public void setVendedor(FuncionarioDTO vendedor) {
+	public void setVendedor(PessoaDTO vendedor) {
 		this.vendedor = vendedor;
 	}
 

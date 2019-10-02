@@ -9,13 +9,13 @@ import com.mateus.sistema.domain.Compra;
 public class CompraDTO extends PedidoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private FornecedorDTO fornecedor;
-	private FuncionarioDTO funcionario;
+	private PessoaDTO fornecedor;
+	private PessoaDTO funcionario;
 	
 	public CompraDTO() {
 	}
 
-	public CompraDTO(Long id, Calendar data, FornecedorDTO fornecedor, FuncionarioDTO funcionario, List<PedidoItemDTO> itens,
+	public CompraDTO(Long id, Calendar data, PessoaDTO fornecedor, PessoaDTO funcionario, List<PedidoItemDTO> itens,
 			List<FormaPagamentoDTO> formasPagamento) {
 		super(id, data,  itens, formasPagamento);
 		this.fornecedor = fornecedor;
@@ -24,23 +24,23 @@ public class CompraDTO extends PedidoDTO implements Serializable {
 
 	public CompraDTO(Compra compra) {
 		super(compra);
-		this.fornecedor = new FornecedorDTO(compra.getFornecedor());
-		this.funcionario = new FuncionarioDTO(compra.getFuncionario());
+		this.fornecedor = new PessoaDTO(compra.getFornecedor());
+		this.funcionario = new PessoaDTO(compra.getFuncionario());
 	}
 
-	public FornecedorDTO getFornecedor() {
+	public PessoaDTO getFornecedor() {
 		return fornecedor;
 	}
 
-	public void setFornecedor(FornecedorDTO fornecedor) {
+	public void setFornecedor(PessoaDTO fornecedor) {
 		this.fornecedor = fornecedor;
 	}
 
-	public FuncionarioDTO getFuncionario() {
+	public PessoaDTO getFuncionario() {
 		return funcionario;
 	}
 
-	public void setFuncionario(FuncionarioDTO fornecedor) {
+	public void setFuncionario(PessoaDTO fornecedor) {
 		this.funcionario = fornecedor;
 	}
 

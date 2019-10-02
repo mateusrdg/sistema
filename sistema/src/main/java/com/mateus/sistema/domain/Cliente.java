@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.mateus.sistema.domain.enums.TipoCliente;
-import com.mateus.sistema.domain.enums.TipoPessoa;
 
 @Entity(name = "Cliente")
 @Table(name = "cliente")
@@ -22,7 +21,7 @@ public class Cliente extends Pessoa implements Serializable {
 	}
 
 	public Cliente(Long id, String nome, String email, Calendar dataCadastro, String cpfCnpj, TipoCliente tipo) {
-		super(id, TipoPessoa.CLIENTE, nome, email, dataCadastro, cpfCnpj);
+		super(id, nome, email, dataCadastro, cpfCnpj);
 		this.tipoCliente = tipo.getCod();
 	}
 

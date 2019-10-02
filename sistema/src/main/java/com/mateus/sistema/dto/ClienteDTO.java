@@ -1,68 +1,35 @@
 package com.mateus.sistema.dto;
 
 import java.io.Serializable;
+import java.util.Calendar;
 
 import com.mateus.sistema.domain.Cliente;
 import com.mateus.sistema.domain.enums.TipoCliente;
 
-public class ClienteDTO implements Serializable{
+public class ClienteDTO extends PessoaDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 
-	private Long id;
-	private String nome;
-	private String email;
-	private String cpfCnpj;
 	private TipoCliente tipoCliente;
 	
-	public ClienteDTO() {	
+	public ClienteDTO() {
 	}
-	
-	public ClienteDTO(Long id, String nome, String email, String cpfCnpj, TipoCliente tipoCliente) {
-		this.id = id;
-		this.nome = nome;
-		this.email = email;
-		this.cpfCnpj = cpfCnpj;
-		this.tipoCliente = tipoCliente;
+
+	public ClienteDTO(Long id, String nome, String email,  Calendar dataCadastro, String cpfCnpj, Boolean ativo, TipoCliente tipo) {
+		super(id, nome, email, cpfCnpj, dataCadastro, ativo);
+		this.tipoCliente = tipo;
 	}
-	
+
 	public ClienteDTO(Cliente cliente) {
-		this.id = cliente.getId();
-		this.nome = cliente.getNome();
-		this.email = cliente.getEmail();
-		this.cpfCnpj = cliente.getCpfCnpj();
+		super(cliente);		
 		this.tipoCliente = cliente.getTipoCliente();
 	}
-	
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public String getNome() {
-		return nome;
-	}
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public String getCpfCnpj() {
-		return cpfCnpj;
-	}
-	public void setCpfCnpj(String cpfCnpj) {
-		this.cpfCnpj = cpfCnpj;
-	}
+
 	public String getTipoCliente() {
 		return tipoCliente.getDescricao();
 	}
-	public void setTipoCliente(TipoCliente tipoCliente) {
+
+	public void setTipoFuncionario(TipoCliente tipoCliente) {
 		this.tipoCliente = tipoCliente;
 	}
-
 	
 }

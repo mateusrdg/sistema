@@ -38,7 +38,13 @@ public class PessoaTelefone implements Serializable {
 	public PessoaTelefone(Long id, Pessoa pessoa, Telefone telefone ) {
 		this.id = id;
 		this.pessoa = pessoa.getId();
-		this.tipo = pessoa.getTipo().getCod();
+		if (pessoa instanceof Cliente) {
+			this.tipo = TipoPessoa.CLIENTE.getCod();
+		} else if (pessoa instanceof Funcionario) {
+			this.tipo = TipoPessoa.FUNCIONARIO.getCod();
+		} else if (pessoa instanceof Fornecedor) {
+			this.tipo = TipoPessoa.FORNECEDOR.getCod();
+		}
 		this.telefone = telefone;
 	}
 
