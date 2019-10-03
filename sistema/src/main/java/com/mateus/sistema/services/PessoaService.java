@@ -5,11 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mateus.sistema.domain.Endereco;
 import com.mateus.sistema.domain.Pessoa;
 import com.mateus.sistema.domain.PessoaEndereco;
 import com.mateus.sistema.domain.PessoaTelefone;
-import com.mateus.sistema.domain.Telefone;
 import com.mateus.sistema.domain.enums.TipoPessoa;
 import com.mateus.sistema.repository.EnderecoRepository;
 import com.mateus.sistema.repository.PessoaEnderecoRepository;
@@ -28,23 +26,18 @@ public class PessoaService {
 	@Autowired
 	private EnderecoRepository enderecoRepo;
 
-	public List<Telefone> findTelefones(Long id, TipoPessoa tipo) {
-		List<PessoaTelefone> list = pessoaTelRepo.findByTipoAndPessoaId(tipo.getCod(), id);
+	public void findTelefones(Pessoa pessoa, TipoPessoa tipo) {
+		List<PessoaTelefone> list = pessoaTelRepo.findByTipoAndPessoaId(tipo.getCod(), pessoa.getId());
 		if (!list.isEmpty()) {
-			return telefoneRepo.findDistinctByPessoaTelefone(list);
-		} else {
-			return null;
-		}
+			pessoa.getTelefones().addAll(telefoneRepo.findDistinctByPessoaTelefone(list));
+		} 
 	}
 
-	public List<Endereco> findEnderecos(Long id, TipoPessoa tipo) {
-		List<PessoaEndereco> list = pessoaEndRepo.findByTipoAndPessoaId(tipo.getCod(), id);
+	public void findEnderecos(Pessoa pessoa, TipoPessoa tipo) {
+		List<PessoaEndereco> list = pessoaEndRepo.findByTipoAndPessoaId(tipo.getCod(), pessoa.getId());
 		if (!list.isEmpty()) {
-			return enderecoRepo.findDistinctByPessoaEndereco(list);
-		} else {
-			return null;
+			pessoa.getEnderecos().addAll(enderecoRepo.findDistinctByPessoaEndereco(list));	
 		}
-
 	}
 	
 	public void updateData(Pessoa newObj, Pessoa obj) {

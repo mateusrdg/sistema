@@ -21,8 +21,8 @@ public class FornecedorService {
 	public Fornecedor find(Long id) {
 		Optional<Fornecedor> obj = repo.findById(id);
 		Fornecedor pessoa = obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Fornecedor.class.getName()));
-		pessoa.getEnderecos().addAll(pessoaService.findEnderecos(pessoa.getId(), TipoPessoa.FORNECEDOR));
-		pessoa.getTelefones().addAll(pessoaService.findTelefones(pessoa.getId(), TipoPessoa.FORNECEDOR));
+		pessoaService.findEnderecos(pessoa, TipoPessoa.FORNECEDOR);
+		pessoaService.findTelefones(pessoa, TipoPessoa.FORNECEDOR);
 		return pessoa;
 	}
 

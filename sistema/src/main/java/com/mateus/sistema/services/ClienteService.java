@@ -21,8 +21,8 @@ public class ClienteService {
 	public Cliente find(Long id) {
 		Optional<Cliente> obj = repo.findById(id);
 		Cliente pessoa = obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
-		pessoa.getEnderecos().addAll(pessoaService.findEnderecos(pessoa.getId(), TipoPessoa.CLIENTE));
-		pessoa.getTelefones().addAll(pessoaService.findTelefones(pessoa.getId(), TipoPessoa.CLIENTE));
+		pessoaService.findEnderecos(pessoa, TipoPessoa.CLIENTE);
+		pessoaService.findTelefones(pessoa, TipoPessoa.CLIENTE);
 		return pessoa;
 	}
 
