@@ -1,5 +1,6 @@
 package com.mateus.sistema.services;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.mateus.sistema.domain.Funcionario;
 import com.mateus.sistema.domain.enums.TipoPessoa;
 import com.mateus.sistema.dto.FuncionarioDTO;
+import com.mateus.sistema.dto.FuncionarioNewDTO;
 import com.mateus.sistema.repository.EnderecoRepository;
 import com.mateus.sistema.repository.FuncionarioRepository;
 import com.mateus.sistema.repository.TelefoneRepository;
@@ -35,7 +37,7 @@ public class FuncionarioService {
 		pessoaService.findTelefones(pessoa, TipoPessoa.FUNCIONARIO);
 		return pessoa;
 	}
-
+	
 	public Funcionario insert(Funcionario obj) {
 		obj.setId(null);
 		obj = repo.save(obj);
@@ -73,8 +75,8 @@ public class FuncionarioService {
 				objDto.getCpfCnpj(), objDto.getTipoFuncionario());
 	}
 
-	//public Funcionario fromDto(FuncionarioNewDTO objDto) {
-	//	return new Funcionario(null, objDto.getNome(), objDto.getEmail(), Calendar.getInstance(), objDto.getCpfCnpj(),objDto.getTipoFuncionario());
-	//}
+	public Funcionario fromDto(FuncionarioNewDTO objDto) {
+		return new Funcionario(null, objDto.getNome(), objDto.getEmail(), Calendar.getInstance(), null, null);
+	}
 
 }

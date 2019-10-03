@@ -24,8 +24,8 @@ public class ClienteDTO extends PessoaDTO implements Serializable{
 		this.tipoCliente = cliente.getTipoCliente();
 	}
 
-	public String getTipoCliente() {
-		return tipoCliente.getDescricao();
+	public TipoCliente getTipoCliente() {
+		return tipoCliente;
 	}
 
 	public void setTipoFuncionario(TipoCliente tipoCliente) {
