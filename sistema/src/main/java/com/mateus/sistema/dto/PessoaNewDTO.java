@@ -1,6 +1,8 @@
 package com.mateus.sistema.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
 
@@ -14,13 +16,20 @@ public class PessoaNewDTO implements Serializable {
 	private String nome;
 	@NotEmpty(message = "Preenchimento obrigatório.")
 	private String email;
+	private String cpfCnpj;
+
+	private List<EnderecoNewDTO> enderecos = new ArrayList<EnderecoNewDTO>();
+	private List<TelefoneNewDTO> telefones = new ArrayList<TelefoneNewDTO>();
 	
 	public PessoaNewDTO() {
 	}
 
-	public PessoaNewDTO(String nome, String email) {
+	public PessoaNewDTO(String nome, String email, String cpfCnpj, List<EnderecoNewDTO> enderecos, List<TelefoneNewDTO> telefones) {
 		this.nome = nome;
 		this.email = email;
+		this.cpfCnpj = cpfCnpj;
+		this.enderecos = enderecos;
+		this.telefones = telefones;
 	}
 
 	public String getNome() {
@@ -39,6 +48,28 @@ public class PessoaNewDTO implements Serializable {
 		this.email = email;
 	}
 
-	
+	public String getCpfCnpj() {
+		return cpfCnpj;
+	}
+
+	public void setCpfCnpj(String cpfCnpj) {
+		this.cpfCnpj = cpfCnpj;
+	}
+
+	public List<EnderecoNewDTO> getEnderecos() {
+		return enderecos;
+	}
+
+	public void setEnderecos(List<EnderecoNewDTO> enderecos) {
+		this.enderecos = enderecos;
+	}
+
+	public List<TelefoneNewDTO> getTelefones() {
+		return telefones;
+	}
+
+	public void setTelefones(List<TelefoneNewDTO> telefones) {
+		this.telefones = telefones;
+	}
 
 }

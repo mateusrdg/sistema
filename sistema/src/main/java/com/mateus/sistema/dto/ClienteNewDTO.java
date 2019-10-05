@@ -1,16 +1,31 @@
 package com.mateus.sistema.dto;
 
 import java.io.Serializable;
+import java.util.List;
+
+import com.mateus.sistema.domain.enums.TipoCliente;
 
 public class ClienteNewDTO extends PessoaNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
+
+	private TipoCliente tipoCliente;
 
 	public ClienteNewDTO() {
 		super();
 	}
 
-	public ClienteNewDTO(String nome, String email) {
-		super(nome, email);
+	public ClienteNewDTO(String nome, String email, String cpfCnpj, List<EnderecoNewDTO> enderecos,
+			List<TelefoneNewDTO> telefones, TipoCliente tipoCliente) {
+		super(nome, email, cpfCnpj, enderecos, telefones);
+		this.tipoCliente = tipoCliente;
+	}
+
+	public TipoCliente getTipoCliente() {
+		return tipoCliente;
+	}
+
+	public void setTipoCliente(TipoCliente tipoCliente) {
+		this.tipoCliente = tipoCliente;
 	}
 
 }

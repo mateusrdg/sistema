@@ -21,22 +21,23 @@ import com.mateus.sistema.services.exceptions.ObjectNotFoundException;
 @Service
 public class FornecedorService {
 	@Autowired
-	private FornecedorRepository repo;	
+	private FornecedorRepository repo;
 	@Autowired
 	private PessoaService pessoaService;
 	@Autowired
 	private EnderecoRepository enderecoRepo;
 	@Autowired
 	private TelefoneRepository telefoneRepository;
-	
+
 	public Fornecedor find(Long id) {
 		Optional<Fornecedor> obj = repo.findById(id);
-		Fornecedor pessoa = obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Fornecedor.class.getName()));
+		Fornecedor pessoa = obj.orElseThrow(() -> new ObjectNotFoundException(
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Fornecedor.class.getName()));
 		pessoaService.findEnderecos(pessoa, TipoPessoa.FORNECEDOR);
 		pessoaService.findTelefones(pessoa, TipoPessoa.FORNECEDOR);
 		return pessoa;
 	}
-	
+
 	public Fornecedor insert(Fornecedor obj) {
 		obj.setId(null);
 		obj = repo.save(obj);
@@ -63,10 +64,11 @@ public class FornecedorService {
 	public List<Fornecedor> findAll() {
 		return repo.findAll();
 	}
-	
+
 	private void updateData(Fornecedor newObj, Fornecedor obj) {
 		pessoaService.updateData(newObj, obj);
-		newObj.setNomeFantasia(newObj.getNomeFantasia());;
+		newObj.setNomeFantasia(newObj.getNomeFantasia());
+		;
 	}
 
 	public Fornecedor fromDto(FornecedorDTO objDto) {
@@ -75,6 +77,11 @@ public class FornecedorService {
 	}
 
 	public Fornecedor fromDto(FornecedorNewDTO objDto) {
-		return new Fornecedor(null, objDto.getNome(), objDto.getEmail(), Calendar.getInstance(), null, null);
+		Fornecedor obj = new Fornecedor(null, objDto.getNome(), objDto.getEmail(), Calendar.getInstance(),
+				objDto.getCpfCnpj(), objDto.getNomeFantasia());
+		obj.setEnderecos(objDto.getEnderecos());
+		obj.setTelefones(objDto.getTelefones());
+
+		return obj;
 	}
 }

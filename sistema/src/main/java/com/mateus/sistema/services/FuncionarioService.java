@@ -76,7 +76,7 @@ public class FuncionarioService {
 	}
 
 	public Funcionario fromDto(FuncionarioNewDTO objDto) {
-		return new Funcionario(null, objDto.getNome(), objDto.getEmail(), Calendar.getInstance(), null, null);
+		return new Funcionario(null, objDto.getNome(), objDto.getEmail(), Calendar.getInstance(), objDto.getCpfCnpj(), objDto.getTipoFuncionario());
 	}
 
 }

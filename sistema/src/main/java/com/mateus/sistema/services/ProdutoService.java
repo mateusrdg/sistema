@@ -73,6 +73,7 @@ public class ProdutoService {
 	
 	public Produto fromDto (ProdutoNewDTO objDto) {
 		return new Produto(null, objDto.getDescricao(), objDto.getReferencia(), Calendar.getInstance(), true);
+		
 	}
 	
 	

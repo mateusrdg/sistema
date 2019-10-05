@@ -16,30 +16,29 @@ public abstract class Pessoa implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
 	private String email;
 	private String cpfCnpj;
 	private Calendar dataCadastro;
-	
 	private Boolean ativo;
-	
+
 	@Transient
 	private List<Endereco> enderecos = new ArrayList<Endereco>();
 	@Transient
 	private List<Telefone> telefones = new ArrayList<Telefone>();
-	
+
 	public Pessoa() {
 	}
 
-	public Pessoa(Long id,String nome, String email, Calendar dataCadastro, String cpfCnpj) {
+	public Pessoa(Long id, String nome, String email, Calendar dataCadastro, String cpfCnpj) {
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.dataCadastro = dataCadastro;
 		this.cpfCnpj = cpfCnpj;
-		this.ativo = true; 
+		this.ativo = true;
 	}
 
 	public String getNome() {
@@ -82,7 +81,6 @@ public abstract class Pessoa implements Serializable {
 		this.dataCadastro = dataCadastro;
 	}
 
-
 	public List<Endereco> getEnderecos() {
 		return enderecos;
 	}
@@ -90,24 +88,15 @@ public abstract class Pessoa implements Serializable {
 	public void setEnderecos(List<Endereco> enderecos) {
 		this.enderecos = enderecos;
 	}
-	
-	
+
 	public List<Telefone> getTelefones() {
 		return telefones;
 	}
 
 	public void setTelefones(List<Telefone> telefones) {
 		this.telefones = telefones;
-	}	
-	
-//	public TipoPessoa getTipo() {
-//		return TipoPessoa.toEnum(tipo);
-//	}
-//
-//	public void setTipo(TipoPessoa tipo) {
-//		this.tipo = tipo.getCod();
-//	}
-//	
+	}
+
 	public Boolean getAtivo() {
 		return ativo;
 	}
@@ -115,7 +104,7 @@ public abstract class Pessoa implements Serializable {
 	public void setAtivo(Boolean estado) {
 		this.ativo = estado;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -140,7 +129,5 @@ public abstract class Pessoa implements Serializable {
 			return false;
 		return true;
 	}
-
-	
 
 }
