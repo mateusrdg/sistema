@@ -2,6 +2,7 @@ package com.mateus.sistema.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,7 +26,7 @@ public class PessoaTelefone implements Serializable {
 	@Column(name = "pessoa_id")
 	private Long pessoa;
 	
-	@ManyToOne
+	@ManyToOne(cascade  = CascadeType.REMOVE)
 	@JoinColumn(name="telefone_id")
 	private Telefone telefone;
 	

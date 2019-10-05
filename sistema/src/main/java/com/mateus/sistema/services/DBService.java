@@ -233,7 +233,9 @@ public class DBService {
 				"326544477", "Nome fantasia");
 		Fornecedor fornecedor2 = new Fornecedor(null, "Nome Empresa2", "empresa2@empresa2.com", Calendar.getInstance(),
 				"21457487", "Nome fantasia2");
-		fornecedorRepo.saveAll(Arrays.asList(fornecedor1, fornecedor2));
+		Fornecedor fornecedor3 = new Fornecedor(null, "Nome Empresa3", "empresa3@empresa3.com", Calendar.getInstance(),
+				"11111111111", "Nome fantasia3");
+		fornecedorRepo.saveAll(Arrays.asList(fornecedor1, fornecedor2, fornecedor3));
 
 		Funcionario funcionario1 = new Funcionario(null, "Berg", "berg@corre.com", Calendar.getInstance(), "548784554",
 				TipoFuncionario.VENDEDOR);
