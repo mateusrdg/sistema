@@ -24,7 +24,8 @@ public class PessoaNewDTO implements Serializable {
 	public PessoaNewDTO() {
 	}
 
-	public PessoaNewDTO(String nome, String email, String cpfCnpj, List<EnderecoNewDTO> enderecos, List<TelefoneNewDTO> telefones) {
+	public PessoaNewDTO(String nome, String email, String cpfCnpj, List<EnderecoNewDTO> enderecos,
+			List<TelefoneNewDTO> telefones) {
 		this.nome = nome;
 		this.email = email;
 		this.cpfCnpj = cpfCnpj;

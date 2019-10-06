@@ -98,6 +98,4 @@ public class PessoaTelefone implements Serializable {
 		return true;
 	}
 
-	
-
 }

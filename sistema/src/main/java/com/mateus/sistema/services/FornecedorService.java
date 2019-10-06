@@ -3,15 +3,12 @@ package com.mateus.sistema.services;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import com.mateus.sistema.domain.Endereco;
 import com.mateus.sistema.domain.Fornecedor;
-import com.mateus.sistema.domain.Telefone;
 import com.mateus.sistema.domain.enums.TipoPessoa;
 import com.mateus.sistema.dto.FornecedorDTO;
 import com.mateus.sistema.dto.FornecedorNewDTO;
@@ -46,6 +43,8 @@ public class FornecedorService {
 	public Fornecedor update(Fornecedor obj) {
 		Fornecedor newObj = find(obj.getId());
 		updateData(newObj, obj);
+		pessoaService.updateEnderecos(newObj);
+		pessoaService.updateTelefones(newObj);
 		return repo.save(newObj);
 	}
 
@@ -67,23 +66,21 @@ public class FornecedorService {
 	private void updateData(Fornecedor newObj, Fornecedor obj) {
 		pessoaService.updateData(newObj, obj);
 		newObj.setNomeFantasia(newObj.getNomeFantasia());
-		;
 	}
 
 	public Fornecedor fromDto(FornecedorDTO objDto) {
-		return new Fornecedor(objDto.getId(), objDto.getNome(), objDto.getEmail(), objDto.getDataCadastro(),
+		Fornecedor obj = new Fornecedor(objDto.getId(), objDto.getNome(), objDto.getEmail(), objDto.getDataCadastro(),
 				objDto.getCpfCnpj(), objDto.getNomeFantasia());
+		pessoaService.enderecosFromDto(obj,objDto);
+		pessoaService.telefonesFromDto(obj,objDto);
+		return obj;
 	}
 
 	public Fornecedor fromDto(FornecedorNewDTO objDto) {
 		Fornecedor obj = new Fornecedor(null, objDto.getNome(), objDto.getEmail(), Calendar.getInstance(),
 				objDto.getCpfCnpj(), objDto.getNomeFantasia());
-		
-		obj.setEnderecos(objDto.getEnderecos().stream().map(x -> new Endereco(null, x.getRua(), x.getNumero(),
-				x.getCep(), x.getComplemento(), x.getBairro(), x.getCidade())).collect(Collectors.toList()));
-		
-		obj.setTelefones(objDto.getTelefones().stream().map(x -> new Telefone(null,x.getNumero())).collect(Collectors.toList()));
-		
+		pessoaService.enderecosFromDto(obj,objDto);
+		pessoaService.telefonesFromDto(obj,objDto);
 		return obj;
 	}
 }

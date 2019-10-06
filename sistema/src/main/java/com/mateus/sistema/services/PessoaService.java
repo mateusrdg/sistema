@@ -6,10 +6,14 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mateus.sistema.domain.Endereco;
 import com.mateus.sistema.domain.Pessoa;
 import com.mateus.sistema.domain.PessoaEndereco;
 import com.mateus.sistema.domain.PessoaTelefone;
+import com.mateus.sistema.domain.Telefone;
 import com.mateus.sistema.domain.enums.TipoPessoa;
+import com.mateus.sistema.dto.PessoaDTO;
+import com.mateus.sistema.dto.PessoaNewDTO;
 import com.mateus.sistema.repository.EnderecoRepository;
 import com.mateus.sistema.repository.PessoaEnderecoRepository;
 import com.mateus.sistema.repository.PessoaTelefoneRepository;
@@ -70,6 +74,49 @@ public class PessoaService {
 
 	public void deleteTelefones(Long id, TipoPessoa tipo) {
 		pessoaEndRepo.deleteAll(pessoaEndRepo.findByTipoAndPessoaId(tipo.getCod(), id));
+	}
+
+	public void updateEnderecos(Pessoa obj) {
+		for (Endereco endereco : obj.getEnderecos()) {
+			if (endereco.getId() == null) {
+				enderecoRepo.save(endereco);
+				PessoaEndereco pe = new PessoaEndereco(null, obj, endereco);
+				pessoaEndRepo.save(pe);
+			} else {
+				enderecoRepo.save(endereco);
+			}
+		}
+	}
+
+	public void updateTelefones(Pessoa obj) {
+		for (Telefone telefone : obj.getTelefones()) {
+			if (telefone.getId() == null) {
+				telefoneRepo.save(telefone);
+				PessoaTelefone pt = new PessoaTelefone(null, obj, telefone);
+				pessoaTelRepo.save(pt);
+			} else {
+				telefoneRepo.save(telefone);
+			}
+		}
+	}
+
+	public void telefonesFromDto(Pessoa obj, PessoaDTO objDto) {
+		obj.setTelefones(objDto.getTelefones().stream().map(x -> new Telefone(x.getId(),x.getNumero())).collect(Collectors.toList()));
+	}
+
+	public void enderecosFromDto(Pessoa obj, PessoaDTO objDto) {
+		obj.setEnderecos(objDto.getEnderecos().stream().map(x -> new Endereco(x.getId(), x.getRua(), x.getNumero(),
+				x.getCep(), x.getComplemento(), x.getBairro(), x.getCidade())).collect(Collectors.toList()));
+	}
+	
+	public void telefonesFromDto(Pessoa obj, PessoaNewDTO objDto) {
+		obj.setTelefones(objDto.getTelefones().stream().map(x -> new Telefone(null,x.getNumero())).collect(Collectors.toList()));
+		
+	}
+
+	public void enderecosFromDto(Pessoa obj, PessoaNewDTO objDto) {
+		obj.setEnderecos(objDto.getEnderecos().stream().map(x -> new Endereco(null, x.getRua(), x.getNumero(),
+				x.getCep(), x.getComplemento(), x.getBairro(), x.getCidade())).collect(Collectors.toList()));
 	}
 
 }
