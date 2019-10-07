@@ -13,8 +13,6 @@ import com.mateus.sistema.domain.enums.TipoPessoa;
 import com.mateus.sistema.dto.ClienteDTO;
 import com.mateus.sistema.dto.ClienteNewDTO;
 import com.mateus.sistema.repository.ClienteRepository;
-import com.mateus.sistema.repository.EnderecoRepository;
-import com.mateus.sistema.repository.TelefoneRepository;
 import com.mateus.sistema.services.exceptions.DataIntegrityException;
 import com.mateus.sistema.services.exceptions.ObjectNotFoundException;
 
@@ -24,10 +22,6 @@ public class ClienteService {
 	private ClienteRepository repo;
 	@Autowired
 	private PessoaService pessoaService;
-	@Autowired
-	private EnderecoRepository enderecoRepo;
-	@Autowired
-	private TelefoneRepository telefoneRepository;
 	
 	public Cliente find(Long id) {
 		Optional<Cliente> obj = repo.findById(id);
@@ -41,20 +35,24 @@ public class ClienteService {
 	public Cliente insert(Cliente obj) {
 		obj.setId(null);
 		obj = repo.save(obj);
-		enderecoRepo.saveAll(obj.getEnderecos());
-		telefoneRepository.saveAll(obj.getTelefones());
+		pessoaService.insertEnderecos(obj);
+		pessoaService.insertTelefones(obj);
 		return obj;
 	}
 
 	public Cliente update(Cliente obj) {
 		Cliente newObj = find(obj.getId());
 		updateData(newObj, obj);
+		pessoaService.updateEnderecos(newObj);
+		pessoaService.updateTelefones(newObj);
 		return repo.save(newObj);
 	}
 
 	public void delete(Long id) {
 		repo.findById(id);
 		try {
+			pessoaService.deleteEnderecos(id,TipoPessoa.CLIENTE);
+			pessoaService.deleteTelefones(id,TipoPessoa.CLIENTE);
 			repo.deleteById(id);
 		} catch (DataIntegrityViolationException e) {
 			throw new DataIntegrityException("Não é possível excluir porque há pedidos relacionados");
@@ -71,11 +69,17 @@ public class ClienteService {
 	}
 
 	public Cliente fromDto(ClienteDTO objDto) {
-		return new Cliente(objDto.getId(), objDto.getNome(), objDto.getEmail(), objDto.getDataCadastro(),
+		Cliente obj = new  Cliente(objDto.getId(), objDto.getNome(), objDto.getEmail(), objDto.getDataCadastro(),
 				objDto.getCpfCnpj(), objDto.getTipoCliente());
+		pessoaService.enderecosFromDto(obj,objDto);
+		pessoaService.telefonesFromDto(obj,objDto);
+		return obj;
 	}
 
 	public Cliente fromDto(ClienteNewDTO objDto) {
-		return new Cliente(null, objDto.getNome(), objDto.getEmail(), Calendar.getInstance(), null, null);
+		Cliente obj = new Cliente(null, objDto.getNome(), objDto.getEmail(), Calendar.getInstance(), null, null);
+		pessoaService.enderecosFromDto(obj,objDto);
+		pessoaService.telefonesFromDto(obj,objDto);
+		return obj;
 	}
 }

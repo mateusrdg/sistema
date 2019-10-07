@@ -12,9 +12,7 @@ import com.mateus.sistema.domain.Funcionario;
 import com.mateus.sistema.domain.enums.TipoPessoa;
 import com.mateus.sistema.dto.FuncionarioDTO;
 import com.mateus.sistema.dto.FuncionarioNewDTO;
-import com.mateus.sistema.repository.EnderecoRepository;
 import com.mateus.sistema.repository.FuncionarioRepository;
-import com.mateus.sistema.repository.TelefoneRepository;
 import com.mateus.sistema.services.exceptions.DataIntegrityException;
 import com.mateus.sistema.services.exceptions.ObjectNotFoundException;
 
@@ -24,10 +22,6 @@ public class FuncionarioService {
 	private FuncionarioRepository repo;
 	@Autowired
 	private PessoaService pessoaService;
-	@Autowired
-	private EnderecoRepository enderecoRepo;
-	@Autowired
-	private TelefoneRepository telefoneRepository;
 
 	public Funcionario find(Long id) {
 		Optional<Funcionario> obj = repo.findById(id);
@@ -37,24 +31,28 @@ public class FuncionarioService {
 		pessoaService.findTelefones(pessoa, TipoPessoa.FUNCIONARIO);
 		return pessoa;
 	}
-	
+
 	public Funcionario insert(Funcionario obj) {
 		obj.setId(null);
 		obj = repo.save(obj);
-		enderecoRepo.saveAll(obj.getEnderecos());
-		telefoneRepository.saveAll(obj.getTelefones());
+		pessoaService.insertEnderecos(obj);
+		pessoaService.insertTelefones(obj);
 		return obj;
 	}
 
 	public Funcionario update(Funcionario obj) {
 		Funcionario newObj = find(obj.getId());
 		updateData(newObj, obj);
+		pessoaService.updateEnderecos(newObj);
+		pessoaService.updateTelefones(newObj);
 		return repo.save(newObj);
 	}
 
 	public void delete(Long id) {
 		repo.findById(id);
 		try {
+			pessoaService.deleteEnderecos(id, TipoPessoa.FUNCIONARIO);
+			pessoaService.deleteTelefones(id, TipoPessoa.FUNCIONARIO);
 			repo.deleteById(id);
 		} catch (DataIntegrityViolationException e) {
 			throw new DataIntegrityException("Não é possível excluir porque há pedidos relacionados");
@@ -71,12 +69,19 @@ public class FuncionarioService {
 	}
 
 	public Funcionario fromDto(FuncionarioDTO objDto) {
-		return new Funcionario(objDto.getId(), objDto.getNome(), objDto.getEmail(), objDto.getDataCadastro(),
+		Funcionario obj = new Funcionario(objDto.getId(), objDto.getNome(), objDto.getEmail(), objDto.getDataCadastro(),
 				objDto.getCpfCnpj(), objDto.getTipoFuncionario());
+		pessoaService.enderecosFromDto(obj, objDto);
+		pessoaService.telefonesFromDto(obj, objDto);
+		return obj;
 	}
 
 	public Funcionario fromDto(FuncionarioNewDTO objDto) {
-		return new Funcionario(null, objDto.getNome(), objDto.getEmail(), Calendar.getInstance(), objDto.getCpfCnpj(), objDto.getTipoFuncionario());
+		Funcionario obj = new  Funcionario(null, objDto.getNome(), objDto.getEmail(), Calendar.getInstance(), objDto.getCpfCnpj(),
+				objDto.getTipoFuncionario());
+		pessoaService.enderecosFromDto(obj,objDto);
+		pessoaService.telefonesFromDto(obj,objDto);
+		return obj;
 	}
 
 }
