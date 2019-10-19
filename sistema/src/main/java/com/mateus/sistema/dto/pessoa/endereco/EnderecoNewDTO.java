@@ -1,4 +1,4 @@
-package com.mateus.sistema.dto;
+package com.mateus.sistema.dto.pessoa.endereco;
 
 import java.io.Serializable;
 

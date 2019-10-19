@@ -1,9 +1,12 @@
-package com.mateus.sistema.dto;
+package com.mateus.sistema.dto.pessoa.funcionario;
 
 import java.io.Serializable;
 import java.util.List;
 
 import com.mateus.sistema.domain.enums.TipoFuncionario;
+import com.mateus.sistema.dto.pessoa.PessoaNewDTO;
+import com.mateus.sistema.dto.pessoa.endereco.EnderecoNewDTO;
+import com.mateus.sistema.dto.pessoa.telefone.TelefoneNewDTO;
 
 public class FuncionarioNewDTO extends PessoaNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;

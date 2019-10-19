@@ -1,4 +1,4 @@
-package com.mateus.sistema.dto;
+package com.mateus.sistema.dto.produto;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -9,6 +9,9 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mateus.sistema.domain.PedidoItem;
 import com.mateus.sistema.domain.Produto;
+import com.mateus.sistema.dto.produto.estoque.ProdutoEstoqueDTO;
+import com.mateus.sistema.dto.produto.preco.PrecoDTO;
+import com.mateus.sistema.dto.produto.subgrupo.ProdutoSubgrupoDTO;
 
 public class ProdutoDTO extends BaseProdutoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;

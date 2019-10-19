@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.mateus.sistema.domain.Funcionario;
-import com.mateus.sistema.dto.FuncionarioDTO;
-import com.mateus.sistema.dto.FuncionarioNewDTO;
+import com.mateus.sistema.dto.pessoa.funcionario.FuncionarioDTO;
+import com.mateus.sistema.dto.pessoa.funcionario.FuncionarioNewDTO;
 import com.mateus.sistema.services.FuncionarioService;
 
 @RestController

@@ -1,4 +1,4 @@
-package com.mateus.sistema.dto;
+package com.mateus.sistema.dto.pessoa;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.mateus.sistema.domain.Pessoa;
+import com.mateus.sistema.dto.pessoa.endereco.EnderecoDTO;
+import com.mateus.sistema.dto.pessoa.telefone.TelefoneDTO;
 
 public class PessoaDTO {
 

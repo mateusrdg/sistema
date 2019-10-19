@@ -1,7 +1,11 @@
-package com.mateus.sistema.dto;
+package com.mateus.sistema.dto.pessoa.fornecedor;
 
 import java.io.Serializable;
 import java.util.List;
+
+import com.mateus.sistema.dto.pessoa.PessoaNewDTO;
+import com.mateus.sistema.dto.pessoa.endereco.EnderecoNewDTO;
+import com.mateus.sistema.dto.pessoa.telefone.TelefoneNewDTO;
 
 public class FornecedorNewDTO extends PessoaNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;

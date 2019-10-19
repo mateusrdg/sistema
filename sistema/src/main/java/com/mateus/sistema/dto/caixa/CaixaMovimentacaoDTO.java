@@ -1,4 +1,4 @@
-package com.mateus.sistema.dto;
+package com.mateus.sistema.dto.caixa;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import com.mateus.sistema.domain.CaixaMovimentacao;
 import com.mateus.sistema.domain.enums.EstadoCaixa;
+import com.mateus.sistema.dto.pessoa.funcionario.FuncionarioDTO;
 
 public class CaixaMovimentacaoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;

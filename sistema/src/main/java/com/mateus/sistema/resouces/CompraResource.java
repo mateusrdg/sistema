@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mateus.sistema.domain.Compra;
-import com.mateus.sistema.dto.CompraDTO;
+import com.mateus.sistema.dto.pedido.compra.CompraDTO;
 import com.mateus.sistema.services.CompraService;
 
 @RestController

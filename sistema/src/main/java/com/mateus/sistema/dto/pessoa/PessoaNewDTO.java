@@ -1,4 +1,4 @@
-package com.mateus.sistema.dto;
+package com.mateus.sistema.dto.pessoa;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -7,6 +7,9 @@ import java.util.List;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
+
+import com.mateus.sistema.dto.pessoa.endereco.EnderecoNewDTO;
+import com.mateus.sistema.dto.pessoa.telefone.TelefoneNewDTO;
 
 public class PessoaNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;

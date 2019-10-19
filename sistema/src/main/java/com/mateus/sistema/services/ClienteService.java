@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.mateus.sistema.domain.Cliente;
 import com.mateus.sistema.domain.enums.TipoPessoa;
-import com.mateus.sistema.dto.ClienteDTO;
-import com.mateus.sistema.dto.ClienteNewDTO;
+import com.mateus.sistema.dto.pessoa.cliente.ClienteDTO;
+import com.mateus.sistema.dto.pessoa.cliente.ClienteNewDTO;
 import com.mateus.sistema.repository.ClienteRepository;
 import com.mateus.sistema.services.exceptions.DataIntegrityException;
 import com.mateus.sistema.services.exceptions.ObjectNotFoundException;

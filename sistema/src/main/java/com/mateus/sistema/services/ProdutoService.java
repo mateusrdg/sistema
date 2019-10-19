@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.mateus.sistema.domain.Grupo;
 import com.mateus.sistema.domain.Produto;
-import com.mateus.sistema.dto.ProdutoDTO;
-import com.mateus.sistema.dto.ProdutoNewDTO;
+import com.mateus.sistema.dto.produto.ProdutoDTO;
+import com.mateus.sistema.dto.produto.ProdutoNewDTO;
 import com.mateus.sistema.repository.PrecoRepository;
 import com.mateus.sistema.repository.ProdutoRepository;
 import com.mateus.sistema.repository.ProdutoSubgrupoRepository;

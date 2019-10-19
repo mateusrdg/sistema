@@ -1,10 +1,14 @@
-package com.mateus.sistema.dto;
+package com.mateus.sistema.dto.pedido.compra;
 
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
 
 import com.mateus.sistema.domain.Compra;
+import com.mateus.sistema.dto.pedido.PedidoDTO;
+import com.mateus.sistema.dto.pedido.formaPagamento.FormaPagamentoDTO;
+import com.mateus.sistema.dto.pedido.item.PedidoItemDTO;
+import com.mateus.sistema.dto.pessoa.PessoaDTO;
 
 public class CompraDTO extends PedidoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;

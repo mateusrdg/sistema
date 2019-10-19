@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.mateus.sistema.domain.Produto;
-import com.mateus.sistema.dto.ProdutoDTO;
-import com.mateus.sistema.dto.ProdutoNewDTO;
+import com.mateus.sistema.dto.produto.ProdutoDTO;
+import com.mateus.sistema.dto.produto.ProdutoNewDTO;
 import com.mateus.sistema.services.ProdutoService;
 
 @RestController

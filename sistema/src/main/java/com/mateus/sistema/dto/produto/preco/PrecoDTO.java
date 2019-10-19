@@ -1,4 +1,4 @@
-package com.mateus.sistema.dto;
+package com.mateus.sistema.dto.produto.preco;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

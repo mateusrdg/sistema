@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.mateus.sistema.domain.Fornecedor;
 import com.mateus.sistema.domain.enums.TipoPessoa;
-import com.mateus.sistema.dto.FornecedorDTO;
-import com.mateus.sistema.dto.FornecedorNewDTO;
+import com.mateus.sistema.dto.pessoa.fornecedor.FornecedorDTO;
+import com.mateus.sistema.dto.pessoa.fornecedor.FornecedorNewDTO;
 import com.mateus.sistema.repository.FornecedorRepository;
 import com.mateus.sistema.services.exceptions.DataIntegrityException;
 import com.mateus.sistema.services.exceptions.ObjectNotFoundException;

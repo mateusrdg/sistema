@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.mateus.sistema.domain.Fornecedor;
-import com.mateus.sistema.dto.FornecedorDTO;
-import com.mateus.sistema.dto.FornecedorNewDTO;
+import com.mateus.sistema.dto.pessoa.fornecedor.FornecedorDTO;
+import com.mateus.sistema.dto.pessoa.fornecedor.FornecedorNewDTO;
 import com.mateus.sistema.services.FornecedorService;
 
 @RestController

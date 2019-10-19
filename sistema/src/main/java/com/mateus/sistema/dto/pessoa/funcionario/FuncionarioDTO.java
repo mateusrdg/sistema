@@ -1,4 +1,4 @@
-package com.mateus.sistema.dto;
+package com.mateus.sistema.dto.pessoa.funcionario;
 
 import java.io.Serializable;
 import java.util.Calendar;
@@ -6,6 +6,9 @@ import java.util.List;
 
 import com.mateus.sistema.domain.Funcionario;
 import com.mateus.sistema.domain.enums.TipoFuncionario;
+import com.mateus.sistema.dto.pessoa.PessoaDTO;
+import com.mateus.sistema.dto.pessoa.endereco.EnderecoDTO;
+import com.mateus.sistema.dto.pessoa.telefone.TelefoneDTO;
 
 public class FuncionarioDTO extends PessoaDTO implements Serializable {
 	private static final long serialVersionUID = 1L;

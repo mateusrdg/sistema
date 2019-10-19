@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.mateus.sistema.domain.Cliente;
-import com.mateus.sistema.dto.ClienteDTO;
-import com.mateus.sistema.dto.ClienteNewDTO;
+import com.mateus.sistema.dto.pessoa.cliente.ClienteDTO;
+import com.mateus.sistema.dto.pessoa.cliente.ClienteNewDTO;
 import com.mateus.sistema.services.ClienteService;
 
 @RestController

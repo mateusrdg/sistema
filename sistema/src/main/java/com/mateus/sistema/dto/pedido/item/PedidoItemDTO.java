@@ -1,4 +1,4 @@
-package com.mateus.sistema.dto;
+package com.mateus.sistema.dto.pedido.item;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

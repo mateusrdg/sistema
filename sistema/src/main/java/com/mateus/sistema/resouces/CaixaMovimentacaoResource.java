@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mateus.sistema.domain.CaixaMovimentacao;
-import com.mateus.sistema.dto.CaixaMovimentacaoDTO;
+import com.mateus.sistema.dto.caixa.CaixaMovimentacaoDTO;
 import com.mateus.sistema.services.CaixaMovimentacaoService;
 
 @RestController

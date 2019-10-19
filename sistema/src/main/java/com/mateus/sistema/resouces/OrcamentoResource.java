@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mateus.sistema.domain.Orcamento;
-import com.mateus.sistema.dto.VendaDTO;
+import com.mateus.sistema.dto.pedido.venda.VendaDTO;
 import com.mateus.sistema.services.OrcamentoService;
 
 @RestController
