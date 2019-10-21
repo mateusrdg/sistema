@@ -101,17 +101,19 @@ public class PessoaService {
 	}
 
 	public void telefonesFromDto(Pessoa obj, PessoaDTO objDto) {
-		obj.setTelefones(objDto.getTelefones().stream().map(x -> new Telefone(x.getId(),x.getNumero())).collect(Collectors.toList()));
+		obj.setTelefones(objDto.getTelefones().stream().map(x -> new Telefone(x.getId(), x.getNumero()))
+				.collect(Collectors.toList()));
 	}
 
 	public void enderecosFromDto(Pessoa obj, PessoaDTO objDto) {
 		obj.setEnderecos(objDto.getEnderecos().stream().map(x -> new Endereco(x.getId(), x.getRua(), x.getNumero(),
 				x.getCep(), x.getComplemento(), x.getBairro(), x.getCidade())).collect(Collectors.toList()));
 	}
-	
+
 	public void telefonesFromDto(Pessoa obj, PessoaNewDTO objDto) {
-		obj.setTelefones(objDto.getTelefones().stream().map(x -> new Telefone(null,x.getNumero())).collect(Collectors.toList()));
-		
+		obj.setTelefones(objDto.getTelefones().stream().map(x -> new Telefone(null, x.getNumero()))
+				.collect(Collectors.toList()));
+
 	}
 
 	public void enderecosFromDto(Pessoa obj, PessoaNewDTO objDto) {

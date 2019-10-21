@@ -1,4 +1,4 @@
-package com.mateus.sistema.dto.pedido.formaPagamento;
+package com.mateus.sistema.dto.pedido.formaPagamentoPedido;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -7,58 +7,58 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.mateus.sistema.domain.FormaPagamento;
 import com.mateus.sistema.domain.FormaPagamentoCompra;
 import com.mateus.sistema.domain.FormaPagamentoPedido;
 import com.mateus.sistema.domain.FormaPagamentoVenda;
 import com.mateus.sistema.domain.enums.EstadoPagamento;
-import com.mateus.sistema.dto.caixa.ParcelaDTO;
+import com.mateus.sistema.dto.formaPagamento.FormaPagamentoDTO;
+import com.mateus.sistema.dto.pedido.formaPagamentoPedido.parcela.ParcelaNewDTO;
 
-public class FormaPagamentoDTO implements Serializable {
+public class FormaPagamentoPedidoNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private String formaPagamento;
+	private FormaPagamentoDTO formaPagamento;
 	private BigDecimal valor;
 	private Calendar data;
 	private EstadoPagamento estado;
 
-	List<ParcelaDTO> parcelas = new ArrayList<ParcelaDTO>();
+	List<ParcelaNewDTO> parcelas = new ArrayList<ParcelaNewDTO>();
 
-	public FormaPagamentoDTO() {
+	public FormaPagamentoPedidoNewDTO() {
 
 	}
 
-	public FormaPagamentoDTO(FormaPagamento formaPagamento, BigDecimal valor, Calendar data,
-			EstadoPagamento estado, List<ParcelaDTO> parcelas) {
-		this.formaPagamento = formaPagamento.getDescricao();
+	public FormaPagamentoPedidoNewDTO(FormaPagamentoDTO formaPagamento, BigDecimal valor, Calendar data,
+			EstadoPagamento estado, List<ParcelaNewDTO> parcelas) {
+		this.formaPagamento = formaPagamento;
 		this.valor = valor;
 		this.data = data;
 		this.estado = estado;
 		this.parcelas = parcelas;
 	}
 
-	public FormaPagamentoDTO(FormaPagamentoPedido formaPagamentoPedido) {
+	public FormaPagamentoPedidoNewDTO(FormaPagamentoPedido formaPagamentoPedido) {
 		if (formaPagamentoPedido instanceof FormaPagamentoVenda) {
-			parcelas = ((FormaPagamentoVenda) formaPagamentoPedido).getParcelas().stream().map(obj -> new ParcelaDTO(obj))
+			parcelas = ((FormaPagamentoVenda) formaPagamentoPedido).getParcelas().stream().map(obj -> new ParcelaNewDTO(obj))
 					.collect(Collectors.toList());
 		}
 		
 		if (formaPagamentoPedido instanceof FormaPagamentoCompra) {
-			parcelas = ((FormaPagamentoCompra) formaPagamentoPedido).getParcelas().stream().map(obj -> new ParcelaDTO(obj))
+			parcelas = ((FormaPagamentoCompra) formaPagamentoPedido).getParcelas().stream().map(obj -> new ParcelaNewDTO(obj))
 					.collect(Collectors.toList());
 		}
-		this.formaPagamento = formaPagamentoPedido.getFormaPagamento().getDescricao();
+		this.formaPagamento = new FormaPagamentoDTO(formaPagamentoPedido.getFormaPagamento());
 		this.valor = formaPagamentoPedido.getValor();
 		this.data = formaPagamentoPedido.getData();
 		this.estado = formaPagamentoPedido.getEstado();
 		
 	}
 	
-	public String getFormaPagamento() {
+	public FormaPagamentoDTO getFormaPagamento() {
 		return formaPagamento;
 	}
 
-	public void setFormaPagamento(String formaPagamento) {
+	public void setFormaPagamento(FormaPagamentoDTO formaPagamento) {
 		this.formaPagamento = formaPagamento;
 	}
 
@@ -78,19 +78,19 @@ public class FormaPagamentoDTO implements Serializable {
 		this.data = data;
 	}
 
-	public String getEstado() {
-		return estado.getDescricao();
+	public EstadoPagamento getEstado() {
+		return estado;
 	}
 
 	public void setEstado(EstadoPagamento estado) {
 		this.estado = estado;
 	}
 
-	public List<ParcelaDTO> getParcelas() {
+	public List<ParcelaNewDTO> getParcelas() {
 		return parcelas;
 	}
 
-	public void setParcelas(List<ParcelaDTO> parcelas) {
+	public void setParcelas(List<ParcelaNewDTO> parcelas) {
 		this.parcelas = parcelas;
 	}
 

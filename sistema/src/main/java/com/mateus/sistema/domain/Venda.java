@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity(name = "Venda")
 @Table(name = "venda")
 public class Venda extends Pedido implements Serializable {
@@ -24,19 +26,23 @@ public class Venda extends Pedido implements Serializable {
 	@JoinColumn(name = "funcionario_id")
 	private Funcionario vendedor;
 
+	@JsonManagedReference
 	@OneToMany(mappedBy = "pedido")
 	private List<VendaItem> itens = new ArrayList<VendaItem>();
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy = "pedido")
 	private List<FormaPagamentoVenda> formasPagamento = new ArrayList<FormaPagamentoVenda>();
 	
 	public Venda() {
 	}
 
-	public Venda(Long id, Calendar data, Cliente cliente, Funcionario vendedor) {
+	public Venda(Long id, Calendar data, Cliente cliente, Funcionario vendedor, List<VendaItem> itens, List<FormaPagamentoVenda> formasPagamento) {
 		super(id, data);
 		this.setCliente(cliente);
 		this.vendedor = vendedor;
+		this.itens = itens;
+		this.formasPagamento = formasPagamento;
 	}
 
 	public Cliente getCliente() {

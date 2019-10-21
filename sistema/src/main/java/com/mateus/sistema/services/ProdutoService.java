@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.mateus.sistema.domain.Grupo;
 import com.mateus.sistema.domain.Produto;
+import com.mateus.sistema.dto.produto.BaseProdutoDTO;
 import com.mateus.sistema.dto.produto.ProdutoDTO;
 import com.mateus.sistema.dto.produto.ProdutoNewDTO;
 import com.mateus.sistema.repository.PrecoRepository;
@@ -73,8 +74,9 @@ public class ProdutoService {
 	
 	public Produto fromDto (ProdutoNewDTO objDto) {
 		return new Produto(null, objDto.getDescricao(), objDto.getReferencia(), Calendar.getInstance(), true);
-		
 	}
 	
-	
+	public Produto fromDto (BaseProdutoDTO objDto) {
+		return new Produto(objDto.getId(), objDto.getDescricao(), objDto.getReferencia(), null, null);
+	}
 }

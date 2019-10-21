@@ -263,7 +263,7 @@ public class DBService {
 
 		pessoaEnderecoRepo.saveAll(Arrays.asList(pe1, pe2, pe3, pe4));
 
-		Venda venda = new Venda(null, Calendar.getInstance(), cliente1, funcionario1);
+		Venda venda = new Venda(null, Calendar.getInstance(), cliente1, funcionario1, null, null);
 		pedidoVendaRepo.saveAll(Arrays.asList(venda));
 
 		Compra compra = new Compra(null, Calendar.getInstance(), fornecedor2, funcionario2);

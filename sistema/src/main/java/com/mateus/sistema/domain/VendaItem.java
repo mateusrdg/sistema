@@ -8,6 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity(name = "VendaItem")
@@ -16,7 +17,7 @@ public class VendaItem extends PedidoItem implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@JsonIgnore
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "venda_id", referencedColumnName = "id")
 	private Venda pedido;
@@ -30,7 +31,7 @@ public class VendaItem extends PedidoItem implements Serializable {
 		this.pedido = pedido;
 
 	}
-
+	@JsonIgnore
 	public Pedido getPedido() {
 		return pedido;
 	}

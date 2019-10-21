@@ -28,7 +28,6 @@ public abstract class Pedido implements Serializable {
 	
 	public abstract Pessoa getClienteFornecedor();
 	
-	
 	public Long getId() {
 		return id;
 	}

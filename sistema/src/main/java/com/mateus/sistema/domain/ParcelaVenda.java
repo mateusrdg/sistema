@@ -11,6 +11,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mateus.sistema.domain.enums.EstadoPagamento;
 
@@ -20,10 +21,9 @@ public class ParcelaVenda extends Parcela implements Serializable {
 	@Version
 	private static final long serialVersionUID = 1L;
 
-	
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "forma_pagamento_venda_id")
-	@JsonIgnore
 	private FormaPagamentoVenda formaPagamentoVenda;
 
 	@OneToOne(mappedBy = "parcela")
@@ -37,7 +37,7 @@ public class ParcelaVenda extends Parcela implements Serializable {
 		super(id, valor, estado, dataVencimento, dataPagamento);
 		this.formaPagamentoVenda = formaPagamentoVenda;
 	}
-
+	@JsonIgnore
 	public FormaPagamentoVenda getFormaPagamento() {
 		return formaPagamentoVenda;
 	}

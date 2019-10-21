@@ -31,7 +31,6 @@ public abstract class FormaPagamentoPedido implements Serializable {
 	@JoinColumn(name = "forma_pagamento_id")
 	private FormaPagamento formaPagamento;
 
-
 	public FormaPagamentoPedido() {
 	}
 

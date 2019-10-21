@@ -14,7 +14,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.mateus.sistema.domain.enums.EstadoPagamento;
 
 @Entity(name = "FormaPagamentoVenda")
@@ -23,11 +25,12 @@ public class FormaPagamentoVenda extends FormaPagamentoPedido implements Seriali
 	@Version
 	private static final long serialVersionUID = 1L;
 
-	@JsonIgnore
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "venda_id")
 	private Venda pedido;
 
+	@JsonManagedReference
 	@OneToMany(mappedBy = "formaPagamentoVenda")
 	private List<ParcelaVenda> parcelas = new ArrayList<ParcelaVenda>();
 
@@ -41,6 +44,23 @@ public class FormaPagamentoVenda extends FormaPagamentoPedido implements Seriali
 			EstadoPagamento estado) {
 		super(id, formaPagamento, data, valor, estado);
 		this.pedido = pedido;
+	}
+	
+	@JsonIgnore
+	public Venda getPedido() {
+		return pedido;
+	}
+
+	public void setPedido(Venda pedido) {
+		this.pedido = pedido;
+	}
+	
+	public ContaReceber getContaReceber() {
+		return contaReceber;
+	}
+
+	public void setContaReceber(ContaReceber contaReceber) {
+		this.contaReceber = contaReceber;
 	}
 
 	public List<ParcelaVenda> getParcelas() {

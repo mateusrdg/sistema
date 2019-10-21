@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.mateus.sistema.domain.Compra;
 import com.mateus.sistema.dto.pedido.PedidoDTO;
-import com.mateus.sistema.dto.pedido.formaPagamento.FormaPagamentoDTO;
+import com.mateus.sistema.dto.pedido.formaPagamentoPedido.FormaPagamentoPedidoDTO;
 import com.mateus.sistema.dto.pedido.item.PedidoItemDTO;
 import com.mateus.sistema.dto.pessoa.PessoaDTO;
 
@@ -20,7 +20,7 @@ public class CompraDTO extends PedidoDTO implements Serializable {
 	}
 
 	public CompraDTO(Long id, Calendar data, PessoaDTO fornecedor, PessoaDTO funcionario, List<PedidoItemDTO> itens,
-			List<FormaPagamentoDTO> formasPagamento) {
+			List<FormaPagamentoPedidoDTO> formasPagamento) {
 		super(id, data,  itens, formasPagamento);
 		this.fornecedor = fornecedor;
 		this.funcionario = funcionario;

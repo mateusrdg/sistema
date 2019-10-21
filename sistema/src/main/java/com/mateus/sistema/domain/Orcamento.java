@@ -22,6 +22,7 @@ public class Orcamento extends Pedido implements Serializable {
 	@JoinColumn(name = "funcionario_id")
 	private Funcionario vendedor;
 	
+	//@JsonManagedReference
 	@OneToMany(mappedBy = "pedido")
 	private List<OrcamentoItem> itens = new ArrayList<OrcamentoItem>();
 	

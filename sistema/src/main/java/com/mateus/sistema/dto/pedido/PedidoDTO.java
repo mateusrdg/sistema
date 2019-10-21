@@ -10,7 +10,7 @@ import com.mateus.sistema.domain.Compra;
 import com.mateus.sistema.domain.Orcamento;
 import com.mateus.sistema.domain.Pedido;
 import com.mateus.sistema.domain.Venda;
-import com.mateus.sistema.dto.pedido.formaPagamento.FormaPagamentoDTO;
+import com.mateus.sistema.dto.pedido.formaPagamentoPedido.FormaPagamentoPedidoDTO;
 import com.mateus.sistema.dto.pedido.item.PedidoItemDTO;
 
 public class PedidoDTO implements Serializable {
@@ -19,26 +19,26 @@ public class PedidoDTO implements Serializable {
 	private Long id;
 	private Calendar data;
 	private List<PedidoItemDTO> itens = new ArrayList<PedidoItemDTO>();
-	private List<FormaPagamentoDTO> formasPagamento = new ArrayList<FormaPagamentoDTO>();
+	private List<FormaPagamentoPedidoDTO> formasPagamento = new ArrayList<FormaPagamentoPedidoDTO>();
 
 	public PedidoDTO() {
 	}
 
-	public PedidoDTO(Long id, Calendar data, List<PedidoItemDTO> itens, List<FormaPagamentoDTO> formasPagamento) {
+	public PedidoDTO(Long id, Calendar data, List<PedidoItemDTO> itens, List<FormaPagamentoPedidoDTO> formasPagamento) {
 		this.id = id;
 		this.data = data;
 	}
 
 	public PedidoDTO(Pedido pedido) {
 		if (pedido instanceof Venda) {
-			formasPagamento = ((Venda) pedido).getFormasPagamento().stream().map(obj -> new FormaPagamentoDTO(obj))
+			formasPagamento = ((Venda) pedido).getFormasPagamento().stream().map(obj -> new FormaPagamentoPedidoDTO(obj))
 					.collect(Collectors.toList());
 			itens = ((Venda) pedido).getItens().stream().map(obj -> new PedidoItemDTO(obj))
 					.collect(Collectors.toList());
 		}
 
 		if (pedido instanceof Compra) {
-			formasPagamento = ((Compra) pedido).getFormasPagamento().stream().map(obj -> new FormaPagamentoDTO(obj))
+			formasPagamento = ((Compra) pedido).getFormasPagamento().stream().map(obj -> new FormaPagamentoPedidoDTO(obj))
 					.collect(Collectors.toList());
 			itens = ((Compra) pedido).getItens().stream().map(obj -> new PedidoItemDTO(obj))
 					.collect(Collectors.toList());
@@ -77,11 +77,11 @@ public class PedidoDTO implements Serializable {
 		this.itens = itens;
 	}
 
-	public List<FormaPagamentoDTO> getFormasPagamento() {
+	public List<FormaPagamentoPedidoDTO> getFormasPagamento() {
 		return formasPagamento;
 	}
 
-	public void setFormasPagamento(List<FormaPagamentoDTO> formasPagamento) {
+	public void setFormasPagamento(List<FormaPagamentoPedidoDTO> formasPagamento) {
 		this.formasPagamento = formasPagamento;
 	}
 

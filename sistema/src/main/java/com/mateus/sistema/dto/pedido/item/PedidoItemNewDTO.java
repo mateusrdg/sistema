@@ -5,41 +5,49 @@ import java.math.BigDecimal;
 
 import com.mateus.sistema.domain.PedidoItem;
 import com.mateus.sistema.dto.produto.BaseProdutoDTO;
+import com.mateus.sistema.dto.produto.ProdutoDTO;
 
-public class PedidoItemDTO implements Serializable {
+public class PedidoItemNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private Long id;
+
+	private String referencia;
 	private BaseProdutoDTO produto;
 	private BigDecimal quantidade;
 	private BigDecimal preco;
 	private BigDecimal desconto;
 
-	public PedidoItemDTO() {
+	public PedidoItemNewDTO() {
 	}
 
-	public PedidoItemDTO(Long id, BaseProdutoDTO produto, BigDecimal quantidade, BigDecimal preco,
-			BigDecimal desconto) {
-		this.id = id;
+	public PedidoItemNewDTO(String referencia, BaseProdutoDTO produto, BigDecimal quantidade, BigDecimal preco, BigDecimal desconto) {
+		this.referencia = referencia;
 		this.produto = produto;
 		this.quantidade = quantidade;
 		this.preco = preco;
 		this.desconto = desconto;
 	}
 
-	public PedidoItemDTO(PedidoItem item) {
-		this.id = item.getId();
-		this.produto = new BaseProdutoDTO(item.getProduto().getId(), item.getProduto().getReferencia(),
-				item.getProduto().getDescricao());
+	public PedidoItemNewDTO(PedidoItem item) {
+		this.referencia = item.getProduto().getReferencia();
+		this.produto = new ProdutoDTO(item.getProduto());
 		this.quantidade = item.getQuantidade();
 		this.preco = item.getPreco();
 		this.desconto = item.getDesconto();
+	}
+
+	public String getReferencia() {
+		return referencia;
+	}
+
+	public void setReferencia(String referencia) {
+		this.referencia = referencia;
 	}
 
 	public BaseProdutoDTO getProduto() {
 		return produto;
 	}
 
-	public void setProduto(BaseProdutoDTO produto) {
+	public void ProdutoDTO(BaseProdutoDTO produto) {
 		this.produto = produto;
 	}
 
@@ -65,14 +73,6 @@ public class PedidoItemDTO implements Serializable {
 
 	public void setDesconto(BigDecimal desconto) {
 		this.desconto = desconto;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 }

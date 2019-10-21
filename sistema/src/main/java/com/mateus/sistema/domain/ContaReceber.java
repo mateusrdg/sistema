@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mateus.sistema.domain.enums.EstadoPagamento;
 import com.mateus.sistema.domain.enums.TipoConta;
 
@@ -39,6 +40,7 @@ public class ContaReceber extends Conta implements Serializable {
 		this.parcela = parcela;
 	}
 
+	@JsonIgnore
 	public FormaPagamentoVenda getFormaPagamentoPedido() {
 		return formaPagamentoVenda;
 	}

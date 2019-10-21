@@ -1,4 +1,4 @@
-package com.mateus.sistema.dto.caixa;
+package com.mateus.sistema.dto.pedido.formaPagamentoPedido.parcela;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -8,7 +8,7 @@ import com.mateus.sistema.domain.Parcela;
 import com.mateus.sistema.domain.ParcelaCompra;
 import com.mateus.sistema.domain.enums.EstadoPagamento;
 
-public class ParcelaDTO implements Serializable {
+public class ParcelaNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private BigDecimal valor;
@@ -16,25 +16,25 @@ public class ParcelaDTO implements Serializable {
 	private Calendar dataVencimento;
 	private Calendar dataPagamento;
 
-	public ParcelaDTO() {
+	public ParcelaNewDTO() {
 
 	}
 
-	public ParcelaDTO(BigDecimal valor, EstadoPagamento estado, Calendar dataVencimento, Calendar dataPagamento) {
+	public ParcelaNewDTO(BigDecimal valor, EstadoPagamento estado, Calendar dataVencimento, Calendar dataPagamento) {
 		this.valor = valor;
 		this.estado = estado;
 		this.dataVencimento = dataVencimento;
 		this.dataPagamento = dataPagamento;
 	}
 	
-	public ParcelaDTO(Parcela parcela) {
+	public ParcelaNewDTO(Parcela parcela) {
 		this.valor = parcela.getValor();
 		this.estado = parcela.getEstado();
 		this.dataVencimento = parcela.getDataVencimento();
 		this.dataPagamento = parcela.getDataPagamento();
 	}
 	
-	public ParcelaDTO(ParcelaCompra parcela) {
+	public ParcelaNewDTO(ParcelaCompra parcela) {
 		this.valor = parcela.getValor();
 		this.estado = parcela.getEstado();
 		this.dataVencimento = parcela.getDataVencimento();
