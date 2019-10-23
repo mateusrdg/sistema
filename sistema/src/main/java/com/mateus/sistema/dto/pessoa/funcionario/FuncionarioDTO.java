@@ -21,7 +21,7 @@ public class FuncionarioDTO extends PessoaDTO implements Serializable {
 	public FuncionarioDTO(Long id, String nome, String email, Calendar dataCadastro, String cpfCnpj, Boolean ativo,
 			TipoFuncionario tipo, List<EnderecoDTO> enderecos, List<TelefoneDTO> telefones) {
 		super(id, nome, email, cpfCnpj, dataCadastro, ativo, enderecos, telefones);
-		this.tipoFuncionario = tipo;
+		this.tipoFuncionario = (tipo == null) ? null : tipo;
 	}
 
 	public FuncionarioDTO(Funcionario funcionario) {

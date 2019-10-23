@@ -22,7 +22,6 @@ public class ClienteDTO extends PessoaDTO implements Serializable {
 			TipoCliente tipo, List<EnderecoDTO> enderecos, List<TelefoneDTO> telefones) {
 		super(id, nome, email, cpfCnpj, dataCadastro, ativo, enderecos, telefones);
 		this.tipoCliente = (tipo == null) ? null : tipo;
-		//this.estado = (estado == null) ? null : estado.getCod();
 	}
 
 	public ClienteDTO(Cliente cliente) {
