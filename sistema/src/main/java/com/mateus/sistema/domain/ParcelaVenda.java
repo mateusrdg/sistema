@@ -37,7 +37,7 @@ public class ParcelaVenda extends Parcela implements Serializable {
 		super(id, valor, estado, dataVencimento, dataPagamento);
 		this.formaPagamentoVenda = formaPagamentoVenda;
 	}
-	@JsonIgnore
+	
 	public FormaPagamentoVenda getFormaPagamento() {
 		return formaPagamentoVenda;
 	}

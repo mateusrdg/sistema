@@ -262,97 +262,97 @@ public class DBService {
 		pessoaTelefoneRepo.saveAll(Arrays.asList(pessoaTel1, pessoaTel2, pessoaTel3));
 
 		pessoaEnderecoRepo.saveAll(Arrays.asList(pe1, pe2, pe3, pe4));
-
-		Venda venda = new Venda(null, Calendar.getInstance(), cliente1, funcionario1, null, null);
-		pedidoVendaRepo.saveAll(Arrays.asList(venda));
-
-		Compra compra = new Compra(null, Calendar.getInstance(), fornecedor2, funcionario2);
-		pedidoCompraRepo.saveAll(Arrays.asList(compra));
-
-		Orcamento orcamento = new Orcamento(null, Calendar.getInstance(), cliente2, funcionario1, false);
-		orcamentoRepo.saveAll(Arrays.asList(orcamento));
-
-		VendaItem itemVenda = new VendaItem(null, venda, produto1, new BigDecimal(10), new BigDecimal(2),
-				new BigDecimal(0));
-		itemPedidoVendaRepo.saveAll(Arrays.asList(itemVenda));
-
-		CompraItem itemCompra = new CompraItem(null, compra, produto2, new BigDecimal(10), new BigDecimal(2),
-				new BigDecimal(0));
-		itemPedidoCompraRepo.saveAll(Arrays.asList(itemCompra));
-
-		OrcamentoItem itemOrcamento = new OrcamentoItem(null, orcamento, produto3, new BigDecimal(10),
-				new BigDecimal(2), new BigDecimal(0));
-		itemPedidoOrcamentoRepo.saveAll(Arrays.asList(itemOrcamento));
-
+		
+//		Venda venda = new Venda(null, Calendar.getInstance(), cliente1, funcionario1, null, null);
+//		pedidoVendaRepo.saveAll(Arrays.asList(venda));
+//
+//		Compra compra = new Compra(null, Calendar.getInstance(), fornecedor2, funcionario2);
+//		pedidoCompraRepo.saveAll(Arrays.asList(compra));
+//
+//		Orcamento orcamento = new Orcamento(null, Calendar.getInstance(), cliente2, funcionario1, false);
+//		orcamentoRepo.saveAll(Arrays.asList(orcamento));
+//
+//		VendaItem itemVenda = new VendaItem(null, venda, produto1, new BigDecimal(10), new BigDecimal(2),
+//				new BigDecimal(0));
+//		itemPedidoVendaRepo.saveAll(Arrays.asList(itemVenda));
+//
+//		CompraItem itemCompra = new CompraItem(null, compra, produto2, new BigDecimal(10), new BigDecimal(2),
+//				new BigDecimal(0));
+//		itemPedidoCompraRepo.saveAll(Arrays.asList(itemCompra));
+//
+//		OrcamentoItem itemOrcamento = new OrcamentoItem(null, orcamento, produto3, new BigDecimal(10),
+//				new BigDecimal(2), new BigDecimal(0));
+//		itemPedidoOrcamentoRepo.saveAll(Arrays.asList(itemOrcamento));
+//
 		FormaPagamento formaPagamento1 = new FormaPagamento(null, "dinheiro", TipoFormaPagamento.AVISTA);
 		FormaPagamento formaPagamento2 = new FormaPagamento(null, "a prazo", TipoFormaPagamento.PRAZO);
 
 		formaPagamentoRepo.saveAll(Arrays.asList(formaPagamento1, formaPagamento2));
-
-		FormaPagamentoCompra formaPagamentoPedido1 = new FormaPagamentoCompra(null, compra, formaPagamento1,
-				Calendar.getInstance(), new BigDecimal(200), EstadoPagamento.QUITADO);
-
-		FormaPagamentoVenda formaPagamentoPedido2 = new FormaPagamentoVenda(null, venda, formaPagamento1,
-				Calendar.getInstance(), new BigDecimal(10), EstadoPagamento.QUITADO);
-
-		FormaPagamentoVenda formaPagamentoPedido3 = new FormaPagamentoVenda(null, venda, formaPagamento2,
-				Calendar.getInstance(), new BigDecimal(90), EstadoPagamento.PENDENTE);
-
-		formaPagamentoCompraRepo.saveAll(Arrays.asList(formaPagamentoPedido1));
-		formaPagamentoVendaRepo.saveAll(Arrays.asList(formaPagamentoPedido2, formaPagamentoPedido3));
-
-		ParcelaVenda parcela1 = new ParcelaVenda(null, formaPagamentoPedido3, new BigDecimal(40),
-				EstadoPagamento.PENDENTE, Calendar.getInstance(), null);
-		ParcelaVenda parcela2 = new ParcelaVenda(null, formaPagamentoPedido3, new BigDecimal(50),
-				EstadoPagamento.PENDENTE, Calendar.getInstance(), null);
-
-		ParcelaCompra parcela3 = new ParcelaCompra(null, formaPagamentoPedido1, new BigDecimal(70),
-				EstadoPagamento.QUITADO, Calendar.getInstance(), Calendar.getInstance());
-
-		parcelaVendaRepo.saveAll(Arrays.asList(parcela1, parcela2));
-		parcelaCompraRepo.saveAll(Arrays.asList(parcela3));
-
-		ContaPagar conta1 = new ContaPagar(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(200),
-				EstadoPagamento.QUITADO, Calendar.getInstance(), Calendar.getInstance(), formaPagamentoPedido1, null);
-		ContaReceber conta2 = new ContaReceber(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(10),
-				EstadoPagamento.QUITADO, Calendar.getInstance(), Calendar.getInstance(), formaPagamentoPedido2, null);
-		ContaReceber conta3 = new ContaReceber(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(45),
-				EstadoPagamento.PENDENTE, null, Calendar.getInstance(), null, parcela1);
-		ContaReceber conta4 = new ContaReceber(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(45),
-				EstadoPagamento.PENDENTE, null, Calendar.getInstance(), null, parcela2);
-
-		contaPagarRepo.saveAll(Arrays.asList(conta1));
-		contaReceberRepo.saveAll(Arrays.asList(conta2, conta3, conta4));
-
-		Caixa caixa1 = new Caixa(null, "caixa1");
-		Caixa caixa2 = new Caixa(null, "caixa2");
-
-		caixaRepo.saveAll(Arrays.asList(caixa1, caixa2));
-
-		CaixaMovimentacao caixaMov1 = new CaixaMovimentacao(null, EstadoCaixa.ABERTO, Calendar.getInstance(), null,
-				caixa1, funcionario1);
-		CaixaMovimentacao caixaMov2 = new CaixaMovimentacao(null, EstadoCaixa.FECHADO, Calendar.getInstance(),
-				Calendar.getInstance(), caixa2, funcionario2);
-
-		caixaMovimentacaoRepo.saveAll(Arrays.asList(caixaMov1, caixaMov2));
-
-		Movimentacao mov1 = new Movimentacao(null, caixaMov1, conta1.getId(), Calendar.getInstance(),
-				new BigDecimal(200), TipoMovimentacao.SAIDA);
-		Movimentacao mov2 = new Movimentacao(null, caixaMov1, conta2.getId(), Calendar.getInstance(),
-				new BigDecimal(10), TipoMovimentacao.ENTRADA);
-		Movimentacao mov3 = new Movimentacao(null, caixaMov1, conta3.getId(), Calendar.getInstance(),
-				new BigDecimal(45), TipoMovimentacao.ENTRADA);
-		Movimentacao mov4 = new Movimentacao(null, caixaMov1, conta4.getId(), Calendar.getInstance(),
-				new BigDecimal(45), TipoMovimentacao.ENTRADA);
-		Movimentacao mov5 = new Movimentacao(null, caixaMov2, null, Calendar.getInstance(), new BigDecimal(200),
-				TipoMovimentacao.SANGRIA);
-
-		movimentacaoRepo.saveAll(Arrays.asList(mov1, mov2, mov3, mov4, mov5));
-
-		EntradaEstoque entrada1 = new EntradaEstoque(null, Calendar.getInstance(), Calendar.getInstance(), itemCompra,
-				estoque1);
-
-		entradaEstoqueRepo.saveAll(Arrays.asList(entrada1));
+//
+//		FormaPagamentoCompra formaPagamentoPedido1 = new FormaPagamentoCompra(null, compra, formaPagamento1,
+//				Calendar.getInstance(), new BigDecimal(200), EstadoPagamento.QUITADO);
+//
+//		FormaPagamentoVenda formaPagamentoPedido2 = new FormaPagamentoVenda(null, venda, formaPagamento1,
+//				Calendar.getInstance(), new BigDecimal(10), EstadoPagamento.QUITADO);
+//
+//		FormaPagamentoVenda formaPagamentoPedido3 = new FormaPagamentoVenda(null, venda, formaPagamento2,
+//				Calendar.getInstance(), new BigDecimal(90), EstadoPagamento.PENDENTE);
+//
+//		formaPagamentoCompraRepo.saveAll(Arrays.asList(formaPagamentoPedido1));
+//		formaPagamentoVendaRepo.saveAll(Arrays.asList(formaPagamentoPedido2, formaPagamentoPedido3));
+//
+//		ParcelaVenda parcela1 = new ParcelaVenda(null, formaPagamentoPedido3, new BigDecimal(40),
+//				EstadoPagamento.PENDENTE, Calendar.getInstance(), null);
+//		ParcelaVenda parcela2 = new ParcelaVenda(null, formaPagamentoPedido3, new BigDecimal(50),
+//				EstadoPagamento.PENDENTE, Calendar.getInstance(), null);
+//
+//		ParcelaCompra parcela3 = new ParcelaCompra(null, formaPagamentoPedido1, new BigDecimal(70),
+//				EstadoPagamento.QUITADO, Calendar.getInstance(), Calendar.getInstance());
+//
+//		parcelaVendaRepo.saveAll(Arrays.asList(parcela1, parcela2));
+//		parcelaCompraRepo.saveAll(Arrays.asList(parcela3));
+//
+//		ContaPagar conta1 = new ContaPagar(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(200),
+//				EstadoPagamento.QUITADO, Calendar.getInstance(), Calendar.getInstance(), formaPagamentoPedido1, null);
+//		ContaReceber conta2 = new ContaReceber(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(10),
+//				EstadoPagamento.QUITADO, Calendar.getInstance(), Calendar.getInstance(), formaPagamentoPedido2, null);
+//		ContaReceber conta3 = new ContaReceber(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(45),
+//				EstadoPagamento.PENDENTE, null, Calendar.getInstance(), null, parcela1);
+//		ContaReceber conta4 = new ContaReceber(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(45),
+//				EstadoPagamento.PENDENTE, null, Calendar.getInstance(), null, parcela2);
+//
+//		contaPagarRepo.saveAll(Arrays.asList(conta1));
+//		contaReceberRepo.saveAll(Arrays.asList(conta2, conta3, conta4));
+//
+//		Caixa caixa1 = new Caixa(null, "caixa1");
+//		Caixa caixa2 = new Caixa(null, "caixa2");
+//
+//		caixaRepo.saveAll(Arrays.asList(caixa1, caixa2));
+//
+//		CaixaMovimentacao caixaMov1 = new CaixaMovimentacao(null, EstadoCaixa.ABERTO, Calendar.getInstance(), null,
+//				caixa1, funcionario1);
+//		CaixaMovimentacao caixaMov2 = new CaixaMovimentacao(null, EstadoCaixa.FECHADO, Calendar.getInstance(),
+//				Calendar.getInstance(), caixa2, funcionario2);
+//
+//		caixaMovimentacaoRepo.saveAll(Arrays.asList(caixaMov1, caixaMov2));
+//
+//		Movimentacao mov1 = new Movimentacao(null, caixaMov1, conta1.getId(), Calendar.getInstance(),
+//				new BigDecimal(200), TipoMovimentacao.SAIDA);
+//		Movimentacao mov2 = new Movimentacao(null, caixaMov1, conta2.getId(), Calendar.getInstance(),
+//				new BigDecimal(10), TipoMovimentacao.ENTRADA);
+//		Movimentacao mov3 = new Movimentacao(null, caixaMov1, conta3.getId(), Calendar.getInstance(),
+//				new BigDecimal(45), TipoMovimentacao.ENTRADA);
+//		Movimentacao mov4 = new Movimentacao(null, caixaMov1, conta4.getId(), Calendar.getInstance(),
+//				new BigDecimal(45), TipoMovimentacao.ENTRADA);
+//		Movimentacao mov5 = new Movimentacao(null, caixaMov2, null, Calendar.getInstance(), new BigDecimal(200),
+//				TipoMovimentacao.SANGRIA);
+//
+//		movimentacaoRepo.saveAll(Arrays.asList(mov1, mov2, mov3, mov4, mov5));
+//
+//		EntradaEstoque entrada1 = new EntradaEstoque(null, Calendar.getInstance(), Calendar.getInstance(), itemCompra,
+//				estoque1);
+//
+//		entradaEstoqueRepo.saveAll(Arrays.asList(entrada1));
 
 	}
 }

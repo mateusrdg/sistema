@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -31,7 +32,7 @@ public class FormaPagamentoVenda extends FormaPagamentoPedido implements Seriali
 	private Venda pedido;
 
 	@JsonManagedReference
-	@OneToMany(mappedBy = "formaPagamentoVenda")
+	@OneToMany(mappedBy = "formaPagamentoVenda", cascade ={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
 	private List<ParcelaVenda> parcelas = new ArrayList<ParcelaVenda>();
 
 	@OneToOne(mappedBy = "formaPagamentoVenda")
@@ -46,7 +47,7 @@ public class FormaPagamentoVenda extends FormaPagamentoPedido implements Seriali
 		this.pedido = pedido;
 	}
 	
-	@JsonIgnore
+	
 	public Venda getPedido() {
 		return pedido;
 	}

@@ -55,16 +55,12 @@ public class VendaService {
 	public Venda update(Venda obj) {
 		Venda newObj = find(obj.getId());
 		updateData(newObj, obj);
-		// pessoaService.updateEnderecos(newObj);
-		// pessoaService.updateTelefones(newObj);
 		return repo.save(newObj);
 	}
 
 	public void delete(Long id) {
 		repo.findById(id);
 		try {
-			// pessoaService.deleteEnderecos(id, TipoPessoa.Venda);
-			// pessoaService.deleteTelefones(id, TipoPessoa.Venda);
 			repo.deleteById(id);
 		} catch (DataIntegrityViolationException e) {
 			throw new DataIntegrityException("Não é possível excluir porque há pedidos relacionados");

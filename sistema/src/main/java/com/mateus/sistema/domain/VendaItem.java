@@ -31,7 +31,7 @@ public class VendaItem extends PedidoItem implements Serializable {
 		this.pedido = pedido;
 
 	}
-	@JsonIgnore
+	
 	public Pedido getPedido() {
 		return pedido;
 	}
