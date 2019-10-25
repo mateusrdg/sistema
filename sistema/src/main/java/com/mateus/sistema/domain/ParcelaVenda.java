@@ -12,7 +12,6 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mateus.sistema.domain.enums.EstadoPagamento;
 
 @Entity(name = "ParcelaVenda")
@@ -42,7 +41,7 @@ public class ParcelaVenda extends Parcela implements Serializable {
 		return formaPagamentoVenda;
 	}
 
-	public void setFormaPagamento(FormaPagamentoVenda formaPagamentoVenda) {
+	public void setFormaPagamentoVenda(FormaPagamentoVenda formaPagamentoVenda) {
 		this.formaPagamentoVenda = formaPagamentoVenda;
 	}
 

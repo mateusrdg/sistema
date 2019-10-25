@@ -49,8 +49,8 @@ public class ParcelaNewDTO implements Serializable {
 		this.valor = valor;
 	}
 
-	public String getEstado() {
-		return estado.getDescricao();
+	public EstadoPagamento getEstado() {
+		return estado;
 	}
 
 	public void setEstado(EstadoPagamento estado) {

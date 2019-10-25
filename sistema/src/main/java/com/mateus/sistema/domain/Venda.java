@@ -38,12 +38,10 @@ public class Venda extends Pedido implements Serializable {
 	public Venda() {
 	}
 
-	public Venda(Long id, Calendar data, Cliente cliente, Funcionario vendedor, List<VendaItem> itens, List<FormaPagamentoVenda> formasPagamento) {
+	public Venda(Long id, Calendar data, Cliente cliente, Funcionario vendedor) {
 		super(id, data);
 		this.setCliente(cliente);
 		this.vendedor = vendedor;
-		this.itens = itens;
-		this.formasPagamento = formasPagamento;
 	}
 
 	public Cliente getCliente() {

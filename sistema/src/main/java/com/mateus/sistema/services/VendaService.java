@@ -43,12 +43,6 @@ public class VendaService {
 	public Venda insert(Venda obj) {
 		obj.setId(null);
 		obj = repo.save(obj);
-		//obj.getItens().stream().map(x -> x.setPedido(obj));
-		//itemRepo.saveAll(obj.getItens());
-		//fpvRepo.saveAll(obj.getFormasPagamento());
-		//for (FormaPagamentoVenda formaPagamento : obj.getFormasPagamento()) {
-		//	parcelaRepo.saveAll(formaPagamento.getParcelas());
-		//}
 		return obj;
 	}
 
@@ -76,7 +70,10 @@ public class VendaService {
 	}
 
 	public Venda fromDTO(VendaNewDTO objDto) {
-		return new Venda(null, Calendar.getInstance(), clienteService.fromDto(objDto.getCliente()),
-				funcionarioService.fromDto(objDto.getVendedor()), itemService.fromDTO(objDto.getItens()), fppService.fromDto(objDto.getFormasPagamento()));
+		Venda venda = new Venda(null, Calendar.getInstance(), clienteService.fromDto(objDto.getCliente()),
+				funcionarioService.fromDto(objDto.getVendedor()));
+		venda.setItens(itemService.fromDTO(objDto.getItens(), venda));
+		venda.setFormasPagamento(fppService.fromDto(objDto.getFormasPagamento(), venda));
+		return venda;
 	}
 }
