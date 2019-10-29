@@ -18,7 +18,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.mateus.sistema.domain.Funcionario;
 import com.mateus.sistema.dto.pessoa.funcionario.FuncionarioDTO;
 import com.mateus.sistema.dto.pessoa.funcionario.FuncionarioNewDTO;
-import com.mateus.sistema.dto.produto.ProdutoDTO;
 import com.mateus.sistema.services.FuncionarioService;
 
 @RestController
