@@ -2,6 +2,7 @@ package com.mateus.sistema.resouces;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.mateus.sistema.domain.Funcionario;
 import com.mateus.sistema.dto.pessoa.funcionario.FuncionarioDTO;
 import com.mateus.sistema.dto.pessoa.funcionario.FuncionarioNewDTO;
+import com.mateus.sistema.dto.produto.ProdutoDTO;
 import com.mateus.sistema.services.FuncionarioService;
 
 @RestController
@@ -54,9 +56,10 @@ public class FuncionarioResource {
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<Funcionario>> findAll() {
+	public ResponseEntity<List<FuncionarioDTO>> findAll() {
 		List<Funcionario> list = service.findAll();
-		return ResponseEntity.ok().body(list);
+		List<FuncionarioDTO> listDto = list.stream().map(obj -> new FuncionarioDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
 	}
 	
 }
