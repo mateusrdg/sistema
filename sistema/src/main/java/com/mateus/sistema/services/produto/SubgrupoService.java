@@ -2,11 +2,15 @@ package com.mateus.sistema.services.produto;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mateus.sistema.domain.produto.Produto;
+import com.mateus.sistema.domain.produto.ProdutoSubgrupo;
 import com.mateus.sistema.domain.produto.Subgrupo;
+import com.mateus.sistema.dto.produto.subgrupo.SubgrupoIdDTO;
 import com.mateus.sistema.repository.produto.SubgrupoRepository;
 import com.mateus.sistema.services.exceptions.ObjectNotFoundException;
 
@@ -14,8 +18,7 @@ import com.mateus.sistema.services.exceptions.ObjectNotFoundException;
 public class SubgrupoService {
 	@Autowired
 	private SubgrupoRepository repo;
-	
-	
+
 	public Subgrupo find(Long id) {
 		Optional<Subgrupo> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
@@ -24,5 +27,10 @@ public class SubgrupoService {
 
 	public List<Subgrupo> findAll() {
 		return repo.findAll();
+	}
+
+	public List<ProdutoSubgrupo> fromDto(List<SubgrupoIdDTO> subgrupos, Produto obj) {
+		return subgrupos.stream().map(x -> new ProdutoSubgrupo(null, new Subgrupo(x.getId()), obj))
+				.collect(Collectors.toList());
 	}
 }

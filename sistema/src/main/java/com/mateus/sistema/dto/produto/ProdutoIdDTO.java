@@ -1,29 +1,20 @@
 package com.mateus.sistema.dto.produto;
 
 import com.mateus.sistema.domain.produto.Produto;
+import com.mateus.sistema.dto.EntidadeBaseId;
 
-public class ProdutoIdDTO {
-	
-	private Long id;
+public class ProdutoIdDTO extends EntidadeBaseId {
+	private static final long serialVersionUID = 1L;
 	
 	public ProdutoIdDTO() {
 	}
 	
 	public ProdutoIdDTO(Long id) {
-		this.id = id;
+		super(id);
 	}
 	
 	public ProdutoIdDTO(Produto produto) {
-		this.id = produto.getId();
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
+		super(produto.getId());
+	}	
 	
 }

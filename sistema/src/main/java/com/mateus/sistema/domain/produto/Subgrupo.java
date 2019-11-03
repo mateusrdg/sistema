@@ -35,6 +35,10 @@ public class Subgrupo implements Serializable {
 
 	public Subgrupo() {
 	}
+	
+	public Subgrupo(Long id) {
+		this.id = id;
+	}
 
 	public Subgrupo(Long id, String descricao, Grupo grupo) {
 		this.id = id;

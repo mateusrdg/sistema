@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mateus.sistema.domain.pedido.EntradaEstoque;
 
 @Entity(name = "Estoque")
-@Table(name ="estoque")
+@Table(name = "estoque")
 public class Estoque implements Serializable {
 	@Version
 	private static final long serialVersionUID = 1L;
@@ -34,6 +34,10 @@ public class Estoque implements Serializable {
 	private List<EntradaEstoque> entradas = new ArrayList<EntradaEstoque>();
 
 	public Estoque() {
+	}
+
+	public Estoque(Long id) {
+		this.id = id;
 	}
 
 	public Estoque(Long id, String descricao) {

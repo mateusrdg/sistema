@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity(name = "ProdutoEstoque")
@@ -34,11 +35,10 @@ public class ProdutoEstoque implements Serializable {
 	public ProdutoEstoque() {
 	}
 
-	public ProdutoEstoque(Long id, Estoque estoque, Produto produto, BigDecimal quantidade) {
+	public ProdutoEstoque(Long id, Estoque estoque, Produto produto) {
 		this.id = id;
 		this.estoque = estoque;
 		this.produto = produto;
-		this.quantidade = quantidade;
 	}
 
 	public Long getId() {
@@ -73,6 +73,11 @@ public class ProdutoEstoque implements Serializable {
 		this.produto = produto;
 	}
 
+	@PrePersist
+    public void prePersist() {
+        this.quantidade = new BigDecimal(0);
+    }
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

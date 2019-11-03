@@ -13,9 +13,7 @@ import com.mateus.sistema.domain.produto.Produto;
 import com.mateus.sistema.dto.produto.BaseProdutoDTO;
 import com.mateus.sistema.dto.produto.ProdutoDTO;
 import com.mateus.sistema.dto.produto.ProdutoNewDTO;
-import com.mateus.sistema.repository.produto.PrecoRepository;
 import com.mateus.sistema.repository.produto.ProdutoRepository;
-import com.mateus.sistema.repository.produto.ProdutoSubgrupoRepository;
 import com.mateus.sistema.services.exceptions.DataIntegrityException;
 import com.mateus.sistema.services.exceptions.ObjectNotFoundException;
 
@@ -24,9 +22,12 @@ public class ProdutoService {
 	@Autowired
 	private ProdutoRepository repo;
 	@Autowired
-	private ProdutoSubgrupoRepository produtoSubgrupoRepository;
+	private PrecoService precoService;
 	@Autowired
-	private PrecoRepository precoRepo;
+	private SubgrupoService subgrupoService;
+	@Autowired
+	private EstoqueService estoqueService;
+	
 	
 	public Produto find(Long id) {
 		Optional<Produto> obj = repo.findById(id);
@@ -37,8 +38,6 @@ public class ProdutoService {
 	public Produto insert (Produto obj) {
 		obj.setId(null);
 		obj = repo.save(obj);
-		produtoSubgrupoRepository.saveAll(obj.getProdutoSubgrupo());
-		precoRepo.saveAll(obj.getPrecos());
 		return obj;
 	}
 	
@@ -73,10 +72,14 @@ public class ProdutoService {
 	}
 	
 	public Produto fromDto (ProdutoNewDTO objDto) {
-		return new Produto(null, objDto.getDescricao(), objDto.getReferencia(), Calendar.getInstance(), true);
+		Produto obj = new Produto(null, objDto.getDescricao(), objDto.getReferencia());
+		obj.setPrecos(precoService.fromDto(objDto.getPrecos(), obj));
+		obj.setProdutoEstoque(estoqueService.fromDto(objDto.getEstoques(), obj));
+		obj.setProdutoSubgrupo(subgrupoService.fromDto(objDto.getSubgrupos(), obj));
+		return obj;
 	}
 	
 	public Produto fromDto (BaseProdutoDTO objDto) {
-		return new Produto(objDto.getId(), objDto.getDescricao(), objDto.getReferencia(), null, null);
+		return new Produto(objDto.getId(), objDto.getDescricao(), objDto.getReferencia());
 	}
 }

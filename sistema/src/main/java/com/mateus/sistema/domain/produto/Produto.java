@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 
@@ -28,13 +30,13 @@ public class Produto implements Serializable {
 	private Calendar dataCadastro;
 	private Boolean ativo;
 
-	@OneToMany(mappedBy = "produto")
+	@OneToMany(mappedBy = "produto", cascade ={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
 	private List<Preco> precos = new ArrayList<Preco>();
 
-	@OneToMany(mappedBy = "produto")
+	@OneToMany(mappedBy = "produto", cascade ={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
 	private List<ProdutoEstoque> produtoEstoque = new ArrayList<ProdutoEstoque>();
 	
-	@OneToMany(mappedBy = "produto")
+	@OneToMany(mappedBy = "produto", cascade ={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
 	private List<ProdutoSubgrupo> produtoSubgrupo = new ArrayList<ProdutoSubgrupo>();
 	
 	@JsonIgnore
@@ -44,6 +46,12 @@ public class Produto implements Serializable {
 	public Produto() {
 	}
 
+	public Produto(Long id, String descricao, String referencia) {
+		this.id = id;
+		this.descricao = descricao;
+		this.referencia = referencia;
+	}
+	
 	public Produto(Long id, String descricao, String referencia, Calendar dataCadastro, Boolean ativo) {
 		this.id = id;
 		this.descricao = descricao;
@@ -52,6 +60,11 @@ public class Produto implements Serializable {
 		this.ativo = ativo;
 	}
 
+	@PrePersist
+    public void prePersist() {
+        this.dataCadastro = Calendar.getInstance();
+        this.ativo = true;
+    }
 	public Long getId() {
 		return id;
 	}

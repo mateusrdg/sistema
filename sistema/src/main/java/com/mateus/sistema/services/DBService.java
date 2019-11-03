@@ -160,46 +160,57 @@ public class DBService {
 		Subgrupo subgrupo1 = new Subgrupo(null, "Subgrupo1", grupo1);
 		Subgrupo subgrupo2 = new Subgrupo(null, "Subgrupo2", grupo2);
 		Subgrupo subgrupo3 = new Subgrupo(null, "Subgrupo3", grupo1);
-		subgrupoRepo.saveAll(Arrays.asList(subgrupo1, subgrupo2, subgrupo3));
+		Subgrupo subgrupo4 = new Subgrupo(null, "Eletrônicos", grupo1);
+		subgrupoRepo.saveAll(Arrays.asList(subgrupo1, subgrupo2, subgrupo3, subgrupo4));
 
 		Estoque estoque1 = new Estoque(null, "Estoque1");
 		Estoque estoque2 = new Estoque(null, "Estoque2");
-		estoqueRepo.saveAll(Arrays.asList(estoque1, estoque2));
+		Estoque estoque3 = new Estoque(null, "Galpão");
+		estoqueRepo.saveAll(Arrays.asList(estoque1, estoque2, estoque3));
 
-		Produto produto1 = new Produto(null, "produto1", "aaa", Calendar.getInstance(), true);
-		Produto produto2 = new Produto(null, "produto2", "bbb", Calendar.getInstance(), true);
-		Produto produto3 = new Produto(null, "produto3", "ccc", Calendar.getInstance(), true);
-		Produto produto4 = new Produto(null, "produto4", "ddd", Calendar.getInstance(), true);
+		Produto produto1 = new Produto(null, "produto1", "aaa");
+		Produto produto2 = new Produto(null, "produto2", "bbb");
+		Produto produto3 = new Produto(null, "produto3", "ccc");
+		Produto produto4 = new Produto(null, "produto4", "ddd");
 
 		ProdutoSubgrupo prodSubgrupo1 = new ProdutoSubgrupo(null, subgrupo1, produto1);
 		ProdutoSubgrupo prodSubgrupo2 = new ProdutoSubgrupo(null, subgrupo2, produto1);
 		ProdutoSubgrupo prodSubgrupo3 = new ProdutoSubgrupo(null, subgrupo1, produto2);
 		ProdutoSubgrupo prodSubgrupo4 = new ProdutoSubgrupo(null, subgrupo3, produto4);
 
+		produto1.setProdutoSubgrupo(Arrays.asList(prodSubgrupo1, prodSubgrupo2));
+		produto2.setProdutoSubgrupo(Arrays.asList(prodSubgrupo3));
+		produto4.setProdutoSubgrupo(Arrays.asList(prodSubgrupo4));
+		
 		Preco preco1 = new Preco(null, produto1, new BigDecimal(100.00), TipoPreco.AVISTA);
 		Preco preco2 = new Preco(null, produto2, new BigDecimal(200.00), TipoPreco.AVISTA);
 		Preco preco3 = new Preco(null, produto3, new BigDecimal(300.00), TipoPreco.AVISTA);
 		Preco preco4 = new Preco(null, produto4, new BigDecimal(400.00), TipoPreco.AVISTA);
 		Preco preco5 = new Preco(null, produto1, new BigDecimal(500.00), TipoPreco.APRAZO);
 
-		produto1.getPrecos().addAll(Arrays.asList(preco1, preco5));
+		produto1.setPrecos(Arrays.asList(preco1, preco5));
 		produto2.getPrecos().addAll(Arrays.asList(preco2));
 		produto3.getPrecos().addAll(Arrays.asList(preco3));
 		produto4.getPrecos().addAll(Arrays.asList(preco4));
-
+		
+		ProdutoEstoque estoqueProduto1 = new ProdutoEstoque(null, estoque1, produto1);
+		ProdutoEstoque estoqueProduto2 = new ProdutoEstoque(null, estoque2, produto1);
+		ProdutoEstoque estoqueProduto3 = new ProdutoEstoque(null, estoque1, produto2);
+		ProdutoEstoque estoqueProduto4 = new ProdutoEstoque(null, estoque1, produto3);
+		ProdutoEstoque estoqueProduto5 = new ProdutoEstoque(null, estoque1, produto4);
+		estoqueProduto1.setQuantidade(new BigDecimal(5));
+		estoqueProduto2.setQuantidade(new BigDecimal(10));
+		estoqueProduto3.setQuantidade(new BigDecimal(20));
+		estoqueProduto4.setQuantidade(new BigDecimal(30));
+		estoqueProduto5.setQuantidade(new BigDecimal(0));
+		
+		produto1.setProdutoEstoque(Arrays.asList(estoqueProduto1, estoqueProduto2));
+		produto2.setProdutoEstoque(Arrays.asList(estoqueProduto3));
+		produto3.setProdutoEstoque(Arrays.asList(estoqueProduto4));
+		produto4.setProdutoEstoque(Arrays.asList(estoqueProduto5));
+		
 		produtoRepo.saveAll(Arrays.asList(produto1, produto2, produto3, produto4));
-		produtoSubgrupoRepository.saveAll(Arrays.asList(prodSubgrupo1, prodSubgrupo2, prodSubgrupo3, prodSubgrupo4));
-		precoRepo.saveAll(Arrays.asList(preco1, preco2, preco3, preco4, preco5));
-
-		ProdutoEstoque estoqueProduto1 = new ProdutoEstoque(null, estoque1, produto1, new BigDecimal(5));
-		ProdutoEstoque estoqueProduto2 = new ProdutoEstoque(null, estoque2, produto1, new BigDecimal(10));
-		ProdutoEstoque estoqueProduto3 = new ProdutoEstoque(null, estoque1, produto2, new BigDecimal(15));
-		ProdutoEstoque estoqueProduto4 = new ProdutoEstoque(null, estoque1, produto3, new BigDecimal(25));
-		ProdutoEstoque estoqueProduto5 = new ProdutoEstoque(null, estoque1, produto4, new BigDecimal(35));
-
-		estoqueProdutoRepo.saveAll(Arrays.asList(estoqueProduto1, estoqueProduto2, estoqueProduto3, estoqueProduto3,
-				estoqueProduto4, estoqueProduto5));
-
+		
 		Cliente cliente1 = new Cliente(null, "Mateus", "mateusrodrigues-cp@hotmail.com", Calendar.getInstance(),
 				"60541329383", TipoCliente.PESSOAFISICA);
 		Cliente cliente2 = new Cliente(null, "João", "joao@gmail.com", Calendar.getInstance(), "547465444",
