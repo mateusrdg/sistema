@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
-import com.mateus.sistema.domain.Parcela;
-import com.mateus.sistema.domain.ParcelaCompra;
 import com.mateus.sistema.domain.enums.EstadoPagamento;
+import com.mateus.sistema.domain.pedido.Parcela;
+import com.mateus.sistema.domain.pedido.ParcelaCompra;
 
 public class ParcelaDTO implements Serializable {
 	private static final long serialVersionUID = 1L;

@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
-import com.mateus.sistema.domain.Movimentacao;
+import com.mateus.sistema.domain.caixa.Movimentacao;
 import com.mateus.sistema.domain.enums.TipoMovimentacao;
 
 public class MovimentacaoDTO implements Serializable {

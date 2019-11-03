@@ -7,40 +7,9 @@ import java.util.Calendar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mateus.sistema.domain.Caixa;
-import com.mateus.sistema.domain.CaixaMovimentacao;
-import com.mateus.sistema.domain.Cidade;
-import com.mateus.sistema.domain.Cliente;
-import com.mateus.sistema.domain.Compra;
-import com.mateus.sistema.domain.CompraItem;
-import com.mateus.sistema.domain.ContaPagar;
-import com.mateus.sistema.domain.ContaReceber;
-import com.mateus.sistema.domain.Endereco;
-import com.mateus.sistema.domain.EntradaEstoque;
-import com.mateus.sistema.domain.Estoque;
-import com.mateus.sistema.domain.FormaPagamento;
-import com.mateus.sistema.domain.FormaPagamentoCompra;
-import com.mateus.sistema.domain.FormaPagamentoVenda;
-import com.mateus.sistema.domain.Fornecedor;
-import com.mateus.sistema.domain.Funcionario;
-import com.mateus.sistema.domain.Grupo;
-import com.mateus.sistema.domain.Movimentacao;
-import com.mateus.sistema.domain.Orcamento;
-import com.mateus.sistema.domain.OrcamentoItem;
-import com.mateus.sistema.domain.Pais;
-import com.mateus.sistema.domain.Estado;
-import com.mateus.sistema.domain.ParcelaCompra;
-import com.mateus.sistema.domain.ParcelaVenda;
-import com.mateus.sistema.domain.PessoaEndereco;
-import com.mateus.sistema.domain.PessoaTelefone;
-import com.mateus.sistema.domain.Preco;
-import com.mateus.sistema.domain.Produto;
-import com.mateus.sistema.domain.ProdutoEstoque;
-import com.mateus.sistema.domain.ProdutoSubgrupo;
-import com.mateus.sistema.domain.Subgrupo;
-import com.mateus.sistema.domain.Telefone;
-import com.mateus.sistema.domain.Venda;
-import com.mateus.sistema.domain.VendaItem;
+import com.mateus.sistema.domain.caixa.Caixa;
+import com.mateus.sistema.domain.caixa.CaixaMovimentacao;
+import com.mateus.sistema.domain.caixa.Movimentacao;
 import com.mateus.sistema.domain.enums.EstadoCaixa;
 import com.mateus.sistema.domain.enums.EstadoPagamento;
 import com.mateus.sistema.domain.enums.TipoCliente;
@@ -48,40 +17,64 @@ import com.mateus.sistema.domain.enums.TipoFormaPagamento;
 import com.mateus.sistema.domain.enums.TipoFuncionario;
 import com.mateus.sistema.domain.enums.TipoMovimentacao;
 import com.mateus.sistema.domain.enums.TipoPreco;
-import com.mateus.sistema.repository.CaixaMovimentacaoRepository;
-import com.mateus.sistema.repository.CaixaRepository;
-import com.mateus.sistema.repository.CidadeRepository;
-import com.mateus.sistema.repository.ClienteRepository;
-import com.mateus.sistema.repository.CompraItemRepository;
-import com.mateus.sistema.repository.CompraRepository;
-import com.mateus.sistema.repository.ContaPagarRepository;
-import com.mateus.sistema.repository.ContaReceberRepository;
-import com.mateus.sistema.repository.EnderecoRepository;
-import com.mateus.sistema.repository.EntradaEstoqueRepository;
-import com.mateus.sistema.repository.EstadoRepository;
-import com.mateus.sistema.repository.EstoqueProdutoRepository;
-import com.mateus.sistema.repository.EstoqueRepository;
-import com.mateus.sistema.repository.FormaPagamentoCompraRepository;
-import com.mateus.sistema.repository.FormaPagamentoRepository;
-import com.mateus.sistema.repository.FormaPagamentoVendaRepository;
-import com.mateus.sistema.repository.FornecedorRepository;
-import com.mateus.sistema.repository.FuncionarioRepository;
-import com.mateus.sistema.repository.GrupoRepository;
-import com.mateus.sistema.repository.MovimentacaoRepository;
-import com.mateus.sistema.repository.OrcamentoItemRepository;
-import com.mateus.sistema.repository.OrcamentoRepository;
-import com.mateus.sistema.repository.PaisRepository;
-import com.mateus.sistema.repository.ParcelaCompraRepository;
-import com.mateus.sistema.repository.ParcelaVendaRepository;
-import com.mateus.sistema.repository.PessoaEnderecoRepository;
-import com.mateus.sistema.repository.PessoaTelefoneRepository;
-import com.mateus.sistema.repository.PrecoRepository;
-import com.mateus.sistema.repository.ProdutoRepository;
-import com.mateus.sistema.repository.ProdutoSubgrupoRepository;
-import com.mateus.sistema.repository.SubgrupoRepository;
-import com.mateus.sistema.repository.TelefoneRepository;
-import com.mateus.sistema.repository.VendaItemRepository;
-import com.mateus.sistema.repository.VendaRepository;
+import com.mateus.sistema.domain.pedido.Compra;
+import com.mateus.sistema.domain.pedido.CompraItem;
+import com.mateus.sistema.domain.pedido.ContaPagar;
+import com.mateus.sistema.domain.pedido.ContaReceber;
+import com.mateus.sistema.domain.pedido.EntradaEstoque;
+import com.mateus.sistema.domain.pedido.FormaPagamento;
+import com.mateus.sistema.domain.pedido.FormaPagamentoCompra;
+import com.mateus.sistema.domain.pedido.FormaPagamentoVenda;
+import com.mateus.sistema.domain.pedido.Orcamento;
+import com.mateus.sistema.domain.pedido.OrcamentoItem;
+import com.mateus.sistema.domain.pedido.ParcelaCompra;
+import com.mateus.sistema.domain.pedido.ParcelaVenda;
+import com.mateus.sistema.domain.pedido.Venda;
+import com.mateus.sistema.domain.pedido.VendaItem;
+import com.mateus.sistema.domain.pessoa.Cidade;
+import com.mateus.sistema.domain.pessoa.Cliente;
+import com.mateus.sistema.domain.pessoa.Endereco;
+import com.mateus.sistema.domain.pessoa.Estado;
+import com.mateus.sistema.domain.pessoa.Fornecedor;
+import com.mateus.sistema.domain.pessoa.Funcionario;
+import com.mateus.sistema.domain.pessoa.Pais;
+import com.mateus.sistema.domain.pessoa.PessoaEndereco;
+import com.mateus.sistema.domain.pessoa.PessoaTelefone;
+import com.mateus.sistema.domain.pessoa.Telefone;
+import com.mateus.sistema.domain.produto.Estoque;
+import com.mateus.sistema.domain.produto.Grupo;
+import com.mateus.sistema.domain.produto.Preco;
+import com.mateus.sistema.domain.produto.Produto;
+import com.mateus.sistema.domain.produto.ProdutoEstoque;
+import com.mateus.sistema.domain.produto.ProdutoSubgrupo;
+import com.mateus.sistema.domain.produto.Subgrupo;
+import com.mateus.sistema.repository.caixa.CaixaMovimentacaoRepository;
+import com.mateus.sistema.repository.caixa.CaixaRepository;
+import com.mateus.sistema.repository.caixa.MovimentacaoRepository;
+import com.mateus.sistema.repository.pedido.CompraRepository;
+import com.mateus.sistema.repository.pedido.ContaPagarRepository;
+import com.mateus.sistema.repository.pedido.ContaReceberRepository;
+import com.mateus.sistema.repository.pedido.EntradaEstoqueRepository;
+import com.mateus.sistema.repository.pedido.FormaPagamentoRepository;
+import com.mateus.sistema.repository.pedido.OrcamentoRepository;
+import com.mateus.sistema.repository.pedido.VendaRepository;
+import com.mateus.sistema.repository.pessoa.CidadeRepository;
+import com.mateus.sistema.repository.pessoa.ClienteRepository;
+import com.mateus.sistema.repository.pessoa.EnderecoRepository;
+import com.mateus.sistema.repository.pessoa.EstadoRepository;
+import com.mateus.sistema.repository.pessoa.FornecedorRepository;
+import com.mateus.sistema.repository.pessoa.FuncionarioRepository;
+import com.mateus.sistema.repository.pessoa.PaisRepository;
+import com.mateus.sistema.repository.pessoa.PessoaEnderecoRepository;
+import com.mateus.sistema.repository.pessoa.PessoaTelefoneRepository;
+import com.mateus.sistema.repository.pessoa.TelefoneRepository;
+import com.mateus.sistema.repository.produto.EstoqueProdutoRepository;
+import com.mateus.sistema.repository.produto.EstoqueRepository;
+import com.mateus.sistema.repository.produto.GrupoRepository;
+import com.mateus.sistema.repository.produto.PrecoRepository;
+import com.mateus.sistema.repository.produto.ProdutoRepository;
+import com.mateus.sistema.repository.produto.ProdutoSubgrupoRepository;
+import com.mateus.sistema.repository.produto.SubgrupoRepository;
 
 @Service
 public class DBService {
@@ -120,21 +113,7 @@ public class DBService {
 	@Autowired
 	private OrcamentoRepository orcamentoRepo;
 	@Autowired
-	private VendaItemRepository itemPedidoVendaRepo;
-	@Autowired
-	private CompraItemRepository itemPedidoCompraRepo;
-	@Autowired
-	private OrcamentoItemRepository itemPedidoOrcamentoRepo;
-	@Autowired
 	private FormaPagamentoRepository formaPagamentoRepo;
-	@Autowired
-	private FormaPagamentoCompraRepository formaPagamentoCompraRepo;
-	@Autowired
-	private FormaPagamentoVendaRepository formaPagamentoVendaRepo;
-	@Autowired
-	private ParcelaCompraRepository parcelaCompraRepo;
-	@Autowired
-	private ParcelaVendaRepository parcelaVendaRepo;
 	@Autowired
 	private ContaReceberRepository contaReceberRepo;
 	@Autowired
@@ -263,96 +242,98 @@ public class DBService {
 
 		pessoaEnderecoRepo.saveAll(Arrays.asList(pe1, pe2, pe3, pe4));
 		
-//		Venda venda = new Venda(null, Calendar.getInstance(), cliente1, funcionario1, null, null);
-//		pedidoVendaRepo.saveAll(Arrays.asList(venda));
-//
-//		Compra compra = new Compra(null, Calendar.getInstance(), fornecedor2, funcionario2);
-//		pedidoCompraRepo.saveAll(Arrays.asList(compra));
-//
-//		Orcamento orcamento = new Orcamento(null, Calendar.getInstance(), cliente2, funcionario1, false);
-//		orcamentoRepo.saveAll(Arrays.asList(orcamento));
-//
-//		VendaItem itemVenda = new VendaItem(null, venda, produto1, new BigDecimal(10), new BigDecimal(2),
-//				new BigDecimal(0));
-//		itemPedidoVendaRepo.saveAll(Arrays.asList(itemVenda));
-//
-//		CompraItem itemCompra = new CompraItem(null, compra, produto2, new BigDecimal(10), new BigDecimal(2),
-//				new BigDecimal(0));
-//		itemPedidoCompraRepo.saveAll(Arrays.asList(itemCompra));
-//
-//		OrcamentoItem itemOrcamento = new OrcamentoItem(null, orcamento, produto3, new BigDecimal(10),
-//				new BigDecimal(2), new BigDecimal(0));
-//		itemPedidoOrcamentoRepo.saveAll(Arrays.asList(itemOrcamento));
-//
+		Venda venda = new Venda(null, Calendar.getInstance(), cliente1, funcionario1);
+		
+		Compra compra = new Compra(null, Calendar.getInstance(), fornecedor2, funcionario2);
+		
+		Orcamento orcamento = new Orcamento(null, Calendar.getInstance(), cliente2, funcionario1, false);
+		
+
+		VendaItem itemVenda = new VendaItem(null, null, produto1, new BigDecimal(10), new BigDecimal(2),
+				new BigDecimal(0));
+		venda.setItens(Arrays.asList(itemVenda));
+
+		CompraItem itemCompra = new CompraItem(null, null, produto2, new BigDecimal(10), new BigDecimal(2),
+				new BigDecimal(0));
+		compra.setItens(Arrays.asList(itemCompra));
+
+		OrcamentoItem itemOrcamento = new OrcamentoItem(null, orcamento, produto3, new BigDecimal(10),
+				new BigDecimal(2), new BigDecimal(0));
+		orcamento.setItens(Arrays.asList(itemOrcamento));
+
 		FormaPagamento formaPagamento1 = new FormaPagamento(null, "dinheiro", TipoFormaPagamento.AVISTA);
 		FormaPagamento formaPagamento2 = new FormaPagamento(null, "a prazo", TipoFormaPagamento.PRAZO);
 
 		formaPagamentoRepo.saveAll(Arrays.asList(formaPagamento1, formaPagamento2));
-//
-//		FormaPagamentoCompra formaPagamentoPedido1 = new FormaPagamentoCompra(null, compra, formaPagamento1,
-//				Calendar.getInstance(), new BigDecimal(200), EstadoPagamento.QUITADO);
-//
-//		FormaPagamentoVenda formaPagamentoPedido2 = new FormaPagamentoVenda(null, venda, formaPagamento1,
-//				Calendar.getInstance(), new BigDecimal(10), EstadoPagamento.QUITADO);
-//
-//		FormaPagamentoVenda formaPagamentoPedido3 = new FormaPagamentoVenda(null, venda, formaPagamento2,
-//				Calendar.getInstance(), new BigDecimal(90), EstadoPagamento.PENDENTE);
-//
-//		formaPagamentoCompraRepo.saveAll(Arrays.asList(formaPagamentoPedido1));
-//		formaPagamentoVendaRepo.saveAll(Arrays.asList(formaPagamentoPedido2, formaPagamentoPedido3));
-//
-//		ParcelaVenda parcela1 = new ParcelaVenda(null, formaPagamentoPedido3, new BigDecimal(40),
-//				EstadoPagamento.PENDENTE, Calendar.getInstance(), null);
-//		ParcelaVenda parcela2 = new ParcelaVenda(null, formaPagamentoPedido3, new BigDecimal(50),
-//				EstadoPagamento.PENDENTE, Calendar.getInstance(), null);
-//
-//		ParcelaCompra parcela3 = new ParcelaCompra(null, formaPagamentoPedido1, new BigDecimal(70),
-//				EstadoPagamento.QUITADO, Calendar.getInstance(), Calendar.getInstance());
-//
-//		parcelaVendaRepo.saveAll(Arrays.asList(parcela1, parcela2));
-//		parcelaCompraRepo.saveAll(Arrays.asList(parcela3));
-//
-//		ContaPagar conta1 = new ContaPagar(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(200),
-//				EstadoPagamento.QUITADO, Calendar.getInstance(), Calendar.getInstance(), formaPagamentoPedido1, null);
-//		ContaReceber conta2 = new ContaReceber(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(10),
-//				EstadoPagamento.QUITADO, Calendar.getInstance(), Calendar.getInstance(), formaPagamentoPedido2, null);
-//		ContaReceber conta3 = new ContaReceber(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(45),
-//				EstadoPagamento.PENDENTE, null, Calendar.getInstance(), null, parcela1);
-//		ContaReceber conta4 = new ContaReceber(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(45),
-//				EstadoPagamento.PENDENTE, null, Calendar.getInstance(), null, parcela2);
-//
-//		contaPagarRepo.saveAll(Arrays.asList(conta1));
-//		contaReceberRepo.saveAll(Arrays.asList(conta2, conta3, conta4));
-//
-//		Caixa caixa1 = new Caixa(null, "caixa1");
-//		Caixa caixa2 = new Caixa(null, "caixa2");
-//
-//		caixaRepo.saveAll(Arrays.asList(caixa1, caixa2));
-//
-//		CaixaMovimentacao caixaMov1 = new CaixaMovimentacao(null, EstadoCaixa.ABERTO, Calendar.getInstance(), null,
-//				caixa1, funcionario1);
-//		CaixaMovimentacao caixaMov2 = new CaixaMovimentacao(null, EstadoCaixa.FECHADO, Calendar.getInstance(),
-//				Calendar.getInstance(), caixa2, funcionario2);
-//
-//		caixaMovimentacaoRepo.saveAll(Arrays.asList(caixaMov1, caixaMov2));
-//
-//		Movimentacao mov1 = new Movimentacao(null, caixaMov1, conta1.getId(), Calendar.getInstance(),
-//				new BigDecimal(200), TipoMovimentacao.SAIDA);
-//		Movimentacao mov2 = new Movimentacao(null, caixaMov1, conta2.getId(), Calendar.getInstance(),
-//				new BigDecimal(10), TipoMovimentacao.ENTRADA);
-//		Movimentacao mov3 = new Movimentacao(null, caixaMov1, conta3.getId(), Calendar.getInstance(),
-//				new BigDecimal(45), TipoMovimentacao.ENTRADA);
-//		Movimentacao mov4 = new Movimentacao(null, caixaMov1, conta4.getId(), Calendar.getInstance(),
-//				new BigDecimal(45), TipoMovimentacao.ENTRADA);
-//		Movimentacao mov5 = new Movimentacao(null, caixaMov2, null, Calendar.getInstance(), new BigDecimal(200),
-//				TipoMovimentacao.SANGRIA);
-//
-//		movimentacaoRepo.saveAll(Arrays.asList(mov1, mov2, mov3, mov4, mov5));
-//
-//		EntradaEstoque entrada1 = new EntradaEstoque(null, Calendar.getInstance(), Calendar.getInstance(), itemCompra,
-//				estoque1);
-//
-//		entradaEstoqueRepo.saveAll(Arrays.asList(entrada1));
+
+		FormaPagamentoCompra formaPagamentoPedido1 = new FormaPagamentoCompra(null, compra, formaPagamento1,
+				Calendar.getInstance(), new BigDecimal(200), EstadoPagamento.QUITADO);
+
+		FormaPagamentoVenda formaPagamentoPedido2 = new FormaPagamentoVenda(null, venda, formaPagamento1,
+				Calendar.getInstance(), new BigDecimal(10), EstadoPagamento.QUITADO);
+
+		FormaPagamentoVenda formaPagamentoPedido3 = new FormaPagamentoVenda(null, venda, formaPagamento2,
+				Calendar.getInstance(), new BigDecimal(90), EstadoPagamento.PENDENTE);
+		
+		ParcelaVenda parcela1 = new ParcelaVenda(null, formaPagamentoPedido3, new BigDecimal(40),
+				EstadoPagamento.PENDENTE, Calendar.getInstance(), null);
+		ParcelaVenda parcela2 = new ParcelaVenda(null, formaPagamentoPedido3, new BigDecimal(50),
+				EstadoPagamento.PENDENTE, Calendar.getInstance(), null);
+
+		ParcelaCompra parcela3 = new ParcelaCompra(null, formaPagamentoPedido1, new BigDecimal(70),
+				EstadoPagamento.QUITADO, Calendar.getInstance(), Calendar.getInstance());
+		
+		formaPagamentoPedido3.setParcelas(Arrays.asList(parcela1, parcela2));
+		formaPagamentoPedido1.setParcelas(Arrays.asList(parcela3));
+		
+		venda.setFormasPagamento(Arrays.asList(formaPagamentoPedido2, formaPagamentoPedido3));
+		compra.setFormasPagamentos(Arrays.asList(formaPagamentoPedido1));
+
+		pedidoVendaRepo.saveAll(Arrays.asList(venda));
+		pedidoCompraRepo.saveAll(Arrays.asList(compra));
+		orcamentoRepo.saveAll(Arrays.asList(orcamento));
+		
+		ContaPagar conta1 = new ContaPagar(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(200),
+				EstadoPagamento.QUITADO, Calendar.getInstance(), Calendar.getInstance(), formaPagamentoPedido1, null);
+		ContaReceber conta2 = new ContaReceber(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(10),
+				EstadoPagamento.QUITADO, Calendar.getInstance(), Calendar.getInstance(), formaPagamentoPedido2, null);
+		ContaReceber conta3 = new ContaReceber(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(45),
+				EstadoPagamento.PENDENTE, null, Calendar.getInstance(), null, parcela1);
+		ContaReceber conta4 = new ContaReceber(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(45),
+				EstadoPagamento.PENDENTE, null, Calendar.getInstance(), null, parcela2);
+
+		//contaPagarRepo.saveAll(Arrays.asList(conta1));
+		//contaReceberRepo.saveAll(Arrays.asList(conta2, conta3, conta4));
+
+		Caixa caixa1 = new Caixa(null, "caixa1");
+		Caixa caixa2 = new Caixa(null, "caixa2");
+
+		caixaRepo.saveAll(Arrays.asList(caixa1, caixa2));
+
+		CaixaMovimentacao caixaMov1 = new CaixaMovimentacao(null, EstadoCaixa.ABERTO, Calendar.getInstance(), null,
+				caixa1, funcionario1);
+		CaixaMovimentacao caixaMov2 = new CaixaMovimentacao(null, EstadoCaixa.FECHADO, Calendar.getInstance(),
+				Calendar.getInstance(), caixa2, funcionario2);
+
+		caixaMovimentacaoRepo.saveAll(Arrays.asList(caixaMov1, caixaMov2));
+
+		Movimentacao mov1 = new Movimentacao(null, caixaMov1, conta1.getId(), Calendar.getInstance(),
+				new BigDecimal(200), TipoMovimentacao.SAIDA);
+		Movimentacao mov2 = new Movimentacao(null, caixaMov1, conta2.getId(), Calendar.getInstance(),
+				new BigDecimal(10), TipoMovimentacao.ENTRADA);
+		Movimentacao mov3 = new Movimentacao(null, caixaMov1, conta3.getId(), Calendar.getInstance(),
+				new BigDecimal(45), TipoMovimentacao.ENTRADA);
+		Movimentacao mov4 = new Movimentacao(null, caixaMov1, conta4.getId(), Calendar.getInstance(),
+				new BigDecimal(45), TipoMovimentacao.ENTRADA);
+		Movimentacao mov5 = new Movimentacao(null, caixaMov2, null, Calendar.getInstance(), new BigDecimal(200),
+				TipoMovimentacao.SANGRIA);
+
+		movimentacaoRepo.saveAll(Arrays.asList(mov1, mov2, mov3, mov4, mov5));
+
+		EntradaEstoque entrada1 = new EntradaEstoque(null, Calendar.getInstance(), Calendar.getInstance(), itemCompra,
+				estoque1);
+
+		//entradaEstoqueRepo.saveAll(Arrays.asList(entrada1));
 
 	}
 }

@@ -6,7 +6,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.mateus.sistema.domain.CaixaMovimentacao;
+import com.mateus.sistema.domain.caixa.CaixaMovimentacao;
 import com.mateus.sistema.domain.enums.EstadoCaixa;
 import com.mateus.sistema.dto.pessoa.funcionario.FuncionarioDTO;
 

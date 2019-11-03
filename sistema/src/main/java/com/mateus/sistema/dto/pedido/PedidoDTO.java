@@ -6,10 +6,10 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.mateus.sistema.domain.Compra;
-import com.mateus.sistema.domain.Orcamento;
-import com.mateus.sistema.domain.Pedido;
-import com.mateus.sistema.domain.Venda;
+import com.mateus.sistema.domain.pedido.Compra;
+import com.mateus.sistema.domain.pedido.Orcamento;
+import com.mateus.sistema.domain.pedido.Pedido;
+import com.mateus.sistema.domain.pedido.Venda;
 import com.mateus.sistema.dto.pedido.formaPagamentoPedido.FormaPagamentoPedidoDTO;
 import com.mateus.sistema.dto.pedido.item.PedidoItemDTO;
 

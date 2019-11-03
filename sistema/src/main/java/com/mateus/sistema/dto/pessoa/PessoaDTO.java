@@ -5,7 +5,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.mateus.sistema.domain.Pessoa;
+import com.mateus.sistema.domain.pessoa.Pessoa;
 import com.mateus.sistema.dto.pessoa.endereco.EnderecoDTO;
 import com.mateus.sistema.dto.pessoa.telefone.TelefoneDTO;
 

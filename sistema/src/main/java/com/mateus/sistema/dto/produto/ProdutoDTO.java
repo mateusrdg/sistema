@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.mateus.sistema.domain.PedidoItem;
-import com.mateus.sistema.domain.Produto;
+import com.mateus.sistema.domain.pedido.PedidoItem;
+import com.mateus.sistema.domain.produto.Produto;
 import com.mateus.sistema.dto.produto.estoque.ProdutoEstoqueDTO;
 import com.mateus.sistema.dto.produto.preco.PrecoDTO;
 import com.mateus.sistema.dto.produto.subgrupo.ProdutoSubgrupoDTO;

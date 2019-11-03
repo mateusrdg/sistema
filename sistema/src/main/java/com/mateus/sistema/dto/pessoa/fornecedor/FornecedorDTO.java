@@ -3,7 +3,7 @@ package com.mateus.sistema.dto.pessoa.fornecedor;
 import java.util.Calendar;
 import java.util.List;
 
-import com.mateus.sistema.domain.Fornecedor;
+import com.mateus.sistema.domain.pessoa.Fornecedor;
 import com.mateus.sistema.dto.pessoa.PessoaDTO;
 import com.mateus.sistema.dto.pessoa.endereco.EnderecoDTO;
 import com.mateus.sistema.dto.pessoa.telefone.TelefoneDTO;

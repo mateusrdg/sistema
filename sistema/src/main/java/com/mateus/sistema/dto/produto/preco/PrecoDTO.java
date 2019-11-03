@@ -3,8 +3,8 @@ package com.mateus.sistema.dto.produto.preco;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import com.mateus.sistema.domain.Preco;
 import com.mateus.sistema.domain.enums.TipoPreco;
+import com.mateus.sistema.domain.produto.Preco;
 
 public class PrecoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;

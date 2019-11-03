@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
 
-import com.mateus.sistema.domain.Compra;
+import com.mateus.sistema.domain.pedido.Compra;
 import com.mateus.sistema.dto.pedido.PedidoDTO;
 import com.mateus.sistema.dto.pedido.formaPagamentoPedido.FormaPagamentoPedidoDTO;
 import com.mateus.sistema.dto.pedido.item.PedidoItemDTO;

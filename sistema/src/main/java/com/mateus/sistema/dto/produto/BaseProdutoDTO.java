@@ -2,27 +2,25 @@ package com.mateus.sistema.dto.produto;
 
 import java.io.Serializable;
 
-import com.mateus.sistema.domain.Produto;
+import com.mateus.sistema.domain.produto.Produto;
 
-public class BaseProdutoDTO implements Serializable {
+public class BaseProdutoDTO extends ProdutoIdDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
-
-	private Long id;
+	
 	private String referencia;
 	private String descricao;
-	
 
 	public BaseProdutoDTO() {
 	}
 
 	public BaseProdutoDTO(Long id , String referencia, String descricao) {
-		this.id = id;
+		super(id);
 		this.referencia = referencia;
 		this.descricao = descricao;
 	}
 
 	public BaseProdutoDTO(Produto produto) {
-		this.id = produto.getId();
+		super(produto.getId());
 		this.referencia = produto.getReferencia();
 		this.descricao = produto.getDescricao();
 	}
@@ -41,14 +39,6 @@ public class BaseProdutoDTO implements Serializable {
 
 	public void setReferencia(String referencia) {
 		this.referencia = referencia;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 }

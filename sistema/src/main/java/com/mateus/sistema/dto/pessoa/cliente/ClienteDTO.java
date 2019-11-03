@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
 
-import com.mateus.sistema.domain.Cliente;
 import com.mateus.sistema.domain.enums.TipoCliente;
+import com.mateus.sistema.domain.pessoa.Cliente;
 import com.mateus.sistema.dto.pessoa.PessoaDTO;
 import com.mateus.sistema.dto.pessoa.endereco.EnderecoDTO;
 import com.mateus.sistema.dto.pessoa.telefone.TelefoneDTO;

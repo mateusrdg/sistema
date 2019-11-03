@@ -3,7 +3,7 @@ package com.mateus.sistema.dto.pedido.item;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import com.mateus.sistema.domain.PedidoItem;
+import com.mateus.sistema.domain.pedido.PedidoItem;
 import com.mateus.sistema.dto.produto.BaseProdutoDTO;
 import com.mateus.sistema.dto.produto.ProdutoDTO;
 

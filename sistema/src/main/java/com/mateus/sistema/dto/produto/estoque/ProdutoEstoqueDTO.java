@@ -3,8 +3,8 @@ package com.mateus.sistema.dto.produto.estoque;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import com.mateus.sistema.domain.Estoque;
-import com.mateus.sistema.domain.ProdutoEstoque;
+import com.mateus.sistema.domain.produto.Estoque;
+import com.mateus.sistema.domain.produto.ProdutoEstoque;
 
 public class ProdutoEstoqueDTO implements Serializable {
 	private static final long serialVersionUID = 1L;

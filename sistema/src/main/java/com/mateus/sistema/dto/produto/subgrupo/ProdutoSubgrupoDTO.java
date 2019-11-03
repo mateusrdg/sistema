@@ -2,7 +2,7 @@ package com.mateus.sistema.dto.produto.subgrupo;
 
 import java.io.Serializable;
 
-import com.mateus.sistema.domain.Subgrupo;
+import com.mateus.sistema.domain.produto.Subgrupo;
 
 public class ProdutoSubgrupoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;

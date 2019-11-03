@@ -7,11 +7,11 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.mateus.sistema.domain.FormaPagamentoCompra;
-import com.mateus.sistema.domain.FormaPagamentoPedido;
-import com.mateus.sistema.domain.FormaPagamentoVenda;
 import com.mateus.sistema.domain.enums.EstadoPagamento;
-import com.mateus.sistema.dto.formaPagamento.FormaPagamentoDTO;
+import com.mateus.sistema.domain.pedido.FormaPagamentoCompra;
+import com.mateus.sistema.domain.pedido.FormaPagamentoPedido;
+import com.mateus.sistema.domain.pedido.FormaPagamentoVenda;
+import com.mateus.sistema.dto.pedido.FormaPagamentoDTO;
 import com.mateus.sistema.dto.pedido.formaPagamentoPedido.parcela.ParcelaDTO;
 
 public class FormaPagamentoPedidoDTO implements Serializable {
