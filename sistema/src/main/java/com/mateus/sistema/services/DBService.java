@@ -178,10 +178,10 @@ public class DBService {
 		ProdutoSubgrupo prodSubgrupo3 = new ProdutoSubgrupo(null, subgrupo1, produto2);
 		ProdutoSubgrupo prodSubgrupo4 = new ProdutoSubgrupo(null, subgrupo3, produto4);
 
-		produto1.setProdutoSubgrupo(Arrays.asList(prodSubgrupo1, prodSubgrupo2));
-		produto2.setProdutoSubgrupo(Arrays.asList(prodSubgrupo3));
-		produto4.setProdutoSubgrupo(Arrays.asList(prodSubgrupo4));
-		
+		produto1.setProdutoSubgrupos(Arrays.asList(prodSubgrupo1, prodSubgrupo2));
+		produto2.setProdutoSubgrupos(Arrays.asList(prodSubgrupo3));
+		produto4.setProdutoSubgrupos(Arrays.asList(prodSubgrupo4));
+
 		Preco preco1 = new Preco(null, produto1, new BigDecimal(100.00), TipoPreco.AVISTA);
 		Preco preco2 = new Preco(null, produto2, new BigDecimal(200.00), TipoPreco.AVISTA);
 		Preco preco3 = new Preco(null, produto3, new BigDecimal(300.00), TipoPreco.AVISTA);
@@ -192,25 +192,25 @@ public class DBService {
 		produto2.getPrecos().addAll(Arrays.asList(preco2));
 		produto3.getPrecos().addAll(Arrays.asList(preco3));
 		produto4.getPrecos().addAll(Arrays.asList(preco4));
-		
-		ProdutoEstoque estoqueProduto1 = new ProdutoEstoque(null, estoque1, produto1);
-		ProdutoEstoque estoqueProduto2 = new ProdutoEstoque(null, estoque2, produto1);
-		ProdutoEstoque estoqueProduto3 = new ProdutoEstoque(null, estoque1, produto2);
-		ProdutoEstoque estoqueProduto4 = new ProdutoEstoque(null, estoque1, produto3);
-		ProdutoEstoque estoqueProduto5 = new ProdutoEstoque(null, estoque1, produto4);
+
+		ProdutoEstoque estoqueProduto1 = new ProdutoEstoque(null, estoque1, produto1, null);
+		ProdutoEstoque estoqueProduto2 = new ProdutoEstoque(null, estoque2, produto1, null);
+		ProdutoEstoque estoqueProduto3 = new ProdutoEstoque(null, estoque1, produto2, null);
+		ProdutoEstoque estoqueProduto4 = new ProdutoEstoque(null, estoque1, produto3, null);
+		ProdutoEstoque estoqueProduto5 = new ProdutoEstoque(null, estoque1, produto4, null);
 		estoqueProduto1.setQuantidade(new BigDecimal(5));
 		estoqueProduto2.setQuantidade(new BigDecimal(10));
 		estoqueProduto3.setQuantidade(new BigDecimal(20));
 		estoqueProduto4.setQuantidade(new BigDecimal(30));
 		estoqueProduto5.setQuantidade(new BigDecimal(0));
-		
-		produto1.setProdutoEstoque(Arrays.asList(estoqueProduto1, estoqueProduto2));
-		produto2.setProdutoEstoque(Arrays.asList(estoqueProduto3));
-		produto3.setProdutoEstoque(Arrays.asList(estoqueProduto4));
-		produto4.setProdutoEstoque(Arrays.asList(estoqueProduto5));
-		
+
+		produto1.setProdutoEstoques(Arrays.asList(estoqueProduto1, estoqueProduto2));
+		produto2.setProdutoEstoques(Arrays.asList(estoqueProduto3));
+		produto3.setProdutoEstoques(Arrays.asList(estoqueProduto4));
+		produto4.setProdutoEstoques(Arrays.asList(estoqueProduto5));
+
 		produtoRepo.saveAll(Arrays.asList(produto1, produto2, produto3, produto4));
-		
+
 		Cliente cliente1 = new Cliente(null, "Mateus", "mateusrodrigues-cp@hotmail.com", Calendar.getInstance(),
 				"60541329383", TipoCliente.PESSOAFISICA);
 		Cliente cliente2 = new Cliente(null, "João", "joao@gmail.com", Calendar.getInstance(), "547465444",
@@ -252,13 +252,12 @@ public class DBService {
 		pessoaTelefoneRepo.saveAll(Arrays.asList(pessoaTel1, pessoaTel2, pessoaTel3));
 
 		pessoaEnderecoRepo.saveAll(Arrays.asList(pe1, pe2, pe3, pe4));
-		
+
 		Venda venda = new Venda(null, Calendar.getInstance(), cliente1, funcionario1);
-		
+
 		Compra compra = new Compra(null, Calendar.getInstance(), fornecedor2, funcionario2);
-		
+
 		Orcamento orcamento = new Orcamento(null, Calendar.getInstance(), cliente2, funcionario1, false);
-		
 
 		VendaItem itemVenda = new VendaItem(null, null, produto1, new BigDecimal(10), new BigDecimal(2),
 				new BigDecimal(0));
@@ -285,7 +284,7 @@ public class DBService {
 
 		FormaPagamentoVenda formaPagamentoPedido3 = new FormaPagamentoVenda(null, venda, formaPagamento2,
 				Calendar.getInstance(), new BigDecimal(90), EstadoPagamento.PENDENTE);
-		
+
 		ParcelaVenda parcela1 = new ParcelaVenda(null, formaPagamentoPedido3, new BigDecimal(40),
 				EstadoPagamento.PENDENTE, Calendar.getInstance(), null);
 		ParcelaVenda parcela2 = new ParcelaVenda(null, formaPagamentoPedido3, new BigDecimal(50),
@@ -293,17 +292,17 @@ public class DBService {
 
 		ParcelaCompra parcela3 = new ParcelaCompra(null, formaPagamentoPedido1, new BigDecimal(70),
 				EstadoPagamento.QUITADO, Calendar.getInstance(), Calendar.getInstance());
-		
+
 		formaPagamentoPedido3.setParcelas(Arrays.asList(parcela1, parcela2));
 		formaPagamentoPedido1.setParcelas(Arrays.asList(parcela3));
-		
+
 		venda.setFormasPagamento(Arrays.asList(formaPagamentoPedido2, formaPagamentoPedido3));
 		compra.setFormasPagamentos(Arrays.asList(formaPagamentoPedido1));
 
 		pedidoVendaRepo.saveAll(Arrays.asList(venda));
 		pedidoCompraRepo.saveAll(Arrays.asList(compra));
 		orcamentoRepo.saveAll(Arrays.asList(orcamento));
-		
+
 		ContaPagar conta1 = new ContaPagar(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(200),
 				EstadoPagamento.QUITADO, Calendar.getInstance(), Calendar.getInstance(), formaPagamentoPedido1, null);
 		ContaReceber conta2 = new ContaReceber(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(10),
@@ -313,8 +312,8 @@ public class DBService {
 		ContaReceber conta4 = new ContaReceber(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(45),
 				EstadoPagamento.PENDENTE, null, Calendar.getInstance(), null, parcela2);
 
-		//contaPagarRepo.saveAll(Arrays.asList(conta1));
-		//contaReceberRepo.saveAll(Arrays.asList(conta2, conta3, conta4));
+		// contaPagarRepo.saveAll(Arrays.asList(conta1));
+		// contaReceberRepo.saveAll(Arrays.asList(conta2, conta3, conta4));
 
 		Caixa caixa1 = new Caixa(null, "caixa1");
 		Caixa caixa2 = new Caixa(null, "caixa2");
@@ -344,7 +343,7 @@ public class DBService {
 		EntradaEstoque entrada1 = new EntradaEstoque(null, Calendar.getInstance(), Calendar.getInstance(), itemCompra,
 				estoque1);
 
-		//entradaEstoqueRepo.saveAll(Arrays.asList(entrada1));
+		// entradaEstoqueRepo.saveAll(Arrays.asList(entrada1));
 
 	}
 }

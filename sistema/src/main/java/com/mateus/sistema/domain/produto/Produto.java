@@ -34,10 +34,10 @@ public class Produto implements Serializable {
 	private List<Preco> precos = new ArrayList<Preco>();
 
 	@OneToMany(mappedBy = "produto", cascade ={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
-	private List<ProdutoEstoque> produtoEstoque = new ArrayList<ProdutoEstoque>();
+	private List<ProdutoEstoque> produtoEstoques = new ArrayList<ProdutoEstoque>();
 	
 	@OneToMany(mappedBy = "produto", cascade ={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
-	private List<ProdutoSubgrupo> produtoSubgrupo = new ArrayList<ProdutoSubgrupo>();
+	private List<ProdutoSubgrupo> produtoSubgrupos = new ArrayList<ProdutoSubgrupo>();
 	
 	@JsonIgnore
 	@Transient
@@ -113,20 +113,20 @@ public class Produto implements Serializable {
 		this.itens = itens;
 	}
 
-	public List<ProdutoSubgrupo> getProdutoSubgrupo() {
-		return produtoSubgrupo;
+	public List<ProdutoSubgrupo> getProdutoSubgrupos() {
+		return produtoSubgrupos;
 	}
 
-	public List<ProdutoEstoque> getProdutoEstoque() {
-		return produtoEstoque;
+	public List<ProdutoEstoque> getProdutoEstoques() {
+		return produtoEstoques;
 	}
 
-	public void setProdutoEstoque(List<ProdutoEstoque> produtoEstoque) {
-		this.produtoEstoque = produtoEstoque;
+	public void setProdutoEstoques(List<ProdutoEstoque> produtoEstoques) {
+		this.produtoEstoques = produtoEstoques;
 	}
 
-	public void setProdutoSubgrupo(List<ProdutoSubgrupo> produtoSubgrupo) {
-		this.produtoSubgrupo = produtoSubgrupo;
+	public void setProdutoSubgrupos(List<ProdutoSubgrupo> produtoSubgrupos) {
+		this.produtoSubgrupos = produtoSubgrupos;
 	}
 	
 	public String getReferencia() {

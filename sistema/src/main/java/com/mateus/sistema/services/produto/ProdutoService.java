@@ -1,6 +1,5 @@
 package com.mateus.sistema.services.produto;
 
-import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -65,17 +64,24 @@ public class ProdutoService {
 		newObj.setReferencia(obj.getReferencia());
 		newObj.setDataCadastro(obj.getDataCadastro());
 		newObj.setAtivo(obj.getAtivo());
+		newObj.setPrecos(obj.getPrecos());
+		newObj.setProdutoEstoques(obj.getProdutoEstoques());
+		newObj.setProdutoSubgrupos(obj.getProdutoSubgrupos());
 	}
 	
 	public Produto fromDto (ProdutoDTO objDto) {
-		return new Produto(objDto.getId(), objDto.getDescricao(), objDto.getReferencia(), objDto.getDataCadastro(), objDto.getAtivo());
+		Produto obj = new Produto(objDto.getId(), objDto.getDescricao(), objDto.getReferencia(), objDto.getDataCadastro(), objDto.getAtivo());
+		obj.setPrecos(precoService.fromDto(objDto.getPrecos(), obj));
+		obj.setProdutoEstoques(estoqueService.fromDto(objDto.getEstoques(), obj));
+		obj.setProdutoSubgrupos(subgrupoService.fromDto(objDto.getSubgrupos(), obj));
+		return obj; 
 	}
 	
 	public Produto fromDto (ProdutoNewDTO objDto) {
 		Produto obj = new Produto(null, objDto.getDescricao(), objDto.getReferencia());
-		obj.setPrecos(precoService.fromDto(objDto.getPrecos(), obj));
-		obj.setProdutoEstoque(estoqueService.fromDto(objDto.getEstoques(), obj));
-		obj.setProdutoSubgrupo(subgrupoService.fromDto(objDto.getSubgrupos(), obj));
+		obj.setPrecos(precoService.fromNewDto(objDto.getPrecos(), obj));
+		obj.setProdutoEstoques(estoqueService.fromNewDto(objDto.getEstoques(), obj));
+		obj.setProdutoSubgrupos(subgrupoService.fromNewDto(objDto.getSubgrupos(), obj));
 		return obj;
 	}
 	

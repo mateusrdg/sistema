@@ -10,5 +10,6 @@ public class SubgrupoIdDTO extends EntidadeBaseId{
 	
 	public SubgrupoIdDTO(Long id) {
 		super(id);
-	}	
+	}
+	
 }

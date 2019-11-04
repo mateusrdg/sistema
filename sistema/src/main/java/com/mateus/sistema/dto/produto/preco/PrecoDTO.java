@@ -5,11 +5,11 @@ import java.math.BigDecimal;
 
 import com.mateus.sistema.domain.enums.TipoPreco;
 import com.mateus.sistema.domain.produto.Preco;
+import com.mateus.sistema.dto.EntidadeBaseId;
 
-public class PrecoDTO implements Serializable {
+public class PrecoDTO extends EntidadeBaseId implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private Long id;
 	private BigDecimal valor;
 	private TipoPreco tipo;
 
@@ -17,13 +17,13 @@ public class PrecoDTO implements Serializable {
 	}
 
 	public PrecoDTO(Long id, BigDecimal valor, TipoPreco tipo) {
-		this.setId(id);
+		super(id);
 		this.valor = valor;
 		this.tipo = (tipo == null) ? null : tipo;
 	}
 	
 	public PrecoDTO(Preco preco) {
-		this.id = preco.getId();
+		super(preco.getId());
 		this.valor = preco.getValor();
 		this.tipo = preco.getTipo();
 	}
@@ -36,20 +36,11 @@ public class PrecoDTO implements Serializable {
 		this.valor = valor;
 	}
 	
-	
 	public TipoPreco getTipo() {
 		return tipo;
 	}
 
 	public void setTipo(TipoPreco tipo) {
 		this.tipo = tipo;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 }

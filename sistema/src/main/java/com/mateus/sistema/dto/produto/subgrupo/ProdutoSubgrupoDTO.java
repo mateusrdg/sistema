@@ -2,28 +2,20 @@ package com.mateus.sistema.dto.produto.subgrupo;
 
 import java.io.Serializable;
 
-import com.mateus.sistema.domain.produto.Subgrupo;
+import com.mateus.sistema.domain.produto.ProdutoSubgrupo;
 
 public class ProdutoSubgrupoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
-	private String descricao;
+	private SubgrupoDTO subgrupo;
 	
 	public ProdutoSubgrupoDTO() {
 	}
 
-	public ProdutoSubgrupoDTO(Subgrupo subgrupo) {
-		this.setId(subgrupo.getId());
-		this.setDescricao(subgrupo.getDescricao());
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public ProdutoSubgrupoDTO(ProdutoSubgrupo produtoSubgrupo) {
+		this.id = produtoSubgrupo.getId();
+		this.setSubgrupo(new SubgrupoDTO(produtoSubgrupo.getSubgrupo()));
 	}
 
 	public Long getId() {
@@ -32,6 +24,14 @@ public class ProdutoSubgrupoDTO implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public SubgrupoDTO getSubgrupo() {
+		return subgrupo;
+	}
+
+	public void setSubgrupo(SubgrupoDTO subgrupo) {
+		this.subgrupo = subgrupo;
 	}
 
 }

@@ -5,28 +5,27 @@ import java.math.BigDecimal;
 
 import com.mateus.sistema.domain.produto.Estoque;
 import com.mateus.sistema.domain.produto.ProdutoEstoque;
+import com.mateus.sistema.dto.EntidadeBaseId;
 
-public class ProdutoEstoqueDTO implements Serializable {
+public class ProdutoEstoqueDTO extends EntidadeBaseId implements Serializable {
 	private static final long serialVersionUID = 1L;
-
-	private Long id;
 	
-	private String descricao;
+	private EstoqueDTO estoque;
 
 	private BigDecimal quantidade;
 
 	public ProdutoEstoqueDTO() {
 	}
 
-	public ProdutoEstoqueDTO(Estoque estoque, BigDecimal quantidade) {
-		this.setId(estoque.getId());
-		this.setDescricao(estoque.getDescricao());
+	public ProdutoEstoqueDTO(Long id, Estoque estoque, BigDecimal quantidade) {
+		super(id);
+		this.setEstoque(new EstoqueDTO(estoque));
 		this.setQuantidade(quantidade);
 	}
 	
 	public ProdutoEstoqueDTO(ProdutoEstoque produtoEstoque) {
-		this.setId(produtoEstoque.getEstoque().getId());
-		this.setDescricao(produtoEstoque.getEstoque().getDescricao());
+		super(produtoEstoque.getId());
+		this.estoque = new EstoqueDTO(produtoEstoque.getEstoque());
 		this.setQuantidade(produtoEstoque.getQuantidade());
 	}
 
@@ -38,19 +37,11 @@ public class ProdutoEstoqueDTO implements Serializable {
 		this.quantidade = quantidade;
 	}
 
-	public Long getId() {
-		return id;
+	public EstoqueDTO getEstoque() {
+		return estoque;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getDescricao() {
-		return descricao;
-	}
-
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setEstoque(EstoqueDTO estoque) {
+		this.estoque = estoque;
 	}
 }

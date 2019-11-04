@@ -45,9 +45,9 @@ public class ProdutoDTO extends BaseProdutoDTO implements Serializable {
 		this.ativo = produto.getAtivo();
 
 		precos = produto.getPrecos().stream().map(obj -> new PrecoDTO(obj)).collect(Collectors.toList());
-		estoques = produto.getProdutoEstoque().stream().map(obj -> new ProdutoEstoqueDTO(obj))
+		estoques = produto.getProdutoEstoques().stream().map(obj -> new ProdutoEstoqueDTO(obj))
 				.collect(Collectors.toList());
-		subgrupos = produto.getProdutoSubgrupo().stream().map(obj -> new ProdutoSubgrupoDTO(obj.getSubgrupo()))
+		subgrupos = produto.getProdutoSubgrupos().stream().map(obj -> new ProdutoSubgrupoDTO(obj))
 				.collect(Collectors.toList());
 	}
 

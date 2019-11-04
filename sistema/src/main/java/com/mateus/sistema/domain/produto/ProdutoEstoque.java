@@ -35,10 +35,11 @@ public class ProdutoEstoque implements Serializable {
 	public ProdutoEstoque() {
 	}
 
-	public ProdutoEstoque(Long id, Estoque estoque, Produto produto) {
+	public ProdutoEstoque(Long id, Estoque estoque, Produto produto, BigDecimal quantidade) {
 		this.id = id;
 		this.estoque = estoque;
 		this.produto = produto;
+		this.quantidade = quantidade;
 	}
 
 	public Long getId() {
