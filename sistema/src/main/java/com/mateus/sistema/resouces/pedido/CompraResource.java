@@ -26,6 +26,12 @@ public class CompraResource {
 		return ResponseEntity.ok(objDTO);
 	}
 	
+	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@PathVariable Long id){
+		service.delete(id);
+		return ResponseEntity.noContent().build();
+	}
+	
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<List<Compra>> findAll() {
 		List<Compra> list = service.findAll();

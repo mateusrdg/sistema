@@ -26,6 +26,12 @@ public class OrcamentoResource {
 		return ResponseEntity.ok(objDTO);
 	}
 	
+	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@PathVariable Long id){
+		service.delete(id);
+		return ResponseEntity.noContent().build();
+	}
+	
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<List<Orcamento>> findAll() {
 		List<Orcamento> list = service.findAll();

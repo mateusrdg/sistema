@@ -40,6 +40,12 @@ public class VendaResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@PathVariable Long id){
+		service.delete(id);
+		return ResponseEntity.noContent().build();
+	}
+	
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<List<Venda>> findAll() {
 		List<Venda> list = service.findAll();

@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.mateus.sistema.domain.pedido.Orcamento;
 import com.mateus.sistema.repository.pedido.OrcamentoRepository;
+import com.mateus.sistema.services.exceptions.DataIntegrityException;
 import com.mateus.sistema.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -23,5 +25,14 @@ public class OrcamentoService {
 
 	public List<Orcamento> findAll() {
 		return repo.findAll();
+	}
+
+	public void delete(Long id) {
+		repo.findById(id);
+		try {
+			repo.deleteById(id);
+		} catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possível excluir!");
+		}
 	}
 }
