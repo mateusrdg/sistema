@@ -303,14 +303,14 @@ public class DBService {
 		pedidoCompraRepo.saveAll(Arrays.asList(compra));
 		orcamentoRepo.saveAll(Arrays.asList(orcamento));
 
-		ContaPagar conta1 = new ContaPagar(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(200),
+		ContaPagar conta1 = new ContaPagar(null, Calendar.getInstance(), new BigDecimal(200),
 				EstadoPagamento.QUITADO, Calendar.getInstance(), Calendar.getInstance(), formaPagamentoPedido1, null);
-		ContaReceber conta2 = new ContaReceber(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(10),
+		ContaReceber conta2 = new ContaReceber(null, Calendar.getInstance(), new BigDecimal(10),
 				EstadoPagamento.QUITADO, Calendar.getInstance(), Calendar.getInstance(), formaPagamentoPedido2, null);
-		ContaReceber conta3 = new ContaReceber(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(45),
-				EstadoPagamento.PENDENTE, null, Calendar.getInstance(), null, parcela1);
-		ContaReceber conta4 = new ContaReceber(null, Calendar.getInstance(), Calendar.getInstance(), new BigDecimal(45),
-				EstadoPagamento.PENDENTE, null, Calendar.getInstance(), null, parcela2);
+		ContaReceber conta3 = new ContaReceber(null, Calendar.getInstance(), new BigDecimal(45),
+				EstadoPagamento.PENDENTE, null, Calendar.getInstance(), formaPagamentoPedido3, parcela1);
+		ContaReceber conta4 = new ContaReceber(null, Calendar.getInstance(), new BigDecimal(45),
+				EstadoPagamento.PENDENTE, null, Calendar.getInstance(), formaPagamentoPedido3, parcela2);
 
 		// contaPagarRepo.saveAll(Arrays.asList(conta1));
 		// contaReceberRepo.saveAll(Arrays.asList(conta2, conta3, conta4));

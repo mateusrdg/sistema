@@ -47,12 +47,12 @@ public class FormaPagamento implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public Integer getTipo() {
-		return tipo;
+	public TipoFormaPagamento getTipo() {
+		return TipoFormaPagamento.toEnum(tipo);
 	}
 
-	public void setTipo(Integer tipo) {
-		this.tipo = tipo;
+	public void setTipo(TipoFormaPagamento tipo) {
+		this.tipo = tipo.getCod();
 	}
 
 	@Override

@@ -11,6 +11,7 @@ import com.mateus.sistema.domain.enums.EstadoPagamento;
 import com.mateus.sistema.domain.pedido.FormaPagamentoCompra;
 import com.mateus.sistema.domain.pedido.FormaPagamentoPedido;
 import com.mateus.sistema.domain.pedido.FormaPagamentoVenda;
+import com.mateus.sistema.dto.pedido.ContaNewDTO;
 import com.mateus.sistema.dto.pedido.FormaPagamentoDTO;
 import com.mateus.sistema.dto.pedido.formaPagamentoPedido.parcela.ParcelaNewDTO;
 
@@ -23,6 +24,7 @@ public class FormaPagamentoPedidoNewDTO implements Serializable {
 	private EstadoPagamento estado;
 
 	List<ParcelaNewDTO> parcelas = new ArrayList<ParcelaNewDTO>();
+	List<ContaNewDTO> contas = new ArrayList<ContaNewDTO>();
 
 	public FormaPagamentoPedidoNewDTO() {
 

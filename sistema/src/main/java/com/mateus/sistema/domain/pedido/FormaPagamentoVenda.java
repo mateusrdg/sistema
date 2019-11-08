@@ -34,7 +34,7 @@ public class FormaPagamentoVenda extends FormaPagamentoPedido implements Seriali
 	@OneToMany(mappedBy = "formaPagamentoVenda", cascade ={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
 	private List<ParcelaVenda> parcelas = new ArrayList<ParcelaVenda>();
 	
-	@OneToOne(mappedBy = "formaPagamentoVenda")
+	@OneToOne(mappedBy = "formaPagamentoVenda", cascade ={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
 	private ContaReceber contaReceber;
 
 	public FormaPagamentoVenda() {

@@ -16,7 +16,7 @@ public class FormaPagamentoDTO {
 	public FormaPagamentoDTO(FormaPagamento formaPagamento) {
 		this.id = formaPagamento.getId();
 		this.descricao = formaPagamento.getDescricao();
-		this.tipo = TipoFormaPagamento.toEnum(formaPagamento.getTipo());
+		this.tipo = formaPagamento.getTipo();
 	}
 	
 	public FormaPagamentoDTO(Long id, String descricao, TipoFormaPagamento tipo) {

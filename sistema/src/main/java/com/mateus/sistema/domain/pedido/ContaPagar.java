@@ -30,10 +30,10 @@ public class ContaPagar extends Conta implements Serializable {
 	public ContaPagar() {
 	}
 
-	public ContaPagar(Long id, Calendar data, Calendar hora, BigDecimal valor, EstadoPagamento estado,
+	public ContaPagar(Long id, Calendar data, BigDecimal valor, EstadoPagamento estado,
 			Calendar dataPagamento, Calendar dataVencimento, FormaPagamentoCompra formaPagamentoPedido,
 			ParcelaCompra parcela) {
-		super(id, TipoConta.PAGAR, data, hora, valor, estado, dataPagamento, dataVencimento);
+		super(id, TipoConta.PAGAR, data, valor, estado, dataPagamento, dataVencimento);
 		this.formaPagamentoPedido = formaPagamentoPedido;
 		this.parcela = parcela;
 	}

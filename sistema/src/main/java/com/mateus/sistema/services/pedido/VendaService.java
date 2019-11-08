@@ -75,7 +75,7 @@ public class VendaService {
 		Venda venda = new Venda(null, Calendar.getInstance(), clienteService.fromDto(objDto.getCliente()),
 				funcionarioService.fromDto(objDto.getVendedor()));
 		venda.setItens(itemService.fromDTO(objDto.getItens(), venda));
-		venda.setFormasPagamento(fppService.fromDto(objDto.getFormasPagamento(), venda));
+		venda.setFormasPagamento(fppService.fromNewDto(objDto.getFormasPagamento(), venda));
 		return venda;
 	}
 }

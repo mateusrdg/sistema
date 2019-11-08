@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.Transient;
+import javax.persistence.PrePersist;
 import javax.persistence.Version;
 
 import com.mateus.sistema.domain.enums.EstadoPagamento;
@@ -22,24 +22,19 @@ public abstract class Conta implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private Calendar data;
-	private Calendar hora;
 	private BigDecimal valor;
 	private Integer estado;
 	private Calendar dataPagamento;
 	private Calendar dataVencimento;
-	@Transient
-	private Integer tipo;
 
 	public Conta() {
 	}
 
-	public Conta(Long id, TipoConta tipo, Calendar data, Calendar hora, BigDecimal valor, EstadoPagamento estado,
+	public Conta(Long id, TipoConta tipo, Calendar data, BigDecimal valor, EstadoPagamento estado,
 			Calendar dataPagamento, Calendar dataVencimento) {
 		super();
 		this.id = id;
-		this.tipo = (tipo == null) ? null : tipo.getCod();
 		this.data = data;
-		this.hora = hora;
 		this.valor = valor;
 		this.estado = (estado == null) ? null : estado.getCod();
 		this.dataPagamento = dataPagamento;
@@ -60,14 +55,6 @@ public abstract class Conta implements Serializable {
 
 	public void setData(Calendar data) {
 		this.data = data;
-	}
-
-	public Calendar getHora() {
-		return hora;
-	}
-
-	public void setHora(Calendar hora) {
-		this.hora = hora;
 	}
 
 	public BigDecimal getValor() {
@@ -102,14 +89,11 @@ public abstract class Conta implements Serializable {
 		this.dataVencimento = dataVencimento;
 	}
 
-	public TipoConta getTipo() {
-		return TipoConta.toEnum(tipo);
-	}
-
-	public void setTipo(TipoConta tipo) {
-		this.tipo = tipo.getCod();
-	}
-
+	@PrePersist
+    public void prePersist() {
+        this.data = Calendar.getInstance();
+    }
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
