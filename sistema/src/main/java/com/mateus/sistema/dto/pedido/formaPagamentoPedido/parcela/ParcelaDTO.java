@@ -40,10 +40,15 @@ public class ParcelaDTO implements Serializable {
 		this.estado = parcela.getEstado();
 		this.dataVencimento = parcela.getDataVencimento();
 		this.dataPagamento = parcela.getDataPagamento();
+		
 		if (parcela instanceof ParcelaVenda) {
-			setConta(new ContaDTO(((ParcelaVenda) parcela).getContaReceber()));
+			if (((ParcelaVenda) parcela).getContaReceber() != null) {
+				setConta(new ContaDTO(((ParcelaVenda) parcela).getContaReceber()));
+			}
 		} else if (parcela instanceof ParcelaCompra) {
-			setConta(new ContaDTO(((ParcelaCompra) parcela).getContaPagar()));
+			if (((ParcelaCompra) parcela).getContaPagar() != null) {
+				setConta(new ContaDTO(((ParcelaCompra) parcela).getContaPagar()));
+			}
 		}
 	}
 

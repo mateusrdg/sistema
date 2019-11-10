@@ -47,13 +47,18 @@ public class FormaPagamentoPedidoDTO implements Serializable {
 		if (formaPagamentoPedido instanceof FormaPagamentoVenda) {
 			parcelas = ((FormaPagamentoVenda) formaPagamentoPedido).getParcelas().stream().map(obj -> new ParcelaDTO(obj))
 					.collect(Collectors.toList());
-			setConta(new ContaDTO(((FormaPagamentoVenda) formaPagamentoPedido).getContaReceber())); 
+			if (((FormaPagamentoVenda) formaPagamentoPedido).getContaReceber() != null) {
+				setConta(new ContaDTO(((FormaPagamentoVenda) formaPagamentoPedido).getContaReceber()));
+			}
 		}
 		
 		if (formaPagamentoPedido instanceof FormaPagamentoCompra) {
 			parcelas = ((FormaPagamentoCompra) formaPagamentoPedido).getParcelas().stream().map(obj -> new ParcelaDTO(obj))
 					.collect(Collectors.toList());
-			setConta(new ContaDTO(((FormaPagamentoCompra) formaPagamentoPedido).getContaPagar())); 
+			if (((FormaPagamentoCompra) formaPagamentoPedido).getContaPagar() != null) {
+				setConta(new ContaDTO(((FormaPagamentoCompra) formaPagamentoPedido).getContaPagar()));
+			}
+			
 		}
 		this.formaPagamento = new FormaPagamentoDTO(formaPagamentoPedido.getFormaPagamento());
 		this.valor = formaPagamentoPedido.getValor();
