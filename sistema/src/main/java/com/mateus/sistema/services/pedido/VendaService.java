@@ -20,13 +20,6 @@ import com.mateus.sistema.services.pessoa.FuncionarioService;
 public class VendaService {
 	@Autowired
 	private VendaRepository repo;
-//	@Autowired
-//	private VendaItemRepository itemRepo;
-//	@Autowired
-//	private FormaPagamentoVendaRepository fpvRepo;
-//	@Autowired 
-//	private ParcelaVendaRepository parcelaRepo;
-	
 	@Autowired
 	private ClienteService clienteService;
 	@Autowired
@@ -68,7 +61,7 @@ public class VendaService {
 	}
 
 	private void updateData(Venda newObj, Venda obj) {
-
+	//TODO
 	}
 
 	public Venda fromDTO(VendaNewDTO objDto) {

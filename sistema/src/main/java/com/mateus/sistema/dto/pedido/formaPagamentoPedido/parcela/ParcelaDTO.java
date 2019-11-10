@@ -7,6 +7,8 @@ import java.util.Calendar;
 import com.mateus.sistema.domain.enums.EstadoPagamento;
 import com.mateus.sistema.domain.pedido.Parcela;
 import com.mateus.sistema.domain.pedido.ParcelaCompra;
+import com.mateus.sistema.domain.pedido.ParcelaVenda;
+import com.mateus.sistema.dto.pedido.ContaDTO;
 
 public class ParcelaDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -17,31 +19,32 @@ public class ParcelaDTO implements Serializable {
 	private Calendar dataVencimento;
 	private Calendar dataPagamento;
 
+	private ContaDTO conta;
+
 	public ParcelaDTO() {
 
 	}
 
-	public ParcelaDTO(Long id, BigDecimal valor, EstadoPagamento estado, Calendar dataVencimento, Calendar dataPagamento) {
+	public ParcelaDTO(Long id, BigDecimal valor, EstadoPagamento estado, Calendar dataVencimento,
+			Calendar dataPagamento) {
 		this.id = id;
 		this.valor = valor;
 		this.estado = estado;
 		this.dataVencimento = dataVencimento;
 		this.dataPagamento = dataPagamento;
 	}
-	
+
 	public ParcelaDTO(Parcela parcela) {
 		this.id = parcela.getId();
 		this.valor = parcela.getValor();
 		this.estado = parcela.getEstado();
 		this.dataVencimento = parcela.getDataVencimento();
 		this.dataPagamento = parcela.getDataPagamento();
-	}
-	
-	public ParcelaDTO(ParcelaCompra parcela) {
-		this.valor = parcela.getValor();
-		this.estado = parcela.getEstado();
-		this.dataVencimento = parcela.getDataVencimento();
-		this.dataPagamento = parcela.getDataPagamento();
+		if (parcela instanceof ParcelaVenda) {
+			setConta(new ContaDTO(((ParcelaVenda) parcela).getContaReceber()));
+		} else if (parcela instanceof ParcelaCompra) {
+			setConta(new ContaDTO(((ParcelaCompra) parcela).getContaPagar()));
+		}
 	}
 
 	public Long getId() {
@@ -51,7 +54,7 @@ public class ParcelaDTO implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public BigDecimal getValor() {
 		return valor;
 	}
@@ -82,6 +85,14 @@ public class ParcelaDTO implements Serializable {
 
 	public void setDataPagamento(Calendar dataPagamento) {
 		this.dataPagamento = dataPagamento;
+	}
+
+	public ContaDTO getConta() {
+		return conta;
+	}
+
+	public void setConta(ContaDTO conta) {
+		this.conta = conta;
 	}
 
 }

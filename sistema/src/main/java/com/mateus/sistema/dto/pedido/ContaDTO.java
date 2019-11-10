@@ -6,27 +6,30 @@ import java.util.Calendar;
 
 import com.mateus.sistema.domain.enums.EstadoPagamento;
 import com.mateus.sistema.domain.pedido.Conta;
+import com.mateus.sistema.dto.EntidadeBaseId;
 
-public class ContaNewDTO implements Serializable {
+public class ContaDTO extends EntidadeBaseId implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	
 	private BigDecimal valor;
 	private EstadoPagamento estado;
 	private Calendar dataPagamento;
 	private Calendar dataVencimento;
 
-	public ContaNewDTO() {
+	public ContaDTO() {
 	}
 	
-	public ContaNewDTO(BigDecimal valor, EstadoPagamento estado, Calendar dataPagamento, Calendar dataVencimento) {
-		super();
+	public ContaDTO(Long id, BigDecimal valor, EstadoPagamento estado, Calendar dataPagamento, Calendar dataVencimento) {
+		super(id);
 		this.valor = valor;
 		this.estado = estado;
 		this.dataPagamento = dataPagamento;
 		this.dataVencimento = dataVencimento;
 	}
 	
-	public ContaNewDTO(Conta conta) {
+	public ContaDTO(Conta conta) {
+		this.setId(conta.getId());
 		this.valor = conta.getValor();
 		this.estado = conta.getEstado();
 		this.dataPagamento = conta.getDataPagamento();

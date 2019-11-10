@@ -43,4 +43,20 @@ public class ParcelaCompra extends Parcela implements Serializable {
 		this.formaPagamentoCompra = formaPagamentoCompra;
 	}
 
+	public FormaPagamentoCompra getFormaPagamentoCompra() {
+		return formaPagamentoCompra;
+	}
+
+	public void setFormaPagamentoCompra(FormaPagamentoCompra formaPagamentoCompra) {
+		this.formaPagamentoCompra = formaPagamentoCompra;
+	}
+
+	public ContaPagar getContaPagar() {
+		return contaPagar;
+	}
+
+	public void setContaPagar(ContaPagar contaPagar) {
+		this.contaPagar = contaPagar;
+	}
+
 }

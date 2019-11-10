@@ -6,7 +6,7 @@ import java.util.Calendar;
 
 import com.mateus.sistema.domain.enums.EstadoPagamento;
 import com.mateus.sistema.domain.pedido.Parcela;
-import com.mateus.sistema.domain.pedido.ParcelaCompra;
+import com.mateus.sistema.dto.pedido.ContaNewDTO;
 
 public class ParcelaNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -16,6 +16,8 @@ public class ParcelaNewDTO implements Serializable {
 	private Calendar dataVencimento;
 	private Calendar dataPagamento;
 
+	private ContaNewDTO conta;
+	
 	public ParcelaNewDTO() {
 
 	}
@@ -28,13 +30,6 @@ public class ParcelaNewDTO implements Serializable {
 	}
 	
 	public ParcelaNewDTO(Parcela parcela) {
-		this.valor = parcela.getValor();
-		this.estado = parcela.getEstado();
-		this.dataVencimento = parcela.getDataVencimento();
-		this.dataPagamento = parcela.getDataPagamento();
-	}
-	
-	public ParcelaNewDTO(ParcelaCompra parcela) {
 		this.valor = parcela.getValor();
 		this.estado = parcela.getEstado();
 		this.dataVencimento = parcela.getDataVencimento();
@@ -71,6 +66,14 @@ public class ParcelaNewDTO implements Serializable {
 
 	public void setDataPagamento(Calendar dataPagamento) {
 		this.dataPagamento = dataPagamento;
+	}
+
+	public ContaNewDTO getConta() {
+		return conta;
+	}
+
+	public void setConta(ContaNewDTO conta) {
+		this.conta = conta;
 	}
 	
 	

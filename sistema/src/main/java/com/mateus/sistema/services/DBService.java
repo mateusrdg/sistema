@@ -52,8 +52,6 @@ import com.mateus.sistema.repository.caixa.CaixaMovimentacaoRepository;
 import com.mateus.sistema.repository.caixa.CaixaRepository;
 import com.mateus.sistema.repository.caixa.MovimentacaoRepository;
 import com.mateus.sistema.repository.pedido.CompraRepository;
-import com.mateus.sistema.repository.pedido.ContaPagarRepository;
-import com.mateus.sistema.repository.pedido.ContaReceberRepository;
 import com.mateus.sistema.repository.pedido.EntradaEstoqueRepository;
 import com.mateus.sistema.repository.pedido.FormaPagamentoRepository;
 import com.mateus.sistema.repository.pedido.OrcamentoRepository;
@@ -68,12 +66,9 @@ import com.mateus.sistema.repository.pessoa.PaisRepository;
 import com.mateus.sistema.repository.pessoa.PessoaEnderecoRepository;
 import com.mateus.sistema.repository.pessoa.PessoaTelefoneRepository;
 import com.mateus.sistema.repository.pessoa.TelefoneRepository;
-import com.mateus.sistema.repository.produto.EstoqueProdutoRepository;
 import com.mateus.sistema.repository.produto.EstoqueRepository;
 import com.mateus.sistema.repository.produto.GrupoRepository;
-import com.mateus.sistema.repository.produto.PrecoRepository;
 import com.mateus.sistema.repository.produto.ProdutoRepository;
-import com.mateus.sistema.repository.produto.ProdutoSubgrupoRepository;
 import com.mateus.sistema.repository.produto.SubgrupoRepository;
 
 @Service
@@ -95,10 +90,6 @@ public class DBService {
 	@Autowired
 	private ProdutoRepository produtoRepo;
 	@Autowired
-	private PrecoRepository precoRepo;
-	@Autowired
-	private EstoqueProdutoRepository estoqueProdutoRepo;
-	@Autowired
 	private ClienteRepository clienteRepo;
 	@Autowired
 	private FornecedorRepository fornecedorRepo;
@@ -115,10 +106,6 @@ public class DBService {
 	@Autowired
 	private FormaPagamentoRepository formaPagamentoRepo;
 	@Autowired
-	private ContaReceberRepository contaReceberRepo;
-	@Autowired
-	private ContaPagarRepository contaPagarRepo;
-	@Autowired
 	private CaixaRepository caixaRepo;
 	@Autowired
 	private CaixaMovimentacaoRepository caixaMovimentacaoRepo;
@@ -130,8 +117,8 @@ public class DBService {
 	private PessoaTelefoneRepository pessoaTelefoneRepo;
 	@Autowired
 	private EntradaEstoqueRepository entradaEstoqueRepo;
-	@Autowired
-	private ProdutoSubgrupoRepository produtoSubgrupoRepository;
+	
+	
 
 	public void instantiateTestDatabase() {
 
@@ -198,11 +185,7 @@ public class DBService {
 		ProdutoEstoque estoqueProduto3 = new ProdutoEstoque(null, estoque1, produto2, null);
 		ProdutoEstoque estoqueProduto4 = new ProdutoEstoque(null, estoque1, produto3, null);
 		ProdutoEstoque estoqueProduto5 = new ProdutoEstoque(null, estoque1, produto4, null);
-		estoqueProduto1.setQuantidade(new BigDecimal(5));
-		estoqueProduto2.setQuantidade(new BigDecimal(10));
-		estoqueProduto3.setQuantidade(new BigDecimal(20));
-		estoqueProduto4.setQuantidade(new BigDecimal(30));
-		estoqueProduto5.setQuantidade(new BigDecimal(0));
+		
 
 		produto1.setProdutoEstoques(Arrays.asList(estoqueProduto1, estoqueProduto2));
 		produto2.setProdutoEstoques(Arrays.asList(estoqueProduto3));
@@ -299,21 +282,25 @@ public class DBService {
 		venda.setFormasPagamento(Arrays.asList(formaPagamentoPedido2, formaPagamentoPedido3));
 		compra.setFormasPagamentos(Arrays.asList(formaPagamentoPedido1));
 
+		ContaPagar conta1 = new ContaPagar(null, Calendar.getInstance(), new BigDecimal(200),
+				EstadoPagamento.QUITADO, Calendar.getInstance(), Calendar.getInstance(), formaPagamentoPedido1, null);
+		formaPagamentoPedido1.setContaPagar(conta1);
+		
+		ContaReceber conta2 = new ContaReceber(null, Calendar.getInstance(), new BigDecimal(10),
+				EstadoPagamento.QUITADO, Calendar.getInstance(), Calendar.getInstance(), formaPagamentoPedido2, null);
+		formaPagamentoPedido2.setContaReceber(conta2);
+		
+		ContaReceber conta3 = new ContaReceber(null, Calendar.getInstance(), new BigDecimal(45),
+				EstadoPagamento.PENDENTE, null, Calendar.getInstance(), null, parcela1);
+		parcela1.setContaReceber(conta3);
+		
+		ContaReceber conta4 = new ContaReceber(null, Calendar.getInstance(), new BigDecimal(45),
+				EstadoPagamento.PENDENTE, null, Calendar.getInstance(), null, parcela2);
+		parcela2.setContaReceber(conta4);
+		
 		pedidoVendaRepo.saveAll(Arrays.asList(venda));
 		pedidoCompraRepo.saveAll(Arrays.asList(compra));
 		orcamentoRepo.saveAll(Arrays.asList(orcamento));
-
-		ContaPagar conta1 = new ContaPagar(null, Calendar.getInstance(), new BigDecimal(200),
-				EstadoPagamento.QUITADO, Calendar.getInstance(), Calendar.getInstance(), formaPagamentoPedido1, null);
-		ContaReceber conta2 = new ContaReceber(null, Calendar.getInstance(), new BigDecimal(10),
-				EstadoPagamento.QUITADO, Calendar.getInstance(), Calendar.getInstance(), formaPagamentoPedido2, null);
-		ContaReceber conta3 = new ContaReceber(null, Calendar.getInstance(), new BigDecimal(45),
-				EstadoPagamento.PENDENTE, null, Calendar.getInstance(), formaPagamentoPedido3, parcela1);
-		ContaReceber conta4 = new ContaReceber(null, Calendar.getInstance(), new BigDecimal(45),
-				EstadoPagamento.PENDENTE, null, Calendar.getInstance(), formaPagamentoPedido3, parcela2);
-
-		// contaPagarRepo.saveAll(Arrays.asList(conta1));
-		// contaReceberRepo.saveAll(Arrays.asList(conta2, conta3, conta4));
 
 		Caixa caixa1 = new Caixa(null, "caixa1");
 		Caixa caixa2 = new Caixa(null, "caixa2");
@@ -343,7 +330,7 @@ public class DBService {
 		EntradaEstoque entrada1 = new EntradaEstoque(null, Calendar.getInstance(), Calendar.getInstance(), itemCompra,
 				estoque1);
 
-		// entradaEstoqueRepo.saveAll(Arrays.asList(entrada1));
+		//entradaEstoqueRepo.saveAll(Arrays.asList(entrada1));
 
 	}
 }

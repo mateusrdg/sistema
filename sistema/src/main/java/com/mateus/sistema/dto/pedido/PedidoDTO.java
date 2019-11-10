@@ -20,7 +20,8 @@ public class PedidoDTO implements Serializable {
 	private Calendar data;
 	private List<PedidoItemDTO> itens = new ArrayList<PedidoItemDTO>();
 	private List<FormaPagamentoPedidoDTO> formasPagamento = new ArrayList<FormaPagamentoPedidoDTO>();
-
+	
+	
 	public PedidoDTO() {
 	}
 

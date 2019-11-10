@@ -26,7 +26,6 @@ public class FormaPagamentoCompra extends FormaPagamentoPedido implements Serial
 	@JoinColumn(name = "compra_id")
 	private Compra pedido;
 
-	
 	@OneToMany(mappedBy = "formaPagamentoCompra")
 	private List<ParcelaCompra> parcelas = new ArrayList<ParcelaCompra>();
 
@@ -38,17 +37,9 @@ public class FormaPagamentoCompra extends FormaPagamentoPedido implements Serial
 
 	public FormaPagamentoCompra(Long id, Compra pedido, FormaPagamento formaPagamento, Calendar data, BigDecimal valor,
 			EstadoPagamento estado) {
-		super(id, formaPagamento,data, valor, estado);
+		super(id, formaPagamento, data, valor, estado);
 		this.pedido = pedido;
 	}
-
-//	public FormaPagamento getFormaPagamento() {
-//		return formaPagamento;
-//	}
-//
-//	public void setFormaPagamento(FormaPagamento formaPagamento) {
-//		this.formaPagamento = formaPagamento;
-//	}
 
 	public List<ParcelaCompra> getParcelas() {
 		return parcelas;
@@ -56,6 +47,22 @@ public class FormaPagamentoCompra extends FormaPagamentoPedido implements Serial
 
 	public void setParcelas(List<ParcelaCompra> parcelas) {
 		this.parcelas = parcelas;
+	}
+
+	public Compra getPedido() {
+		return pedido;
+	}
+
+	public void setPedido(Compra pedido) {
+		this.pedido = pedido;
+	}
+
+	public ContaPagar getContaPagar() {
+		return contaPagar;
+	}
+
+	public void setContaPagar(ContaPagar contaPagar) {
+		this.contaPagar = contaPagar;
 	}
 
 }

@@ -11,6 +11,7 @@ import com.mateus.sistema.domain.enums.EstadoPagamento;
 import com.mateus.sistema.domain.pedido.FormaPagamentoCompra;
 import com.mateus.sistema.domain.pedido.FormaPagamentoPedido;
 import com.mateus.sistema.domain.pedido.FormaPagamentoVenda;
+import com.mateus.sistema.dto.pedido.ContaDTO;
 import com.mateus.sistema.dto.pedido.FormaPagamentoDTO;
 import com.mateus.sistema.dto.pedido.formaPagamentoPedido.parcela.ParcelaDTO;
 
@@ -23,6 +24,7 @@ public class FormaPagamentoPedidoDTO implements Serializable {
 	private Calendar data;
 	private EstadoPagamento estado;
 
+	private ContaDTO conta;
 	List<ParcelaDTO> parcelas = new ArrayList<ParcelaDTO>();
 
 	public FormaPagamentoPedidoDTO() {
@@ -45,11 +47,13 @@ public class FormaPagamentoPedidoDTO implements Serializable {
 		if (formaPagamentoPedido instanceof FormaPagamentoVenda) {
 			parcelas = ((FormaPagamentoVenda) formaPagamentoPedido).getParcelas().stream().map(obj -> new ParcelaDTO(obj))
 					.collect(Collectors.toList());
+			setConta(new ContaDTO(((FormaPagamentoVenda) formaPagamentoPedido).getContaReceber())); 
 		}
 		
 		if (formaPagamentoPedido instanceof FormaPagamentoCompra) {
 			parcelas = ((FormaPagamentoCompra) formaPagamentoPedido).getParcelas().stream().map(obj -> new ParcelaDTO(obj))
 					.collect(Collectors.toList());
+			setConta(new ContaDTO(((FormaPagamentoCompra) formaPagamentoPedido).getContaPagar())); 
 		}
 		this.formaPagamento = new FormaPagamentoDTO(formaPagamentoPedido.getFormaPagamento());
 		this.valor = formaPagamentoPedido.getValor();
@@ -104,6 +108,14 @@ public class FormaPagamentoPedidoDTO implements Serializable {
 
 	public void setParcelas(List<ParcelaDTO> parcelas) {
 		this.parcelas = parcelas;
+	}
+
+	public ContaDTO getConta() {
+		return conta;
+	}
+
+	public void setConta(ContaDTO conta) {
+		this.conta = conta;
 	}
 
 }

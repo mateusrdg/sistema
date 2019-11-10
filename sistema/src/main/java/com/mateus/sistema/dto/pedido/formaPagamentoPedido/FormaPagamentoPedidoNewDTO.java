@@ -23,31 +23,35 @@ public class FormaPagamentoPedidoNewDTO implements Serializable {
 	private Calendar data;
 	private EstadoPagamento estado;
 
+	private ContaNewDTO conta;
 	List<ParcelaNewDTO> parcelas = new ArrayList<ParcelaNewDTO>();
-	List<ContaNewDTO> contas = new ArrayList<ContaNewDTO>();
+	
 
 	public FormaPagamentoPedidoNewDTO() {
 
 	}
 
 	public FormaPagamentoPedidoNewDTO(FormaPagamentoDTO formaPagamento, BigDecimal valor, Calendar data,
-			EstadoPagamento estado, List<ParcelaNewDTO> parcelas) {
+			EstadoPagamento estado, List<ParcelaNewDTO> parcelas, ContaNewDTO conta) {
 		this.formaPagamento = formaPagamento;
 		this.valor = valor;
 		this.data = data;
 		this.estado = estado;
 		this.parcelas = parcelas;
+		this.setConta(conta);
 	}
 
 	public FormaPagamentoPedidoNewDTO(FormaPagamentoPedido formaPagamentoPedido) {
 		if (formaPagamentoPedido instanceof FormaPagamentoVenda) {
 			parcelas = ((FormaPagamentoVenda) formaPagamentoPedido).getParcelas().stream().map(obj -> new ParcelaNewDTO(obj))
 					.collect(Collectors.toList());
+			setConta(new ContaNewDTO(((FormaPagamentoVenda) formaPagamentoPedido).getContaReceber())); 
 		}
 		
 		if (formaPagamentoPedido instanceof FormaPagamentoCompra) {
 			parcelas = ((FormaPagamentoCompra) formaPagamentoPedido).getParcelas().stream().map(obj -> new ParcelaNewDTO(obj))
 					.collect(Collectors.toList());
+			setConta(new ContaNewDTO(((FormaPagamentoCompra) formaPagamentoPedido).getContaPagar())); 
 		}
 		this.formaPagamento = new FormaPagamentoDTO(formaPagamentoPedido.getFormaPagamento());
 		this.valor = formaPagamentoPedido.getValor();
@@ -94,6 +98,14 @@ public class FormaPagamentoPedidoNewDTO implements Serializable {
 
 	public void setParcelas(List<ParcelaNewDTO> parcelas) {
 		this.parcelas = parcelas;
+	}
+
+	public ContaNewDTO getConta() {
+		return conta;
+	}
+
+	public void setConta(ContaNewDTO conta) {
+		this.conta = conta;
 	}
 
 }
