@@ -2,6 +2,7 @@ package com.mateus.sistema.resouces.pedido;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -47,9 +48,11 @@ public class VendaResource {
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<Venda>> findAll() {
+	public ResponseEntity<List<VendaDTO>> findAll() {
 		List<Venda> list = service.findAll();
-		return ResponseEntity.ok().body(list);
+		List<VendaDTO> listDTO = list.stream().map(obj -> new VendaDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDTO);
 	}
+	
 	
 }

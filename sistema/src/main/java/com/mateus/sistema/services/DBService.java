@@ -242,11 +242,11 @@ public class DBService {
 
 		Orcamento orcamento = new Orcamento(null, Calendar.getInstance(), cliente2, funcionario1, false);
 
-		VendaItem itemVenda = new VendaItem(null, null, produto1, new BigDecimal(10), new BigDecimal(2),
+		VendaItem itemVenda = new VendaItem(null, venda, produto1, new BigDecimal(10), new BigDecimal(2),
 				new BigDecimal(0));
 		venda.setItens(Arrays.asList(itemVenda));
 
-		CompraItem itemCompra = new CompraItem(null, null, produto2, new BigDecimal(10), new BigDecimal(2),
+		CompraItem itemCompra = new CompraItem(null, compra, produto2, new BigDecimal(10), new BigDecimal(2),
 				new BigDecimal(0));
 		compra.setItens(Arrays.asList(itemCompra));
 
