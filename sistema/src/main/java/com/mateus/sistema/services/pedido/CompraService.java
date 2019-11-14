@@ -22,6 +22,12 @@ public class CompraService {
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Compra.class.getName()));
 	}
+	
+	public Compra insert(Compra obj) {
+		obj.setId(null);
+		obj = repo.save(obj);
+		return obj;
+	}
 
 	public List<Compra> findAll() {
 		return repo.findAll();

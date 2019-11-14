@@ -1,6 +1,7 @@
 package com.mateus.sistema.resouces.pedido;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mateus.sistema.domain.pedido.Compra;
 import com.mateus.sistema.dto.pedido.compra.CompraDTO;
+import com.mateus.sistema.dto.pedido.venda.VendaDTO;
 import com.mateus.sistema.services.pedido.CompraService;
 
 @RestController
@@ -26,6 +28,8 @@ public class CompraResource {
 		return ResponseEntity.ok(objDTO);
 	}
 	
+	
+	
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable Long id){
 		service.delete(id);
@@ -33,9 +37,10 @@ public class CompraResource {
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<Compra>> findAll() {
+	public ResponseEntity<List<CompraDTO>> findAll() {
 		List<Compra> list = service.findAll();
-		return ResponseEntity.ok().body(list);
+		List<CompraDTO> listDTO = list.stream().map(obj -> new CompraDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDTO);
 	}
 	
 }

@@ -98,9 +98,9 @@ public class DBService {
 	@Autowired
 	private PessoaEnderecoRepository pessoaEnderecoRepo;
 	@Autowired
-	private CompraRepository pedidoCompraRepo;
+	private CompraRepository compraRepo;
 	@Autowired
-	private VendaRepository pedidoVendaRepo;
+	private VendaRepository vendaRepo;
 	@Autowired
 	private OrcamentoRepository orcamentoRepo;
 	@Autowired
@@ -286,6 +286,10 @@ public class DBService {
 				EstadoPagamento.QUITADO, Calendar.getInstance(), Calendar.getInstance(), formaPagamentoPedido1, null);
 		formaPagamentoPedido1.setContaPagar(conta1);
 		
+		ContaPagar conta11 = new ContaPagar(null, Calendar.getInstance(), new BigDecimal(99),
+				EstadoPagamento.QUITADO, Calendar.getInstance(), Calendar.getInstance(), null, parcela3);
+		parcela3.setContaPagar(conta11);
+		
 		ContaReceber conta2 = new ContaReceber(null, Calendar.getInstance(), new BigDecimal(10),
 				EstadoPagamento.QUITADO, Calendar.getInstance(), Calendar.getInstance(), formaPagamentoPedido2, null);
 		formaPagamentoPedido2.setContaReceber(conta2);
@@ -298,8 +302,8 @@ public class DBService {
 				EstadoPagamento.PENDENTE, null, Calendar.getInstance(), null, parcela2);
 		parcela2.setContaReceber(conta4);
 		
-		pedidoVendaRepo.saveAll(Arrays.asList(venda));
-		pedidoCompraRepo.saveAll(Arrays.asList(compra));
+		vendaRepo.saveAll(Arrays.asList(venda));
+		compraRepo.saveAll(Arrays.asList(compra));
 		orcamentoRepo.saveAll(Arrays.asList(orcamento));
 
 		Caixa caixa1 = new Caixa(null, "caixa1");

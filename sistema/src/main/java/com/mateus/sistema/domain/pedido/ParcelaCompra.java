@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -23,7 +24,7 @@ public class ParcelaCompra extends Parcela implements Serializable {
 	@JoinColumn(name = "forma_pagamento_compra_id")
 	private FormaPagamentoCompra formaPagamentoCompra;
 
-	@OneToOne(mappedBy = "parcela")
+	@OneToOne(mappedBy = "parcela", cascade ={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
 	private ContaPagar contaPagar;
 
 	public ParcelaCompra() {

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -26,10 +27,10 @@ public class FormaPagamentoCompra extends FormaPagamentoPedido implements Serial
 	@JoinColumn(name = "compra_id")
 	private Compra pedido;
 
-	@OneToMany(mappedBy = "formaPagamentoCompra")
+	@OneToMany(mappedBy = "formaPagamentoCompra",  cascade ={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
 	private List<ParcelaCompra> parcelas = new ArrayList<ParcelaCompra>();
 
-	@OneToOne(mappedBy = "formaPagamentoPedido")
+	@OneToOne(mappedBy = "formaPagamentoPedido",  cascade ={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
 	private ContaPagar contaPagar;
 
 	public FormaPagamentoCompra() {

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -29,11 +30,11 @@ public class Compra extends Pedido implements Serializable {
 	@JoinColumn(name = "funcionario_id")
 	private Funcionario funcionario;
 	
-	@OneToMany(mappedBy = "pedido")
+	@OneToMany(mappedBy = "pedido", cascade ={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
 	private List<CompraItem> itens = new ArrayList<CompraItem>();
 	
 	
-	@OneToMany(mappedBy = "pedido")
+	@OneToMany(mappedBy = "pedido", cascade ={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
 	private List<FormaPagamentoCompra> formasPagamento = new ArrayList<FormaPagamentoCompra>();
 	
 	public Compra() {

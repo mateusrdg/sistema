@@ -1,6 +1,7 @@
 package com.mateus.sistema.resouces.pedido;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -33,9 +34,10 @@ public class OrcamentoResource {
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<Orcamento>> findAll() {
+	public ResponseEntity<List<VendaDTO>> findAll() {
 		List<Orcamento> list = service.findAll();
-		return ResponseEntity.ok().body(list);
+		List<VendaDTO> listDTO = list.stream().map(obj -> new VendaDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDTO);
 	}
 	
 }

@@ -22,6 +22,12 @@ public class OrcamentoService {
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Orcamento.class.getName()));
 	}
+	
+	public Orcamento insert(Orcamento obj) {
+		obj.setId(null);
+		obj = repo.save(obj);
+		return obj;
+	}
 
 	public List<Orcamento> findAll() {
 		return repo.findAll();
