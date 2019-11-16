@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
 
 import com.mateus.sistema.domain.enums.EstadoPagamento;
 
@@ -81,6 +82,10 @@ public abstract class FormaPagamentoPedido implements Serializable {
 
 	public void setFormaPagamento(FormaPagamento formaPagamento) {
 		this.formaPagamento = formaPagamento;
+	}
+	@PrePersist
+	public void prePersist () {
+		this.data = Calendar.getInstance();
 	}
 
 	@Override

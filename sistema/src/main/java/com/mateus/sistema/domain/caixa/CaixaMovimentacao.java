@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -54,12 +55,11 @@ public class CaixaMovimentacao implements Serializable {
 	public CaixaMovimentacao() {
 	}
 
-	public CaixaMovimentacao(Long id, EstadoCaixa estado, Calendar dataAbertura, Calendar dataFechamento,
+	public CaixaMovimentacao(Long id, EstadoCaixa estado, Calendar dataFechamento,
 			Caixa caixa, Funcionario funcionario) {
 		super();
 		this.id = id;
 		this.estado = (estado == null) ? null : estado.getCod();
-		this.dataAbertura = dataAbertura;
 		this.dataFechamento = dataFechamento;
 		this.caixa = caixa;
 		this.funcionario = funcionario;
@@ -121,6 +121,11 @@ public class CaixaMovimentacao implements Serializable {
 		this.funcionario = funcionario;
 	}
 
+	@PrePersist
+	public void PrePersist () {
+		this.dataAbertura = Calendar.getInstance();
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

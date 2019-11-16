@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
@@ -37,12 +38,11 @@ public class Movimentacao implements Serializable {
 	public Movimentacao() {
 	}
 
-	public Movimentacao(Long id, CaixaMovimentacao caixaMovimentacao , Long contaId,  Calendar data, BigDecimal valor, TipoMovimentacao tipo) {
+	public Movimentacao(Long id, CaixaMovimentacao caixaMovimentacao , Long contaId, BigDecimal valor, TipoMovimentacao tipo) {
 		super();
 		this.id = id;
 		this.caixaMovimentacao = caixaMovimentacao;
 		this.contaId = contaId;
-		this.data = data;
 		this.valor = valor;
 		this.tipo = (tipo == null) ? null : tipo.getCod();
 	}
@@ -93,6 +93,11 @@ public class Movimentacao implements Serializable {
 
 	public void setCaixaMovimentacao(CaixaMovimentacao caixaMovimentacao) {
 		this.caixaMovimentacao = caixaMovimentacao;
+	}
+	
+	@PrePersist
+	public void prePersist () {
+		this.data = Calendar.getInstance();
 	}
 	
 	@Override

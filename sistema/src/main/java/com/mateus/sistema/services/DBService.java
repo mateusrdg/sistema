@@ -117,8 +117,6 @@ public class DBService {
 	private PessoaTelefoneRepository pessoaTelefoneRepo;
 	@Autowired
 	private EntradaEstoqueRepository entradaEstoqueRepo;
-	
-	
 
 	public void instantiateTestDatabase() {
 
@@ -185,7 +183,6 @@ public class DBService {
 		ProdutoEstoque estoqueProduto3 = new ProdutoEstoque(null, estoque1, produto2, null);
 		ProdutoEstoque estoqueProduto4 = new ProdutoEstoque(null, estoque1, produto3, null);
 		ProdutoEstoque estoqueProduto5 = new ProdutoEstoque(null, estoque1, produto4, null);
-		
 
 		produto1.setProdutoEstoques(Arrays.asList(estoqueProduto1, estoqueProduto2));
 		produto2.setProdutoEstoques(Arrays.asList(estoqueProduto3));
@@ -214,7 +211,9 @@ public class DBService {
 				TipoFuncionario.VENDEDOR);
 		Funcionario funcionario2 = new Funcionario(null, "joana", "joana@gmail.com", Calendar.getInstance(),
 				"545456444", TipoFuncionario.GERENTE);
-		funcionarioRepo.saveAll(Arrays.asList(funcionario1, funcionario2));
+		Funcionario funcionario3 = new Funcionario(null, "Gaby", "gaby@gmail.com", Calendar.getInstance(),
+				"545456444", TipoFuncionario.CAIXA);
+		funcionarioRepo.saveAll(Arrays.asList(funcionario1, funcionario2, funcionario3));
 
 		PessoaEndereco pe1 = new PessoaEndereco(null, cliente1, endereco1);
 		PessoaEndereco pe2 = new PessoaEndereco(null, cliente1, endereco2);
@@ -282,59 +281,60 @@ public class DBService {
 		venda.setFormasPagamento(Arrays.asList(formaPagamentoPedido2, formaPagamentoPedido3));
 		compra.setFormasPagamentos(Arrays.asList(formaPagamentoPedido1));
 
-		ContaPagar conta1 = new ContaPagar(null, Calendar.getInstance(), new BigDecimal(200),
-				EstadoPagamento.QUITADO, Calendar.getInstance(), Calendar.getInstance(), formaPagamentoPedido1, null);
+		ContaPagar conta1 = new ContaPagar(null, Calendar.getInstance(), new BigDecimal(200), EstadoPagamento.QUITADO,
+				Calendar.getInstance(), Calendar.getInstance(), formaPagamentoPedido1, null);
 		formaPagamentoPedido1.setContaPagar(conta1);
-		
-		ContaPagar conta11 = new ContaPagar(null, Calendar.getInstance(), new BigDecimal(99),
-				EstadoPagamento.QUITADO, Calendar.getInstance(), Calendar.getInstance(), null, parcela3);
+
+		ContaPagar conta11 = new ContaPagar(null, Calendar.getInstance(), new BigDecimal(99), EstadoPagamento.QUITADO,
+				Calendar.getInstance(), Calendar.getInstance(), null, parcela3);
 		parcela3.setContaPagar(conta11);
-		
+
 		ContaReceber conta2 = new ContaReceber(null, Calendar.getInstance(), new BigDecimal(10),
 				EstadoPagamento.QUITADO, Calendar.getInstance(), Calendar.getInstance(), formaPagamentoPedido2, null);
 		formaPagamentoPedido2.setContaReceber(conta2);
-		
+
 		ContaReceber conta3 = new ContaReceber(null, Calendar.getInstance(), new BigDecimal(30),
 				EstadoPagamento.PENDENTE, null, Calendar.getInstance(), null, parcela1);
 		parcela1.setContaReceber(conta3);
-		
+
 		ContaReceber conta4 = new ContaReceber(null, Calendar.getInstance(), new BigDecimal(60),
 				EstadoPagamento.PENDENTE, null, Calendar.getInstance(), null, parcela2);
 		parcela2.setContaReceber(conta4);
-		
+
 		vendaRepo.saveAll(Arrays.asList(venda));
 		compraRepo.saveAll(Arrays.asList(compra));
 		orcamentoRepo.saveAll(Arrays.asList(orcamento));
 
 		Caixa caixa1 = new Caixa(null, "caixa1");
 		Caixa caixa2 = new Caixa(null, "caixa2");
+		Caixa caixa3 = new Caixa(null, "CaixaPedidos");
+		
+		caixaRepo.saveAll(Arrays.asList(caixa1, caixa2, caixa3));
 
-		caixaRepo.saveAll(Arrays.asList(caixa1, caixa2));
-
-		CaixaMovimentacao caixaMov1 = new CaixaMovimentacao(null, EstadoCaixa.ABERTO, Calendar.getInstance(), null,
+		CaixaMovimentacao caixaMov1 = new CaixaMovimentacao(null, EstadoCaixa.ABERTO, null,
 				caixa1, funcionario1);
-		CaixaMovimentacao caixaMov2 = new CaixaMovimentacao(null, EstadoCaixa.FECHADO, Calendar.getInstance(),
+		CaixaMovimentacao caixaMov2 = new CaixaMovimentacao(null, EstadoCaixa.FECHADO,
 				Calendar.getInstance(), caixa2, funcionario2);
+		CaixaMovimentacao caixaMov3 = new CaixaMovimentacao(null, EstadoCaixa.ABERTO, null, caixa3, funcionario3);
+		
+		caixaMovimentacaoRepo.saveAll(Arrays.asList(caixaMov1, caixaMov2, caixaMov3));
 
-		caixaMovimentacaoRepo.saveAll(Arrays.asList(caixaMov1, caixaMov2));
-
-		Movimentacao mov1 = new Movimentacao(null, caixaMov1, conta1.getId(), Calendar.getInstance(),
-				new BigDecimal(200), TipoMovimentacao.SAIDA);
-		Movimentacao mov2 = new Movimentacao(null, caixaMov1, conta2.getId(), Calendar.getInstance(),
-				new BigDecimal(10), TipoMovimentacao.ENTRADA);
-		Movimentacao mov3 = new Movimentacao(null, caixaMov1, conta3.getId(), Calendar.getInstance(),
-				new BigDecimal(45), TipoMovimentacao.ENTRADA);
-		Movimentacao mov4 = new Movimentacao(null, caixaMov1, conta4.getId(), Calendar.getInstance(),
-				new BigDecimal(45), TipoMovimentacao.ENTRADA);
-		Movimentacao mov5 = new Movimentacao(null, caixaMov2, null, Calendar.getInstance(), new BigDecimal(200),
-				TipoMovimentacao.SANGRIA);
+		Movimentacao mov1 = new Movimentacao(null, caixaMov1, conta1.getId(), new BigDecimal(200),
+				TipoMovimentacao.SAIDA);
+		Movimentacao mov2 = new Movimentacao(null, caixaMov1, conta2.getId(), new BigDecimal(10),
+				TipoMovimentacao.ENTRADA);
+		Movimentacao mov3 = new Movimentacao(null, caixaMov1, conta3.getId(), new BigDecimal(45),
+				TipoMovimentacao.ENTRADA);
+		Movimentacao mov4 = new Movimentacao(null, caixaMov1, conta4.getId(), new BigDecimal(45),
+				TipoMovimentacao.ENTRADA);
+		Movimentacao mov5 = new Movimentacao(null, caixaMov2, null, new BigDecimal(200), TipoMovimentacao.SANGRIA);
 
 		movimentacaoRepo.saveAll(Arrays.asList(mov1, mov2, mov3, mov4, mov5));
 
 		EntradaEstoque entrada1 = new EntradaEstoque(null, Calendar.getInstance(), Calendar.getInstance(), itemCompra,
 				estoque1);
 
-		//entradaEstoqueRepo.saveAll(Arrays.asList(entrada1));
+		// entradaEstoqueRepo.saveAll(Arrays.asList(entrada1));
 
 	}
 }

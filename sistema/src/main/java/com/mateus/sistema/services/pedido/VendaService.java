@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.mateus.sistema.domain.pedido.Venda;
 import com.mateus.sistema.dto.pedido.venda.VendaNewDTO;
 import com.mateus.sistema.repository.pedido.VendaRepository;
+import com.mateus.sistema.services.caixa.CaixaMovimentacaoService;
 import com.mateus.sistema.services.exceptions.DataIntegrityException;
 import com.mateus.sistema.services.exceptions.ObjectNotFoundException;
 import com.mateus.sistema.services.pessoa.ClienteService;
@@ -28,7 +29,9 @@ public class VendaService {
 	private ItemService itemService;
 	@Autowired
 	private FormaPagamentoPedidoService fppService;
-
+	@Autowired
+	private CaixaMovimentacaoService caixaMovService;
+	
 	public Venda find(Long id) {
 		Optional<Venda> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
@@ -38,6 +41,7 @@ public class VendaService {
 	public Venda insert(Venda obj) {
 		obj.setId(null);
 		obj = repo.save(obj);
+		caixaMovService.geraCaixa(obj);
 		return obj;
 	}
 

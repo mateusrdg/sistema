@@ -27,7 +27,9 @@ public class FormaPagamentoPedidoService {
 		for (FormaPagamentoPedidoNewDTO dto : list) {
 			FormaPagamentoVenda fpv = fromNewFormaPagamentoPedidoDTO(dto, venda);
 			fpv.setParcelas(parcelaService.fromNewDto(dto.getParcelas(), fpv));
-			fpv.setContaReceber(crService.fromNewDTO(dto.getConta(), fpv));
+			if (dto.getConta() != null ) {
+				fpv.setContaReceber(crService.fromNewFormaPagamentoDTO(dto.getConta(), fpv));
+			}
 			formasPagamento.add(fpv);
 		}
 
