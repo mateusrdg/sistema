@@ -57,7 +57,6 @@ public class FormaPagamentoPedidoNewDTO implements Serializable {
 		this.valor = formaPagamentoPedido.getValor();
 		this.data = formaPagamentoPedido.getData();
 		this.estado = formaPagamentoPedido.getEstado();
-		
 	}
 	
 	public FormaPagamentoDTO getFormaPagamento() {

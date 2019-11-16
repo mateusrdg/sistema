@@ -21,7 +21,8 @@ public class ParcelaService {
 		for (ParcelaNewDTO obj : list) {
 			ParcelaVenda parcela = new ParcelaVenda(null, fpv, obj.getValor(), obj.getEstado(),
 					obj.getDataVencimento(), obj.getDataPagamento());
-			parcela.setContaReceber(crService.fromNewDTO(obj.getConta(), fpv));
+			parcela.setContaReceber(crService.fromNewParcelaDTO(obj.getConta(), parcela));
+			parcelas.add(parcela);
 		}
 		
 		return parcelas;
