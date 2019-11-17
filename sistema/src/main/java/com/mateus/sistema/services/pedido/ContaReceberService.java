@@ -12,6 +12,7 @@ import com.mateus.sistema.dto.pedido.ContaNewDTO;
 
 @Service
 public class ContaReceberService {
+
 	public ContaReceber fromNewFormaPagamentoDTO(ContaNewDTO conta, FormaPagamentoVenda fpp) {
 		return new ContaReceber(null, null, conta.getValor(), conta.getEstado(), conta.getDataPagamento(), conta.getDataVencimento(), fpp, null);
 	}
