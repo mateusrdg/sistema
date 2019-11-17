@@ -279,7 +279,7 @@ public class DBService {
 		formaPagamentoPedido1.setParcelas(Arrays.asList(parcela3));
 
 		venda.setFormasPagamento(Arrays.asList(formaPagamentoPedido2, formaPagamentoPedido3));
-		compra.setFormasPagamentos(Arrays.asList(formaPagamentoPedido1));
+		compra.setFormasPagamento(Arrays.asList(formaPagamentoPedido1));
 
 		ContaPagar conta1 = new ContaPagar(null, Calendar.getInstance(), new BigDecimal(200), EstadoPagamento.QUITADO,
 				Calendar.getInstance(), Calendar.getInstance(), formaPagamentoPedido1, null);

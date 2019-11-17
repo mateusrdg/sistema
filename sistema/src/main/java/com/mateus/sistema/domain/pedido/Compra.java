@@ -74,7 +74,7 @@ public class Compra extends Pedido implements Serializable {
 		return formasPagamento;
 	}
 
-	public void setFormasPagamentos(List<FormaPagamentoCompra> pagamentos) {
+	public void setFormasPagamento(List<FormaPagamentoCompra> pagamentos) {
 		this.formasPagamento = pagamentos;
 	}
 
