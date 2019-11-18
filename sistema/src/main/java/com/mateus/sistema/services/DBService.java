@@ -331,7 +331,7 @@ public class DBService {
 
 		movimentacaoRepo.saveAll(Arrays.asList(mov1, mov2, mov3, mov4, mov5));
 
-		EntradaEstoque entrada1 = new EntradaEstoque(null, Calendar.getInstance(), Calendar.getInstance(), itemCompra,
+		EntradaEstoque entrada1 = new EntradaEstoque(null, itemCompra,
 				estoque1);
 
 		// entradaEstoqueRepo.saveAll(Arrays.asList(entrada1));

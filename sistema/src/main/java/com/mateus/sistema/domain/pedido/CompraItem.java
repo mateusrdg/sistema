@@ -33,7 +33,6 @@ public class CompraItem extends PedidoItem implements Serializable {
 			BigDecimal desconto) {
 		super(id, quantidade, preco, desconto, produto);
 		this.pedido = pedido;
-		//this.produto = produto;
 	}
 
 	public Compra getPedido() {

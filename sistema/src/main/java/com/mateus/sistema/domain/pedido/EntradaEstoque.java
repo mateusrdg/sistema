@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Version;
 
@@ -27,7 +28,6 @@ public class EntradaEstoque implements Serializable {
 	private Long id;
 	private BigDecimal quantidade;
 	private Calendar data;
-	private Calendar hora;
 	@OneToOne
 	@JoinColumn(name = "compra_item_id")
 	private CompraItem item;
@@ -38,12 +38,9 @@ public class EntradaEstoque implements Serializable {
 	public EntradaEstoque() {
 	}
 
-	public EntradaEstoque(Long id, Calendar data, Calendar hora, CompraItem item, Estoque estoque) {
-		super();
+	public EntradaEstoque(Long id, CompraItem item, Estoque estoque) {
 		this.id = id;
 		this.quantidade = item.getQuantidade();
-		this.data = data;
-		this.hora = hora;
 		this.item = item;
 		this.estoque = estoque;
 	}
@@ -63,15 +60,7 @@ public class EntradaEstoque implements Serializable {
 	public void setData(Calendar data) {
 		this.data = data;
 	}
-
-	public Calendar getHora() {
-		return hora;
-	}
-
-	public void setHora(Calendar hora) {
-		this.hora = hora;
-	}
-
+	
 	public CompraItem getItem() {
 		return item;
 	}
@@ -96,6 +85,11 @@ public class EntradaEstoque implements Serializable {
 		this.quantidade = quantidade;
 	}
 
+	@PrePersist
+	public void prePersist() {
+		this.data = Calendar.getInstance();
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
