@@ -42,19 +42,25 @@ public class EstoqueService {
 	public void geraEntradas(List<CompraItem> itens) {
 		List<EntradaEstoque> entradas = getEntradas(itens);
 		entradaEstoqueRepo.saveAll(entradas);
+		geraEstoque(entradas);
+	}
+
+	private void geraEstoque(List<EntradaEstoque> entradas) {
+		List<ProdutoEstoque> list = new ArrayList<ProdutoEstoque>();
 		for (EntradaEstoque entrada : entradas) {
-			Optional<ProdutoEstoque> peo = prodEstRepo.findByProdutoAndEstoque(entrada.getItem().getProduto(),entrada.getEstoque());
-			
+			Optional<ProdutoEstoque> peo = prodEstRepo.findByProdutoAndEstoque(entrada.getItem().getProduto(),
+					entrada.getEstoque());
 			if (peo.isPresent()) {
 				ProdutoEstoque pe = peo.get();
 				pe.setQuantidade(entrada.getQuantidade().add(pe.getQuantidade()));
-				prodEstRepo.save(pe);
+				list.add(pe);
 			} else {
-				prodEstRepo.save(new ProdutoEstoque(null, entrada.getEstoque(), entrada.getItem().getProduto(),
+				list.add(new ProdutoEstoque(null, entrada.getEstoque(), entrada.getItem().getProduto(),
 						entrada.getQuantidade()));
 			}
-
 		}
+
+		prodEstRepo.saveAll(list);
 	}
 
 	private List<EntradaEstoque> getEntradas(List<CompraItem> itens) {
