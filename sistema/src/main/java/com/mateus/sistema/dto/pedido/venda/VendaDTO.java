@@ -1,13 +1,9 @@
 package com.mateus.sistema.dto.pedido.venda;
 
 import java.io.Serializable;
-import java.util.Calendar;
-import java.util.List;
 
 import com.mateus.sistema.domain.pedido.Pedido;
 import com.mateus.sistema.dto.pedido.PedidoDTO;
-import com.mateus.sistema.dto.pedido.formaPagamentoPedido.FormaPagamentoPedidoDTO;
-import com.mateus.sistema.dto.pedido.item.PedidoItemDTO;
 import com.mateus.sistema.dto.pessoa.PessoaDTO;
 
 public class VendaDTO extends PedidoDTO implements Serializable {
@@ -17,13 +13,6 @@ public class VendaDTO extends PedidoDTO implements Serializable {
 	private PessoaDTO vendedor;
 	
 	public VendaDTO() {
-	}
-
-	public VendaDTO(Long id, Calendar data, PessoaDTO cliente, PessoaDTO vendedor, List<PedidoItemDTO> itens,
-			List<FormaPagamentoPedidoDTO> formasPagamento) {
-		super(id, data, itens, formasPagamento);
-		this.cliente = cliente;
-		this.vendedor = vendedor;
 	}
 
 	public VendaDTO(Pedido pedido) {

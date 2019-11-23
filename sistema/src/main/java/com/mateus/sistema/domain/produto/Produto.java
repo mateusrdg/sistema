@@ -1,6 +1,7 @@
 package com.mateus.sistema.domain.produto;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -58,6 +59,11 @@ public class Produto implements Serializable {
 		this.referencia = referencia;
 		this.dataCadastro = dataCadastro;
 		this.ativo = ativo;
+	}
+
+	public BigDecimal getValorPrecoPadrao() {
+		//TODO
+		return new BigDecimal (100);
 	}
 
 	@PrePersist

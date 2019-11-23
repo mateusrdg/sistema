@@ -29,6 +29,8 @@ public class Preco implements Serializable {
 	
 	private Integer tipo;
 	
+	private Boolean padrao;
+	
 	public Preco() {
 	}
 
@@ -95,6 +97,14 @@ public class Preco implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public Boolean getPadrao() {
+		return padrao;
+	}
+
+	public void setPadrao(Boolean padrao) {
+		this.padrao = padrao;
 	}
 	
 

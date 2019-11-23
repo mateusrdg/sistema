@@ -13,25 +13,15 @@ public class PedidoItemNewDTO implements Serializable {
 	private String referencia;
 	private BaseProdutoDTO produto;
 	private BigDecimal quantidade;
-	private BigDecimal preco;
 	private BigDecimal desconto;
 
 	public PedidoItemNewDTO() {
-	}
-
-	public PedidoItemNewDTO(String referencia, BaseProdutoDTO produto, BigDecimal quantidade, BigDecimal preco, BigDecimal desconto) {
-		this.referencia = referencia;
-		this.produto = produto;
-		this.quantidade = quantidade;
-		this.preco = preco;
-		this.desconto = desconto;
 	}
 
 	public PedidoItemNewDTO(PedidoItem item) {
 		this.referencia = item.getProduto().getReferencia();
 		this.produto = new ProdutoDTO(item.getProduto());
 		this.quantidade = item.getQuantidade();
-		this.preco = item.getPreco();
 		this.desconto = item.getDesconto();
 	}
 
@@ -57,14 +47,6 @@ public class PedidoItemNewDTO implements Serializable {
 
 	public void setQuantidade(BigDecimal quantidade) {
 		this.quantidade = quantidade;
-	}
-
-	public BigDecimal getPreco() {
-		return preco;
-	}
-
-	public void setPreco(BigDecimal preco) {
-		this.preco = preco;
 	}
 
 	public BigDecimal getDesconto() {

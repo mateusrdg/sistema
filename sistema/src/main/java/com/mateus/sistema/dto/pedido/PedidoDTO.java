@@ -25,11 +25,6 @@ public class PedidoDTO implements Serializable {
 	public PedidoDTO() {
 	}
 
-	public PedidoDTO(Long id, Calendar data, List<PedidoItemDTO> itens, List<FormaPagamentoPedidoDTO> formasPagamento) {
-		this.id = id;
-		this.data = data;
-	}
-
 	public PedidoDTO(Pedido pedido) {
 		if (pedido instanceof Venda) {
 			formasPagamento = ((Venda) pedido).getFormasPagamento().stream().map(obj -> new FormaPagamentoPedidoDTO(obj))

@@ -24,6 +24,8 @@ public abstract class PedidoItem implements Serializable {
 
 	private BigDecimal quantidade;
 	private BigDecimal preco;
+	private BigDecimal total;
+	
 	@Column(name = "desconto", precision = 19, scale = 4)
 	private BigDecimal desconto;
 
@@ -31,15 +33,17 @@ public abstract class PedidoItem implements Serializable {
 	@JoinColumn(name = "produto_id")
 	private Produto produto;
 	
+	
 	public PedidoItem() {
 	}
 
-	public PedidoItem(Long id, BigDecimal quantidade, BigDecimal preco, BigDecimal desconto, Produto produto) {
+	public PedidoItem(Long id, BigDecimal quantidade, BigDecimal desconto, Produto produto) {
 		this.id = id;
 		this.quantidade = quantidade;
-		this.preco = preco;
+		this.preco = produto.getValorPrecoPadrao();
 		this.desconto = desconto;
 		this.produto = produto;
+		this.total = calculaTotal();
 	}
 
 	public Long getId() {
@@ -82,6 +86,10 @@ public abstract class PedidoItem implements Serializable {
 		this.produto = produto;
 	}
 
+	private BigDecimal calculaTotal() {
+		return (this.preco.multiply(this.quantidade).subtract(this.desconto));
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -105,6 +113,14 @@ public abstract class PedidoItem implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public BigDecimal getTotal() {
+		return total;
+	}
+
+	public void setTotal(BigDecimal total) {
+		this.total = total;
 	}
 
 }

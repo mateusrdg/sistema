@@ -29,9 +29,9 @@ public class CompraItem extends PedidoItem implements Serializable {
 	public CompraItem() {
 	}
 
-	public CompraItem(Long id, Compra pedido, Produto produto, BigDecimal quantidade, BigDecimal preco,
+	public CompraItem(Long id, Compra pedido, Produto produto, BigDecimal quantidade,
 			BigDecimal desconto) {
-		super(id, quantidade, preco, desconto, produto);
+		super(id, quantidade, desconto, produto);
 		this.pedido = pedido;
 	}
 

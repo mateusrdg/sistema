@@ -168,9 +168,13 @@ public class DBService {
 		produto4.setProdutoSubgrupos(Arrays.asList(prodSubgrupo4));
 
 		Preco preco1 = new Preco(null, produto1, new BigDecimal(100.00), TipoPreco.AVISTA);
+		preco1.setPadrao(true);
 		Preco preco2 = new Preco(null, produto2, new BigDecimal(200.00), TipoPreco.AVISTA);
+		preco2.setPadrao(true);
 		Preco preco3 = new Preco(null, produto3, new BigDecimal(300.00), TipoPreco.AVISTA);
+		preco3.setPadrao(true);
 		Preco preco4 = new Preco(null, produto4, new BigDecimal(400.00), TipoPreco.AVISTA);
+		preco4.setPadrao(true);
 		Preco preco5 = new Preco(null, produto1, new BigDecimal(500.00), TipoPreco.APRAZO);
 
 		produto1.setPrecos(Arrays.asList(preco1, preco5));
@@ -241,15 +245,15 @@ public class DBService {
 
 		Orcamento orcamento = new Orcamento(null, Calendar.getInstance(), cliente2, funcionario1, false);
 
-		VendaItem itemVenda = new VendaItem(null, venda, produto1, new BigDecimal(10), new BigDecimal(2),
+		VendaItem itemVenda = new VendaItem(null, venda, produto1, new BigDecimal(2),
 				new BigDecimal(0));
 		venda.setItens(Arrays.asList(itemVenda));
 
-		CompraItem itemCompra = new CompraItem(null, compra, produto2, new BigDecimal(10), new BigDecimal(2),
+		CompraItem itemCompra = new CompraItem(null, compra, produto2, new BigDecimal(2),
 				new BigDecimal(0));
 		compra.setItens(Arrays.asList(itemCompra));
 
-		OrcamentoItem itemOrcamento = new OrcamentoItem(null, orcamento, produto3, new BigDecimal(10),
+		OrcamentoItem itemOrcamento = new OrcamentoItem(null, orcamento, produto3,
 				new BigDecimal(2), new BigDecimal(0));
 		orcamento.setItens(Arrays.asList(itemOrcamento));
 
