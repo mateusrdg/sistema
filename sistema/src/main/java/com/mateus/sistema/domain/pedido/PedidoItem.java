@@ -24,7 +24,6 @@ public abstract class PedidoItem implements Serializable {
 
 	private BigDecimal quantidade;
 	private BigDecimal preco;
-	private BigDecimal total;
 	
 	@Column(name = "desconto", precision = 19, scale = 4)
 	private BigDecimal desconto;
@@ -43,7 +42,6 @@ public abstract class PedidoItem implements Serializable {
 		this.preco = produto.getValorPrecoPadrao();
 		this.desconto = desconto;
 		this.produto = produto;
-		this.total = calculaTotal();
 	}
 
 	public Long getId() {
@@ -90,11 +88,9 @@ public abstract class PedidoItem implements Serializable {
 		return (this.preco.multiply(this.quantidade).subtract(this.desconto));
 	}
 	
-//	@PrePersist
-//	private void prePersist () {
-//		this.preco = produto.getValorPrecoPadrao();
-//		this.total = calculaTotal();	
-//	}
+	public BigDecimal getTotal() {
+		return calculaTotal();
+	}
 	
 	@Override
 	public int hashCode() {
@@ -119,14 +115,6 @@ public abstract class PedidoItem implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}
-
-	public BigDecimal getTotal() {
-		return total;
-	}
-
-	public void setTotal(BigDecimal total) {
-		this.total = total;
 	}
 
 }

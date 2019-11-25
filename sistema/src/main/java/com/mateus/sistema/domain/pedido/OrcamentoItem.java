@@ -17,7 +17,6 @@ public class OrcamentoItem extends PedidoItem implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	//@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "orcamento_id")
 	private Orcamento pedido;
