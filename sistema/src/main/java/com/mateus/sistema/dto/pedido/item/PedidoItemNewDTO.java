@@ -3,27 +3,25 @@ package com.mateus.sistema.dto.pedido.item;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import com.mateus.sistema.domain.pedido.PedidoItem;
-import com.mateus.sistema.dto.produto.BaseProdutoDTO;
-import com.mateus.sistema.dto.produto.ProdutoDTO;
+import com.mateus.sistema.dto.produto.ProdutoIdDTO;
 
 public class PedidoItemNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String referencia;
-	private BaseProdutoDTO produto;
+	private ProdutoIdDTO produto;
 	private BigDecimal quantidade;
 	private BigDecimal desconto;
 
 	public PedidoItemNewDTO() {
 	}
 
-	public PedidoItemNewDTO(PedidoItem item) {
-		this.referencia = item.getProduto().getReferencia();
-		this.produto = new ProdutoDTO(item.getProduto());
-		this.quantidade = item.getQuantidade();
-		this.desconto = item.getDesconto();
-	}
+//	public PedidoItemNewDTO(PedidoItem item) {
+//		this.referencia = item.getProduto().getReferencia();
+//		this.produto = new ProdutoDTO(item.getProduto());
+//		this.quantidade = item.getQuantidade();
+//		this.desconto = item.getDesconto();
+//	}
 
 	public String getReferencia() {
 		return referencia;
@@ -33,11 +31,11 @@ public class PedidoItemNewDTO implements Serializable {
 		this.referencia = referencia;
 	}
 
-	public BaseProdutoDTO getProduto() {
+	public ProdutoIdDTO getProduto() {
 		return produto;
 	}
 
-	public void ProdutoDTO(BaseProdutoDTO produto) {
+	public void ProdutoDTO(ProdutoIdDTO produto) {
 		this.produto = produto;
 	}
 

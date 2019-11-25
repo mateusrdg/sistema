@@ -9,8 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.mateus.sistema.domain.produto.Grupo;
 import com.mateus.sistema.domain.produto.Produto;
-import com.mateus.sistema.dto.produto.BaseProdutoDTO;
-import com.mateus.sistema.dto.produto.ProdutoDTO;
+import com.mateus.sistema.dto.produto.ProdutoIdDTO;
 import com.mateus.sistema.dto.produto.ProdutoNewDTO;
 import com.mateus.sistema.repository.produto.ProdutoRepository;
 import com.mateus.sistema.services.exceptions.DataIntegrityException;
@@ -26,27 +25,26 @@ public class ProdutoService {
 	private SubgrupoService subgrupoService;
 	@Autowired
 	private EstoqueService estoqueService;
-	
-	
+
 	public Produto find(Long id) {
 		Optional<Produto> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Grupo.class.getName()));
 	}
 
-	public Produto insert (Produto obj) {
+	public Produto insert(Produto obj) {
 		obj.setId(null);
 		obj = repo.save(obj);
 		return obj;
 	}
-	
-	public Produto update (Produto obj) {
+
+	public Produto update(Produto obj) {
 		Produto newObj = find(obj.getId());
 		updateData(newObj, obj);
 		return repo.save(newObj);
 	}
 
-	public void delete (Long id) {
+	public void delete(Long id) {
 		repo.findById(id);
 		try {
 			repo.deleteById(id);
@@ -54,11 +52,11 @@ public class ProdutoService {
 			throw new DataIntegrityException("Não é possível excluir porque há pedidos relacionados");
 		}
 	}
-	
+
 	public List<Produto> findAll() {
 		return repo.findAll();
 	}
-	
+
 	private void updateData(Produto newObj, Produto obj) {
 		newObj.setDescricao(obj.getDescricao());
 		newObj.setReferencia(obj.getReferencia());
@@ -68,24 +66,16 @@ public class ProdutoService {
 		newObj.setProdutoEstoques(obj.getProdutoEstoques());
 		newObj.setProdutoSubgrupos(obj.getProdutoSubgrupos());
 	}
-	
-	public Produto fromDto (ProdutoDTO objDto) {
-		Produto obj = new Produto(objDto.getId(), objDto.getDescricao(), objDto.getReferencia(), objDto.getDataCadastro(), objDto.getAtivo());
-		obj.setPrecos(precoService.fromDto(objDto.getPrecos(), obj));
-		obj.setProdutoEstoques(estoqueService.fromDto(objDto.getEstoques(), obj));
-		obj.setProdutoSubgrupos(subgrupoService.fromDto(objDto.getSubgrupos(), obj));
-		return obj; 
-	}
-	
-	public Produto fromDto (ProdutoNewDTO objDto) {
+
+	public Produto fromDto(ProdutoNewDTO objDto) {
 		Produto obj = new Produto(null, objDto.getDescricao(), objDto.getReferencia());
 		obj.setPrecos(precoService.fromNewDto(objDto.getPrecos(), obj));
 		obj.setProdutoEstoques(estoqueService.fromNewDto(objDto.getEstoques(), obj));
 		obj.setProdutoSubgrupos(subgrupoService.fromNewDto(objDto.getSubgrupos(), obj));
 		return obj;
 	}
-	
-	public Produto fromDto (BaseProdutoDTO objDto) {
-		return new Produto(objDto.getId(), objDto.getDescricao(), objDto.getReferencia());
+
+	public Produto fromDto(ProdutoIdDTO objDto) {
+		return find(objDto.getId());
 	}
 }

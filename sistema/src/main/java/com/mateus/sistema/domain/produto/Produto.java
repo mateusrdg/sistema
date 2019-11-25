@@ -17,6 +17,7 @@ import javax.persistence.Transient;
 import javax.persistence.Version;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mateus.sistema.domain.enums.TipoPreco;
 import com.mateus.sistema.domain.pedido.PedidoItem;
 
 @Entity(name = "Produto")
@@ -62,8 +63,18 @@ public class Produto implements Serializable {
 	}
 
 	public BigDecimal getValorPrecoPadrao() {
-		//TODO
-		return new BigDecimal (100);
+		BigDecimal valor = null;
+		if (precos.isEmpty() == false) {
+			for (Preco preco : precos) {
+				if (preco.getTipo() == TipoPreco.AVISTA) {
+					valor = preco.getValor();
+				}
+			}
+		}
+		if (valor == null) {
+			valor = new BigDecimal(0);
+		}
+		return valor;
 	}
 
 	@PrePersist

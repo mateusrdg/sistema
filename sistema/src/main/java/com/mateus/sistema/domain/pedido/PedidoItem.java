@@ -90,6 +90,12 @@ public abstract class PedidoItem implements Serializable {
 		return (this.preco.multiply(this.quantidade).subtract(this.desconto));
 	}
 	
+//	@PrePersist
+//	private void prePersist () {
+//		this.preco = produto.getValorPrecoPadrao();
+//		this.total = calculaTotal();	
+//	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
