@@ -16,6 +16,7 @@ import com.mateus.sistema.services.exceptions.DataIntegrityException;
 import com.mateus.sistema.services.exceptions.ObjectNotFoundException;
 import com.mateus.sistema.services.pessoa.ClienteService;
 import com.mateus.sistema.services.pessoa.FuncionarioService;
+import com.mateus.sistema.services.produto.EstoqueService;
 
 @Service
 public class VendaService {
@@ -31,6 +32,8 @@ public class VendaService {
 	private FormaPagamentoPedidoService fppService;
 	@Autowired
 	private CaixaMovimentacaoService caixaMovService;
+	@Autowired
+	private EstoqueService estoqueService;
 	
 	public Venda find(Long id) {
 		Optional<Venda> obj = repo.findById(id);
@@ -42,6 +45,7 @@ public class VendaService {
 		obj.setId(null);
 		obj = repo.save(obj);
 		caixaMovService.geraCaixa(obj);
+		estoqueService.atualizaEstoque(obj);
 		return obj;
 	}
 
