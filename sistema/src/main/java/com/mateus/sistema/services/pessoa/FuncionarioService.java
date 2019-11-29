@@ -1,6 +1,5 @@
 package com.mateus.sistema.services.pessoa;
 
-import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -69,18 +68,19 @@ public class FuncionarioService {
 	}
 
 	public Funcionario fromDto(FuncionarioDTO objDto) {
-		Funcionario obj = new Funcionario(objDto.getId(), objDto.getNome(), objDto.getEmail(), objDto.getDataCadastro(),
-				objDto.getCpfCnpj(), objDto.getTipoFuncionario());
+		Funcionario obj = new Funcionario(objDto.getId(), objDto.getNome(), objDto.getEmail(), objDto.getCpfCnpj(),
+				objDto.getTipoFuncionario());
+		obj.setDataCadastro(objDto.getDataCadastro());
 		pessoaService.enderecosFromDto(obj, objDto);
 		pessoaService.telefonesFromDto(obj, objDto);
 		return obj;
 	}
 
 	public Funcionario fromDto(FuncionarioNewDTO objDto) {
-		Funcionario obj = new  Funcionario(null, objDto.getNome(), objDto.getEmail(), Calendar.getInstance(), objDto.getCpfCnpj(),
+		Funcionario obj = new Funcionario(null, objDto.getNome(), objDto.getEmail(), objDto.getCpfCnpj(),
 				objDto.getTipoFuncionario());
-		pessoaService.enderecosFromDto(obj,objDto);
-		pessoaService.telefonesFromDto(obj,objDto);
+		pessoaService.enderecosFromDto(obj, objDto);
+		pessoaService.telefonesFromDto(obj, objDto);
 		return obj;
 	}
 

@@ -3,6 +3,8 @@ package com.mateus.sistema.dto.pessoa.cliente;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
 import com.mateus.sistema.domain.enums.TipoCliente;
 import com.mateus.sistema.dto.pessoa.PessoaNewDTO;
 import com.mateus.sistema.dto.pessoa.endereco.EnderecoNewDTO;
@@ -10,7 +12,7 @@ import com.mateus.sistema.dto.pessoa.telefone.TelefoneNewDTO;
 
 public class ClienteNewDTO extends PessoaNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	@NotNull(message = "Preenchimento obrigatório.")
 	private TipoCliente tipoCliente;
 
 	public ClienteNewDTO() {

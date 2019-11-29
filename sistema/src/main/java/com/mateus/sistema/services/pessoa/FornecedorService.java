@@ -1,6 +1,5 @@
 package com.mateus.sistema.services.pessoa;
 
-import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,8 +50,8 @@ public class FornecedorService {
 	public void delete(Long id) {
 		repo.findById(id);
 		try {
-			pessoaService.deleteEnderecos(id,TipoPessoa.FORNECEDOR);
-			pessoaService.deleteTelefones(id,TipoPessoa.FORNECEDOR);
+			pessoaService.deleteEnderecos(id, TipoPessoa.FORNECEDOR);
+			pessoaService.deleteTelefones(id, TipoPessoa.FORNECEDOR);
 			repo.deleteById(id);
 		} catch (DataIntegrityViolationException e) {
 			throw new DataIntegrityException("Não é possível excluir porque há pedidos relacionados");
@@ -69,18 +68,19 @@ public class FornecedorService {
 	}
 
 	public Fornecedor fromDto(FornecedorDTO objDto) {
-		Fornecedor obj = new Fornecedor(objDto.getId(), objDto.getNome(), objDto.getEmail(), objDto.getDataCadastro(),
-				objDto.getCpfCnpj(), objDto.getNomeFantasia());
-		pessoaService.enderecosFromDto(obj,objDto);
-		pessoaService.telefonesFromDto(obj,objDto);
+		Fornecedor obj = new Fornecedor(objDto.getId(), objDto.getNome(), objDto.getEmail(), objDto.getCpfCnpj(),
+				objDto.getNomeFantasia());
+		obj.setDataCadastro(objDto.getDataCadastro());
+		pessoaService.enderecosFromDto(obj, objDto);
+		pessoaService.telefonesFromDto(obj, objDto);
 		return obj;
 	}
 
 	public Fornecedor fromDto(FornecedorNewDTO objDto) {
-		Fornecedor obj = new Fornecedor(null, objDto.getNome(), objDto.getEmail(), Calendar.getInstance(),
-				objDto.getCpfCnpj(), objDto.getNomeFantasia());
-		pessoaService.enderecosFromDto(obj,objDto);
-		pessoaService.telefonesFromDto(obj,objDto);
+		Fornecedor obj = new Fornecedor(null, objDto.getNome(), objDto.getEmail(), objDto.getCpfCnpj(),
+				objDto.getNomeFantasia());
+		pessoaService.enderecosFromDto(obj, objDto);
+		pessoaService.telefonesFromDto(obj, objDto);
 		return obj;
 	}
 }

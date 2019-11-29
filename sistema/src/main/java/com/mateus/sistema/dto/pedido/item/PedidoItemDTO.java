@@ -20,8 +20,7 @@ public class PedidoItemDTO implements Serializable {
 
 	public PedidoItemDTO(PedidoItem item) {
 		this.id = item.getId();
-		this.produto = new BaseProdutoDTO(item.getProduto().getId(), item.getProduto().getReferencia(),
-				item.getProduto().getDescricao());
+		this.produto = new BaseProdutoDTO(item.getProduto());
 		this.quantidade = item.getQuantidade();
 		this.preco = item.getPreco();
 		this.desconto = item.getDesconto();

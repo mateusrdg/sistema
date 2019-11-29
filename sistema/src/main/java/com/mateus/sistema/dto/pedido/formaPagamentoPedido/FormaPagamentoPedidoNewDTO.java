@@ -31,16 +31,16 @@ public class FormaPagamentoPedidoNewDTO implements Serializable {
 
 	}
 
-	public FormaPagamentoPedidoNewDTO(FormaPagamentoDTO formaPagamento, BigDecimal valor, Calendar data,
-			EstadoPagamento estado, List<ParcelaNewDTO> parcelas, ContaNewDTO conta) {
-		this.formaPagamento = formaPagamento;
-		this.valor = valor;
-		this.data = data;
-		this.estado = estado;
-		this.parcelas = parcelas;
-		this.setConta(conta);
-	}
-
+//	public FormaPagamentoPedidoNewDTO(FormaPagamentoDTO formaPagamento, BigDecimal valor, Calendar data,
+//			EstadoPagamento estado, List<ParcelaNewDTO> parcelas, ContaNewDTO conta) {
+//		this.formaPagamento = formaPagamento;
+//		this.valor = valor;
+//		this.data = data;
+//		this.estado = estado;
+//		this.parcelas = parcelas;
+//		this.setConta(conta);
+//	}
+//
 	public FormaPagamentoPedidoNewDTO(FormaPagamentoPedido formaPagamentoPedido) {
 		if (formaPagamentoPedido instanceof FormaPagamentoVenda) {
 			parcelas = ((FormaPagamentoVenda) formaPagamentoPedido).getParcelas().stream().map(obj -> new ParcelaNewDTO(obj))

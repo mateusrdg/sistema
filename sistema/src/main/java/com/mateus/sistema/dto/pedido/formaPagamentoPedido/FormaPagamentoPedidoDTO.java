@@ -31,16 +31,6 @@ public class FormaPagamentoPedidoDTO implements Serializable {
 
 	}
 
-	public FormaPagamentoPedidoDTO(Long id, FormaPagamentoDTO formaPagamento, BigDecimal valor, Calendar data,
-			EstadoPagamento estado, List<ParcelaDTO> parcelas) {
-		this.id = id;
-		this.formaPagamento = formaPagamento;
-		this.valor = valor;
-		this.data = data;
-		this.estado = estado;
-		this.parcelas = parcelas;
-	}
-
 	public FormaPagamentoPedidoDTO(FormaPagamentoPedido formaPagamentoPedido) {
 		this.id = formaPagamentoPedido.getId();
 		

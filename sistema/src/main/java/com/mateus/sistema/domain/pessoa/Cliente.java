@@ -1,7 +1,6 @@
 package com.mateus.sistema.domain.pessoa;
 
 import java.io.Serializable;
-import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,8 +19,8 @@ public class Cliente extends Pessoa implements Serializable {
 	public Cliente() {
 	}
 
-	public Cliente(Long id, String nome, String email, Calendar dataCadastro, String cpfCnpj, TipoCliente tipo) {
-		super(id, nome, email, dataCadastro, cpfCnpj);
+	public Cliente(Long id, String nome, String email, String cpfCnpj, TipoCliente tipo) {
+		super(id, nome, email, cpfCnpj);
 		this.tipoCliente = (tipo == null) ? null : tipo.getCod();
 	}
 

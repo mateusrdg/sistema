@@ -1,6 +1,5 @@
 package com.mateus.sistema.services.pessoa;
 
-import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,7 +21,7 @@ public class ClienteService {
 	private ClienteRepository repo;
 	@Autowired
 	private PessoaService pessoaService;
-	
+
 	public Cliente find(Long id) {
 		Optional<Cliente> obj = repo.findById(id);
 		Cliente pessoa = obj.orElseThrow(() -> new ObjectNotFoundException(
@@ -51,8 +50,8 @@ public class ClienteService {
 	public void delete(Long id) {
 		repo.findById(id);
 		try {
-			pessoaService.deleteEnderecos(id,TipoPessoa.CLIENTE);
-			pessoaService.deleteTelefones(id,TipoPessoa.CLIENTE);
+			pessoaService.deleteEnderecos(id, TipoPessoa.CLIENTE);
+			pessoaService.deleteTelefones(id, TipoPessoa.CLIENTE);
 			repo.deleteById(id);
 		} catch (DataIntegrityViolationException e) {
 			throw new DataIntegrityException("Não é possível excluir porque há pedidos relacionados");
@@ -69,17 +68,18 @@ public class ClienteService {
 	}
 
 	public Cliente fromDto(ClienteDTO objDto) {
-		Cliente obj = new  Cliente(objDto.getId(), objDto.getNome(), objDto.getEmail(), objDto.getDataCadastro(),
-				objDto.getCpfCnpj(), objDto.getTipoCliente());
-		pessoaService.enderecosFromDto(obj,objDto);
-		pessoaService.telefonesFromDto(obj,objDto);
+		Cliente obj = new Cliente(objDto.getId(), objDto.getNome(), objDto.getEmail(), objDto.getCpfCnpj(),
+				objDto.getTipoCliente());
+		pessoaService.enderecosFromDto(obj, objDto);
+		pessoaService.telefonesFromDto(obj, objDto);
 		return obj;
 	}
 
 	public Cliente fromDto(ClienteNewDTO objDto) {
-		Cliente obj = new Cliente(null, objDto.getNome(), objDto.getEmail(), Calendar.getInstance(), null, null);
-		pessoaService.enderecosFromDto(obj,objDto);
-		pessoaService.telefonesFromDto(obj,objDto);
+		Cliente obj = new Cliente(null, objDto.getNome(), objDto.getEmail(), objDto.getCpfCnpj(),
+				objDto.getTipoCliente());
+		pessoaService.enderecosFromDto(obj, objDto);
+		pessoaService.telefonesFromDto(obj, objDto);
 		return obj;
 	}
 }

@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.mateus.sistema.domain.pedido.PedidoItem;
 import com.mateus.sistema.domain.produto.Produto;
 import com.mateus.sistema.dto.produto.estoque.ProdutoEstoqueDTO;
 import com.mateus.sistema.dto.produto.preco.PrecoDTO;
@@ -27,16 +26,6 @@ public class ProdutoDTO extends BaseProdutoDTO implements Serializable {
 	private List<ProdutoSubgrupoDTO> subgrupos = new ArrayList<ProdutoSubgrupoDTO>();
 
 	public ProdutoDTO() {
-	}
-
-	public ProdutoDTO(Long id, String referencia, String descricao, Calendar dataCadastro, Boolean ativo, List<PrecoDTO> precos,
-			List<ProdutoEstoqueDTO> estoques, List<ProdutoSubgrupoDTO> subgrupos, List<PedidoItem> itens) {
-		super(id, referencia, descricao);
-		this.dataCadastro = dataCadastro;
-		this.ativo = ativo;
-		this.precos = precos;
-		this.estoques = estoques;
-		this.subgrupos = subgrupos;
 	}
 
 	public ProdutoDTO(Produto produto) {

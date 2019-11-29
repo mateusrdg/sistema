@@ -25,15 +25,6 @@ public class ParcelaDTO implements Serializable {
 
 	}
 
-	public ParcelaDTO(Long id, BigDecimal valor, EstadoPagamento estado, Calendar dataVencimento,
-			Calendar dataPagamento) {
-		this.id = id;
-		this.valor = valor;
-		this.estado = estado;
-		this.dataVencimento = dataVencimento;
-		this.dataPagamento = dataPagamento;
-	}
-
 	public ParcelaDTO(Parcela parcela) {
 		this.id = parcela.getId();
 		this.valor = parcela.getValor();

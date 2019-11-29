@@ -195,28 +195,26 @@ public class DBService {
 
 		produtoRepo.saveAll(Arrays.asList(produto1, produto2, produto3, produto4));
 
-		Cliente cliente1 = new Cliente(null, "Mateus", "mateusrodrigues-cp@hotmail.com", Calendar.getInstance(),
-				"60541329383", TipoCliente.PESSOAFISICA);
-		Cliente cliente2 = new Cliente(null, "João", "joao@gmail.com", Calendar.getInstance(), "547465444",
+		Cliente cliente1 = new Cliente(null, "Mateus", "mateusrodrigues-cp@hotmail.com", "60541329383",
 				TipoCliente.PESSOAFISICA);
-		Cliente cliente3 = new Cliente(null, "Maria", "maria@hotmail.com", Calendar.getInstance(), "326544477",
-				TipoCliente.PESSOAJURIDICA);
+		Cliente cliente2 = new Cliente(null, "João", "joao@gmail.com", "547465444", TipoCliente.PESSOAFISICA);
+		Cliente cliente3 = new Cliente(null, "Maria", "maria@hotmail.com", "326544477", TipoCliente.PESSOAJURIDICA);
 		clienteRepo.saveAll(Arrays.asList(cliente1, cliente2, cliente3));
 
-		Fornecedor fornecedor1 = new Fornecedor(null, "Nome Empresa", "empresa@empresa.com", Calendar.getInstance(),
-				"326544477", "Nome fantasia");
-		Fornecedor fornecedor2 = new Fornecedor(null, "Nome Empresa2", "empresa2@empresa2.com", Calendar.getInstance(),
-				"21457487", "Nome fantasia2");
-		Fornecedor fornecedor3 = new Fornecedor(null, "Nome Empresa3", "empresa3@empresa3.com", Calendar.getInstance(),
-				"11111111111", "Nome fantasia3");
+		Fornecedor fornecedor1 = new Fornecedor(null, "Nome Empresa", "empresa@empresa.com", "326544477",
+				"Nome fantasia");
+		Fornecedor fornecedor2 = new Fornecedor(null, "Nome Empresa2", "empresa2@empresa2.com", "21457487",
+				"Nome fantasia2");
+		Fornecedor fornecedor3 = new Fornecedor(null, "Nome Empresa3", "empresa3@empresa3.com", "11111111111",
+				"Nome fantasia3");
 		fornecedorRepo.saveAll(Arrays.asList(fornecedor1, fornecedor2, fornecedor3));
 
-		Funcionario funcionario1 = new Funcionario(null, "Berg", "berg@corre.com", Calendar.getInstance(), "548784554",
+		Funcionario funcionario1 = new Funcionario(null, "Berg", "berg@corre.com", "548784554",
 				TipoFuncionario.VENDEDOR);
-		Funcionario funcionario2 = new Funcionario(null, "joana", "joana@gmail.com", Calendar.getInstance(),
-				"545456444", TipoFuncionario.GERENTE);
-		Funcionario funcionario3 = new Funcionario(null, "Gaby", "gaby@gmail.com", Calendar.getInstance(),
-				"545456444", TipoFuncionario.CAIXA);
+		Funcionario funcionario2 = new Funcionario(null, "joana", "joana@gmail.com", "545456444",
+				TipoFuncionario.GERENTE);
+		Funcionario funcionario3 = new Funcionario(null, "Gaby", "gaby@gmail.com", "545456444",
+				TipoFuncionario.CAIXA);
 		funcionarioRepo.saveAll(Arrays.asList(funcionario1, funcionario2, funcionario3));
 
 		PessoaEndereco pe1 = new PessoaEndereco(null, cliente1, endereco1);
@@ -245,16 +243,14 @@ public class DBService {
 
 		Orcamento orcamento = new Orcamento(null, Calendar.getInstance(), cliente2, funcionario1, false);
 
-		VendaItem itemVenda = new VendaItem(null, venda, produto1, new BigDecimal(2),
-				new BigDecimal(0));
+		VendaItem itemVenda = new VendaItem(null, venda, produto1, new BigDecimal(2), new BigDecimal(0));
 		venda.setItens(Arrays.asList(itemVenda));
 
-		CompraItem itemCompra = new CompraItem(null, compra, produto2, new BigDecimal(2),
-				new BigDecimal(0));
+		CompraItem itemCompra = new CompraItem(null, compra, produto2, new BigDecimal(2), new BigDecimal(0));
 		compra.setItens(Arrays.asList(itemCompra));
 
-		OrcamentoItem itemOrcamento = new OrcamentoItem(null, orcamento, produto3,
-				new BigDecimal(2), new BigDecimal(0));
+		OrcamentoItem itemOrcamento = new OrcamentoItem(null, orcamento, produto3, new BigDecimal(2),
+				new BigDecimal(0));
 		orcamento.setItens(Arrays.asList(itemOrcamento));
 
 		FormaPagamento formaPagamento1 = new FormaPagamento(null, "dinheiro", TipoFormaPagamento.AVISTA);
@@ -312,15 +308,14 @@ public class DBService {
 		Caixa caixa1 = new Caixa(null, "caixa1");
 		Caixa caixa2 = new Caixa(null, "caixa2");
 		Caixa caixa3 = new Caixa(null, "CaixaPedidos");
-		
+
 		caixaRepo.saveAll(Arrays.asList(caixa1, caixa2, caixa3));
 
-		CaixaMovimentacao caixaMov1 = new CaixaMovimentacao(null, EstadoCaixa.ABERTO, null,
-				caixa1, funcionario1);
-		CaixaMovimentacao caixaMov2 = new CaixaMovimentacao(null, EstadoCaixa.FECHADO,
-				Calendar.getInstance(), caixa2, funcionario2);
+		CaixaMovimentacao caixaMov1 = new CaixaMovimentacao(null, EstadoCaixa.ABERTO, null, caixa1, funcionario1);
+		CaixaMovimentacao caixaMov2 = new CaixaMovimentacao(null, EstadoCaixa.FECHADO, Calendar.getInstance(), caixa2,
+				funcionario2);
 		CaixaMovimentacao caixaMov3 = new CaixaMovimentacao(null, EstadoCaixa.ABERTO, null, caixa3, funcionario3);
-		
+
 		caixaMovimentacaoRepo.saveAll(Arrays.asList(caixaMov1, caixaMov2, caixaMov3));
 
 		Movimentacao mov1 = new Movimentacao(null, caixaMov1, conta1.getId(), new BigDecimal(200),
@@ -335,8 +330,7 @@ public class DBService {
 
 		movimentacaoRepo.saveAll(Arrays.asList(mov1, mov2, mov3, mov4, mov5));
 
-		EntradaEstoque entrada1 = new EntradaEstoque(null, itemCompra,
-				estoque1);
+		EntradaEstoque entrada1 = new EntradaEstoque(null, itemCompra, estoque1);
 
 		// entradaEstoqueRepo.saveAll(Arrays.asList(entrada1));
 

@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mateus.sistema.domain.pessoa.Pessoa;
 import com.mateus.sistema.dto.pessoa.endereco.EnderecoDTO;
 import com.mateus.sistema.dto.pessoa.telefone.TelefoneDTO;
@@ -15,6 +16,7 @@ public class PessoaDTO {
 	private String nome;
 	private String email;
 	private String cpfCnpj;
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Calendar dataCadastro;
 	private Boolean ativo;
 

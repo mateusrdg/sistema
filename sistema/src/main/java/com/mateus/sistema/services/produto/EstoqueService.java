@@ -72,7 +72,7 @@ public class EstoqueService {
 
 		prodEstRepo.saveAll(list);
 	}
-	
+
 	public void atualizaEstoque(Venda obj) {
 		List<ProdutoEstoque> list = new ArrayList<ProdutoEstoque>();
 		for (VendaItem item : obj.getItens()) {
@@ -83,14 +83,12 @@ public class EstoqueService {
 				pe.setQuantidade(pe.getQuantidade().subtract(item.getQuantidade()));
 				list.add(pe);
 			} else {
-				throw new ObjectNotFoundException("Produto não possui estoque associado!"); 
+				throw new ObjectNotFoundException("Produto não possui estoque associado!");
 			}
 		}
 
 		prodEstRepo.saveAll(list);
-		
+
 	}
-	
-	
 
 }

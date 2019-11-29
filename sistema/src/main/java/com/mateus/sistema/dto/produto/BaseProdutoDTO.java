@@ -13,12 +13,6 @@ public class BaseProdutoDTO extends ProdutoIdDTO implements Serializable {
 	public BaseProdutoDTO() {
 	}
 
-	public BaseProdutoDTO(Long id , String referencia, String descricao) {
-		super(id);
-		this.referencia = referencia;
-		this.descricao = descricao;
-	}
-
 	public BaseProdutoDTO(Produto produto) {
 		super(produto.getId());
 		this.referencia = produto.getReferencia();

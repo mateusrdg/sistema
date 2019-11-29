@@ -2,7 +2,6 @@ package com.mateus.sistema.domain.pessoa;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -29,9 +28,9 @@ public class Funcionario extends Pessoa implements Serializable {
 	public Funcionario() {
 	}
 
-	public Funcionario(Long id, String nome, String email, Calendar dataCadastro, String cpfCnpj,
+	public Funcionario(Long id, String nome, String email, String cpfCnpj,
 			TipoFuncionario tipoFuncionario) {
-		super(id, nome, email, dataCadastro, cpfCnpj);
+		super(id, nome, email, cpfCnpj);
 		this.tipoFuncionario = (tipoFuncionario == null) ? null : tipoFuncionario.getCod();
 	}
 

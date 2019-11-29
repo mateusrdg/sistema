@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
 import javax.persistence.Transient;
 
 @MappedSuperclass
@@ -32,11 +33,10 @@ public abstract class Pessoa implements Serializable {
 	public Pessoa() {
 	}
 
-	public Pessoa(Long id, String nome, String email, Calendar dataCadastro, String cpfCnpj) {
+	public Pessoa(Long id, String nome, String email, String cpfCnpj) {
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
-		this.dataCadastro = dataCadastro;
 		this.cpfCnpj = cpfCnpj;
 		this.ativo = true;
 	}
@@ -103,6 +103,11 @@ public abstract class Pessoa implements Serializable {
 
 	public void setAtivo(Boolean estado) {
 		this.ativo = estado;
+	}
+
+	@PrePersist
+	public void prePresist() {
+		this.dataCadastro = Calendar.getInstance();
 	}
 
 	@Override
