@@ -3,9 +3,8 @@ package com.mateus.sistema.domain.enums;
 import com.mateus.sistema.domain.enums.TipoCliente;
 
 public enum TipoCliente {
-	PESSOAFISICA(1, "Pessoa Física"), 
-	PESSOAJURIDICA(2, "Pessoa Jurídica");
-	
+	PESSOAFISICA(1, "Pessoa Física"), PESSOAJURIDICA(2, "Pessoa Jurídica");
+
 	private Integer cod;
 	private String descricao;
 
@@ -21,7 +20,7 @@ public enum TipoCliente {
 	public String getDescricao() {
 		return this.descricao;
 	}
-	
+
 	public static TipoCliente toEnum(Integer cod) {
 		if (cod == null) {
 			return null;
@@ -31,9 +30,7 @@ public enum TipoCliente {
 				return x;
 			}
 		}
-		
 		throw new IllegalArgumentException("Id inválido " + cod);
-		
 	}
 
 }

@@ -9,7 +9,9 @@ import com.mateus.sistema.domain.enums.TipoCliente;
 import com.mateus.sistema.dto.pessoa.PessoaNewDTO;
 import com.mateus.sistema.dto.pessoa.endereco.EnderecoNewDTO;
 import com.mateus.sistema.dto.pessoa.telefone.TelefoneNewDTO;
+import com.mateus.sistema.services.validation.ClienteInsert;
 
+@ClienteInsert
 public class ClienteNewDTO extends PessoaNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@NotNull(message = "Preenchimento obrigatório.")

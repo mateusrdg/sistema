@@ -7,5 +7,7 @@ import com.mateus.sistema.domain.pessoa.Cliente;
 
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente,Long> {
+	
+	Cliente findByEmail(String email);
 
 }

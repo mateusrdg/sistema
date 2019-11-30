@@ -20,7 +20,7 @@ public class PessoaNewDTO implements Serializable {
 	@NotEmpty(message = "Preenchimento obrigatório.")
 	private String email;
 	private String cpfCnpj;
-	@NotEmpty
+	@NotEmpty(message = "Preenchimento com pelo menos 1 endereço.")
 	private List<EnderecoNewDTO> enderecos = new ArrayList<EnderecoNewDTO>();
 	private List<TelefoneNewDTO> telefones = new ArrayList<TelefoneNewDTO>();
 	
