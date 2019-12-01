@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.mateus.sistema.domain.enums.TipoCliente;
+import com.mateus.sistema.domain.enums.TipoPessoa;
 
 @Entity(name = "Cliente")
 @Table(name = "cliente")
@@ -30,6 +31,11 @@ public class Cliente extends Pessoa implements Serializable {
 
 	public void setTipo(TipoCliente tipo) {
 		this.tipoCliente = tipo.getCod();
+	}
+
+	@Override
+	public TipoPessoa getTipoPessoa() {
+		return TipoPessoa.CLIENTE;
 	}
 
 }

@@ -26,7 +26,7 @@ public class PessoaEndereco implements Serializable {
 	@Column(name = "pessoa_id")
 	private Long pessoa;
 
-	@ManyToOne(cascade  = CascadeType.REMOVE)
+	@ManyToOne(cascade  = {CascadeType.REMOVE, CascadeType.PERSIST})
 	@JoinColumn(name = "endereco_id")
 	private Endereco endereco;
 
@@ -38,13 +38,7 @@ public class PessoaEndereco implements Serializable {
 	public PessoaEndereco(Long id, Pessoa pessoa, Endereco endereco) {
 		this.id = id;
 		this.pessoa = pessoa.getId();
-		if (pessoa instanceof Cliente) {
-			this.tipo = TipoPessoa.CLIENTE.getCod();
-		} else if (pessoa instanceof Funcionario) {
-			this.tipo = TipoPessoa.FUNCIONARIO.getCod();
-		} else if (pessoa instanceof Fornecedor) {
-			this.tipo = TipoPessoa.FORNECEDOR.getCod();
-		}
+		this.tipo = pessoa.getTipoPessoa().getCod();
 		this.endereco = endereco;
 	}
 

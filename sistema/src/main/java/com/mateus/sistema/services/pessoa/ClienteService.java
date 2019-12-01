@@ -26,8 +26,8 @@ public class ClienteService {
 		Optional<Cliente> obj = repo.findById(id);
 		Cliente pessoa = obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
-		pessoaService.findEnderecos(pessoa, TipoPessoa.CLIENTE);
-		pessoaService.findTelefones(pessoa, TipoPessoa.CLIENTE);
+		pessoaService.findEnderecos(pessoa);
+		pessoaService.findTelefones(pessoa);
 		return pessoa;
 	}
 
@@ -70,6 +70,7 @@ public class ClienteService {
 	public Cliente fromDto(ClienteDTO objDto) {
 		Cliente obj = new Cliente(objDto.getId(), objDto.getNome(), objDto.getEmail(), objDto.getCpfCnpj(),
 				objDto.getTipoCliente());
+		obj.setDataCadastro(objDto.getDataCadastro());
 		pessoaService.enderecosFromDto(obj, objDto);
 		pessoaService.telefonesFromDto(obj, objDto);
 		return obj;

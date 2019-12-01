@@ -26,8 +26,8 @@ public class FuncionarioService {
 		Optional<Funcionario> obj = repo.findById(id);
 		Funcionario pessoa = obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Funcionario.class.getName()));
-		pessoaService.findEnderecos(pessoa, TipoPessoa.FUNCIONARIO);
-		pessoaService.findTelefones(pessoa, TipoPessoa.FUNCIONARIO);
+		pessoaService.findEnderecos(pessoa);
+		pessoaService.findTelefones(pessoa);
 		return pessoa;
 	}
 

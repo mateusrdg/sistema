@@ -11,6 +11,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mateus.sistema.domain.enums.TipoFuncionario;
+import com.mateus.sistema.domain.enums.TipoPessoa;
 import com.mateus.sistema.domain.pedido.Compra;
 
 @Entity(name = "Funcionario")
@@ -48,6 +49,11 @@ public class Funcionario extends Pessoa implements Serializable {
 
 	public void setPedidosCompra(List<Compra> pedidosCompra) {
 		this.pedidosCompra = pedidosCompra;
+	}
+
+	@Override
+	public TipoPessoa getTipoPessoa() {
+		return TipoPessoa.FUNCIONARIO;
 	}	
 	
 }

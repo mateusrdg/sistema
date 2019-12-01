@@ -9,6 +9,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mateus.sistema.domain.enums.TipoPessoa;
 import com.mateus.sistema.domain.pedido.Compra;
 
 @Entity(name = "Fornecedor")
@@ -26,8 +27,7 @@ public class Fornecedor extends Pessoa implements Serializable {
 	public Fornecedor() {
 	}
 
-	public Fornecedor(Long id, String nome, String email, String cpfCnpj,
-			String nomeFantasia) {
+	public Fornecedor(Long id, String nome, String email, String cpfCnpj, String nomeFantasia) {
 		super(id, nome, email, cpfCnpj);
 		this.setNomeFantasia(nomeFantasia);
 	}
@@ -46,6 +46,11 @@ public class Fornecedor extends Pessoa implements Serializable {
 
 	public void setPedidosCompra(List<Compra> pedidosCompra) {
 		this.pedidosCompra = pedidosCompra;
+	}
+
+	@Override
+	public TipoPessoa getTipoPessoa() {
+		return TipoPessoa.FORNECEDOR;
 	}
 
 }

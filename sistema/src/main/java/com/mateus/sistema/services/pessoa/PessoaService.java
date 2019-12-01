@@ -1,5 +1,6 @@
 package com.mateus.sistema.services.pessoa;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,15 +32,17 @@ public class PessoaService {
 	@Autowired
 	private EnderecoRepository enderecoRepo;
 
-	public void findTelefones(Pessoa pessoa, TipoPessoa tipo) {
-		List<PessoaTelefone> list = pessoaTelRepo.findByTipoAndPessoaId(tipo.getCod(), pessoa.getId());
+	public void findTelefones(Pessoa pessoa) {
+		List<PessoaTelefone> list = pessoaTelRepo.findByTipoAndPessoaId(pessoa.getTipoPessoa().getCod(),
+				pessoa.getId());
 		if (!list.isEmpty()) {
 			pessoa.getTelefones().addAll(telefoneRepo.findDistinctByPessoaTelefone(list));
 		}
 	}
 
-	public void findEnderecos(Pessoa pessoa, TipoPessoa tipo) {
-		List<PessoaEndereco> list = pessoaEndRepo.findByTipoAndPessoaId(tipo.getCod(), pessoa.getId());
+	public void findEnderecos(Pessoa pessoa) {
+		List<PessoaEndereco> list = pessoaEndRepo.findByTipoAndPessoaId(pessoa.getTipoPessoa().getCod(),
+				pessoa.getId());
 		if (!list.isEmpty()) {
 			pessoa.getEnderecos().addAll(enderecoRepo.findDistinctByPessoaEndereco(list));
 		}
@@ -69,23 +72,40 @@ public class PessoaService {
 	}
 
 	public void deleteEnderecos(Long id, TipoPessoa tipo) {
-		pessoaTelRepo.deleteAll(pessoaTelRepo.findByTipoAndPessoaId(tipo.getCod(), id));
-	}
-
-	public void deleteTelefones(Long id, TipoPessoa tipo) {
 		pessoaEndRepo.deleteAll(pessoaEndRepo.findByTipoAndPessoaId(tipo.getCod(), id));
 	}
 
+	public void deleteTelefones(Long id, TipoPessoa tipo) {
+		pessoaTelRepo.deleteAll(pessoaTelRepo.findByTipoAndPessoaId(tipo.getCod(), id));
+	}
+
 	public void updateEnderecos(Pessoa obj) {
+		List<Endereco> enderecos = new ArrayList<>();
+		List<PessoaEndereco> pes = new ArrayList<>();
+		List<Endereco> enderecosAux = new ArrayList<>();
+
+		enderecosAux.addAll(pessoaEndRepo.findByTipoAndPessoaId(obj.getTipoPessoa().getCod(), obj.getId()).stream()
+				.map(x -> x.getEndereco()).collect(Collectors.toList()));
+
 		for (Endereco endereco : obj.getEnderecos()) {
 			if (endereco.getId() == null) {
-				enderecoRepo.save(endereco);
-				PessoaEndereco pe = new PessoaEndereco(null, obj, endereco);
-				pessoaEndRepo.save(pe);
+				pes.add(new PessoaEndereco(null, obj, endereco));
+			} else if (enderecosAux.contains(endereco)) {
+				enderecos.add(endereco);
 			} else {
-				enderecoRepo.save(endereco);
+				endereco.setId(null);
+				pes.add(new PessoaEndereco(null, obj, endereco));
 			}
 		}
+		
+		for (Endereco endereco : enderecosAux) {
+			if (!enderecos.contains(endereco)) {
+				enderecoRepo.delete(endereco);
+			}
+		}
+		
+		enderecoRepo.saveAll(enderecos);
+		pessoaEndRepo.saveAll(pes);
 	}
 
 	public void updateTelefones(Pessoa obj) {

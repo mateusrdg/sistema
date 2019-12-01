@@ -136,8 +136,7 @@ public class DBService {
 		Endereco endereco2 = new Endereco(null, "Rua A", "111", "11111111", "casa", "Bairro A", cidade2);
 		Endereco endereco3 = new Endereco(null, "Rua B", "222", "22222222", "apt", "Bairro B", cidade3);
 		Endereco endereco4 = new Endereco(null, "Rua C", "333", "33333333", "", "Bairro C", cidade1);
-		enderecoRepo.saveAll(Arrays.asList(endereco1, endereco2, endereco3, endereco4));
-
+		
 		Grupo grupo1 = new Grupo(null, "grupo1");
 		Grupo grupo2 = new Grupo(null, "grupo2");
 		grupoRepo.saveAll(Arrays.asList(grupo1, grupo2));

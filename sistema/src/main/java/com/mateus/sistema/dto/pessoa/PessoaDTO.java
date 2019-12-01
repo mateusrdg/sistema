@@ -9,7 +9,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mateus.sistema.domain.pessoa.Pessoa;
 import com.mateus.sistema.dto.pessoa.endereco.EnderecoDTO;
 import com.mateus.sistema.dto.pessoa.telefone.TelefoneDTO;
-
+import com.mateus.sistema.services.validation.ClienteUpdate;
+@ClienteUpdate
 public class PessoaDTO {
 
 	private Long id;
@@ -24,18 +25,6 @@ public class PessoaDTO {
 	private List<TelefoneDTO> telefones = new ArrayList<TelefoneDTO>();
 
 	public PessoaDTO() {
-	}
-
-	public PessoaDTO(Long id, String nome, String email, String cpfCnpj, Calendar dataCadastro, Boolean ativo,
-			List<EnderecoDTO> enderecos, List<TelefoneDTO> telefones) {
-		this.id = id;
-		this.nome = nome;
-		this.email = email;
-		this.cpfCnpj = cpfCnpj;
-		this.dataCadastro = dataCadastro;
-		this.setAtivo(ativo);
-		this.enderecos = enderecos;
-		this.telefones = telefones;
 	}
 
 	public PessoaDTO(Pessoa pessoa) {

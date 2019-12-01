@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -33,7 +34,7 @@ public class Endereco implements Serializable {
 	@JoinColumn(name = "cidade_id")
 	private Cidade cidade;
 
-	@OneToMany(mappedBy = "endereco")
+	@OneToMany(mappedBy = "endereco", cascade  = CascadeType.REMOVE)
 	@JsonIgnore
 	private List<PessoaEndereco> pessoaEnderecos = new ArrayList<PessoaEndereco>();
 
