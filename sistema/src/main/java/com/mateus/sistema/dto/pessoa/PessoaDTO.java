@@ -9,8 +9,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mateus.sistema.domain.pessoa.Pessoa;
 import com.mateus.sistema.dto.pessoa.endereco.EnderecoDTO;
 import com.mateus.sistema.dto.pessoa.telefone.TelefoneDTO;
-import com.mateus.sistema.services.validation.ClienteUpdate;
-@ClienteUpdate
+
 public class PessoaDTO {
 
 	private Long id;

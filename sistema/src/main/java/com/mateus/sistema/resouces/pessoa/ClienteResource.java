@@ -25,7 +25,7 @@ public class ClienteResource {
 	@Autowired 
 	private ClienteService service;
 	
-	@RequestMapping(value = "{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Cliente> find(@PathVariable Long id){
 		Cliente obj = service.find(id);
 		return ResponseEntity.ok(obj);
@@ -39,15 +39,15 @@ public class ClienteResource {
 		return ResponseEntity.created(uri).build();
 	}
 	
-	@RequestMapping(value = "{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update (@RequestBody ClienteDTO objDto, @PathVariable Long id){
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> update (@Valid @RequestBody ClienteDTO objDto, @PathVariable Long id){
 		Cliente obj = service.fromDto(objDto);
 		obj.setId(id);
 		service.update(obj);
 		return ResponseEntity.noContent().build();
 	}
 	
-	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable Long id){
 		service.delete(id);
 		return ResponseEntity.noContent().build();

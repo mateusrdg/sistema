@@ -49,6 +49,12 @@ public class ClienteUpdateValidator implements ConstraintValidator<ClienteUpdate
 			list.add(new FieldMessage("email", "E-mail já cadastrado"));
 		}
 
+		for (FieldMessage e : list) {
+			context.disableDefaultConstraintViolation();
+			context.buildConstraintViolationWithTemplate(e.getMessage()).addPropertyNode(e.getFieldName())
+					.addConstraintViolation();
+		}
+
 		return list.isEmpty();
 	}
 

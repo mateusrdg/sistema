@@ -80,7 +80,7 @@ public class PessoaService {
 	}
 
 	public void updateEnderecos(Pessoa obj) {
-		List<Endereco> enderecos = new ArrayList<>();
+		List<Endereco> enderecosAlterados = new ArrayList<>();
 		List<PessoaEndereco> pes = new ArrayList<>();
 		List<Endereco> enderecosAux = new ArrayList<>();
 
@@ -91,7 +91,7 @@ public class PessoaService {
 			if (endereco.getId() == null) {
 				pes.add(new PessoaEndereco(null, obj, endereco));
 			} else if (enderecosAux.contains(endereco)) {
-				enderecos.add(endereco);
+				enderecosAlterados.add(endereco);
 			} else {
 				endereco.setId(null);
 				pes.add(new PessoaEndereco(null, obj, endereco));
@@ -99,12 +99,12 @@ public class PessoaService {
 		}
 		
 		for (Endereco endereco : enderecosAux) {
-			if (!enderecos.contains(endereco)) {
+			if (!enderecosAlterados.contains(endereco)) {
 				enderecoRepo.delete(endereco);
 			}
 		}
 		
-		enderecoRepo.saveAll(enderecos);
+		enderecoRepo.saveAll(enderecosAlterados);
 		pessoaEndRepo.saveAll(pes);
 	}
 
