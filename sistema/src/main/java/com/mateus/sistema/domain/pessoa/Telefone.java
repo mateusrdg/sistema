@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,7 +24,7 @@ public class Telefone implements Serializable {
 	private String numero;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "telefone")
+	@OneToMany(mappedBy = "telefone", cascade = CascadeType.REMOVE)
 	private List<PessoaTelefone> pessoaTelefones = new ArrayList<PessoaTelefone>();
 
 	public Telefone() {

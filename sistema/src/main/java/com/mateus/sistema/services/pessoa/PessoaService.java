@@ -97,27 +97,44 @@ public class PessoaService {
 				pes.add(new PessoaEndereco(null, obj, endereco));
 			}
 		}
-		
+
 		for (Endereco endereco : enderecosAux) {
 			if (!enderecosAlterados.contains(endereco)) {
 				enderecoRepo.delete(endereco);
 			}
 		}
-		
+
 		enderecoRepo.saveAll(enderecosAlterados);
 		pessoaEndRepo.saveAll(pes);
 	}
 
 	public void updateTelefones(Pessoa obj) {
+		List<Telefone> telefonesAlterados = new ArrayList<>();
+		List<PessoaTelefone> pts = new ArrayList<>();
+		List<Telefone> telefonesAux = new ArrayList<>();
+
+		telefonesAux.addAll(pessoaTelRepo.findByTipoAndPessoaId(obj.getTipoPessoa().getCod(), obj.getId()).stream()
+				.map(x -> x.getTelefone()).collect(Collectors.toList()));
+
 		for (Telefone telefone : obj.getTelefones()) {
 			if (telefone.getId() == null) {
-				telefoneRepo.save(telefone);
-				PessoaTelefone pt = new PessoaTelefone(null, obj, telefone);
-				pessoaTelRepo.save(pt);
+				pts.add(new PessoaTelefone(null, obj, telefone));
+			} else if (telefonesAux.contains(telefone)) {
+				telefonesAlterados.add(telefone);
 			} else {
-				telefoneRepo.save(telefone);
+				telefone.setId(null);
+				pts.add(new PessoaTelefone(null, obj, telefone));
 			}
 		}
+
+		for (Telefone telefone : telefonesAux) {
+			if (!telefonesAlterados.contains(telefone)) {
+				telefoneRepo.delete(telefone);
+			}
+		}
+
+		telefoneRepo.saveAll(telefonesAlterados);
+		pessoaTelRepo.saveAll(pts);
 	}
 
 	public void telefonesFromDto(Pessoa obj, PessoaDTO objDto) {

@@ -22,15 +22,14 @@ public class PessoaTelefone implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	
 	@Column(name = "pessoa_id")
 	private Long pessoa;
 	
-	@ManyToOne(cascade  = CascadeType.REMOVE)
+	@ManyToOne(cascade  = {CascadeType.REMOVE, CascadeType.PERSIST})
 	@JoinColumn(name="telefone_id")
 	private Telefone telefone;
 	
-	@Column(name = "tipo")
+	//@Column(name = "tipo")
 	private Integer tipo;
 	
 	public PessoaTelefone() {
@@ -39,13 +38,7 @@ public class PessoaTelefone implements Serializable {
 	public PessoaTelefone(Long id, Pessoa pessoa, Telefone telefone ) {
 		this.id = id;
 		this.pessoa = pessoa.getId();
-		if (pessoa instanceof Cliente) {
-			this.tipo = TipoPessoa.CLIENTE.getCod();
-		} else if (pessoa instanceof Funcionario) {
-			this.tipo = TipoPessoa.FUNCIONARIO.getCod();
-		} else if (pessoa instanceof Fornecedor) {
-			this.tipo = TipoPessoa.FORNECEDOR.getCod();
-		}
+		this.setTipo(pessoa.getTipoPessoa());
 		this.telefone = telefone;
 	}
 

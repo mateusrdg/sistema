@@ -52,20 +52,17 @@ import com.mateus.sistema.repository.caixa.CaixaMovimentacaoRepository;
 import com.mateus.sistema.repository.caixa.CaixaRepository;
 import com.mateus.sistema.repository.caixa.MovimentacaoRepository;
 import com.mateus.sistema.repository.pedido.CompraRepository;
-import com.mateus.sistema.repository.pedido.EntradaEstoqueRepository;
 import com.mateus.sistema.repository.pedido.FormaPagamentoRepository;
 import com.mateus.sistema.repository.pedido.OrcamentoRepository;
 import com.mateus.sistema.repository.pedido.VendaRepository;
 import com.mateus.sistema.repository.pessoa.CidadeRepository;
 import com.mateus.sistema.repository.pessoa.ClienteRepository;
-import com.mateus.sistema.repository.pessoa.EnderecoRepository;
 import com.mateus.sistema.repository.pessoa.EstadoRepository;
 import com.mateus.sistema.repository.pessoa.FornecedorRepository;
 import com.mateus.sistema.repository.pessoa.FuncionarioRepository;
 import com.mateus.sistema.repository.pessoa.PaisRepository;
 import com.mateus.sistema.repository.pessoa.PessoaEnderecoRepository;
 import com.mateus.sistema.repository.pessoa.PessoaTelefoneRepository;
-import com.mateus.sistema.repository.pessoa.TelefoneRepository;
 import com.mateus.sistema.repository.produto.EstoqueRepository;
 import com.mateus.sistema.repository.produto.GrupoRepository;
 import com.mateus.sistema.repository.produto.ProdutoRepository;
@@ -79,8 +76,6 @@ public class DBService {
 	private EstadoRepository estadoRepo;
 	@Autowired
 	private CidadeRepository cidadeRepo;
-	@Autowired
-	private EnderecoRepository enderecoRepo;
 	@Autowired
 	private GrupoRepository grupoRepo;
 	@Autowired
@@ -112,12 +107,8 @@ public class DBService {
 	@Autowired
 	private MovimentacaoRepository movimentacaoRepo;
 	@Autowired
-	private TelefoneRepository telefoneRepo;
-	@Autowired
 	private PessoaTelefoneRepository pessoaTelefoneRepo;
-	@Autowired
-	private EntradaEstoqueRepository entradaEstoqueRepo;
-
+	
 	public void instantiateTestDatabase() {
 
 		Pais pais = new Pais(null, "Brasil", "10", "BR");
@@ -136,7 +127,7 @@ public class DBService {
 		Endereco endereco2 = new Endereco(null, "Rua A", "111", "11111111", "casa", "Bairro A", cidade2);
 		Endereco endereco3 = new Endereco(null, "Rua B", "222", "22222222", "apt", "Bairro B", cidade3);
 		Endereco endereco4 = new Endereco(null, "Rua C", "333", "33333333", "", "Bairro C", cidade1);
-		
+
 		Grupo grupo1 = new Grupo(null, "grupo1");
 		Grupo grupo2 = new Grupo(null, "grupo2");
 		grupoRepo.saveAll(Arrays.asList(grupo1, grupo2));
@@ -212,8 +203,7 @@ public class DBService {
 				TipoFuncionario.VENDEDOR);
 		Funcionario funcionario2 = new Funcionario(null, "joana", "joana@gmail.com", "545456444",
 				TipoFuncionario.GERENTE);
-		Funcionario funcionario3 = new Funcionario(null, "Gaby", "gaby@gmail.com", "545456444",
-				TipoFuncionario.CAIXA);
+		Funcionario funcionario3 = new Funcionario(null, "Gaby", "gaby@gmail.com", "545456444", TipoFuncionario.CAIXA);
 		funcionarioRepo.saveAll(Arrays.asList(funcionario1, funcionario2, funcionario3));
 
 		PessoaEndereco pe1 = new PessoaEndereco(null, cliente1, endereco1);
@@ -226,13 +216,15 @@ public class DBService {
 		Telefone tel3 = new Telefone(null, "222222222");
 		Telefone tel4 = new Telefone(null, "333333333");
 
-		telefoneRepo.saveAll(Arrays.asList(tel1, tel2, tel3, tel4));
-
 		PessoaTelefone pessoaTel1 = new PessoaTelefone(null, cliente1, tel1);
 		PessoaTelefone pessoaTel2 = new PessoaTelefone(null, funcionario1, tel1);
 		PessoaTelefone pessoaTel3 = new PessoaTelefone(null, fornecedor1, tel1);
+		PessoaTelefone pessoaTel4 = new PessoaTelefone(null, cliente1, tel2);
+		PessoaTelefone pessoaTel5 = new PessoaTelefone(null, cliente1, tel3);
+		PessoaTelefone pessoaTel6 = new PessoaTelefone(null, cliente1, tel4);
 
-		pessoaTelefoneRepo.saveAll(Arrays.asList(pessoaTel1, pessoaTel2, pessoaTel3));
+		pessoaTelefoneRepo
+				.saveAll(Arrays.asList(pessoaTel1, pessoaTel2, pessoaTel3, pessoaTel4, pessoaTel5, pessoaTel6));
 
 		pessoaEnderecoRepo.saveAll(Arrays.asList(pe1, pe2, pe3, pe4));
 
@@ -246,7 +238,9 @@ public class DBService {
 		venda.setItens(Arrays.asList(itemVenda));
 
 		CompraItem itemCompra = new CompraItem(null, compra, produto2, new BigDecimal(2), new BigDecimal(0));
+		itemCompra.setEntrada(new EntradaEstoque(null, itemCompra, estoque1));
 		compra.setItens(Arrays.asList(itemCompra));
+		
 
 		OrcamentoItem itemOrcamento = new OrcamentoItem(null, orcamento, produto3, new BigDecimal(2),
 				new BigDecimal(0));
@@ -328,10 +322,6 @@ public class DBService {
 		Movimentacao mov5 = new Movimentacao(null, caixaMov2, null, new BigDecimal(200), TipoMovimentacao.SANGRIA);
 
 		movimentacaoRepo.saveAll(Arrays.asList(mov1, mov2, mov3, mov4, mov5));
-
-		EntradaEstoque entrada1 = new EntradaEstoque(null, itemCompra, estoque1);
-
-		// entradaEstoqueRepo.saveAll(Arrays.asList(entrada1));
 
 	}
 }

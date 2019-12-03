@@ -12,6 +12,7 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mateus.sistema.domain.enums.TipoPessoa;
 
 @MappedSuperclass
@@ -106,7 +107,7 @@ public abstract class Pessoa implements Serializable {
 	public void setAtivo(Boolean estado) {
 		this.ativo = estado;
 	}
-
+	@JsonIgnore
 	public abstract TipoPessoa getTipoPessoa();
 	
 	@PrePersist

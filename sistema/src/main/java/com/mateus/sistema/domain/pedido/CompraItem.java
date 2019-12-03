@@ -3,6 +3,7 @@ package com.mateus.sistema.domain.pedido;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -21,7 +22,7 @@ public class CompraItem extends PedidoItem implements Serializable {
 	@JoinColumn(name = "compra_id")
 	private Compra pedido;
 
-	@OneToOne(mappedBy = "item")
+	@OneToOne(mappedBy = "item", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	private EntradaEstoque entrada;
 
 	private Boolean gerouEstoque;
