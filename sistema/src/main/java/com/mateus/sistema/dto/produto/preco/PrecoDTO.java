@@ -5,9 +5,9 @@ import java.math.BigDecimal;
 
 import com.mateus.sistema.domain.enums.TipoPreco;
 import com.mateus.sistema.domain.produto.Preco;
-import com.mateus.sistema.dto.EntidadeBaseId;
+import com.mateus.sistema.dto.EntidadeId;
 
-public class PrecoDTO extends EntidadeBaseId implements Serializable {
+public class PrecoDTO extends EntidadeId implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private BigDecimal valor;

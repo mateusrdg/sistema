@@ -6,14 +6,15 @@ import java.util.List;
 import com.mateus.sistema.dto.pedido.PedidoNewDTO;
 import com.mateus.sistema.dto.pedido.formaPagamentoPedido.FormaPagamentoPedidoNewDTO;
 import com.mateus.sistema.dto.pedido.item.PedidoItemNewDTO;
+import com.mateus.sistema.dto.pessoa.PessoaIdDTO;
 import com.mateus.sistema.dto.pessoa.cliente.ClienteDTO;
 import com.mateus.sistema.dto.pessoa.funcionario.FuncionarioDTO;
 
 public class VendaNewDTO extends PedidoNewDTO {
 	private static final long serialVersionUID = 1L;
 
-	private ClienteDTO cliente;
-	private FuncionarioDTO vendedor;
+	private PessoaIdDTO cliente;
+	private PessoaIdDTO vendedor;
 
 	private List<FormaPagamentoPedidoNewDTO> formasPagamento = new ArrayList<FormaPagamentoPedidoNewDTO>();
 
@@ -25,19 +26,19 @@ public class VendaNewDTO extends PedidoNewDTO {
 		this.formasPagamento = formasPagamento;
 	}
 
-	public ClienteDTO getCliente() {
+	public PessoaIdDTO getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(ClienteDTO cliente) {
+	public void setCliente(PessoaIdDTO cliente) {
 		this.cliente = cliente;
 	}
 
-	public FuncionarioDTO getVendedor() {
+	public PessoaIdDTO getVendedor() {
 		return vendedor;
 	}
 
-	public void setVendedor(FuncionarioDTO vendedor) {
+	public void setVendedor(PessoaIdDTO vendedor) {
 		this.vendedor = vendedor;
 	}
 

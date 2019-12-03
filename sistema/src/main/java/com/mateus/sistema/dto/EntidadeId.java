@@ -2,15 +2,15 @@ package com.mateus.sistema.dto;
 
 import java.io.Serializable;
 
-public class EntidadeBaseId implements Serializable {
+public class EntidadeId implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
 
-	public EntidadeBaseId() {
+	public EntidadeId() {
 	}
 
-	public EntidadeBaseId(Long id) {
+	public EntidadeId(Long id) {
 		this.id = id;
 	}
 

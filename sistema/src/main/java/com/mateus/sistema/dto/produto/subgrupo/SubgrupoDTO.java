@@ -1,9 +1,9 @@
 package com.mateus.sistema.dto.produto.subgrupo;
 
 import com.mateus.sistema.domain.produto.Subgrupo;
-import com.mateus.sistema.dto.EntidadeBaseId;
+import com.mateus.sistema.dto.EntidadeId;
 
-public class SubgrupoDTO extends EntidadeBaseId {
+public class SubgrupoDTO extends EntidadeId {
 	private static final long serialVersionUID = 1L;
 	
 	private String descricao;

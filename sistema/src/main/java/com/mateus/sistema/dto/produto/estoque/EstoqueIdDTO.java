@@ -1,14 +1,16 @@
 package com.mateus.sistema.dto.produto.estoque;
 
-import com.mateus.sistema.dto.EntidadeBaseId;
+import com.mateus.sistema.domain.produto.Estoque;
+import com.mateus.sistema.dto.EntidadeId;
 
-public class EstoqueIdDTO extends EntidadeBaseId {
+public class EstoqueIdDTO extends EntidadeId {
+
 	private static final long serialVersionUID = 1L;
-	
-	public EstoqueIdDTO() {	
+
+	public EstoqueIdDTO() {
 	}
 	
-	public EstoqueIdDTO(Long id) {	
-		super(id);
+	public EstoqueIdDTO(Estoque estoque) {
+		super(estoque.getId());
 	}
 }

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 import com.mateus.sistema.dto.produto.ProdutoIdDTO;
+import com.mateus.sistema.dto.produto.estoque.EstoqueIdDTO;
 
 public class PedidoItemNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -12,16 +13,10 @@ public class PedidoItemNewDTO implements Serializable {
 	private ProdutoIdDTO produto;
 	private BigDecimal quantidade;
 	private BigDecimal desconto;
-
+	private EstoqueIdDTO estoque;
+	
 	public PedidoItemNewDTO() {
 	}
-
-//	public PedidoItemNewDTO(PedidoItem item) {
-//		this.referencia = item.getProduto().getReferencia();
-//		this.produto = new ProdutoDTO(item.getProduto());
-//		this.quantidade = item.getQuantidade();
-//		this.desconto = item.getDesconto();
-//	}
 
 	public String getReferencia() {
 		return referencia;
@@ -53,6 +48,14 @@ public class PedidoItemNewDTO implements Serializable {
 
 	public void setDesconto(BigDecimal desconto) {
 		this.desconto = desconto;
+	}
+
+	public EstoqueIdDTO getEstoque() {
+		return estoque;
+	}
+
+	public void setEstoque(EstoqueIdDTO estoque) {
+		this.estoque = estoque;
 	}
 
 }

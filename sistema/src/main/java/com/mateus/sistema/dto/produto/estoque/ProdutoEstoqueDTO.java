@@ -5,9 +5,9 @@ import java.math.BigDecimal;
 
 import com.mateus.sistema.domain.produto.Estoque;
 import com.mateus.sistema.domain.produto.ProdutoEstoque;
-import com.mateus.sistema.dto.EntidadeBaseId;
+import com.mateus.sistema.dto.EntidadeId;
 
-public class ProdutoEstoqueDTO extends EntidadeBaseId implements Serializable {
+public class ProdutoEstoqueDTO extends EntidadeId implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private EstoqueDTO estoque;

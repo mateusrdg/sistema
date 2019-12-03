@@ -10,9 +10,9 @@ import com.mateus.sistema.domain.pessoa.Pessoa;
 import com.mateus.sistema.dto.pessoa.endereco.EnderecoDTO;
 import com.mateus.sistema.dto.pessoa.telefone.TelefoneDTO;
 
-public class PessoaDTO {
-
-	private Long id;
+public class PessoaDTO extends PessoaIdDTO{
+	private static final long serialVersionUID = 1L;
+	
 	private String nome;
 	private String email;
 	private String cpfCnpj;
@@ -27,7 +27,7 @@ public class PessoaDTO {
 	}
 
 	public PessoaDTO(Pessoa pessoa) {
-		this.id = pessoa.getId();
+		super(pessoa);
 		this.nome = pessoa.getNome();
 		this.email = pessoa.getEmail();
 		this.cpfCnpj = pessoa.getCpfCnpj();
@@ -37,14 +37,7 @@ public class PessoaDTO {
 		this.telefones = pessoa.getTelefones().stream().map(obj -> new TelefoneDTO()).collect(Collectors.toList());
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
+	
 	public String getNome() {
 		return nome;
 	}

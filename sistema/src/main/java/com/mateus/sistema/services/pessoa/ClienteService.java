@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.mateus.sistema.domain.enums.TipoPessoa;
 import com.mateus.sistema.domain.pessoa.Cliente;
-import com.mateus.sistema.dto.pessoa.cliente.ClienteDTO;
+import com.mateus.sistema.dto.pessoa.PessoaIdDTO;
 import com.mateus.sistema.dto.pessoa.cliente.ClienteNewDTO;
 import com.mateus.sistema.repository.pessoa.ClienteRepository;
 import com.mateus.sistema.services.exceptions.DataIntegrityException;
@@ -67,20 +67,15 @@ public class ClienteService {
 		newObj.setTipo(obj.getTipoCliente());
 	}
 
-	public Cliente fromDto(ClienteDTO objDto) {
-		Cliente obj = new Cliente(objDto.getId(), objDto.getNome(), objDto.getEmail(), objDto.getCpfCnpj(),
-				objDto.getTipoCliente());
-		obj.setDataCadastro(objDto.getDataCadastro());
-		pessoaService.enderecosFromDto(obj, objDto);
-		pessoaService.telefonesFromDto(obj, objDto);
-		return obj;
-	}
-
 	public Cliente fromDto(ClienteNewDTO objDto) {
 		Cliente obj = new Cliente(null, objDto.getNome(), objDto.getEmail(), objDto.getCpfCnpj(),
 				objDto.getTipoCliente());
 		pessoaService.enderecosFromDto(obj, objDto);
 		pessoaService.telefonesFromDto(obj, objDto);
 		return obj;
+	}
+	
+	public Cliente fromDto(PessoaIdDTO objDto) {
+		return find(objDto.getId());
 	}
 }

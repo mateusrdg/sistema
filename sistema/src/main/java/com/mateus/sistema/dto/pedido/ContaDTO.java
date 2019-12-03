@@ -6,9 +6,9 @@ import java.util.Calendar;
 
 import com.mateus.sistema.domain.enums.EstadoPagamento;
 import com.mateus.sistema.domain.pedido.Conta;
-import com.mateus.sistema.dto.EntidadeBaseId;
+import com.mateus.sistema.dto.EntidadeId;
 
-public class ContaDTO extends EntidadeBaseId implements Serializable {
+public class ContaDTO extends EntidadeId implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.mateus.sistema.domain.enums.TipoPessoa;
 import com.mateus.sistema.domain.pessoa.Funcionario;
-import com.mateus.sistema.dto.pessoa.funcionario.FuncionarioDTO;
+import com.mateus.sistema.dto.pessoa.PessoaIdDTO;
 import com.mateus.sistema.dto.pessoa.funcionario.FuncionarioNewDTO;
 import com.mateus.sistema.repository.pessoa.FuncionarioRepository;
 import com.mateus.sistema.services.exceptions.DataIntegrityException;
@@ -67,21 +67,16 @@ public class FuncionarioService {
 		newObj.setTipo(obj.getTipoFuncionario());
 	}
 
-	public Funcionario fromDto(FuncionarioDTO objDto) {
-		Funcionario obj = new Funcionario(objDto.getId(), objDto.getNome(), objDto.getEmail(), objDto.getCpfCnpj(),
-				objDto.getTipoFuncionario());
-		obj.setDataCadastro(objDto.getDataCadastro());
-		pessoaService.enderecosFromDto(obj, objDto);
-		pessoaService.telefonesFromDto(obj, objDto);
-		return obj;
-	}
-
 	public Funcionario fromDto(FuncionarioNewDTO objDto) {
 		Funcionario obj = new Funcionario(null, objDto.getNome(), objDto.getEmail(), objDto.getCpfCnpj(),
 				objDto.getTipoFuncionario());
 		pessoaService.enderecosFromDto(obj, objDto);
 		pessoaService.telefonesFromDto(obj, objDto);
 		return obj;
+	}
+
+	public Funcionario fromDto(PessoaIdDTO objDto) {
+		return find(objDto.getId());
 	}
 
 }

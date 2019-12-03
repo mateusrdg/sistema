@@ -1,9 +1,8 @@
 package com.mateus.sistema.dto.produto.estoque;
 
 import com.mateus.sistema.domain.produto.Estoque;
-import com.mateus.sistema.dto.EntidadeBaseId;
 
-public class EstoqueDTO extends EntidadeBaseId{
+public class EstoqueDTO extends EstoqueIdDTO{
 	private static final long serialVersionUID = 1L;
 	
 	private String descricao;
@@ -11,13 +10,8 @@ public class EstoqueDTO extends EntidadeBaseId{
 	public EstoqueDTO() {	
 	}
 	
-	public EstoqueDTO(Long id, String descricao) {	
-		super(id);
-		this.descricao = descricao;
-	}
-	
 	public EstoqueDTO(Estoque estoque) {	
-		super(estoque.getId());
+		super(estoque);
 		this.descricao = estoque.getDescricao();
 	}
 	
