@@ -9,7 +9,8 @@ import com.mateus.sistema.dto.pedido.item.PedidoItemNewDTO;
 import com.mateus.sistema.dto.pessoa.PessoaIdDTO;
 import com.mateus.sistema.dto.pessoa.cliente.ClienteDTO;
 import com.mateus.sistema.dto.pessoa.funcionario.FuncionarioDTO;
-
+import com.mateus.sistema.services.validation.VendaInsert;
+@VendaInsert
 public class VendaNewDTO extends PedidoNewDTO {
 	private static final long serialVersionUID = 1L;
 

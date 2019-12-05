@@ -4,7 +4,7 @@ import com.mateus.sistema.domain.pessoa.Fornecedor;
 import com.mateus.sistema.dto.pessoa.PessoaDTO;
 
 public class FornecedorDTO extends PessoaDTO {
-
+	private static final long serialVersionUID = 1L;
 	private String nomeFantasia;
 
 	public FornecedorDTO() {

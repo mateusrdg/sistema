@@ -25,40 +25,29 @@ public class FormaPagamentoPedidoNewDTO implements Serializable {
 
 	private ContaNewDTO conta;
 	List<ParcelaNewDTO> parcelas = new ArrayList<ParcelaNewDTO>();
-	
 
 	public FormaPagamentoPedidoNewDTO() {
 
 	}
 
-//	public FormaPagamentoPedidoNewDTO(FormaPagamentoDTO formaPagamento, BigDecimal valor, Calendar data,
-//			EstadoPagamento estado, List<ParcelaNewDTO> parcelas, ContaNewDTO conta) {
-//		this.formaPagamento = formaPagamento;
-//		this.valor = valor;
-//		this.data = data;
-//		this.estado = estado;
-//		this.parcelas = parcelas;
-//		this.setConta(conta);
-//	}
-//
 	public FormaPagamentoPedidoNewDTO(FormaPagamentoPedido formaPagamentoPedido) {
 		if (formaPagamentoPedido instanceof FormaPagamentoVenda) {
-			parcelas = ((FormaPagamentoVenda) formaPagamentoPedido).getParcelas().stream().map(obj -> new ParcelaNewDTO(obj))
-					.collect(Collectors.toList());
-			setConta(new ContaNewDTO(((FormaPagamentoVenda) formaPagamentoPedido).getContaReceber())); 
+			parcelas = ((FormaPagamentoVenda) formaPagamentoPedido).getParcelas().stream()
+					.map(obj -> new ParcelaNewDTO(obj)).collect(Collectors.toList());
+			setConta(new ContaNewDTO(((FormaPagamentoVenda) formaPagamentoPedido).getContaReceber()));
 		}
-		
+
 		if (formaPagamentoPedido instanceof FormaPagamentoCompra) {
-			parcelas = ((FormaPagamentoCompra) formaPagamentoPedido).getParcelas().stream().map(obj -> new ParcelaNewDTO(obj))
-					.collect(Collectors.toList());
-			setConta(new ContaNewDTO(((FormaPagamentoCompra) formaPagamentoPedido).getContaPagar())); 
+			parcelas = ((FormaPagamentoCompra) formaPagamentoPedido).getParcelas().stream()
+					.map(obj -> new ParcelaNewDTO(obj)).collect(Collectors.toList());
+			setConta(new ContaNewDTO(((FormaPagamentoCompra) formaPagamentoPedido).getContaPagar()));
 		}
 		this.formaPagamento = new FormaPagamentoDTO(formaPagamentoPedido.getFormaPagamento());
 		this.valor = formaPagamentoPedido.getValor();
 		this.data = formaPagamentoPedido.getData();
 		this.estado = formaPagamentoPedido.getEstado();
 	}
-	
+
 	public FormaPagamentoDTO getFormaPagamento() {
 		return formaPagamento;
 	}

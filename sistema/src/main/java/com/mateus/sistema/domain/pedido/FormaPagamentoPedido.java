@@ -27,7 +27,7 @@ public abstract class FormaPagamentoPedido implements Serializable {
 	private Calendar data;
 	@Column(name = "estado")
 	private Integer estado;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "forma_pagamento_id")
 	private FormaPagamento formaPagamento;
@@ -35,13 +35,13 @@ public abstract class FormaPagamentoPedido implements Serializable {
 	public FormaPagamentoPedido() {
 	}
 
-	public FormaPagamentoPedido(Long id, FormaPagamento formaPagamento, Calendar data, BigDecimal valor, EstadoPagamento estado) {
+	public FormaPagamentoPedido(Long id, FormaPagamento formaPagamento, Calendar data, BigDecimal valor,
+			EstadoPagamento estado) {
 		this.id = id;
 		this.formaPagamento = formaPagamento;
 		this.data = data;
 		this.valor = valor;
 		this.estado = (estado == null) ? null : estado.getCod();
-		;
 	}
 
 	public Long getId() {
@@ -75,7 +75,7 @@ public abstract class FormaPagamentoPedido implements Serializable {
 	public void setEstado(EstadoPagamento estado) {
 		this.estado = estado.getCod();
 	}
-	
+
 	public FormaPagamento getFormaPagamento() {
 		return formaPagamento;
 	}
@@ -83,8 +83,9 @@ public abstract class FormaPagamentoPedido implements Serializable {
 	public void setFormaPagamento(FormaPagamento formaPagamento) {
 		this.formaPagamento = formaPagamento;
 	}
+
 	@PrePersist
-	public void prePersist () {
+	public void prePersist() {
 		this.data = Calendar.getInstance();
 	}
 
