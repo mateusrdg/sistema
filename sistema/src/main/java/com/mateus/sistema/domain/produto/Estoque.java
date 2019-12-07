@@ -10,10 +10,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.Version;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mateus.sistema.domain.pedido.EntradaEstoque;
+import com.mateus.sistema.domain.pedido.PedidoItem;
 
 @Entity(name = "Estoque")
 @Table(name = "estoque")
@@ -33,6 +35,10 @@ public class Estoque implements Serializable {
 	@OneToMany(mappedBy = "estoque")
 	private List<EntradaEstoque> entradas = new ArrayList<EntradaEstoque>();
 
+	@JsonIgnore
+	@Transient
+	private List<PedidoItem> itens = new ArrayList<PedidoItem>();
+	
 	public Estoque() {
 	}
 

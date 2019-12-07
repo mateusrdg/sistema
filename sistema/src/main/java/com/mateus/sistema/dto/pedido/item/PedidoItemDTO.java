@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 
 import com.mateus.sistema.domain.pedido.PedidoItem;
 import com.mateus.sistema.dto.produto.BaseProdutoDTO;
+import com.mateus.sistema.dto.produto.estoque.EstoqueDTO;
 
 public class PedidoItemDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -14,13 +15,15 @@ public class PedidoItemDTO implements Serializable {
 	private BigDecimal preco;
 	private BigDecimal desconto;
 	private BigDecimal total;
-
+	private EstoqueDTO estoque;
+	
 	public PedidoItemDTO() {
 	}
 
 	public PedidoItemDTO(PedidoItem item) {
 		this.id = item.getId();
 		this.produto = new BaseProdutoDTO(item.getProduto());
+		this.estoque = new EstoqueDTO(item.getEstoque());
 		this.quantidade = item.getQuantidade();
 		this.preco = item.getPreco();
 		this.desconto = item.getDesconto();
@@ -73,6 +76,14 @@ public class PedidoItemDTO implements Serializable {
 
 	public void setTotal(BigDecimal total) {
 		this.total = total;
+	}
+
+	public EstoqueDTO getEstoque() {
+		return estoque;
+	}
+
+	public void setEstoque(EstoqueDTO estoque) {
+		this.estoque = estoque;
 	}
 
 }

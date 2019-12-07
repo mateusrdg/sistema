@@ -31,6 +31,12 @@ public class EstoqueService {
 	@Autowired
 	private ProdutoEstoqueRepository prodEstRepo;
 
+	public Estoque find(Long id) {
+		Optional<Estoque> obj = repo.findById(id);
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+				"Estoque não encontrado! Id: " + id + ", Tipo: " + Estoque.class.getName()));
+	}
+	
 	public List<ProdutoEstoque> fromNewDto(List<EstoqueIdDTO> estoques, Produto obj) {
 		return estoques.stream().map(x -> new ProdutoEstoque(null, new Estoque(x.getId()), obj, null))
 				.collect(Collectors.toList());
@@ -40,6 +46,10 @@ public class EstoqueService {
 		return estoques.stream()
 				.map(x -> new ProdutoEstoque(x.getId(), new Estoque(x.getEstoque().getId()), obj, x.getQuantidade()))
 				.collect(Collectors.toList());
+	}
+	
+	public Estoque fromDto (EstoqueIdDTO objDto) {
+		return find(objDto.getId());
 	}
 
 	public void geraEntradas(List<CompraItem> itens) {
@@ -76,8 +86,7 @@ public class EstoqueService {
 	public void atualizaEstoque(Venda obj) {
 		List<ProdutoEstoque> list = new ArrayList<ProdutoEstoque>();
 		for (VendaItem item : obj.getItens()) {
-			Optional<ProdutoEstoque> peo = prodEstRepo.findByProdutoAndEstoque(item.getProduto(),
-					repo.getOne((long) 2));
+			Optional<ProdutoEstoque> peo = prodEstRepo.findByProdutoAndEstoque(item.getProduto(),item.getEstoque());
 			if (peo.isPresent()) {
 				ProdutoEstoque pe = peo.get();
 				pe.setQuantidade(pe.getQuantidade().subtract(item.getQuantidade()));

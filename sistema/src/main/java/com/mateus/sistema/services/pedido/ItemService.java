@@ -13,6 +13,7 @@ import com.mateus.sistema.domain.pedido.OrcamentoItem;
 import com.mateus.sistema.domain.pedido.Venda;
 import com.mateus.sistema.domain.pedido.VendaItem;
 import com.mateus.sistema.dto.pedido.item.PedidoItemNewDTO;
+import com.mateus.sistema.services.produto.EstoqueService;
 import com.mateus.sistema.services.produto.ProdutoService;
 
 @Service
@@ -21,18 +22,27 @@ public class ItemService {
 	@Autowired
 	private ProdutoService produtoService;
 
+	@Autowired
+	private EstoqueService estoqueService;
+
 	public List<VendaItem> fromDTO(List<PedidoItemNewDTO> itens, Venda venda) {
-		return itens.stream().map(obj -> new VendaItem(null, venda, produtoService.fromDto(obj.getProduto()),
-				obj.getQuantidade(), obj.getDesconto())).collect(Collectors.toList());
+		return itens.stream()
+				.map(obj -> new VendaItem(null, venda, produtoService.fromDto(obj.getProduto()),
+						estoqueService.fromDto(obj.getEstoque()), obj.getQuantidade(), obj.getDesconto()))
+				.collect(Collectors.toList());
 	}
 
 	public List<CompraItem> fromDTO(List<PedidoItemNewDTO> itens, Compra compra) {
-		return itens.stream().map(obj -> new CompraItem(null, compra, produtoService.fromDto(obj.getProduto()),
-				obj.getQuantidade(), obj.getDesconto())).collect(Collectors.toList());
+		return itens.stream()
+				.map(obj -> new CompraItem(null, compra, produtoService.fromDto(obj.getProduto()),
+						estoqueService.fromDto(obj.getEstoque()), obj.getQuantidade(), obj.getDesconto()))
+				.collect(Collectors.toList());
 	}
-	
+
 	public List<OrcamentoItem> fromDTO(List<PedidoItemNewDTO> itens, Orcamento orcamento) {
-		return itens.stream().map(obj -> new OrcamentoItem(null, orcamento, produtoService.fromDto(obj.getProduto()),
-				obj.getQuantidade(), obj.getDesconto())).collect(Collectors.toList());
+		return itens.stream()
+				.map(obj -> new OrcamentoItem(null, orcamento, produtoService.fromDto(obj.getProduto()),
+						estoqueService.fromDto(obj.getEstoque()), obj.getQuantidade(), obj.getDesconto()))
+				.collect(Collectors.toList());
 	}
 }

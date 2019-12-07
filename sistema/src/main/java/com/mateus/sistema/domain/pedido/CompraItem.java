@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.mateus.sistema.domain.produto.Estoque;
 import com.mateus.sistema.domain.produto.Produto;
 
 @Entity(name = "CompraItem")
@@ -30,9 +31,9 @@ public class CompraItem extends PedidoItem implements Serializable {
 	public CompraItem() {
 	}
 
-	public CompraItem(Long id, Compra pedido, Produto produto, BigDecimal quantidade,
+	public CompraItem(Long id, Compra pedido, Produto produto, Estoque estoque,BigDecimal quantidade,
 			BigDecimal desconto) {
-		super(id, quantidade, desconto, produto);
+		super(id, quantidade, desconto, produto, estoque);
 		this.pedido = pedido;
 	}
 

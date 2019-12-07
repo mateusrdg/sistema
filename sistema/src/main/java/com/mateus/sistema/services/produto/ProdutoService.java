@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import com.mateus.sistema.domain.produto.Grupo;
 import com.mateus.sistema.domain.produto.Produto;
 import com.mateus.sistema.dto.produto.ProdutoIdDTO;
 import com.mateus.sistema.dto.produto.ProdutoNewDTO;
@@ -29,7 +28,7 @@ public class ProdutoService {
 	public Produto find(Long id) {
 		Optional<Produto> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Produto não encontrado! Id: " + id + ", Tipo: " + Grupo.class.getName()));
+				"Produto não encontrado! Id: " + id + ", Tipo: " + Produto.class.getName()));
 	}
 
 	public Produto insert(Produto obj) {

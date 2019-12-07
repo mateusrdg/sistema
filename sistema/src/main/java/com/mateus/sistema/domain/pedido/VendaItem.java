@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.mateus.sistema.domain.produto.Estoque;
 import com.mateus.sistema.domain.produto.Produto;
 
 @Entity(name = "VendaItem")
@@ -25,9 +26,9 @@ public class VendaItem extends PedidoItem implements Serializable {
 	public VendaItem() {
 	}
 
-	public VendaItem(Long id, Venda pedido, Produto produto, BigDecimal quantidade,
+	public VendaItem(Long id, Venda pedido, Produto produto, Estoque estoque, BigDecimal quantidade,
 			BigDecimal desconto) {
-		super(id, quantidade,desconto, produto);
+		super(id, quantidade,desconto, produto, estoque);
 		this.pedido = pedido;
 
 	}

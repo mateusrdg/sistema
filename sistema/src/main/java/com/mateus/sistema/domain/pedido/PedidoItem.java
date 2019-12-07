@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
+import com.mateus.sistema.domain.produto.Estoque;
 import com.mateus.sistema.domain.produto.Produto;
 
 @MappedSuperclass
@@ -32,16 +33,20 @@ public abstract class PedidoItem implements Serializable {
 	@JoinColumn(name = "produto_id")
 	private Produto produto;
 	
+	@ManyToOne
+	@JoinColumn(name = "estoque_id")
+	private Estoque estoque;
 	
 	public PedidoItem() {
 	}
 
-	public PedidoItem(Long id, BigDecimal quantidade, BigDecimal desconto, Produto produto) {
+	public PedidoItem(Long id, BigDecimal quantidade, BigDecimal desconto, Produto produto, Estoque estoque) {
 		this.id = id;
 		this.quantidade = quantidade;
 		this.preco = produto.getValorPrecoPadrao();
 		this.desconto = desconto;
 		this.produto = produto;
+		this.estoque = estoque;
 	}
 
 	public Long getId() {
@@ -82,6 +87,14 @@ public abstract class PedidoItem implements Serializable {
 
 	public void setProduto(Produto produto) {
 		this.produto = produto;
+	}
+
+	public Estoque getEstoque() {
+		return estoque;
+	}
+
+	public void setEstoque(Estoque estoque) {
+		this.estoque = estoque;
 	}
 
 	private BigDecimal calculaTotal() {
