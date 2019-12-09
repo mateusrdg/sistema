@@ -2,8 +2,6 @@ package com.mateus.sistema;
 
 import static org.junit.Assert.assertTrue;
 
-import java.util.Calendar;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,7 +12,7 @@ public class TesteTeste {
 	
 	@Test 
 	public void testeProduto () {
-		Produto p = new Produto(null, "a", "ref", Calendar.getInstance(), false);
+		Produto p = new Produto(null, "a", "ref");
 		p.getPrecos();
 	}
 	

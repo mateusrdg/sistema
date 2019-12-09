@@ -23,30 +23,31 @@ public abstract class PedidoItem implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private BigDecimal quantidade;
-	private BigDecimal preco;
-	
-	@Column(name = "desconto", precision = 19, scale = 4)
-	private BigDecimal desconto;
-
 	@ManyToOne
 	@JoinColumn(name = "produto_id")
 	private Produto produto;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "estoque_id")
 	private Estoque estoque;
 	
+	private BigDecimal preco;
+
+	private BigDecimal quantidade;
+	
+	@Column(name = "desconto", precision = 19, scale = 4)
+	private BigDecimal desconto;
+
 	public PedidoItem() {
 	}
 
-	public PedidoItem(Long id, BigDecimal quantidade, BigDecimal desconto, Produto produto, Estoque estoque) {
+	public PedidoItem(Long id, Produto produto, Estoque estoque, BigDecimal preco, BigDecimal quantidade, BigDecimal desconto) {
 		this.id = id;
-		this.quantidade = quantidade;
-		this.preco = produto.getValorPrecoPadrao();
-		this.desconto = desconto;
 		this.produto = produto;
 		this.estoque = estoque;
+		this.preco = preco;
+		this.quantidade = quantidade;
+		this.desconto = desconto;
 	}
 
 	public Long getId() {
@@ -80,7 +81,7 @@ public abstract class PedidoItem implements Serializable {
 	public void setDesconto(BigDecimal desconto) {
 		this.desconto = desconto;
 	}
-	
+
 	public Produto getProduto() {
 		return produto;
 	}
@@ -100,11 +101,11 @@ public abstract class PedidoItem implements Serializable {
 	private BigDecimal calculaTotal() {
 		return (this.preco.multiply(this.quantidade).subtract(this.desconto));
 	}
-	
+
 	public BigDecimal getTotal() {
 		return calculaTotal();
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

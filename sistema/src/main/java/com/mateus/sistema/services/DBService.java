@@ -108,7 +108,7 @@ public class DBService {
 	private MovimentacaoRepository movimentacaoRepo;
 	@Autowired
 	private PessoaTelefoneRepository pessoaTelefoneRepo;
-	
+
 	public void instantiateTestDatabase() {
 
 		Pais pais = new Pais(null, "Brasil", "10", "BR");
@@ -234,16 +234,17 @@ public class DBService {
 
 		Orcamento orcamento = new Orcamento(null, Calendar.getInstance(), cliente2, funcionario1, false);
 
-		VendaItem itemVenda = new VendaItem(null, venda, produto1, estoque1,new BigDecimal(2), new BigDecimal(0));
+		VendaItem itemVenda = new VendaItem(null, venda, produto1, estoque1, new BigDecimal(10), new BigDecimal(2),
+				new BigDecimal(0));
 		venda.setItens(Arrays.asList(itemVenda));
 
-		CompraItem itemCompra = new CompraItem(null, compra, produto2, estoque1, new BigDecimal(2), new BigDecimal(0));
+		CompraItem itemCompra = new CompraItem(null, compra, produto2, estoque1, new BigDecimal(10), new BigDecimal(2),
+				new BigDecimal(0));
 		itemCompra.setEntrada(new EntradaEstoque(null, itemCompra, estoque1));
 		compra.setItens(Arrays.asList(itemCompra));
-		
 
-		OrcamentoItem itemOrcamento = new OrcamentoItem(null, orcamento, produto3, estoque1,new BigDecimal(2),
-				new BigDecimal(0));
+		OrcamentoItem itemOrcamento = new OrcamentoItem(null, orcamento, produto3, estoque1, new BigDecimal(10),
+				new BigDecimal(2), new BigDecimal(0));
 		orcamento.setItens(Arrays.asList(itemOrcamento));
 
 		FormaPagamento formaPagamento1 = new FormaPagamento(null, "dinheiro", TipoFormaPagamento.AVISTA);

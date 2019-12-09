@@ -26,13 +26,13 @@ public class OrcamentoService {
 	private FuncionarioService funcionarioService;
 	@Autowired
 	private ItemService itemService;
-		
+
 	public Orcamento find(Long id) {
 		Optional<Orcamento> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Orcamento.class.getName()));
 	}
-	
+
 	public Orcamento insert(Orcamento obj) {
 		obj.setId(null);
 		obj = repo.save(obj);
@@ -51,12 +51,12 @@ public class OrcamentoService {
 			throw new DataIntegrityException("Não é possível excluir!");
 		}
 	}
-	
+
 	public Orcamento fromDTO(OrcamentoNewDTO objDto) {
 		Orcamento orcamento = new Orcamento(null, Calendar.getInstance(), clienteService.fromDto(objDto.getCliente()),
 				funcionarioService.fromDto(objDto.getVendedor()), false);
 		orcamento.setItens(itemService.fromDTO(objDto.getItens(), orcamento));
-		
+
 		return orcamento;
 	}
 }

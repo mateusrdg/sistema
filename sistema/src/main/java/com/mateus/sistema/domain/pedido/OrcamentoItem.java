@@ -25,11 +25,12 @@ public class OrcamentoItem extends PedidoItem implements Serializable {
 	public OrcamentoItem() {
 	}
 
-	public OrcamentoItem(Long id, Orcamento pedido, Produto produto, Estoque estoque,BigDecimal quantidade,
-			BigDecimal desconto) {
-		super(id, quantidade, desconto, produto, estoque);
+	public OrcamentoItem(Long id, Orcamento pedido, Produto produto, Estoque estoque, BigDecimal preco,
+			BigDecimal quantidade, BigDecimal desconto) {
+		super(id, produto, estoque, preco, quantidade, desconto);
 		this.pedido = pedido;
 	}
+
 	@JsonIgnore
 	public Orcamento getOrcamento() {
 		return pedido;

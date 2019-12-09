@@ -48,21 +48,27 @@ public class Produto implements Serializable {
 	public Produto() {
 	}
 
+	public Produto(Long id) {
+		this.id = id;
+	}
+	
 	public Produto(Long id, String descricao, String referencia) {
 		this.id = id;
 		this.descricao = descricao;
 		this.referencia = referencia;
 	}
 	
-	public Produto(Long id, String descricao, String referencia, Calendar dataCadastro, Boolean ativo) {
-		this.id = id;
-		this.descricao = descricao;
-		this.referencia = referencia;
-		this.dataCadastro = dataCadastro;
-		this.ativo = ativo;
-	}
+//	public Produto(Long id, String descricao, String referencia, Calendar dataCadastro, Boolean ativo) {
+//		this.id = id;
+//		this.descricao = descricao;
+//		this.referencia = referencia;
+//		this.dataCadastro = dataCadastro;
+//		this.ativo = ativo;
+//	}
 
 	public BigDecimal getValorPrecoPadrao() {
+		//TODO
+		//fiz isso aqui só pra testar.
 		BigDecimal valor = null;
 		if (precos.isEmpty() == false) {
 			for (Preco preco : precos) {

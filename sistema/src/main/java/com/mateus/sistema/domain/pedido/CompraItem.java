@@ -23,17 +23,17 @@ public class CompraItem extends PedidoItem implements Serializable {
 	@JoinColumn(name = "compra_id")
 	private Compra pedido;
 
-	@OneToOne(mappedBy = "item", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	@OneToOne(mappedBy = "item", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private EntradaEstoque entrada;
 
 	private Boolean gerouEstoque;
-	
+
 	public CompraItem() {
 	}
 
-	public CompraItem(Long id, Compra pedido, Produto produto, Estoque estoque,BigDecimal quantidade,
+	public CompraItem(Long id, Compra pedido, Produto produto, Estoque estoque, BigDecimal preco, BigDecimal quantidade,
 			BigDecimal desconto) {
-		super(id, quantidade, desconto, produto, estoque);
+		super(id, produto, estoque, preco, quantidade, desconto);
 		this.pedido = pedido;
 	}
 

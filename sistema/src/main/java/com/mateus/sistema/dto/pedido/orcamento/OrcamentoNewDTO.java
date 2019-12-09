@@ -1,10 +1,12 @@
 package com.mateus.sistema.dto.pedido.orcamento;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.mateus.sistema.dto.pedido.PedidoNewDTO;
 import com.mateus.sistema.dto.pedido.formaPagamentoPedido.FormaPagamentoPedidoNewDTO;
 import com.mateus.sistema.dto.pedido.item.PedidoItemNewDTO;
+import com.mateus.sistema.dto.pedido.item.VendaItemNewDTO;
 import com.mateus.sistema.dto.pessoa.cliente.ClienteDTO;
 import com.mateus.sistema.dto.pessoa.funcionario.FuncionarioDTO;
 
@@ -13,10 +15,12 @@ public class OrcamentoNewDTO extends PedidoNewDTO {
 
 	private ClienteDTO cliente;
 	private FuncionarioDTO vendedor;
-
+	
+	List<VendaItemNewDTO> itens = new ArrayList <VendaItemNewDTO>();
+	
 	public OrcamentoNewDTO(ClienteDTO cliente, FuncionarioDTO vendedor, List<PedidoItemNewDTO> itens,
 			List<FormaPagamentoPedidoNewDTO> formasPagamento) {
-		super(itens);
+		
 		this.cliente = cliente;
 		this.vendedor = vendedor;
 	}
@@ -35,6 +39,14 @@ public class OrcamentoNewDTO extends PedidoNewDTO {
 
 	public void setVendedor(FuncionarioDTO vendedor) {
 		this.vendedor = vendedor;
+	}
+	
+	public List<VendaItemNewDTO> getItens() {
+		return itens;
+	}
+
+	public void setItens(List<VendaItemNewDTO> itens) {
+		this.itens = itens;
 	}
 
 }

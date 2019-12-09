@@ -60,7 +60,7 @@ public class EstoqueService {
 
 	private List<EntradaEstoque> getEntradas(List<CompraItem> itens) {
 		List<EntradaEstoque> entradas = new ArrayList<>();
-		entradas.addAll(itens.stream().map(x -> new EntradaEstoque(null, x, repo.getOne((long) 2)))
+		entradas.addAll(itens.stream().map(x -> new EntradaEstoque(null, x, x.getEstoque()))
 				.collect(Collectors.toList()));
 		return entradas;
 	}
