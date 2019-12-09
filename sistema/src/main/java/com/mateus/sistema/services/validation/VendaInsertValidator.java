@@ -1,5 +1,6 @@
 package com.mateus.sistema.services.validation;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -10,13 +11,15 @@ import javax.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.mateus.sistema.domain.produto.Estoque;
+import com.mateus.sistema.domain.produto.Preco;
 import com.mateus.sistema.domain.produto.Produto;
 import com.mateus.sistema.domain.produto.ProdutoEstoque;
-import com.mateus.sistema.dto.pedido.item.PedidoItemNewDTO;
+import com.mateus.sistema.dto.pedido.item.VendaItemNewDTO;
 import com.mateus.sistema.dto.pedido.venda.VendaNewDTO;
 import com.mateus.sistema.repository.pessoa.ClienteRepository;
 import com.mateus.sistema.repository.pessoa.FuncionarioRepository;
 import com.mateus.sistema.repository.produto.EstoqueRepository;
+import com.mateus.sistema.repository.produto.PrecoRepository;
 import com.mateus.sistema.repository.produto.ProdutoEstoqueRepository;
 import com.mateus.sistema.repository.produto.ProdutoRepository;
 import com.mateus.sistema.resouces.exceptions.FieldMessage;
@@ -33,7 +36,9 @@ public class VendaInsertValidator implements ConstraintValidator<VendaInsert, Ve
 	private EstoqueRepository estoqueRepo;
 	@Autowired
 	private ProdutoEstoqueRepository peRepo;
-
+	@Autowired
+	private PrecoRepository precoRepo;
+	
 	@Override
 	public void initialize(VendaInsert ann) {
 	}
@@ -50,7 +55,7 @@ public class VendaInsertValidator implements ConstraintValidator<VendaInsert, Ve
 			list.add(new FieldMessage("vendedor", "E-mail já cadastrado"));
 		}
 
-		for (PedidoItemNewDTO item : objDto.getItens()) {
+		for (VendaItemNewDTO item : objDto.getItens()) {
 
 			Produto p = new Produto();
 			p.setId(item.getProduto().getId());
@@ -75,7 +80,10 @@ public class VendaInsertValidator implements ConstraintValidator<VendaInsert, Ve
 				}
 			}
 			
-			
+			Optional<BigDecimal> preco = precoRepo.findValorByTipoAndProduto(item.getTipoPreco().getTipo().getCod(), p);
+			if (!preco.isPresent()) {
+				list.add(new FieldMessage("itens", "não existe relação entre produto e preco informados"));
+			}
 		}
 
 		for (FieldMessage e : list) {
