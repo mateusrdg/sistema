@@ -11,7 +11,6 @@ import javax.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.mateus.sistema.domain.produto.Estoque;
-import com.mateus.sistema.domain.produto.Preco;
 import com.mateus.sistema.domain.produto.Produto;
 import com.mateus.sistema.domain.produto.ProdutoEstoque;
 import com.mateus.sistema.dto.pedido.item.VendaItemNewDTO;
@@ -80,7 +79,7 @@ public class VendaInsertValidator implements ConstraintValidator<VendaInsert, Ve
 				}
 			}
 			
-			Optional<BigDecimal> preco = precoRepo.findValorByTipoAndProduto(item.getTipoPreco().getTipo().getCod(), p);
+			Optional<BigDecimal> preco = precoRepo.findValorByTipoAndProduto(item.getTipoPreco().getCod(), p);
 			if (!preco.isPresent()) {
 				list.add(new FieldMessage("itens", "não existe relação entre produto e preco informados"));
 			}

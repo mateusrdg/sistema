@@ -10,10 +10,9 @@ import org.springframework.stereotype.Service;
 
 import com.mateus.sistema.domain.produto.Preco;
 import com.mateus.sistema.domain.produto.Produto;
-import com.mateus.sistema.dto.produto.ProdutoIdDTO;
+import com.mateus.sistema.dto.pedido.item.VendaItemNewDTO;
 import com.mateus.sistema.dto.produto.preco.PrecoDTO;
 import com.mateus.sistema.dto.produto.preco.PrecoNewDTO;
-import com.mateus.sistema.dto.produto.preco.PrecoTipoDTO;
 import com.mateus.sistema.repository.produto.PrecoRepository;
 import com.mateus.sistema.services.exceptions.ObjectNotFoundException;
 
@@ -32,11 +31,11 @@ public class PrecoService {
 				.collect(Collectors.toList());
 	}
 
-	public BigDecimal valorFromDTO(PrecoTipoDTO dto, ProdutoIdDTO produto) {
-		Optional<BigDecimal> valor = repo.findValorByTipoAndProduto(dto.getTipo().getCod(),
-				new Produto(produto.getId()));
+	public BigDecimal valorFromDTO(VendaItemNewDTO dto) {
+		Optional<BigDecimal> valor = repo.findValorByTipoAndProduto(dto.getTipoPreco().getCod(),
+				new Produto(dto.getProduto().getId()));
 		return valor.orElseThrow(
-				() -> new ObjectNotFoundException("Valor não encontrado! TipoPreco: " + dto.getTipo().getDescricao()
-						+ " Id Produto: " + produto.getId() + ", Tipo: " + Preco.class.getName()));
+				() -> new ObjectNotFoundException("Valor não encontrado! TipoPreco: " + dto.getTipoPreco().getDescricao()
+						+ " Id Produto: " + dto.getProduto().getId() + ", Tipo: " + Preco.class.getName()));
 	}
 }

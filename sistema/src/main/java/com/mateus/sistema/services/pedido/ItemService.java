@@ -30,7 +30,7 @@ public class ItemService {
 
 	public List<VendaItem> fromDTO(List<VendaItemNewDTO> itens, Venda venda) {
 		return itens.stream().map(obj -> new VendaItem(null, venda, produtoService.fromDto(obj.getProduto()),
-				estoqueService.fromDto(obj.getEstoque()), precoService.valorFromDTO(obj.getTipoPreco(), obj.getProduto()),
+				estoqueService.fromDto(obj.getEstoque()), precoService.valorFromDTO(obj),
 				obj.getQuantidade(), obj.getDesconto())).collect(Collectors.toList());
 	}
 
@@ -43,7 +43,7 @@ public class ItemService {
 
 	public List<OrcamentoItem> fromDTO(List<VendaItemNewDTO> itens, Orcamento orcamento) {
 		return itens.stream().map(obj -> new OrcamentoItem(null, orcamento, produtoService.fromDto(obj.getProduto()),
-				estoqueService.fromDto(obj.getEstoque()), precoService.valorFromDTO(obj.getTipoPreco(), obj.getProduto()),
+				estoqueService.fromDto(obj.getEstoque()), precoService.valorFromDTO(obj),
 				obj.getQuantidade(), obj.getDesconto())).collect(Collectors.toList());
 	}
 }
