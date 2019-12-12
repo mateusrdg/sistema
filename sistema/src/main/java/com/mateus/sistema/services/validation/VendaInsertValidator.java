@@ -10,11 +10,17 @@ import javax.validation.ConstraintValidatorContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.mateus.sistema.domain.enums.TipoFormaPagamento;
+import com.mateus.sistema.domain.pedido.FormaPagamento;
+import com.mateus.sistema.domain.pedido.FormaPagamentoVenda;
+import com.mateus.sistema.domain.pedido.Venda;
 import com.mateus.sistema.domain.produto.Estoque;
 import com.mateus.sistema.domain.produto.Produto;
 import com.mateus.sistema.domain.produto.ProdutoEstoque;
+import com.mateus.sistema.dto.pedido.formaPagamentoPedido.FormaPagamentoPedidoNewDTO;
 import com.mateus.sistema.dto.pedido.item.VendaItemNewDTO;
 import com.mateus.sistema.dto.pedido.venda.VendaNewDTO;
+import com.mateus.sistema.repository.pedido.FormaPagamentoRepository;
 import com.mateus.sistema.repository.pessoa.ClienteRepository;
 import com.mateus.sistema.repository.pessoa.FuncionarioRepository;
 import com.mateus.sistema.repository.produto.EstoqueRepository;
@@ -22,6 +28,7 @@ import com.mateus.sistema.repository.produto.PrecoRepository;
 import com.mateus.sistema.repository.produto.ProdutoEstoqueRepository;
 import com.mateus.sistema.repository.produto.ProdutoRepository;
 import com.mateus.sistema.resouces.exceptions.FieldMessage;
+import com.mateus.sistema.services.pedido.VendaService;
 
 public class VendaInsertValidator implements ConstraintValidator<VendaInsert, VendaNewDTO> {
 
@@ -37,7 +44,11 @@ public class VendaInsertValidator implements ConstraintValidator<VendaInsert, Ve
 	private ProdutoEstoqueRepository peRepo;
 	@Autowired
 	private PrecoRepository precoRepo;
-	
+	@Autowired
+	private VendaService service;
+	@Autowired
+	private FormaPagamentoRepository formaPagamentoRepo;
+
 	@Override
 	public void initialize(VendaInsert ann) {
 	}
@@ -62,7 +73,7 @@ public class VendaInsertValidator implements ConstraintValidator<VendaInsert, Ve
 			if (!produtoRepo.findById(p.getId()).isPresent()) {
 				list.add(new FieldMessage("itens", "produto inexistente"));
 			}
-		
+
 			Estoque e = new Estoque(item.getEstoque().getId());
 
 			if (!estoqueRepo.findById(e.getId()).isPresent()) {
@@ -73,15 +84,39 @@ public class VendaInsertValidator implements ConstraintValidator<VendaInsert, Ve
 			if (!pe.isPresent()) {
 				list.add(new FieldMessage("itens", "não existe relação entre produto e estoque informados"));
 			} else {
-				ProdutoEstoque produtoEstoque = pe.get(); 
+				ProdutoEstoque produtoEstoque = pe.get();
 				if (item.getQuantidade().compareTo(produtoEstoque.getQuantidade()) == 1) {
 					list.add(new FieldMessage("itens", "quantidade de estoque insuficiente"));
 				}
 			}
-			
+
 			Optional<BigDecimal> preco = precoRepo.findValorByTipoAndProduto(item.getTipoPreco().getCod(), p);
 			if (!preco.isPresent()) {
 				list.add(new FieldMessage("itens", "não existe relação entre produto e preco informados"));
+			}
+		}
+
+		for (FormaPagamentoPedidoNewDTO fppDto : objDto.getFormasPagamento()) {
+			Optional<FormaPagamento> fp = formaPagamentoRepo.findById(fppDto.getFormaPagamento().getId());
+			if (!fp.isPresent()) {
+				list.add(new FieldMessage("formasPagamento", "Forma de pagamento inválida"));
+			}
+		}
+		
+		Venda venda = service.fromDTO(objDto);
+
+		if (!(venda.getValorTotal().compareTo(venda.getValorTotalFormasPagamento()) == 0)) {
+			list.add(new FieldMessage("formasPagamento",
+					"valor total do itens deve ser igual ao valor total das formas de pagamento"));
+		}
+
+		for (FormaPagamentoVenda fpv : venda.getFormasPagamento()) {
+			
+			if (fpv.getFormaPagamento().getTipo() == TipoFormaPagamento.PRAZO) {
+				if (!(fpv.getValor().compareTo(fpv.getValorTotalParcelas()) == 0)) {
+					list.add(new FieldMessage("formasPagamento",
+							"valor total das parcelas deve ser igual ao valor da forma de pagamento associada"));
+				}
 			}
 		}
 

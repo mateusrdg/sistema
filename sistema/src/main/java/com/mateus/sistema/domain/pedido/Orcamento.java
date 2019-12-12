@@ -1,6 +1,7 @@
 package com.mateus.sistema.domain.pedido;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -84,4 +85,14 @@ public class Orcamento extends Pedido implements Serializable {
 		return this.getCliente();
 	}
 	
+	@Override
+	public BigDecimal calculaValorTotal() {
+		return itens.stream().map(item-> item.getTotal()).reduce(BigDecimal.ZERO,BigDecimal::add);
+	}
+
+	@Override
+	public BigDecimal getValorTotalFormasPagamento() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

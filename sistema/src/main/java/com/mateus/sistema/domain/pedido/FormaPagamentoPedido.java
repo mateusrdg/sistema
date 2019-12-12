@@ -84,6 +84,8 @@ public abstract class FormaPagamentoPedido implements Serializable {
 		this.formaPagamento = formaPagamento;
 	}
 
+	public abstract BigDecimal getValorTotalParcelas() ;
+	
 	@PrePersist
 	public void prePersist() {
 		this.data = Calendar.getInstance();

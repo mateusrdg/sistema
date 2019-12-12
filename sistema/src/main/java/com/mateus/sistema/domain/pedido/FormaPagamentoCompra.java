@@ -66,4 +66,9 @@ public class FormaPagamentoCompra extends FormaPagamentoPedido implements Serial
 		this.contaPagar = contaPagar;
 	}
 
+	@Override
+	public BigDecimal getValorTotalParcelas() {
+		return parcelas.stream().map(x -> x.getValor()).reduce(BigDecimal.ZERO, BigDecimal::add);
+	}
+
 }

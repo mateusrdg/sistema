@@ -12,13 +12,13 @@ import com.mateus.sistema.domain.pedido.FormaPagamentoCompra;
 import com.mateus.sistema.domain.pedido.FormaPagamentoPedido;
 import com.mateus.sistema.domain.pedido.FormaPagamentoVenda;
 import com.mateus.sistema.dto.pedido.ContaNewDTO;
-import com.mateus.sistema.dto.pedido.FormaPagamentoDTO;
+import com.mateus.sistema.dto.pedido.FormaPagamentoIdDTO;
 import com.mateus.sistema.dto.pedido.formaPagamentoPedido.parcela.ParcelaNewDTO;
 
 public class FormaPagamentoPedidoNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private FormaPagamentoDTO formaPagamento;
+	private FormaPagamentoIdDTO formaPagamento;
 	private BigDecimal valor;
 	private Calendar data;
 	private EstadoPagamento estado;
@@ -42,17 +42,17 @@ public class FormaPagamentoPedidoNewDTO implements Serializable {
 					.map(obj -> new ParcelaNewDTO(obj)).collect(Collectors.toList());
 			setConta(new ContaNewDTO(((FormaPagamentoCompra) formaPagamentoPedido).getContaPagar()));
 		}
-		this.formaPagamento = new FormaPagamentoDTO(formaPagamentoPedido.getFormaPagamento());
+		this.formaPagamento = new FormaPagamentoIdDTO(formaPagamentoPedido.getFormaPagamento());
 		this.valor = formaPagamentoPedido.getValor();
 		this.data = formaPagamentoPedido.getData();
 		this.estado = formaPagamentoPedido.getEstado();
 	}
 
-	public FormaPagamentoDTO getFormaPagamento() {
+	public FormaPagamentoIdDTO getFormaPagamento() {
 		return formaPagamento;
 	}
 
-	public void setFormaPagamento(FormaPagamentoDTO formaPagamento) {
+	public void setFormaPagamento(FormaPagamentoIdDTO formaPagamento) {
 		this.formaPagamento = formaPagamento;
 	}
 

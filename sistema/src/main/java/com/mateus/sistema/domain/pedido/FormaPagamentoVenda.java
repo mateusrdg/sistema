@@ -31,10 +31,12 @@ public class FormaPagamentoVenda extends FormaPagamentoPedido implements Seriali
 	private Venda pedido;
 
 	@JsonManagedReference
-	@OneToMany(mappedBy = "formaPagamentoVenda", cascade ={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
+	@OneToMany(mappedBy = "formaPagamentoVenda", cascade = { CascadeType.PERSIST, CascadeType.MERGE,
+			CascadeType.REMOVE })
 	private List<ParcelaVenda> parcelas = new ArrayList<ParcelaVenda>();
-	
-	@OneToOne(mappedBy = "formaPagamentoVenda", cascade ={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
+
+	@OneToOne(mappedBy = "formaPagamentoVenda", cascade = { CascadeType.PERSIST, CascadeType.MERGE,
+			CascadeType.REMOVE })
 	private ContaReceber contaReceber;
 
 	public FormaPagamentoVenda() {
@@ -45,8 +47,7 @@ public class FormaPagamentoVenda extends FormaPagamentoPedido implements Seriali
 		super(id, formaPagamento, data, valor, estado);
 		this.pedido = pedido;
 	}
-	
-	
+
 	public Venda getPedido() {
 		return pedido;
 	}
@@ -54,7 +55,7 @@ public class FormaPagamentoVenda extends FormaPagamentoPedido implements Seriali
 	public void setPedido(Venda pedido) {
 		this.pedido = pedido;
 	}
-	
+
 	public ContaReceber getContaReceber() {
 		return contaReceber;
 	}
@@ -69,6 +70,11 @@ public class FormaPagamentoVenda extends FormaPagamentoPedido implements Seriali
 
 	public void setParcelas(List<ParcelaVenda> parcelas) {
 		this.parcelas = parcelas;
+	}
+
+	@Override
+	public BigDecimal getValorTotalParcelas() {
+		return parcelas.stream().map(x -> x.getValor()).reduce(BigDecimal.ZERO, BigDecimal::add);
 	}
 
 }

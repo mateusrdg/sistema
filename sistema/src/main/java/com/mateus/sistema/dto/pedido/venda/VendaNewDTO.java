@@ -20,13 +20,6 @@ public class VendaNewDTO extends PedidoNewDTO {
 
 	private List<FormaPagamentoPedidoNewDTO> formasPagamento = new ArrayList<FormaPagamentoPedidoNewDTO>();
 
-//	public VendaNewDTO(ClienteDTO cliente, FuncionarioDTO vendedor, List<PedidoItemNewDTO> itens,
-//			List<FormaPagamentoPedidoNewDTO> formasPagamento) {
-//		this.cliente = cliente;
-//		this.vendedor = vendedor;
-//		this.formasPagamento = formasPagamento;
-//	}
-
 	public PessoaIdDTO getCliente() {
 		return cliente;
 	}

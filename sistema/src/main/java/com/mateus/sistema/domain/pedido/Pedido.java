@@ -1,6 +1,7 @@
 package com.mateus.sistema.domain.pedido;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Calendar;
 
 import javax.persistence.GeneratedValue;
@@ -45,7 +46,15 @@ public abstract class Pedido implements Serializable {
 	public void setData(Calendar data) {
 		this.data = data;
 	}
+	
+	public BigDecimal getValorTotal() {
+		return calculaValorTotal();
+	}
+	
+	public abstract BigDecimal calculaValorTotal();
 
+	public abstract BigDecimal getValorTotalFormasPagamento();
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

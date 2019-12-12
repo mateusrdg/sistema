@@ -1,6 +1,7 @@
 package com.mateus.sistema.domain.pedido;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -31,13 +32,13 @@ public class Venda extends Pedido implements Serializable {
 	private Funcionario vendedor;
 
 	@JsonManagedReference
-	@OneToMany(mappedBy = "pedido", cascade ={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
+	@OneToMany(mappedBy = "pedido", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
 	private List<VendaItem> itens = new ArrayList<VendaItem>();
-	
+
 	@JsonManagedReference
-	@OneToMany(mappedBy = "pedido", cascade ={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
+	@OneToMany(mappedBy = "pedido", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
 	private List<FormaPagamentoVenda> formasPagamento = new ArrayList<FormaPagamentoVenda>();
-	
+
 	public Venda() {
 	}
 
@@ -88,5 +89,15 @@ public class Venda extends Pedido implements Serializable {
 	public Pessoa getClienteFornecedor() {
 		return this.cliente;
 	}
-	
+
+	@Override
+	public BigDecimal calculaValorTotal() {
+		return itens.stream().map(item -> item.getTotal()).reduce(BigDecimal.ZERO, BigDecimal::add);
+	}
+
+	@Override
+	public BigDecimal getValorTotalFormasPagamento() {
+		return formasPagamento.stream().map(x -> x.getValor()).reduce(BigDecimal.ZERO, BigDecimal::add);
+	}
+
 }
