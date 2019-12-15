@@ -17,10 +17,10 @@ public class PessoaNewDTO implements Serializable {
 	@NotEmpty(message = "Preenchimento obrigatório.")
 	@Length(min = 5, max = 200, message = "O tamanho deve ser entre 5 e 200 caracteres")
 	private String nome;
-	@NotEmpty(message = "Preenchimento obrigatório.")
+	//@NotEmpty(message = "Preenchimento obrigatório.")
 	private String email;
 	private String cpfCnpj;
-	@NotEmpty(message = "Preenchimento com pelo menos 1 endereço.")
+	//@NotEmpty(message = "Preenchimento com pelo menos 1 endereço.")
 	private List<EnderecoNewDTO> enderecos = new ArrayList<EnderecoNewDTO>();
 	private List<TelefoneNewDTO> telefones = new ArrayList<TelefoneNewDTO>();
 	
