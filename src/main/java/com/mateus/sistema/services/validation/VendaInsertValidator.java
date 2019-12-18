@@ -58,11 +58,11 @@ public class VendaInsertValidator implements ConstraintValidator<VendaInsert, Ve
 		List<FieldMessage> list = new ArrayList<>();
 
 		if (!clienteRepo.findById(objDto.getCliente().getId()).isPresent()) {
-			list.add(new FieldMessage("cliente", "E-mail já cadastrado"));
+			list.add(new FieldMessage("cliente", "cliente não localizado"));
 		}
 
 		if (!funcionarioRepo.findById(objDto.getVendedor().getId()).isPresent()) {
-			list.add(new FieldMessage("vendedor", "E-mail já cadastrado"));
+			list.add(new FieldMessage("vendedor", "vendedor não localizado"));
 		}
 
 		for (VendaItemNewDTO item : objDto.getItens()) {
@@ -77,7 +77,7 @@ public class VendaInsertValidator implements ConstraintValidator<VendaInsert, Ve
 			Estoque e = new Estoque(item.getEstoque().getId());
 
 			if (!estoqueRepo.findById(e.getId()).isPresent()) {
-				list.add(new FieldMessage("estoque", "estoque inexistente"));
+				list.add(new FieldMessage("itens", "estoque inexistente"));
 			}
 
 			Optional<ProdutoEstoque> pe = peRepo.findByProdutoAndEstoque(p, e);
@@ -102,7 +102,7 @@ public class VendaInsertValidator implements ConstraintValidator<VendaInsert, Ve
 				list.add(new FieldMessage("formasPagamento", "Forma de pagamento inválida"));
 			}
 		}
-		
+
 		Venda venda = service.fromDTO(objDto);
 
 		if (!(venda.getValorTotal().compareTo(venda.getValorTotalFormasPagamento()) == 0)) {
@@ -111,7 +111,7 @@ public class VendaInsertValidator implements ConstraintValidator<VendaInsert, Ve
 		}
 
 		for (FormaPagamentoVenda fpv : venda.getFormasPagamento()) {
-			
+
 			if (fpv.getFormaPagamento().getTipo() == TipoFormaPagamento.PRAZO) {
 				if (!(fpv.getValor().compareTo(fpv.getValorTotalParcelas()) == 0)) {
 					list.add(new FieldMessage("formasPagamento",
