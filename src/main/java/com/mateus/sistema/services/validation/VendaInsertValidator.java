@@ -12,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.mateus.sistema.domain.enums.TipoFormaPagamento;
 import com.mateus.sistema.domain.pedido.FormaPagamento;
-import com.mateus.sistema.domain.pedido.FormaPagamentoVenda;
-import com.mateus.sistema.domain.pedido.Venda;
 import com.mateus.sistema.domain.produto.Estoque;
 import com.mateus.sistema.domain.produto.Produto;
 import com.mateus.sistema.domain.produto.ProdutoEstoque;
@@ -28,7 +26,6 @@ import com.mateus.sistema.repository.produto.PrecoRepository;
 import com.mateus.sistema.repository.produto.ProdutoEstoqueRepository;
 import com.mateus.sistema.repository.produto.ProdutoRepository;
 import com.mateus.sistema.resouces.exceptions.FieldMessage;
-import com.mateus.sistema.services.pedido.VendaService;
 
 public class VendaInsertValidator implements ConstraintValidator<VendaInsert, VendaNewDTO> {
 
@@ -44,8 +41,6 @@ public class VendaInsertValidator implements ConstraintValidator<VendaInsert, Ve
 	private ProdutoEstoqueRepository peRepo;
 	@Autowired
 	private PrecoRepository precoRepo;
-	@Autowired
-	private VendaService service;
 	@Autowired
 	private FormaPagamentoRepository formaPagamentoRepo;
 
@@ -93,27 +88,24 @@ public class VendaInsertValidator implements ConstraintValidator<VendaInsert, Ve
 			Optional<BigDecimal> preco = precoRepo.findValorByTipoAndProduto(item.getTipoPreco().getCod(), p);
 			if (!preco.isPresent()) {
 				list.add(new FieldMessage("itens", "não existe relação entre produto e preco informados"));
+				item.setPreco(new BigDecimal(0));
+			} else {
+				item.setPreco(preco.get());
 			}
 		}
 
-		for (FormaPagamentoPedidoNewDTO fppDto : objDto.getFormasPagamento()) {
-			Optional<FormaPagamento> fp = formaPagamentoRepo.findById(fppDto.getFormaPagamento().getId());
-			if (!fp.isPresent()) {
-				list.add(new FieldMessage("formasPagamento", "Forma de pagamento inválida"));
-			}
-		}
-
-		Venda venda = service.fromDTO(objDto);
-
-		if (!(venda.getValorTotal().compareTo(venda.getValorTotalFormasPagamento()) == 0)) {
+		if (!(objDto.getValorTotal().compareTo(objDto.getValorTotalFormasPagamento()) == 0)) {
 			list.add(new FieldMessage("formasPagamento",
 					"valor total do itens deve ser igual ao valor total das formas de pagamento"));
 		}
 
-		for (FormaPagamentoVenda fpv : venda.getFormasPagamento()) {
+		for (FormaPagamentoPedidoNewDTO formaPagamentoPedido : objDto.getFormasPagamento()) {
+			Optional<FormaPagamento> formaPagamento = formaPagamentoRepo.findById(formaPagamentoPedido.getFormaPagamento().getId());
 
-			if (fpv.getFormaPagamento().getTipo() == TipoFormaPagamento.PRAZO) {
-				if (!(fpv.getValor().compareTo(fpv.getValorTotalParcelas()) == 0)) {
+			if (!formaPagamento.isPresent()) {
+				list.add(new FieldMessage("formasPagamento", "Forma de pagamento inválida"));
+			} else if (formaPagamento.get().getTipo() == TipoFormaPagamento.PRAZO) {
+				if (!(formaPagamentoPedido.getValor().compareTo(formaPagamentoPedido.getValorTotalParcelas()) == 0)) {
 					list.add(new FieldMessage("formasPagamento",
 							"valor total das parcelas deve ser igual ao valor da forma de pagamento associada"));
 				}

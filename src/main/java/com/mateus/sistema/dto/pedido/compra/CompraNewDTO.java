@@ -1,5 +1,6 @@
 package com.mateus.sistema.dto.pedido.compra;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,5 +58,13 @@ public class CompraNewDTO extends PedidoNewDTO {
 		this.itens = itens;
 	}
 	
+	@Override
+	public BigDecimal calculaValorTotal() {
+		return itens.stream().map(item -> item.getTotal()).reduce(BigDecimal.ZERO, BigDecimal::add);
+	}
 
+	@Override
+	public BigDecimal getValorTotalFormasPagamento() {
+		return formasPagamento.stream().map(x -> x.getValor()).reduce(BigDecimal.ZERO, BigDecimal::add);
+	}
 }

@@ -3,6 +3,7 @@ package com.mateus.sistema.dto.pedido.item;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mateus.sistema.dto.produto.ProdutoIdDTO;
 import com.mateus.sistema.dto.produto.estoque.EstoqueIdDTO;
 
@@ -11,9 +12,10 @@ public class PedidoItemNewDTO implements Serializable {
 
 	private String referencia;
 	private ProdutoIdDTO produto;
+	private BigDecimal preco;
 	private BigDecimal quantidade;
 	private BigDecimal desconto;
-	private EstoqueIdDTO estoque;
+	private EstoqueIdDTO estoque;	
 	
 	public PedidoItemNewDTO() {
 	}
@@ -21,7 +23,7 @@ public class PedidoItemNewDTO implements Serializable {
 	public String getReferencia() {
 		return referencia;
 	}
-
+	
 	public void setReferencia(String referencia) {
 		this.referencia = referencia;
 	}
@@ -30,6 +32,14 @@ public class PedidoItemNewDTO implements Serializable {
 		return produto;
 	}
 
+	public BigDecimal getPreco() {
+		return preco;
+	}
+
+	public void setPreco(BigDecimal preco) {
+		this.preco = preco;
+	}
+	
 	public void ProdutoDTO(ProdutoIdDTO produto) {
 		this.produto = produto;
 	}
@@ -56,6 +66,14 @@ public class PedidoItemNewDTO implements Serializable {
 
 	public void setEstoque(EstoqueIdDTO estoque) {
 		this.estoque = estoque;
+	}
+	@JsonIgnore
+	private BigDecimal calculaTotal() {
+		return (this.preco.multiply(this.quantidade).subtract(this.desconto));
+	}
+	@JsonIgnore
+	public BigDecimal getTotal() {
+		return calculaTotal();
 	}
 
 }

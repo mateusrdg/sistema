@@ -7,6 +7,8 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.constraints.NotNull;
+
 import com.mateus.sistema.domain.enums.EstadoPagamento;
 import com.mateus.sistema.domain.pedido.FormaPagamentoCompra;
 import com.mateus.sistema.domain.pedido.FormaPagamentoPedido;
@@ -19,8 +21,10 @@ public class FormaPagamentoPedidoNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private FormaPagamentoIdDTO formaPagamento;
+	@NotNull(message = "Preenchimento obrigatório.")
 	private BigDecimal valor;
 	private Calendar data;
+	@NotNull(message = "Preenchimento obrigatório.")
 	private EstadoPagamento estado;
 
 	private ContaNewDTO conta;
@@ -94,6 +98,10 @@ public class FormaPagamentoPedidoNewDTO implements Serializable {
 
 	public void setConta(ContaNewDTO conta) {
 		this.conta = conta;
+	}
+	
+	public BigDecimal getValorTotalParcelas() {
+		return parcelas.stream().map(x -> x.getValor()).reduce(BigDecimal.ZERO, BigDecimal::add);
 	}
 
 }

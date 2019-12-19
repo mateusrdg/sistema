@@ -1,5 +1,6 @@
 package com.mateus.sistema.dto.pedido.orcamento;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,4 +50,13 @@ public class OrcamentoNewDTO extends PedidoNewDTO {
 		this.itens = itens;
 	}
 
+	@Override
+	public BigDecimal calculaValorTotal() {
+		return itens.stream().map(item -> item.getTotal()).reduce(BigDecimal.ZERO, BigDecimal::add);
+	}
+
+	@Override
+	public BigDecimal getValorTotalFormasPagamento() {
+		return null;
+	}
 }
