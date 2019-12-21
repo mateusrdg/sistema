@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.mateus.sistema.domain.pessoa.Cliente;
 import com.mateus.sistema.dto.pessoa.cliente.ClienteNewDTO;
 import com.mateus.sistema.repository.pessoa.ClienteRepository;
-import com.mateus.sistema.resouces.exceptions.FieldMessage;
+import com.mateus.sistema.resources.exceptions.FieldMessage;
 
 public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert, ClienteNewDTO> {
 

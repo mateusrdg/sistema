@@ -1,4 +1,4 @@
-package com.mateus.sistema.resouces.produto;
+package com.mateus.sistema.resources.produto;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.mateus.sistema.resouces.caixa;
+package com.mateus.sistema.resources.caixa;
 
 import java.util.List;
 

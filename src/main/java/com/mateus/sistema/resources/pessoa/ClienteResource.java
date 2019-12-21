@@ -1,4 +1,4 @@
-package com.mateus.sistema.resouces.pessoa;
+package com.mateus.sistema.resources.pessoa;
 
 import java.net.URI;
 import java.util.List;

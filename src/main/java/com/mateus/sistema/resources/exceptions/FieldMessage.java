@@ -1,4 +1,4 @@
-package com.mateus.sistema.resouces.exceptions;
+package com.mateus.sistema.resources.exceptions;
 
 import java.io.Serializable;
 

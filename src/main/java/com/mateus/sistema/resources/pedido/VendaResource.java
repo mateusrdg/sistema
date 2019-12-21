@@ -1,4 +1,4 @@
-package com.mateus.sistema.resouces.pedido;
+package com.mateus.sistema.resources.pedido;
 
 import java.net.URI;
 import java.util.List;
@@ -15,27 +15,27 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.mateus.sistema.domain.pedido.Compra;
-import com.mateus.sistema.dto.pedido.compra.CompraDTO;
-import com.mateus.sistema.dto.pedido.compra.CompraNewDTO;
-import com.mateus.sistema.services.pedido.CompraService;
+import com.mateus.sistema.domain.pedido.Venda;
+import com.mateus.sistema.dto.pedido.venda.VendaDTO;
+import com.mateus.sistema.dto.pedido.venda.VendaNewDTO;
+import com.mateus.sistema.services.pedido.VendaService;
 
 @RestController
-@RequestMapping(value = "/compras")
-public class CompraResource {
+@RequestMapping(value = "/vendas")
+public class VendaResource {
 	@Autowired 
-	private CompraService service;
+	private VendaService service;
 	
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
-	public ResponseEntity<CompraDTO> find(@PathVariable Long id){
-		Compra obj = service.find(id);
-		CompraDTO objDTO = new CompraDTO(obj);
+	public ResponseEntity<VendaDTO> find(@PathVariable Long id){
+		Venda obj = service.find(id);
+		VendaDTO objDTO = new VendaDTO(obj);
 		return ResponseEntity.ok(objDTO);
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert (@Valid @RequestBody CompraNewDTO objDto){
-		Compra obj = service.fromDTO(objDto);
+	public ResponseEntity<Void> insert (@Valid @RequestBody VendaNewDTO objDto){
+		Venda obj = service.fromDTO(objDto);
 		service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("{/id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
@@ -48,10 +48,11 @@ public class CompraResource {
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<CompraDTO>> findAll() {
-		List<Compra> list = service.findAll();
-		List<CompraDTO> listDTO = list.stream().map(obj -> new CompraDTO(obj)).collect(Collectors.toList());
+	public ResponseEntity<List<VendaDTO>> findAll() {
+		List<Venda> list = service.findAll();
+		List<VendaDTO> listDTO = list.stream().map(obj -> new VendaDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);
 	}
+	
 	
 }

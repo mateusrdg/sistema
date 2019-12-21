@@ -1,4 +1,4 @@
-package com.mateus.sistema.resouces.produto;
+package com.mateus.sistema.resources.pedido;
 
 import java.net.URI;
 import java.util.List;
@@ -15,38 +15,30 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.mateus.sistema.domain.produto.Produto;
-import com.mateus.sistema.dto.produto.ProdutoDTO;
-import com.mateus.sistema.dto.produto.ProdutoNewDTO;
-import com.mateus.sistema.services.produto.ProdutoService;
+import com.mateus.sistema.domain.pedido.Compra;
+import com.mateus.sistema.dto.pedido.compra.CompraDTO;
+import com.mateus.sistema.dto.pedido.compra.CompraNewDTO;
+import com.mateus.sistema.services.pedido.CompraService;
 
 @RestController
-@RequestMapping(value = "/produtos")
-public class ProdutoResource {
+@RequestMapping(value = "/compras")
+public class CompraResource {
 	@Autowired 
-	private ProdutoService service;
+	private CompraService service;
 	
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
-	public ResponseEntity<ProdutoDTO> find(@PathVariable Long id){
-		Produto obj = service.find(id);
-		ProdutoDTO objDTO = new ProdutoDTO(obj);
+	public ResponseEntity<CompraDTO> find(@PathVariable Long id){
+		Compra obj = service.find(id);
+		CompraDTO objDTO = new CompraDTO(obj);
 		return ResponseEntity.ok(objDTO);
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @RequestBody ProdutoNewDTO objDto){
-		Produto obj = service.fromDto(objDto);
-		obj = service.insert(obj);
+	public ResponseEntity<Void> insert (@Valid @RequestBody CompraNewDTO objDto){
+		Compra obj = service.fromDTO(objDto);
+		service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("{/id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
-	}
-	
-	@RequestMapping(value = "{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update (@RequestBody ProdutoDTO objDto, @PathVariable Long id){
-		Produto obj = service.fromDto(objDto);
-		obj.setId(id);
-		service.update(obj);
-		return ResponseEntity.noContent().build();
 	}
 	
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
@@ -56,11 +48,10 @@ public class ProdutoResource {
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<ProdutoDTO>> findAll() {
-		List<Produto> list = service.findAll();
-		List<ProdutoDTO> listDto = list.stream().map(obj -> new ProdutoDTO(obj)).collect(Collectors.toList());
-		return ResponseEntity.ok().body(listDto);
+	public ResponseEntity<List<CompraDTO>> findAll() {
+		List<Compra> list = service.findAll();
+		List<CompraDTO> listDTO = list.stream().map(obj -> new CompraDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDTO);
 	}
-	
 	
 }

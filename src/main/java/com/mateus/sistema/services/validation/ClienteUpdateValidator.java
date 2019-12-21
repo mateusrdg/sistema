@@ -14,7 +14,7 @@ import org.springframework.web.servlet.HandlerMapping;
 import com.mateus.sistema.domain.pessoa.Cliente;
 import com.mateus.sistema.dto.pessoa.cliente.ClienteDTO;
 import com.mateus.sistema.repository.pessoa.ClienteRepository;
-import com.mateus.sistema.resouces.exceptions.FieldMessage;
+import com.mateus.sistema.resources.exceptions.FieldMessage;
 
 public class ClienteUpdateValidator implements ConstraintValidator<ClienteUpdate, ClienteDTO> {
 

@@ -25,7 +25,7 @@ import com.mateus.sistema.repository.produto.EstoqueRepository;
 import com.mateus.sistema.repository.produto.PrecoRepository;
 import com.mateus.sistema.repository.produto.ProdutoEstoqueRepository;
 import com.mateus.sistema.repository.produto.ProdutoRepository;
-import com.mateus.sistema.resouces.exceptions.FieldMessage;
+import com.mateus.sistema.resources.exceptions.FieldMessage;
 
 public class VendaInsertValidator implements ConstraintValidator<VendaInsert, VendaNewDTO> {
 
