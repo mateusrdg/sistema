@@ -16,6 +16,7 @@ import com.mateus.sistema.domain.produto.Estoque;
 import com.mateus.sistema.domain.produto.Produto;
 import com.mateus.sistema.domain.produto.ProdutoEstoque;
 import com.mateus.sistema.dto.pedido.formaPagamentoPedido.FormaPagamentoPedidoNewDTO;
+import com.mateus.sistema.dto.pedido.formaPagamentoPedido.parcela.ParcelaNewDTO;
 import com.mateus.sistema.dto.pedido.item.VendaItemNewDTO;
 import com.mateus.sistema.dto.pedido.venda.VendaNewDTO;
 import com.mateus.sistema.repository.pedido.FormaPagamentoRepository;
@@ -100,7 +101,8 @@ public class VendaInsertValidator implements ConstraintValidator<VendaInsert, Ve
 		}
 
 		for (FormaPagamentoPedidoNewDTO formaPagamentoPedido : objDto.getFormasPagamento()) {
-			Optional<FormaPagamento> formaPagamento = formaPagamentoRepo.findById(formaPagamentoPedido.getFormaPagamento().getId());
+			Optional<FormaPagamento> formaPagamento = formaPagamentoRepo
+					.findById(formaPagamentoPedido.getFormaPagamento().getId());
 
 			if (!formaPagamento.isPresent()) {
 				list.add(new FieldMessage("formasPagamento", "Forma de pagamento inválida"));
@@ -108,6 +110,23 @@ public class VendaInsertValidator implements ConstraintValidator<VendaInsert, Ve
 				if (!(formaPagamentoPedido.getValor().compareTo(formaPagamentoPedido.getValorTotalParcelas()) == 0)) {
 					list.add(new FieldMessage("formasPagamento",
 							"valor total das parcelas deve ser igual ao valor da forma de pagamento associada"));
+				} else {
+					for (ParcelaNewDTO parcelaDto : formaPagamentoPedido.getParcelas()) {
+						if (!(parcelaDto.getValor().compareTo(parcelaDto.getConta().getValor()) == 0)) {
+							list.add(new FieldMessage("formasPagamento", "valor da parcela difere do valor do conta a receber"));
+						}
+					}
+				}
+
+			} else {
+				if (!formaPagamentoPedido.getParcelas().isEmpty()) {
+					list.add(new FieldMessage("formasPagamento", "forma de pagamento não permite parcelamento"));
+				}
+				if (formaPagamentoPedido.getConta() == null) {
+					list.add(new FieldMessage("formasPagamento", "conta a receber não foi criada"));
+				} else if (!(formaPagamentoPedido.getValor().compareTo(formaPagamentoPedido.getConta().getValor()) == 0)) {
+					list.add(new FieldMessage("formasPagamento",
+							"valor da forma de pagamento difere do valor do conta a receber"));
 				}
 			}
 		}

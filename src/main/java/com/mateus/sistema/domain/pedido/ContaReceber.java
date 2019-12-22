@@ -23,7 +23,6 @@ public class ContaReceber extends Conta implements Serializable {
 	@OneToOne
 	@JoinColumn(name = "forma_pagamento_venda_id")
 	private FormaPagamentoVenda formaPagamentoVenda;
-
 	
 	@OneToOne
 	@JoinColumn(name = "parcela_venda_id")
