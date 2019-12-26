@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mateus.sistema.domain.enums.EstadoPagamento;
 import com.mateus.sistema.domain.pedido.FormaPagamentoCompra;
 import com.mateus.sistema.domain.pedido.FormaPagamentoPedido;
@@ -21,6 +22,7 @@ public class FormaPagamentoPedidoDTO implements Serializable {
 	private Long id;
 	private FormaPagamentoDTO formaPagamento;
 	private BigDecimal valor;
+	@JsonFormat(pattern ="HH:mm:ss dd/MM/yyyy")
 	private Calendar data;
 	private EstadoPagamento estado;
 

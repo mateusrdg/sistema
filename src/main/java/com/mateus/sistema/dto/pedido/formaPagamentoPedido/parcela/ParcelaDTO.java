@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mateus.sistema.domain.enums.EstadoPagamento;
 import com.mateus.sistema.domain.pedido.Parcela;
 import com.mateus.sistema.domain.pedido.ParcelaCompra;
@@ -16,7 +17,9 @@ public class ParcelaDTO implements Serializable {
 	private Long id;
 	private BigDecimal valor;
 	private EstadoPagamento estado;
+	@JsonFormat(pattern ="HH:mm:ss dd/MM/yyyy")
 	private Calendar dataVencimento;
+	@JsonFormat(pattern ="HH:mm:ss dd/MM/yyyy")
 	private Calendar dataPagamento;
 
 	private ContaDTO conta;

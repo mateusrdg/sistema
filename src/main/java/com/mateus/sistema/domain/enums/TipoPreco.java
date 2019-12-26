@@ -1,7 +1,5 @@
 package com.mateus.sistema.domain.enums;
 
-import com.mateus.sistema.domain.enums.TipoPreco;
-
 public enum TipoPreco {
 	AVISTA(1, "A Vista"), 
 	APRAZO(2, "A Prazo"), 
@@ -18,7 +16,7 @@ public enum TipoPreco {
 	public Integer getCod() {
 		return this.cod;
 	}
-
+	
 	public String getDescricao() {
 		return this.descricao;
 	}

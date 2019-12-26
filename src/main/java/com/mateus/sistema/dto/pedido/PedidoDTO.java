@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mateus.sistema.domain.pedido.Compra;
 import com.mateus.sistema.domain.pedido.Orcamento;
 import com.mateus.sistema.domain.pedido.Pedido;
@@ -17,6 +18,7 @@ public class PedidoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
+	@JsonFormat(pattern ="HH:mm:ss dd/MM/yyyy")
 	private Calendar data;
 	private List<PedidoItemDTO> itens = new ArrayList<PedidoItemDTO>();
 	private List<FormaPagamentoPedidoDTO> formasPagamento = new ArrayList<FormaPagamentoPedidoDTO>();

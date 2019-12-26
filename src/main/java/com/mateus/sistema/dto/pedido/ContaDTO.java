@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mateus.sistema.domain.enums.EstadoPagamento;
 import com.mateus.sistema.domain.pedido.Conta;
 import com.mateus.sistema.dto.EntidadeId;
@@ -14,7 +15,9 @@ public class ContaDTO extends EntidadeId implements Serializable {
 	
 	private BigDecimal valor;
 	private EstadoPagamento estado;
+	@JsonFormat(pattern ="HH:mm:ss dd/MM/yyyy")
 	private Calendar dataPagamento;
+	@JsonFormat(pattern ="HH:mm:ss dd/MM/yyyy")
 	private Calendar dataVencimento;
 
 	public ContaDTO() {
