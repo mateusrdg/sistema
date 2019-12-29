@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.mateus.sistema.domain.enums.TipoFormaPagamento;
 import com.mateus.sistema.domain.pedido.FormaPagamento;
+import com.mateus.sistema.domain.pedido.Venda;
+import com.mateus.sistema.domain.pedido.VendaItem;
 import com.mateus.sistema.domain.produto.Estoque;
 import com.mateus.sistema.domain.produto.Produto;
 import com.mateus.sistema.domain.produto.ProdutoEstoque;
@@ -27,6 +29,7 @@ import com.mateus.sistema.repository.produto.PrecoRepository;
 import com.mateus.sistema.repository.produto.ProdutoEstoqueRepository;
 import com.mateus.sistema.repository.produto.ProdutoRepository;
 import com.mateus.sistema.resources.exceptions.FieldMessage;
+import com.mateus.sistema.services.exceptions.BusinessException;
 
 public class VendaInsertValidator implements ConstraintValidator<VendaInsert, VendaNewDTO> {
 
@@ -113,7 +116,8 @@ public class VendaInsertValidator implements ConstraintValidator<VendaInsert, Ve
 				} else {
 					for (ParcelaNewDTO parcelaDto : formaPagamentoPedido.getParcelas()) {
 						if (!(parcelaDto.getValor().compareTo(parcelaDto.getConta().getValor()) == 0)) {
-							list.add(new FieldMessage("formasPagamento", "valor da parcela difere do valor do conta a receber"));
+							list.add(new FieldMessage("formasPagamento",
+									"valor da parcela difere do valor do conta a receber"));
 						}
 					}
 				}
@@ -124,7 +128,8 @@ public class VendaInsertValidator implements ConstraintValidator<VendaInsert, Ve
 				}
 				if (formaPagamentoPedido.getConta() == null) {
 					list.add(new FieldMessage("formasPagamento", "conta a receber não foi criada"));
-				} else if (!(formaPagamentoPedido.getValor().compareTo(formaPagamentoPedido.getConta().getValor()) == 0)) {
+				} else if (!(formaPagamentoPedido.getValor()
+						.compareTo(formaPagamentoPedido.getConta().getValor()) == 0)) {
 					list.add(new FieldMessage("formasPagamento",
 							"valor da forma de pagamento difere do valor do conta a receber"));
 				}
@@ -138,4 +143,7 @@ public class VendaInsertValidator implements ConstraintValidator<VendaInsert, Ve
 		}
 		return list.isEmpty();
 	}
+
+	
+
 }

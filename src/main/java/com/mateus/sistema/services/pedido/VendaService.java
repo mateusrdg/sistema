@@ -17,6 +17,7 @@ import com.mateus.sistema.services.exceptions.ObjectNotFoundException;
 import com.mateus.sistema.services.pessoa.ClienteService;
 import com.mateus.sistema.services.pessoa.FuncionarioService;
 import com.mateus.sistema.services.produto.EstoqueService;
+import com.mateus.sistema.services.validation.VendaValidator;
 
 @Service
 public class VendaService {
@@ -34,6 +35,8 @@ public class VendaService {
 	private CaixaMovimentacaoService caixaMovService;
 	@Autowired
 	private EstoqueService estoqueService;
+	@Autowired
+	private VendaValidator validador;
 	
 	public Venda find(Long id) {
 		Optional<Venda> obj = repo.findById(id);
@@ -44,6 +47,7 @@ public class VendaService {
 	public Venda insert(Venda obj) {
 		obj.setId(null);
 		obj = repo.save(obj);
+		validador.isValid(obj);
 		caixaMovService.geraCaixa(obj);
 		estoqueService.atualizaEstoque(obj);
 		return obj;
