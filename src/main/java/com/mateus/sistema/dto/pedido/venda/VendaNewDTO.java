@@ -4,26 +4,29 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import com.mateus.sistema.dto.pedido.PedidoNewDTO;
 import com.mateus.sistema.dto.pedido.formaPagamentoPedido.FormaPagamentoPedidoNewDTO;
 import com.mateus.sistema.dto.pedido.item.VendaItemNewDTO;
 import com.mateus.sistema.dto.pessoa.PessoaIdDTO;
-import com.mateus.sistema.services.validation.VendaInsert;
 
-@VendaInsert
+
 public class VendaNewDTO extends PedidoNewDTO {
 	private static final long serialVersionUID = 1L;
-	@NotNull(message = "Preenchimento obrigatório.")
-	private Integer um;
-	@NotNull(message = "Preenchimento obrigatório.")
-	private PessoaIdDTO cliente;
-	@NotNull(message = "Preenchimento obrigatório.")
-	private PessoaIdDTO vendedor;
 	
-	List<VendaItemNewDTO> itens = new ArrayList<VendaItemNewDTO>();
-
+	@Valid
+	@NotNull(message = "preenchimento obrigatóprio")
+	private PessoaIdDTO cliente;
+	@Valid
+	@NotNull(message = "preenchimento obrigatóprio")
+	private PessoaIdDTO vendedor;
+	@Valid
+	@NotNull(message = "preenchimento obrigatóprio")
+	private List<VendaItemNewDTO> itens = new ArrayList<VendaItemNewDTO>();
+	@Valid
+	@NotNull(message = "preenchimento obrigatóprio")
 	private List<FormaPagamentoPedidoNewDTO> formasPagamento = new ArrayList<FormaPagamentoPedidoNewDTO>();
 
 	public PessoaIdDTO getCliente() {
@@ -66,14 +69,6 @@ public class VendaNewDTO extends PedidoNewDTO {
 	@Override
 	public BigDecimal getValorTotalFormasPagamento() {
 		return formasPagamento.stream().map(x -> x.getValor()).reduce(BigDecimal.ZERO, BigDecimal::add);
-	}
-
-	public Integer getUm() {
-		return um;
-	}
-
-	public void setUm(Integer um) {
-		this.um = um;
 	}
 
 }

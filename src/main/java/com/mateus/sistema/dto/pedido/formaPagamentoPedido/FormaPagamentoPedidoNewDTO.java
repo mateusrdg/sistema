@@ -7,6 +7,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import com.mateus.sistema.domain.enums.EstadoPagamento;
@@ -19,16 +20,21 @@ import com.mateus.sistema.dto.pedido.formaPagamentoPedido.parcela.ParcelaNewDTO;
 
 public class FormaPagamentoPedidoNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	
+	@Valid
+	@NotNull(message = "Preenchimento obrigatório")
 	private FormaPagamentoIdDTO formaPagamento;
 	@NotNull(message = "Preenchimento obrigatório.")
 	private BigDecimal valor;
 	private Calendar data;
 	@NotNull(message = "Preenchimento obrigatório.")
 	private EstadoPagamento estado;
-
+	@Valid
+	//@NotNull(message = "Preenchimento obrigatório")
 	private ContaNewDTO conta;
-	List<ParcelaNewDTO> parcelas = new ArrayList<ParcelaNewDTO>();
+	@Valid
+	@NotNull(message = "Preenchimento obrigatório")
+	private List<ParcelaNewDTO> parcelas = new ArrayList<ParcelaNewDTO>();
 
 	public FormaPagamentoPedidoNewDTO() {
 
