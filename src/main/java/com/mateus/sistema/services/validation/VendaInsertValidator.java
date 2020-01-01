@@ -12,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.mateus.sistema.domain.enums.TipoFormaPagamento;
 import com.mateus.sistema.domain.pedido.FormaPagamento;
-import com.mateus.sistema.domain.pedido.Venda;
-import com.mateus.sistema.domain.pedido.VendaItem;
 import com.mateus.sistema.domain.produto.Estoque;
 import com.mateus.sistema.domain.produto.Produto;
 import com.mateus.sistema.domain.produto.ProdutoEstoque;
@@ -29,7 +27,6 @@ import com.mateus.sistema.repository.produto.PrecoRepository;
 import com.mateus.sistema.repository.produto.ProdutoEstoqueRepository;
 import com.mateus.sistema.repository.produto.ProdutoRepository;
 import com.mateus.sistema.resources.exceptions.FieldMessage;
-import com.mateus.sistema.services.exceptions.BusinessException;
 
 public class VendaInsertValidator implements ConstraintValidator<VendaInsert, VendaNewDTO> {
 

@@ -11,6 +11,7 @@ import com.mateus.sistema.domain.pedido.FormaPagamentoVenda;
 import com.mateus.sistema.domain.pedido.ParcelaCompra;
 import com.mateus.sistema.domain.pedido.ParcelaVenda;
 import com.mateus.sistema.dto.pedido.formaPagamentoPedido.parcela.ParcelaNewDTO;
+import com.mateus.sistema.services.exceptions.BusinessException;
 
 @Service
 public class ParcelaService {
@@ -42,5 +43,16 @@ public class ParcelaService {
 		}
 
 		return parcelas;
+	}
+
+	public void validaParcelas(List<ParcelaVenda> parcelas) {
+		for (ParcelaVenda parcela : parcelas) {
+//			if (parcela.getContaReceber() == null) {
+//				throw new BusinessException("conta a receber não foi criada");
+//			}
+			if (!(parcela.getValor().compareTo(parcela.getContaReceber().getValor()) == 0)) {
+				throw new BusinessException("valor da parcela difere do valor do conta a receber");
+			}
+		}
 	}
 }

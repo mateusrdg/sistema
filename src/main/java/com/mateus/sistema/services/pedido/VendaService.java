@@ -12,12 +12,12 @@ import com.mateus.sistema.domain.pedido.Venda;
 import com.mateus.sistema.dto.pedido.venda.VendaNewDTO;
 import com.mateus.sistema.repository.pedido.VendaRepository;
 import com.mateus.sistema.services.caixa.CaixaMovimentacaoService;
+import com.mateus.sistema.services.exceptions.BusinessException;
 import com.mateus.sistema.services.exceptions.DataIntegrityException;
 import com.mateus.sistema.services.exceptions.ObjectNotFoundException;
 import com.mateus.sistema.services.pessoa.ClienteService;
 import com.mateus.sistema.services.pessoa.FuncionarioService;
 import com.mateus.sistema.services.produto.EstoqueService;
-import com.mateus.sistema.services.validation.VendaValidator;
 
 @Service
 public class VendaService {
@@ -35,19 +35,18 @@ public class VendaService {
 	private CaixaMovimentacaoService caixaMovService;
 	@Autowired
 	private EstoqueService estoqueService;
-	@Autowired
-	private VendaValidator validador;
-	
+
 	public Venda find(Long id) {
 		Optional<Venda> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Venda.class.getName()));
 	}
 
-	public Venda insert(Venda obj) {
+	public Venda insert(VendaNewDTO objDto) {
+		Venda obj = fromDTO(objDto);
 		obj.setId(null);
+		isValid(obj);
 		obj = repo.save(obj);
-		validador.isValid(obj);
 		caixaMovService.geraCaixa(obj);
 		estoqueService.atualizaEstoque(obj);
 		return obj;
@@ -73,7 +72,7 @@ public class VendaService {
 	}
 
 	private void updateData(Venda newObj, Venda obj) {
-	//TODO
+		// TODO
 	}
 
 	public Venda fromDTO(VendaNewDTO objDto) {
@@ -82,5 +81,14 @@ public class VendaService {
 		venda.setItens(itemService.fromDTO(objDto.getItens(), venda));
 		venda.setFormasPagamento(fppService.fromNewDto(objDto.getFormasPagamento(), venda));
 		return venda;
+	}
+
+	public void isValid(Venda venda) {
+		itemService.validarItens(venda.getItens());
+		if (!(venda.getValorTotal().compareTo(venda.getValorTotalFormasPagamento()) == 0)) {
+			throw new BusinessException("valor total do itens deve ser igual ao valor total das formas de pagamento");
+		}
+		fppService.validarFormasPagamentoPedido(venda.getFormasPagamento());
+		
 	}
 }
