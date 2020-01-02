@@ -21,8 +21,6 @@ public class FormaPagamentoPedidoService {
 	private FormaPagamentoService formaPagamentoService;
 	@Autowired
 	private ParcelaService parcelaService;
-	@Autowired
-	private ContaReceberService crService;
 
 	public List<FormaPagamentoVenda> fromNewDto(List<FormaPagamentoPedidoNewDTO> list, Venda venda) {
 
@@ -31,9 +29,6 @@ public class FormaPagamentoPedidoService {
 		for (FormaPagamentoPedidoNewDTO dto : list) {
 			FormaPagamentoVenda fpv = fromNewFormaPagamentoPedidoDTO(dto, venda);
 			fpv.setParcelas(parcelaService.fromNewDto(dto.getParcelas(), fpv));
-			if (dto.getConta() != null) {
-				fpv.setContaReceber(crService.fromNewFormaPagamentoDTO(dto.getConta(), fpv));
-			}
 			formasPagamento.add(fpv);
 		}
 
@@ -47,9 +42,6 @@ public class FormaPagamentoPedidoService {
 		for (FormaPagamentoPedidoNewDTO dto : list) {
 			FormaPagamentoCompra fpc = fromNewFormaPagamentoPedidoDTO(dto, venda);
 			fpc.setParcelas(parcelaService.fromNewDto(dto.getParcelas(), fpc));
-			if (dto.getConta() != null) {
-				fpc.setContaPagar(crService.fromNewFormaPagamentoDTO(dto.getConta(), fpc));
-			}
 			formasPagamento.add(fpc);
 		}
 

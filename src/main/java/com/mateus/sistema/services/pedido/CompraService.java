@@ -34,6 +34,8 @@ public class CompraService {
 	private FormaPagamentoPedidoService fppService;
 	@Autowired
 	private EstoqueService estoqueService;
+	@Autowired
+	private ContaService contaService;
 	
 	public Compra find(Long id) {
 		Optional<Compra> obj = repo.findById(id);
@@ -43,6 +45,7 @@ public class CompraService {
 	
 	public Compra insert(Compra obj) {
 		obj.setId(null);
+		contaService.geraContas(obj.getFormasPagamento());
 		obj = repo.save(obj);
 		caixaMovService.geraCaixa(obj);
 		estoqueService.geraEntradas(obj.getItens());

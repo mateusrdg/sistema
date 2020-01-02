@@ -35,7 +35,9 @@ public class VendaService {
 	private CaixaMovimentacaoService caixaMovService;
 	@Autowired
 	private EstoqueService estoqueService;
-
+	@Autowired
+	private ContaService contaService;
+	
 	public Venda find(Long id) {
 		Optional<Venda> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
@@ -45,6 +47,7 @@ public class VendaService {
 	public Venda insert(VendaNewDTO objDto) {
 		Venda obj = fromDTO(objDto);
 		obj.setId(null);
+		contaService.geraContas(obj.getFormasPagamento());
 		isValid(obj);
 		obj = repo.save(obj);
 		caixaMovService.geraCaixa(obj);

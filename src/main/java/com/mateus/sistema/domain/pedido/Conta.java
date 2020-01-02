@@ -30,11 +30,10 @@ public abstract class Conta implements Serializable {
 	public Conta() {
 	}
 
-	public Conta(Long id, TipoConta tipo, Calendar data, BigDecimal valor, EstadoPagamento estado,
+	public Conta(Long id, TipoConta tipo, BigDecimal valor, EstadoPagamento estado,
 			Calendar dataPagamento, Calendar dataVencimento) {
 		super();
 		this.id = id;
-		this.data = data;
 		this.valor = valor;
 		this.estado = (estado == null) ? null : estado.getCod();
 		this.dataPagamento = dataPagamento;

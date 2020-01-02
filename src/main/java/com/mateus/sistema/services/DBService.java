@@ -275,23 +275,23 @@ public class DBService {
 		venda.setFormasPagamento(Arrays.asList(formaPagamentoPedido2, formaPagamentoPedido3));
 		compra.setFormasPagamento(Arrays.asList(formaPagamentoPedido1));
 
-		ContaPagar conta1 = new ContaPagar(null, Calendar.getInstance(), new BigDecimal(200), EstadoPagamento.QUITADO,
-				Calendar.getInstance(), Calendar.getInstance(), formaPagamentoPedido1, null);
+		ContaPagar conta1 = new ContaPagar(null, new BigDecimal(200), EstadoPagamento.QUITADO, Calendar.getInstance(),
+				Calendar.getInstance(), formaPagamentoPedido1, null);
 		formaPagamentoPedido1.setContaPagar(conta1);
 
-		ContaPagar conta11 = new ContaPagar(null, Calendar.getInstance(), new BigDecimal(99), EstadoPagamento.QUITADO,
-				Calendar.getInstance(), Calendar.getInstance(), null, parcela3);
+		ContaPagar conta11 = new ContaPagar(null, new BigDecimal(99), EstadoPagamento.QUITADO, Calendar.getInstance(),
+				Calendar.getInstance(), null, parcela3);
 		parcela3.setContaPagar(conta11);
 
-		ContaReceber conta2 = new ContaReceber(null, Calendar.getInstance(), new BigDecimal(10),
+		ContaReceber conta2 = new ContaReceber(null, new BigDecimal(10),
 				EstadoPagamento.QUITADO, Calendar.getInstance(), Calendar.getInstance(), formaPagamentoPedido2, null);
 		formaPagamentoPedido2.setContaReceber(conta2);
 
-		ContaReceber conta3 = new ContaReceber(null, Calendar.getInstance(), new BigDecimal(30),
+		ContaReceber conta3 = new ContaReceber(null, new BigDecimal(30),
 				EstadoPagamento.PENDENTE, null, Calendar.getInstance(), null, parcela1);
 		parcela1.setContaReceber(conta3);
 
-		ContaReceber conta4 = new ContaReceber(null, Calendar.getInstance(), new BigDecimal(60),
+		ContaReceber conta4 = new ContaReceber(null, new BigDecimal(60),
 				EstadoPagamento.PENDENTE, null, Calendar.getInstance(), null, parcela2);
 		parcela2.setContaReceber(conta4);
 

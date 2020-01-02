@@ -4,12 +4,10 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import com.mateus.sistema.domain.enums.EstadoPagamento;
 import com.mateus.sistema.domain.pedido.Parcela;
-import com.mateus.sistema.dto.pedido.ContaNewDTO;
 
 public class ParcelaNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -20,9 +18,6 @@ public class ParcelaNewDTO implements Serializable {
 	@NotNull(message = "Preenchimento obrigatório")
 	private Calendar dataVencimento;
 	private Calendar dataPagamento;
-	@Valid
-	@NotNull(message = "Preenchimento obrigatório")
-	private ContaNewDTO conta;
 
 	public ParcelaNewDTO() {
 
@@ -65,14 +60,6 @@ public class ParcelaNewDTO implements Serializable {
 
 	public void setDataPagamento(Calendar dataPagamento) {
 		this.dataPagamento = dataPagamento;
-	}
-
-	public ContaNewDTO getConta() {
-		return conta;
-	}
-
-	public void setConta(ContaNewDTO conta) {
-		this.conta = conta;
 	}
 
 }

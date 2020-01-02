@@ -5,16 +5,12 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import com.mateus.sistema.domain.enums.EstadoPagamento;
-import com.mateus.sistema.domain.pedido.FormaPagamentoCompra;
 import com.mateus.sistema.domain.pedido.FormaPagamentoPedido;
-import com.mateus.sistema.domain.pedido.FormaPagamentoVenda;
-import com.mateus.sistema.dto.pedido.ContaNewDTO;
 import com.mateus.sistema.dto.pedido.FormaPagamentoIdDTO;
 import com.mateus.sistema.dto.pedido.formaPagamentoPedido.parcela.ParcelaNewDTO;
 
@@ -30,9 +26,6 @@ public class FormaPagamentoPedidoNewDTO implements Serializable {
 	@NotNull(message = "Preenchimento obrigatório.")
 	private EstadoPagamento estado;
 	@Valid
-	//@NotNull(message = "Preenchimento obrigatório")
-	private ContaNewDTO conta;
-	@Valid
 	@NotNull(message = "Preenchimento obrigatório")
 	private List<ParcelaNewDTO> parcelas = new ArrayList<ParcelaNewDTO>();
 
@@ -41,17 +34,6 @@ public class FormaPagamentoPedidoNewDTO implements Serializable {
 	}
 
 	public FormaPagamentoPedidoNewDTO(FormaPagamentoPedido formaPagamentoPedido) {
-		if (formaPagamentoPedido instanceof FormaPagamentoVenda) {
-			parcelas = ((FormaPagamentoVenda) formaPagamentoPedido).getParcelas().stream()
-					.map(obj -> new ParcelaNewDTO(obj)).collect(Collectors.toList());
-			setConta(new ContaNewDTO(((FormaPagamentoVenda) formaPagamentoPedido).getContaReceber()));
-		}
-
-		if (formaPagamentoPedido instanceof FormaPagamentoCompra) {
-			parcelas = ((FormaPagamentoCompra) formaPagamentoPedido).getParcelas().stream()
-					.map(obj -> new ParcelaNewDTO(obj)).collect(Collectors.toList());
-			setConta(new ContaNewDTO(((FormaPagamentoCompra) formaPagamentoPedido).getContaPagar()));
-		}
 		this.formaPagamento = new FormaPagamentoIdDTO(formaPagamentoPedido.getFormaPagamento());
 		this.valor = formaPagamentoPedido.getValor();
 		this.data = formaPagamentoPedido.getData();
@@ -96,14 +78,6 @@ public class FormaPagamentoPedidoNewDTO implements Serializable {
 
 	public void setParcelas(List<ParcelaNewDTO> parcelas) {
 		this.parcelas = parcelas;
-	}
-
-	public ContaNewDTO getConta() {
-		return conta;
-	}
-
-	public void setConta(ContaNewDTO conta) {
-		this.conta = conta;
 	}
 	
 	public BigDecimal getValorTotalParcelas() {

@@ -17,16 +17,16 @@ public class VendaNewDTO extends PedidoNewDTO {
 	private static final long serialVersionUID = 1L;
 	
 	@Valid
-	@NotNull(message = "preenchimento obrigatóprio")
+	@NotNull(message = "preenchimento obrigatório")
 	private PessoaIdDTO cliente;
 	@Valid
-	@NotNull(message = "preenchimento obrigatóprio")
+	@NotNull(message = "preenchimento obrigatório")
 	private PessoaIdDTO vendedor;
 	@Valid
-	@NotNull(message = "preenchimento obrigatóprio")
+	@NotNull(message = "preenchimento obrigatório")
 	private List<VendaItemNewDTO> itens = new ArrayList<VendaItemNewDTO>();
 	@Valid
-	@NotNull(message = "preenchimento obrigatóprio")
+	@NotNull(message = "preenchimento obrigatório")
 	private List<FormaPagamentoPedidoNewDTO> formasPagamento = new ArrayList<FormaPagamentoPedidoNewDTO>();
 
 	public PessoaIdDTO getCliente() {

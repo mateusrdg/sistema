@@ -31,10 +31,10 @@ public class ContaReceber extends Conta implements Serializable {
 	public ContaReceber() {
 	}
 
-	public ContaReceber(Long id, Calendar data, BigDecimal valor, EstadoPagamento estado,
+	public ContaReceber(Long id, BigDecimal valor, EstadoPagamento estado,
 			Calendar dataPagamento, Calendar dataVencimento, FormaPagamentoVenda formaPagamentoPedido,
 			ParcelaVenda parcela) {
-		super(id, TipoConta.RECEBER, data, valor, estado, dataPagamento, dataVencimento);
+		super(id, TipoConta.RECEBER, valor, estado, dataPagamento, dataVencimento);
 		this.formaPagamentoVenda = formaPagamentoPedido;
 		this.parcela = parcela;
 	}
