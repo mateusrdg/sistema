@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.mateus.sistema.domain.enums.TipoFormaPagamento;
 import com.mateus.sistema.domain.pedido.Compra;
 import com.mateus.sistema.domain.pedido.FormaPagamentoCompra;
+import com.mateus.sistema.domain.pedido.FormaPagamentoPedido;
 import com.mateus.sistema.domain.pedido.FormaPagamentoVenda;
 import com.mateus.sistema.domain.pedido.Venda;
 import com.mateus.sistema.dto.pedido.formaPagamentoPedido.FormaPagamentoPedidoNewDTO;
@@ -58,29 +59,57 @@ public class FormaPagamentoPedidoService {
 				newDTo.getData(), newDTo.getValor(), newDTo.getEstado());
 	}
 
-	public void validarFormasPagamentoPedido(List<FormaPagamentoVenda> formasPagamentoPedido) {
-		for (FormaPagamentoVenda formaPagamentoPedido : formasPagamentoPedido) {
+	public void validarFormasPagamentoPedido(List<? extends FormaPagamentoPedido> formasPagamentoPedido) {
+		
+		if (formasPagamentoPedido instanceof FormaPagamentoVenda) {
+			@SuppressWarnings("unchecked")
+			List<FormaPagamentoVenda> formasPagamentoVenda = (List<FormaPagamentoVenda>) formasPagamentoPedido;
+			for (FormaPagamentoVenda formaPagamentoVenda : formasPagamentoVenda) {
 
-			if (formaPagamentoPedido.getFormaPagamento().getTipo() == TipoFormaPagamento.PRAZO) {
-				if (!(formaPagamentoPedido.getValor().compareTo(formaPagamentoPedido.getValorTotalParcelas()) == 0)) {
-					throw new BusinessException(
-							"valor total das parcelas deve ser igual ao valor da forma de pagamento associada");
+				if (formaPagamentoVenda.getFormaPagamento().getTipo() == TipoFormaPagamento.PRAZO) {
+					if (!(formaPagamentoVenda.getValor().compareTo(formaPagamentoVenda.getValorTotalParcelas()) == 0)) {
+						throw new BusinessException(
+								"valor total das parcelas deve ser igual ao valor da forma de pagamento associada");
+					} else {
+						parcelaService.validaParcelas(formaPagamentoVenda.getParcelas());
+					}
+
 				} else {
-					parcelaService.validaParcelas(formaPagamentoPedido.getParcelas());
+					if (!formaPagamentoVenda.getParcelas().isEmpty()) {
+						throw new BusinessException("forma de pagamento não permite parcelamento");
+					}
+					if (!(formaPagamentoVenda.getValor()
+							.compareTo(formaPagamentoVenda.getContaReceber().getValor()) == 0)) {
+						throw new BusinessException("valor da forma de pagamento difere do valor do conta a receber");
+					}
 				}
+			}
+		} else if (formasPagamentoPedido instanceof FormaPagamentoCompra) {
+			@SuppressWarnings("unchecked")
+			List<FormaPagamentoCompra> formasPagamentoCompra = (List<FormaPagamentoCompra>) formasPagamentoPedido;
+			for (FormaPagamentoCompra formaPagamentoCompra : formasPagamentoCompra) {
 
-			} else {
-				if (!formaPagamentoPedido.getParcelas().isEmpty()) {
-					throw new BusinessException("forma de pagamento não permite parcelamento");
-				}
-				if (formaPagamentoPedido.getContaReceber() == null) {
-					throw new BusinessException("conta a receber não foi criada");
-				} else if (!(formaPagamentoPedido.getValor()
-						.compareTo(formaPagamentoPedido.getContaReceber().getValor()) == 0)) {
-					throw new BusinessException("valor da forma de pagamento difere do valor do conta a receber");
+				if (formaPagamentoCompra.getFormaPagamento().getTipo() == TipoFormaPagamento.PRAZO) {
+					if (!(formaPagamentoCompra.getValor().compareTo(formaPagamentoCompra.getValorTotalParcelas()) == 0)) {
+						throw new BusinessException(
+								"valor total das parcelas deve ser igual ao valor da forma de pagamento associada");
+					} else {
+						parcelaService.validaParcelas(formaPagamentoCompra.getParcelas());
+					}
+
+				} else {
+					if (!formaPagamentoCompra.getParcelas().isEmpty()) {
+						throw new BusinessException("forma de pagamento não permite parcelamento");
+					}
+					if (!(formaPagamentoCompra.getValor()
+							.compareTo(formaPagamentoCompra.getContaPagar().getValor()) == 0)) {
+						throw new BusinessException("valor da forma de pagamento difere do valor do conta a pagar");
+					}
 				}
 			}
 		}
+		
+		
 
 	}
 }

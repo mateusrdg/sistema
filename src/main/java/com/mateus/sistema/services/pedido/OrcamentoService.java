@@ -25,7 +25,7 @@ public class OrcamentoService {
 	@Autowired
 	private FuncionarioService funcionarioService;
 	@Autowired
-	private ItemService itemService;
+	private VendaItemService itemService;
 
 	public Orcamento find(Long id) {
 		Optional<Orcamento> obj = repo.findById(id);

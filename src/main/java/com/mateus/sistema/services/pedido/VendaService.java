@@ -28,7 +28,7 @@ public class VendaService {
 	@Autowired
 	private FuncionarioService funcionarioService;
 	@Autowired
-	private ItemService itemService;
+	private VendaItemService itemService;
 	@Autowired
 	private FormaPagamentoPedidoService fppService;
 	@Autowired
@@ -48,7 +48,7 @@ public class VendaService {
 		Venda obj = fromDTO(objDto);
 		obj.setId(null);
 		contaService.geraContas(obj.getFormasPagamento());
-		isValid(obj);
+		validar(obj);
 		obj = repo.save(obj);
 		caixaMovService.geraCaixa(obj);
 		estoqueService.atualizaEstoque(obj);
@@ -86,7 +86,7 @@ public class VendaService {
 		return venda;
 	}
 
-	public void isValid(Venda venda) {
+	public void validar(Venda venda) {
 		itemService.validarItens(venda.getItens());
 		if (!(venda.getValorTotal().compareTo(venda.getValorTotalFormasPagamento()) == 0)) {
 			throw new BusinessException("valor total do itens deve ser igual ao valor total das formas de pagamento");

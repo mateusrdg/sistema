@@ -12,6 +12,7 @@ import com.mateus.sistema.domain.pedido.Compra;
 import com.mateus.sistema.dto.pedido.compra.CompraNewDTO;
 import com.mateus.sistema.repository.pedido.CompraRepository;
 import com.mateus.sistema.services.caixa.CaixaMovimentacaoService;
+import com.mateus.sistema.services.exceptions.BusinessException;
 import com.mateus.sistema.services.exceptions.DataIntegrityException;
 import com.mateus.sistema.services.exceptions.ObjectNotFoundException;
 import com.mateus.sistema.services.pessoa.FornecedorService;
@@ -29,7 +30,7 @@ public class CompraService {
 	@Autowired
 	private FuncionarioService funcionarioService;
 	@Autowired
-	private ItemService itemService;
+	private CompraItemService itemService;
 	@Autowired
 	private FormaPagamentoPedidoService fppService;
 	@Autowired
@@ -45,6 +46,7 @@ public class CompraService {
 	
 	public Compra insert(Compra obj) {
 		obj.setId(null);
+		validar(obj);
 		contaService.geraContas(obj.getFormasPagamento());
 		obj = repo.save(obj);
 		caixaMovService.geraCaixa(obj);
@@ -71,5 +73,14 @@ public class CompraService {
 		compra.setItens(itemService.fromDTO(objDto.getItens(), compra));
 		compra.setFormasPagamento(fppService.fromNewDto(objDto.getFormasPagamento(), compra));
 		return compra;
+	}
+	
+	public void validar(Compra venda) {
+		itemService.validarItens(venda.getItens());
+		if (!(venda.getValorTotal().compareTo(venda.getValorTotalFormasPagamento()) == 0)) {
+			throw new BusinessException("valor total do itens deve ser igual ao valor total das formas de pagamento");
+		}
+		fppService.validarFormasPagamentoPedido(venda.getFormasPagamento());
+		
 	}
 }

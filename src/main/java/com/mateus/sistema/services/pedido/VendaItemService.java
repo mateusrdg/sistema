@@ -7,14 +7,12 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mateus.sistema.domain.pedido.Compra;
-import com.mateus.sistema.domain.pedido.CompraItem;
 import com.mateus.sistema.domain.pedido.Orcamento;
 import com.mateus.sistema.domain.pedido.OrcamentoItem;
+import com.mateus.sistema.domain.pedido.PedidoItem;
 import com.mateus.sistema.domain.pedido.Venda;
 import com.mateus.sistema.domain.pedido.VendaItem;
 import com.mateus.sistema.domain.produto.ProdutoEstoque;
-import com.mateus.sistema.dto.pedido.item.CompraItemNewDTO;
 import com.mateus.sistema.dto.pedido.item.VendaItemNewDTO;
 import com.mateus.sistema.repository.produto.ProdutoEstoqueRepository;
 import com.mateus.sistema.services.exceptions.BusinessException;
@@ -24,7 +22,7 @@ import com.mateus.sistema.services.produto.PrecoService;
 import com.mateus.sistema.services.produto.ProdutoService;
 
 @Service
-public class ItemService {
+public class VendaItemService {
 
 	@Autowired
 	private ProdutoService produtoService;
@@ -41,21 +39,14 @@ public class ItemService {
 				obj.getQuantidade(), obj.getDesconto())).collect(Collectors.toList());
 	}
 
-	public List<CompraItem> fromDTO(List<CompraItemNewDTO> itens, Compra compra) {
-		return itens.stream()
-				.map(obj -> new CompraItem(null, compra, produtoService.fromDto(obj.getProduto()),
-						estoqueService.fromDto(obj.getEstoque()), obj.getPreco(),obj.getQuantidade(), obj.getDesconto()))
-				.collect(Collectors.toList());
-	}
-
 	public List<OrcamentoItem> fromDTO(List<VendaItemNewDTO> itens, Orcamento orcamento) {
 		return itens.stream().map(obj -> new OrcamentoItem(null, orcamento, produtoService.fromDto(obj.getProduto()),
 				estoqueService.fromDto(obj.getEstoque()), precoService.valorFromDTO(obj),
 				obj.getQuantidade(), obj.getDesconto())).collect(Collectors.toList());
 	}
 
-	public void validarItens(List<VendaItem> itens) {
-		for (VendaItem item : itens) {
+	public void validarItens(List<? extends PedidoItem> itens) {
+		for (PedidoItem item : itens) {
 
 			Optional<ProdutoEstoque> pe = peRepo.findByProdutoAndEstoque(item.getProduto(), item.getEstoque());
 			if (!pe.isPresent()) {
@@ -73,4 +64,5 @@ public class ItemService {
 		}
 		
 	}
+
 }

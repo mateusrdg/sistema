@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.mateus.sistema.domain.pedido.FormaPagamentoCompra;
 import com.mateus.sistema.domain.pedido.FormaPagamentoVenda;
+import com.mateus.sistema.domain.pedido.Parcela;
 import com.mateus.sistema.domain.pedido.ParcelaCompra;
 import com.mateus.sistema.domain.pedido.ParcelaVenda;
 import com.mateus.sistema.dto.pedido.formaPagamentoPedido.parcela.ParcelaNewDTO;
@@ -34,16 +35,29 @@ public class ParcelaService {
 			ParcelaCompra parcela = new ParcelaCompra(null, fpp, obj.getValor(), obj.getEstado(),
 					obj.getDataVencimento(), obj.getDataPagamento());
 			parcelas.add(parcela);
-		}
+		} 
 
 		return parcelas;
 	}
 
-	public void validaParcelas(List<ParcelaVenda> parcelas) {
-		for (ParcelaVenda parcela : parcelas) {
-			if (!(parcela.getValor().compareTo(parcela.getContaReceber().getValor()) == 0)) {
-				throw new BusinessException("valor da parcela difere do valor do conta a receber");
+	public void validaParcelas(List<? extends Parcela> parcelas) {
+		if (parcelas instanceof ParcelaVenda) {
+			@SuppressWarnings("unchecked")
+			List<ParcelaVenda> parcelasVenda = (List<ParcelaVenda>) parcelas; 
+			for (ParcelaVenda parcela : parcelasVenda) {
+				if (!(parcela.getValor().compareTo(parcela.getContaReceber().getValor()) == 0)) {
+					throw new BusinessException("valor da parcela difere do valor do conta a receber");
+				}
+			}
+		} else if (parcelas instanceof ParcelaCompra) {
+			@SuppressWarnings("unchecked")
+			List<ParcelaCompra> parcelasCompra = (List<ParcelaCompra>) parcelas; 
+			for (ParcelaCompra parcela : parcelasCompra) {
+				if (!(parcela.getValor().compareTo(parcela.getContaPagar().getValor()) == 0)) {
+					throw new BusinessException("valor da parcela difere do valor do conta a pagar");
+				}
 			}
 		}
+		
 	}
 }
