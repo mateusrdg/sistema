@@ -6,7 +6,6 @@ import java.math.BigDecimal;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mateus.sistema.dto.produto.ProdutoIdDTO;
 import com.mateus.sistema.dto.produto.estoque.EstoqueIdDTO;
 
@@ -16,8 +15,6 @@ public class PedidoItemNewDTO implements Serializable {
 	@Valid
 	@NotNull(message = "preenchimento obrigatóprio")
 	private ProdutoIdDTO produto;
-	//@NotNull(message = "Preenchimento obrigatório!")
-	private BigDecimal preco;
 	@NotNull(message = "Preenchimento obrigatório!")
 	private BigDecimal quantidade;
 	@NotNull(message = "Preenchimento obrigatório!")
@@ -33,14 +30,6 @@ public class PedidoItemNewDTO implements Serializable {
 		return produto;
 	}
 
-	public BigDecimal getPreco() {
-		return preco;
-	}
-
-	public void setPreco(BigDecimal preco) {
-		this.preco = preco;
-	}
-	
 	public void ProdutoDTO(ProdutoIdDTO produto) {
 		this.produto = produto;
 	}
@@ -67,15 +56,6 @@ public class PedidoItemNewDTO implements Serializable {
 
 	public void setEstoque(EstoqueIdDTO estoque) {
 		this.estoque = estoque;
-	}
-	
-	@JsonIgnore
-	private BigDecimal calculaTotal() {
-		return (this.preco.multiply(this.quantidade).subtract(this.desconto));
-	}
-	@JsonIgnore
-	public BigDecimal getTotal() {
-		return calculaTotal();
 	}
 
 }

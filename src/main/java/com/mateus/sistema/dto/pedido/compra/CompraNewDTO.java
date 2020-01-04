@@ -1,8 +1,10 @@
 package com.mateus.sistema.dto.pedido.compra;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import com.mateus.sistema.dto.pedido.PedidoNewDTO;
 import com.mateus.sistema.dto.pedido.formaPagamentoPedido.FormaPagamentoPedidoNewDTO;
@@ -12,19 +14,19 @@ import com.mateus.sistema.dto.pessoa.funcionario.FuncionarioDTO;
 
 public class CompraNewDTO extends PedidoNewDTO {
 	private static final long serialVersionUID = 1L;
-
+	
+	@Valid
+	@NotNull(message = "preenchimento obrigatório")
 	private FornecedorDTO fornecedor;
+	@Valid
+	@NotNull(message = "preenchimento obrigatório")
 	private FuncionarioDTO funcionario;
-
-	List<CompraItemNewDTO> itens = new ArrayList <CompraItemNewDTO>();
+	@Valid
+	@NotNull(message = "preenchimento obrigatório")
+	List<CompraItemNewDTO> itens = new ArrayList<CompraItemNewDTO>();
+	@Valid
+	@NotNull(message = "preenchimento obrigatório")
 	private List<FormaPagamentoPedidoNewDTO> formasPagamento = new ArrayList<FormaPagamentoPedidoNewDTO>();
-
-//	public CompraNewDTO(FornecedorDTO fornecedor, FuncionarioDTO funcionario, List<PedidoItemNewDTO> itens,
-//			List<FormaPagamentoPedidoNewDTO> formasPagamento) {
-//		this.fornecedor = fornecedor;
-//		this.funcionario = funcionario;
-//		this.formasPagamento = formasPagamento;
-//	}
 
 	public FornecedorDTO getFornecedor() {
 		return fornecedor;
@@ -49,22 +51,12 @@ public class CompraNewDTO extends PedidoNewDTO {
 	public void setFormasPagamento(List<FormaPagamentoPedidoNewDTO> formasPagamento) {
 		this.formasPagamento = formasPagamento;
 	}
-	
+
 	public List<CompraItemNewDTO> getItens() {
 		return itens;
 	}
 
 	public void setItens(List<CompraItemNewDTO> itens) {
 		this.itens = itens;
-	}
-	
-	@Override
-	public BigDecimal calculaValorTotal() {
-		return itens.stream().map(item -> item.getTotal()).reduce(BigDecimal.ZERO, BigDecimal::add);
-	}
-
-	@Override
-	public BigDecimal getValorTotalFormasPagamento() {
-		return formasPagamento.stream().map(x -> x.getValor()).reduce(BigDecimal.ZERO, BigDecimal::add);
 	}
 }
