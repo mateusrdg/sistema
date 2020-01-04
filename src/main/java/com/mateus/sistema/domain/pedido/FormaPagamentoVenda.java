@@ -37,7 +37,7 @@ public class FormaPagamentoVenda extends FormaPagamentoPedido implements Seriali
 
 	@OneToOne(mappedBy = "formaPagamentoVenda", cascade = { CascadeType.PERSIST, CascadeType.MERGE,
 			CascadeType.REMOVE })
-	private ContaReceber contaReceber;
+	private ContaReceber conta;
 
 	public FormaPagamentoVenda() {
 	}
@@ -56,16 +56,9 @@ public class FormaPagamentoVenda extends FormaPagamentoPedido implements Seriali
 		this.pedido = pedido;
 	}
 
-	public ContaReceber getContaReceber() {
-		return contaReceber;
-	}
-
-	public void setContaReceber(ContaReceber contaReceber) {
-		this.contaReceber = contaReceber;
-	}
-
-	public List<ParcelaVenda> getParcelas() {
-		return parcelas;
+	@Override 
+	public List<? extends Parcela> getParcelas(){
+		return this.parcelas;
 	}
 
 	public void setParcelas(List<ParcelaVenda> parcelas) {
@@ -73,8 +66,18 @@ public class FormaPagamentoVenda extends FormaPagamentoPedido implements Seriali
 	}
 
 	@Override
+	public Conta getConta() {
+		return this.conta;
+	}
+
+	public void setConta(ContaReceber contaReceber) {
+		this.conta = contaReceber;
+	}
+	
+	@Override
 	public BigDecimal getValorTotalParcelas() {
 		return parcelas.stream().map(x -> x.getValor()).reduce(BigDecimal.ZERO, BigDecimal::add);
 	}
 
+	
 }

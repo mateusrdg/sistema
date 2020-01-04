@@ -31,7 +31,7 @@ public class FormaPagamentoCompra extends FormaPagamentoPedido implements Serial
 	private List<ParcelaCompra> parcelas = new ArrayList<ParcelaCompra>();
 
 	@OneToOne(mappedBy = "formaPagamentoPedido",  cascade ={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
-	private ContaPagar contaPagar;
+	private ContaPagar conta;
 
 	public FormaPagamentoCompra() {
 	}
@@ -41,9 +41,10 @@ public class FormaPagamentoCompra extends FormaPagamentoPedido implements Serial
 		super(id, formaPagamento, data, valor, estado);
 		this.pedido = pedido;
 	}
-
-	public List<ParcelaCompra> getParcelas() {
-		return parcelas;
+	
+	@Override 
+	public List<? extends Parcela> getParcelas(){
+		return this.parcelas;
 	}
 
 	public void setParcelas(List<ParcelaCompra> parcelas) {
@@ -58,17 +59,18 @@ public class FormaPagamentoCompra extends FormaPagamentoPedido implements Serial
 		this.pedido = pedido;
 	}
 
-	public ContaPagar getContaPagar() {
-		return contaPagar;
+	@Override
+	public Conta getConta() {
+		return this.conta;
 	}
 
-	public void setContaPagar(ContaPagar contaPagar) {
-		this.contaPagar = contaPagar;
+	public void setContaPagar(ContaPagar conta) {
+		this.conta = conta;
 	}
 
 	@Override
 	public BigDecimal getValorTotalParcelas() {
 		return parcelas.stream().map(x -> x.getValor()).reduce(BigDecimal.ZERO, BigDecimal::add);
 	}
-
+	
 }

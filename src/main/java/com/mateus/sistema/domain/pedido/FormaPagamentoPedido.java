@@ -3,6 +3,7 @@ package com.mateus.sistema.domain.pedido;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -90,7 +91,11 @@ public abstract class FormaPagamentoPedido implements Serializable {
 	public void prePersist() {
 		this.data = Calendar.getInstance();
 	}
+	
+	public abstract Conta getConta();
 
+	public abstract List<? extends Parcela> getParcelas();
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

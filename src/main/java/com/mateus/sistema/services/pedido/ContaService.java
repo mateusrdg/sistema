@@ -12,6 +12,7 @@ import com.mateus.sistema.domain.pedido.ContaReceber;
 import com.mateus.sistema.domain.pedido.FormaPagamentoCompra;
 import com.mateus.sistema.domain.pedido.FormaPagamentoPedido;
 import com.mateus.sistema.domain.pedido.FormaPagamentoVenda;
+import com.mateus.sistema.domain.pedido.Parcela;
 import com.mateus.sistema.domain.pedido.ParcelaCompra;
 import com.mateus.sistema.domain.pedido.ParcelaVenda;
 import com.mateus.sistema.dto.pedido.ContaNewDTO;
@@ -38,7 +39,6 @@ public class ContaService {
 		return new ContaPagar(null, conta.getValor(), conta.getEstado(), conta.getDataPagamento(),
 				conta.getDataVencimento(), null, obj);
 	}
-
 	public void geraContas(List<? extends FormaPagamentoPedido> formasPagamento) {
 		for (FormaPagamentoPedido formaPagamentoPedido : formasPagamento) {
 			geraContasPorTipoFormaDePagamento(formaPagamentoPedido);
@@ -54,13 +54,13 @@ public class ContaService {
 			if (formaPagamentoVenda.getFormaPagamento().getTipo() == TipoFormaPagamento.PRAZO
 					|| formaPagamentoVenda.getFormaPagamento().getTipo() == TipoFormaPagamento.CARTAO) {
 				Calendar data = Calendar.getInstance();
-				for (ParcelaVenda parcela : formaPagamentoVenda.getParcelas()) {
+				for (Parcela parcela : formaPagamentoVenda.getParcelas()) {
 					data.add(Calendar.MONTH, 1);
-					parcela.setContaReceber(new ContaReceber(null, parcela.getValor(), EstadoPagamento.PENDENTE, null,
-							data, null, parcela));
+					((ParcelaVenda)parcela).setContaReceber(new ContaReceber(null, parcela.getValor(), EstadoPagamento.PENDENTE, null,
+							data, null, ((ParcelaVenda)parcela)));
 				}
 			} else if (formaPagamentoVenda.getFormaPagamento().getTipo() == TipoFormaPagamento.AVISTA) {
-				(formaPagamentoVenda).setContaReceber(
+				(formaPagamentoVenda).setConta(
 						new ContaReceber(null, formaPagamentoPedido.getValor(), EstadoPagamento.QUITADO,
 								Calendar.getInstance(), Calendar.getInstance(), formaPagamentoVenda, null));
 			}
@@ -70,10 +70,10 @@ public class ContaService {
 			if (formaPagamentoCompra.getFormaPagamento().getTipo() == TipoFormaPagamento.PRAZO
 					|| formaPagamentoCompra.getFormaPagamento().getTipo() == TipoFormaPagamento.CARTAO) {
 				Calendar data = Calendar.getInstance();
-				for (ParcelaCompra parcela : formaPagamentoCompra.getParcelas()) {
+				for (Parcela parcela : formaPagamentoCompra.getParcelas()) {
 					data.add(Calendar.MONTH, 1);
-					parcela.setContaPagar(new ContaPagar(null, parcela.getValor(), EstadoPagamento.PENDENTE, null, data,
-							null, parcela));
+					((ParcelaCompra) parcela).setContaPagar(new ContaPagar(null, parcela.getValor(), EstadoPagamento.PENDENTE, null, data,
+							null, (ParcelaCompra)parcela));
 				}
 			} else if (formaPagamentoCompra.getFormaPagamento().getTipo() == TipoFormaPagamento.AVISTA) {
 				(formaPagamentoCompra)
@@ -81,7 +81,8 @@ public class ContaService {
 								Calendar.getInstance(), Calendar.getInstance(), formaPagamentoCompra, null));
 			}
 		}
-
+		
+	
 	}
 
 }

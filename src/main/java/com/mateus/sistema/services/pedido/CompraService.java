@@ -46,8 +46,8 @@ public class CompraService {
 	
 	public Compra insert(Compra obj) {
 		obj.setId(null);
-		validar(obj);
 		contaService.geraContas(obj.getFormasPagamento());
+		validar(obj);
 		obj = repo.save(obj);
 		caixaMovService.geraCaixa(obj);
 		estoqueService.geraEntradas(obj.getItens());

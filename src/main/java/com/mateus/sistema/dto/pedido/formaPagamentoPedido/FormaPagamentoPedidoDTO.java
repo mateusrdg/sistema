@@ -9,9 +9,7 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mateus.sistema.domain.enums.EstadoPagamento;
-import com.mateus.sistema.domain.pedido.FormaPagamentoCompra;
 import com.mateus.sistema.domain.pedido.FormaPagamentoPedido;
-import com.mateus.sistema.domain.pedido.FormaPagamentoVenda;
 import com.mateus.sistema.dto.pedido.ContaDTO;
 import com.mateus.sistema.dto.pedido.FormaPagamentoDTO;
 import com.mateus.sistema.dto.pedido.formaPagamentoPedido.parcela.ParcelaDTO;
@@ -36,22 +34,12 @@ public class FormaPagamentoPedidoDTO implements Serializable {
 	public FormaPagamentoPedidoDTO(FormaPagamentoPedido formaPagamentoPedido) {
 		this.id = formaPagamentoPedido.getId();
 		
-		if (formaPagamentoPedido instanceof FormaPagamentoVenda) {
-			parcelas = ((FormaPagamentoVenda) formaPagamentoPedido).getParcelas().stream().map(obj -> new ParcelaDTO(obj))
-					.collect(Collectors.toList());
-			if (((FormaPagamentoVenda) formaPagamentoPedido).getContaReceber() != null) {
-				setConta(new ContaDTO(((FormaPagamentoVenda) formaPagamentoPedido).getContaReceber()));
-			}
+		parcelas = (formaPagamentoPedido).getParcelas().stream().map(obj -> new ParcelaDTO(obj))
+				.collect(Collectors.toList());
+		if ((formaPagamentoPedido).getConta() != null) {
+			setConta(new ContaDTO((formaPagamentoPedido).getConta()));
 		}
-		
-		if (formaPagamentoPedido instanceof FormaPagamentoCompra) {
-			parcelas = ((FormaPagamentoCompra) formaPagamentoPedido).getParcelas().stream().map(obj -> new ParcelaDTO(obj))
-					.collect(Collectors.toList());
-			if (((FormaPagamentoCompra) formaPagamentoPedido).getContaPagar() != null) {
-				setConta(new ContaDTO(((FormaPagamentoCompra) formaPagamentoPedido).getContaPagar()));
-			}
-			
-		}
+					
 		this.formaPagamento = new FormaPagamentoDTO(formaPagamentoPedido.getFormaPagamento());
 		this.valor = formaPagamentoPedido.getValor();
 		this.data = formaPagamentoPedido.getData();

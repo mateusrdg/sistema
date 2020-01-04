@@ -285,7 +285,7 @@ public class DBService {
 
 		ContaReceber conta2 = new ContaReceber(null, new BigDecimal(10),
 				EstadoPagamento.QUITADO, Calendar.getInstance(), Calendar.getInstance(), formaPagamentoPedido2, null);
-		formaPagamentoPedido2.setContaReceber(conta2);
+		formaPagamentoPedido2.setConta(conta2);
 
 		ContaReceber conta3 = new ContaReceber(null, new BigDecimal(30),
 				EstadoPagamento.PENDENTE, null, Calendar.getInstance(), null, parcela1);

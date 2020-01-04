@@ -13,6 +13,7 @@ import com.mateus.sistema.domain.enums.TipoMovimentacao;
 import com.mateus.sistema.domain.pedido.Compra;
 import com.mateus.sistema.domain.pedido.FormaPagamentoCompra;
 import com.mateus.sistema.domain.pedido.FormaPagamentoVenda;
+import com.mateus.sistema.domain.pedido.Parcela;
 import com.mateus.sistema.domain.pedido.ParcelaCompra;
 import com.mateus.sistema.domain.pedido.ParcelaVenda;
 import com.mateus.sistema.domain.pedido.Pedido;
@@ -48,24 +49,24 @@ public class CaixaMovimentacaoService {
 		List<Movimentacao> movimentacoes = new ArrayList<Movimentacao>();
 		if (pedido instanceof Venda) {
 			for (FormaPagamentoVenda fp : ((Venda) pedido).getFormasPagamento()) {
-				if (fp.getContaReceber() != null) {
-					movimentacoes.add(new Movimentacao(null, find(new Long(3)), fp.getContaReceber().getId(),
-							fp.getContaReceber().getValor(), TipoMovimentacao.ENTRADA));
+				if (fp.getConta() != null) {
+					movimentacoes.add(new Movimentacao(null, find(new Long(3)), fp.getConta().getId(),
+							fp.getConta().getValor(), TipoMovimentacao.ENTRADA));
 				}
-				for (ParcelaVenda parcela : fp.getParcelas()) {
-					movimentacoes.add(new Movimentacao(null, find(new Long(3)), parcela.getContaReceber().getId(),
-							parcela.getContaReceber().getValor(), TipoMovimentacao.ENTRADA));
+				for (Parcela parcela : fp.getParcelas()) {
+					movimentacoes.add(new Movimentacao(null, find(new Long(3)), ((ParcelaVenda) parcela).getContaReceber().getId(),
+							((ParcelaVenda) parcela).getContaReceber().getValor(), TipoMovimentacao.ENTRADA));
 				}
 			}
 		} else if (pedido instanceof Compra) {
 			for (FormaPagamentoCompra fp : ((Compra) pedido).getFormasPagamento()) {
-				if (fp.getContaPagar() != null) {
-					movimentacoes.add(new Movimentacao(null, find(new Long(3)), fp.getContaPagar().getId(),
-							fp.getContaPagar().getValor(), TipoMovimentacao.SAIDA));
+				if (fp.getConta() != null) {
+					movimentacoes.add(new Movimentacao(null, find(new Long(3)), fp.getConta().getId(),
+							fp.getConta().getValor(), TipoMovimentacao.SAIDA));
 				}
-				for (ParcelaCompra parcela : fp.getParcelas()) {
-					movimentacoes.add(new Movimentacao(null, find(new Long(3)), parcela.getContaPagar().getId(),
-							parcela.getContaPagar().getValor(), TipoMovimentacao.SAIDA));
+				for (Parcela parcela : fp.getParcelas()) {
+					movimentacoes.add(new Movimentacao(null, find(new Long(3)), ((ParcelaCompra) parcela).getContaPagar().getId(),
+							((ParcelaCompra) parcela).getContaPagar().getValor(), TipoMovimentacao.SAIDA));
 				}
 			}
 		}
