@@ -1,6 +1,5 @@
 package com.mateus.sistema.services.pedido;
 
-import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,7 +52,7 @@ public class OrcamentoService {
 	}
 
 	public Orcamento fromDTO(OrcamentoNewDTO objDto) {
-		Orcamento orcamento = new Orcamento(null, Calendar.getInstance(), clienteService.fromDto(objDto.getCliente()),
+		Orcamento orcamento = new Orcamento(null, clienteService.fromDto(objDto.getCliente()),
 				funcionarioService.fromDto(objDto.getVendedor()), false);
 		orcamento.setItens(itemService.fromDTO(objDto.getItens(), orcamento));
 

@@ -3,7 +3,6 @@ package com.mateus.sistema.domain.pedido;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -34,15 +33,14 @@ public class Compra extends Pedido implements Serializable {
 	@OneToMany(mappedBy = "pedido", cascade ={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
 	private List<CompraItem> itens = new ArrayList<CompraItem>();
 	
-	
 	@OneToMany(mappedBy = "pedido", cascade ={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
 	private List<FormaPagamentoCompra> formasPagamento = new ArrayList<FormaPagamentoCompra>();
 	
 	public Compra() {
 	}
 	
-	public Compra(Long id, Calendar data, Fornecedor fornecedor, Funcionario funcionario) {
-		super(id, data);
+	public Compra(Long id, Fornecedor fornecedor, Funcionario funcionario) {
+		super(id);
 		setFornecedor(fornecedor);
 		this.funcionario = funcionario;
 	}

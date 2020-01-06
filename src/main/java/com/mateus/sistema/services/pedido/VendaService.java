@@ -1,6 +1,5 @@
 package com.mateus.sistema.services.pedido;
 
-import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -79,7 +78,7 @@ public class VendaService {
 	}
 
 	public Venda fromDTO(VendaNewDTO objDto) {
-		Venda venda = new Venda(null, Calendar.getInstance(), clienteService.fromDto(objDto.getCliente()),
+		Venda venda = new Venda(null, clienteService.fromDto(objDto.getCliente()),
 				funcionarioService.fromDto(objDto.getVendedor()));
 		venda.setItens(itemService.fromDTO(objDto.getItens(), venda));
 		venda.setFormasPagamento(fppService.fromNewDto(objDto.getFormasPagamento(), venda));

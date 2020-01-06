@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
 
 import com.mateus.sistema.domain.pessoa.Pessoa;
 @MappedSuperclass
@@ -18,13 +19,13 @@ public abstract class Pedido implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private Calendar data;
+	private Boolean ativo;
 	
 	public Pedido() {
 	}
 
-	public Pedido(Long id, Calendar data) {
+	public Pedido(Long id) {
 		this.id = id;
-		this.data = data;
 	}
 
 	public abstract Pessoa getCompradorVendedor();
@@ -51,9 +52,23 @@ public abstract class Pedido implements Serializable {
 		return calculaValorTotal();
 	}
 	
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
+	}
 	public abstract BigDecimal calculaValorTotal();
 
 	public abstract BigDecimal getValorTotalFormasPagamento();
+	
+	@PrePersist
+	public void prePresist() {
+		this.data = Calendar.getInstance();
+		this.ativo = true;
+	}
+	
 	
 	@Override
 	public int hashCode() {
@@ -79,5 +94,7 @@ public abstract class Pedido implements Serializable {
 			return false;
 		return true;
 	}
+
+	
 
 }

@@ -3,7 +3,6 @@ package com.mateus.sistema.domain.pedido;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -42,8 +41,8 @@ public class Venda extends Pedido implements Serializable {
 	public Venda() {
 	}
 
-	public Venda(Long id, Calendar data, Cliente cliente, Funcionario vendedor) {
-		super(id, data);
+	public Venda(Long id, Cliente cliente, Funcionario vendedor) {
+		super(id);
 		this.setCliente(cliente);
 		this.vendedor = vendedor;
 	}

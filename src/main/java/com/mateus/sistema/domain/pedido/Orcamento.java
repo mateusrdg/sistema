@@ -3,7 +3,6 @@ package com.mateus.sistema.domain.pedido;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -36,8 +35,8 @@ public class Orcamento extends Pedido implements Serializable {
 	public Orcamento() {
 	}
 	
-	public Orcamento(Long id, Calendar data, Cliente cliente, Funcionario vendedor, Boolean faturado) {
-		super(id, data);
+	public Orcamento(Long id, Cliente cliente, Funcionario vendedor, Boolean faturado) {
+		super(id);
 		this.setCliente(cliente);
 		this.vendedor = vendedor;
 		this.faturado = (faturado == true) ? 1 : 0;

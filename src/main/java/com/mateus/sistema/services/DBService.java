@@ -228,11 +228,11 @@ public class DBService {
 
 		pessoaEnderecoRepo.saveAll(Arrays.asList(pe1, pe2, pe3, pe4));
 
-		Venda venda = new Venda(null, Calendar.getInstance(), cliente1, funcionario1);
+		Venda venda = new Venda(null, cliente1, funcionario1);
 
-		Compra compra = new Compra(null, Calendar.getInstance(), fornecedor2, funcionario2);
+		Compra compra = new Compra(null, fornecedor2, funcionario2);
 
-		Orcamento orcamento = new Orcamento(null, Calendar.getInstance(), cliente2, funcionario1, false);
+		Orcamento orcamento = new Orcamento(null, cliente2, funcionario1, false);
 
 		VendaItem itemVenda = new VendaItem(null, venda, produto1, estoque1, new BigDecimal(10), new BigDecimal(2),
 				new BigDecimal(0));
