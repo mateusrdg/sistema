@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 
 import com.mateus.sistema.domain.pessoa.Pessoa;
 @MappedSuperclass
@@ -20,6 +21,7 @@ public abstract class Pedido implements Serializable {
 	private Long id;
 	private Calendar data;
 	private Boolean ativo;
+	private Calendar dataAlteracao;
 	
 	public Pedido() {
 	}
@@ -48,6 +50,14 @@ public abstract class Pedido implements Serializable {
 		this.data = data;
 	}
 	
+	public Calendar getDataAlteracao() {
+		return dataAlteracao;
+	}
+
+	public void setDataAlteracao(Calendar dataAlteracao) {
+		this.dataAlteracao = dataAlteracao;
+	}
+	
 	public BigDecimal getValorTotal() {
 		return calculaValorTotal();
 	}
@@ -68,7 +78,10 @@ public abstract class Pedido implements Serializable {
 		this.data = Calendar.getInstance();
 		this.ativo = true;
 	}
-	
+	@PreUpdate
+	public void preUpdate() {
+		this.dataAlteracao = Calendar.getInstance();
+	}
 	
 	@Override
 	public int hashCode() {
@@ -94,7 +107,4 @@ public abstract class Pedido implements Serializable {
 			return false;
 		return true;
 	}
-
-	
-
 }
