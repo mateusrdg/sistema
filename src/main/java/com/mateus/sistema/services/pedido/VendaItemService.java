@@ -7,12 +7,11 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mateus.sistema.domain.pedido.Orcamento;
-import com.mateus.sistema.domain.pedido.OrcamentoItem;
 import com.mateus.sistema.domain.pedido.PedidoItem;
 import com.mateus.sistema.domain.pedido.Venda;
 import com.mateus.sistema.domain.pedido.VendaItem;
 import com.mateus.sistema.domain.produto.ProdutoEstoque;
+import com.mateus.sistema.dto.pedido.item.VendaItemDTO;
 import com.mateus.sistema.dto.pedido.item.VendaItemNewDTO;
 import com.mateus.sistema.repository.produto.ProdutoEstoqueRepository;
 import com.mateus.sistema.services.exceptions.BusinessException;
@@ -33,16 +32,24 @@ public class VendaItemService {
 	@Autowired
 	private ProdutoEstoqueRepository peRepo;
 
-	public List<VendaItem> fromDTO(List<VendaItemNewDTO> itens, Venda venda) {
-		return itens.stream().map(obj -> new VendaItem(null, venda, produtoService.fromDto(obj.getProduto()),
-				estoqueService.fromDto(obj.getEstoque()), precoService.valorFromDTO(obj),
-				obj.getQuantidade(), obj.getDesconto())).collect(Collectors.toList());
+	public List<VendaItem> fromNewDTO(List<VendaItemNewDTO> itens, Venda venda) {
+		return itens.stream()
+				.map(obj -> new VendaItem(null, venda, produtoService.fromDto(obj.getProduto()),
+						estoqueService.fromDto(obj.getEstoque()),
+						precoService.getValorByTipoPrecoAndProduto(obj.getTipoPreco().getCod(),
+								obj.getProduto().getId()),
+						obj.getQuantidade(), obj.getDesconto()))
+				.collect(Collectors.toList());
 	}
 
-	public List<OrcamentoItem> fromDTO(List<VendaItemNewDTO> itens, Orcamento orcamento) {
-		return itens.stream().map(obj -> new OrcamentoItem(null, orcamento, produtoService.fromDto(obj.getProduto()),
-				estoqueService.fromDto(obj.getEstoque()), precoService.valorFromDTO(obj),
-				obj.getQuantidade(), obj.getDesconto())).collect(Collectors.toList());
+	public List<VendaItem> fromDTO(List<VendaItemDTO> itens, Venda venda) {
+		return itens.stream()
+				.map(obj -> new VendaItem(obj.getId(), venda, produtoService.fromDto(obj.getProduto()),
+						estoqueService.fromDto(obj.getEstoque()),
+						precoService.getValorByTipoPrecoAndProduto(obj.getTipoPreco().getCod(),
+								obj.getProduto().getId()),
+						obj.getQuantidade(), obj.getDesconto()))
+				.collect(Collectors.toList());
 	}
 
 	public void validarItens(List<? extends PedidoItem> itens) {
@@ -62,7 +69,7 @@ public class VendaItemService {
 			}
 
 		}
-		
+
 	}
 
 }

@@ -14,6 +14,7 @@ import com.mateus.sistema.domain.pedido.FormaPagamentoPedido;
 import com.mateus.sistema.domain.pedido.FormaPagamentoVenda;
 import com.mateus.sistema.domain.pedido.Venda;
 import com.mateus.sistema.dto.pedido.FormaPagamentoIdDTO;
+import com.mateus.sistema.dto.pedido.formaPagamentoPedido.FormaPagamentoPedidoDTO;
 import com.mateus.sistema.dto.pedido.formaPagamentoPedido.FormaPagamentoPedidoNewDTO;
 import com.mateus.sistema.services.exceptions.BusinessException;
 
@@ -26,15 +27,12 @@ public class FormaPagamentoPedidoService {
 	private ParcelaService parcelaService;
 
 	public List<FormaPagamentoVenda> fromNewDto(List<FormaPagamentoPedidoNewDTO> list, Venda venda) {
-
 		List<FormaPagamentoVenda> formasPagamento = new ArrayList<FormaPagamentoVenda>();
-
 		for (FormaPagamentoPedidoNewDTO dto : list) {
 			FormaPagamentoVenda fpv = fromNewFormaPagamentoPedidoDTO(dto, venda);
 			fpv.setParcelas(parcelaService.fromNewDto(dto.getParcelas(), fpv));
 			formasPagamento.add(fpv);
 		}
-
 		return formasPagamento;
 	}
 
@@ -94,5 +92,10 @@ public class FormaPagamentoPedidoService {
 			}
 		}
 
+	}
+
+	public List<FormaPagamentoVenda> fromDTO(List<FormaPagamentoPedidoDTO> formasPagamento) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

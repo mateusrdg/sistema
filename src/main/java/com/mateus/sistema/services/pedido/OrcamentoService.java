@@ -24,7 +24,7 @@ public class OrcamentoService {
 	@Autowired
 	private FuncionarioService funcionarioService;
 	@Autowired
-	private VendaItemService itemService;
+	private OrcamentoItemService itemService;
 
 	public Orcamento find(Long id) {
 		Optional<Orcamento> obj = repo.findById(id);
@@ -54,7 +54,7 @@ public class OrcamentoService {
 	public Orcamento fromDTO(OrcamentoNewDTO objDto) {
 		Orcamento orcamento = new Orcamento(null, clienteService.fromDto(objDto.getCliente()),
 				funcionarioService.fromDto(objDto.getVendedor()), false);
-		orcamento.setItens(itemService.fromDTO(objDto.getItens(), orcamento));
+		orcamento.setItens(itemService.fromNewDTO(objDto.getItens(), orcamento));
 
 		return orcamento;
 	}

@@ -8,6 +8,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.mateus.sistema.domain.pedido.Venda;
+import com.mateus.sistema.dto.pedido.venda.VendaDTO;
 import com.mateus.sistema.dto.pedido.venda.VendaNewDTO;
 import com.mateus.sistema.repository.pedido.VendaRepository;
 import com.mateus.sistema.services.caixa.CaixaMovimentacaoService;
@@ -44,7 +45,7 @@ public class VendaService {
 	}
 
 	public Venda insert(VendaNewDTO objDto) {
-		Venda obj = fromDTO(objDto);
+		Venda obj = fromNewDTO(objDto);
 		obj.setId(null);
 		contaService.geraContas(obj.getFormasPagamento());
 		validar(obj);
@@ -54,10 +55,19 @@ public class VendaService {
 		return obj;
 	}
 
-	public Venda update(Venda obj) {
-		Venda newObj = find(obj.getId());
+	public Venda update(VendaDTO objDto, Long id) {
+		Venda obj = fromDTO(objDto);
+		obj.setId(id);
+		Venda newObj = find(id);
 		updateData(newObj, obj);
 		return repo.save(newObj);
+	}
+
+	private Venda fromDTO(VendaDTO objDto) {
+		Venda obj = new Venda(null, clienteService.fromDto(objDto.getCliente()), funcionarioService.fromDto(objDto.getVendedor()));
+		obj.setItens(itemService.fromDTO(objDto.getItens(), obj));
+		obj.setFormasPagamento(fppService.fromDTO(objDto.getFormasPagamento()));
+		return obj;
 	}
 
 	public void delete(Long id) {
@@ -77,10 +87,10 @@ public class VendaService {
 		// TODO
 	}
 
-	public Venda fromDTO(VendaNewDTO objDto) {
+	public Venda fromNewDTO(VendaNewDTO objDto) {
 		Venda venda = new Venda(null, clienteService.fromDto(objDto.getCliente()),
 				funcionarioService.fromDto(objDto.getVendedor()));
-		venda.setItens(itemService.fromDTO(objDto.getItens(), venda));
+		venda.setItens(itemService.fromNewDTO(objDto.getItens(), venda));
 		venda.setFormasPagamento(fppService.fromNewDto(objDto.getFormasPagamento(), venda));
 		return venda;
 	}
