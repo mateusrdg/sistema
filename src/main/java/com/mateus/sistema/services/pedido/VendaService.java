@@ -37,7 +37,7 @@ public class VendaService {
 	private EstoqueService estoqueService;
 	@Autowired
 	private ContaService contaService;
-	
+
 	public Venda find(Long id) {
 		Optional<Venda> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
@@ -63,13 +63,6 @@ public class VendaService {
 		return repo.save(newObj);
 	}
 
-	private Venda fromDTO(VendaDTO objDto) {
-		Venda obj = new Venda(null, clienteService.fromDto(objDto.getCliente()), funcionarioService.fromDto(objDto.getVendedor()));
-		obj.setItens(itemService.fromDTO(objDto.getItens(), obj));
-		obj.setFormasPagamento(fppService.fromDTO(objDto.getFormasPagamento()));
-		return obj;
-	}
-
 	public void delete(Long id) {
 		repo.findById(id);
 		try {
@@ -87,6 +80,14 @@ public class VendaService {
 		// TODO
 	}
 
+	private Venda fromDTO(VendaDTO objDto) {
+		Venda obj = new Venda(null, clienteService.fromDto(objDto.getCliente()),
+				funcionarioService.fromDto(objDto.getVendedor()));
+		obj.setItens(itemService.fromDTO(objDto.getItens(), obj));
+		obj.setFormasPagamento(fppService.fromDTO(objDto.getFormasPagamento(), obj));
+		return obj;
+	}
+
 	public Venda fromNewDTO(VendaNewDTO objDto) {
 		Venda venda = new Venda(null, clienteService.fromDto(objDto.getCliente()),
 				funcionarioService.fromDto(objDto.getVendedor()));
@@ -101,6 +102,6 @@ public class VendaService {
 			throw new BusinessException("valor total do itens deve ser igual ao valor total das formas de pagamento");
 		}
 		fppService.validarFormasPagamentoPedido(venda.getFormasPagamento());
-		
+
 	}
 }

@@ -29,34 +29,51 @@ public class FormaPagamentoPedidoService {
 	public List<FormaPagamentoVenda> fromNewDto(List<FormaPagamentoPedidoNewDTO> list, Venda venda) {
 		List<FormaPagamentoVenda> formasPagamento = new ArrayList<FormaPagamentoVenda>();
 		for (FormaPagamentoPedidoNewDTO dto : list) {
-			FormaPagamentoVenda fpv = fromNewFormaPagamentoPedidoDTO(dto, venda);
+			FormaPagamentoVenda fpv = fromFormaPagamentoPedidoNewDTO(dto, venda);
 			fpv.setParcelas(parcelaService.fromNewDto(dto.getParcelas(), fpv));
 			formasPagamento.add(fpv);
 		}
 		return formasPagamento;
 	}
 
-	public List<FormaPagamentoCompra> fromNewDto(List<FormaPagamentoPedidoNewDTO> list, Compra venda) {
-
+	public List<FormaPagamentoVenda> fromDTO(List<FormaPagamentoPedidoDTO> formasPagamento, Venda venda) {
+		List<FormaPagamentoVenda> formasPagamentoVenda = new ArrayList<FormaPagamentoVenda>();
+		for (FormaPagamentoPedidoDTO objDto : formasPagamento) {
+			FormaPagamentoVenda fpv = fromFormaPagamentoPedidoDTO(objDto, venda);
+			fpv.setParcelas(parcelaService.fromDto(objDto.getParcelas(), fpv));
+			formasPagamentoVenda.add(fpv);
+		}
+		return formasPagamentoVenda;
+	}
+	
+	public List<FormaPagamentoCompra> fromNewDto(List<FormaPagamentoPedidoNewDTO> list, Compra compra) {
 		List<FormaPagamentoCompra> formasPagamento = new ArrayList<FormaPagamentoCompra>();
-
 		for (FormaPagamentoPedidoNewDTO dto : list) {
-			FormaPagamentoCompra fpc = fromNewFormaPagamentoPedidoDTO(dto, venda);
+			FormaPagamentoCompra fpc = fromFormaPagamentoPedidoNewDTO(dto, compra);
 			fpc.setParcelas(parcelaService.fromNewDto(dto.getParcelas(), fpc));
 			formasPagamento.add(fpc);
 		}
-
 		return formasPagamento;
 	}
 
-	public FormaPagamentoVenda fromNewFormaPagamentoPedidoDTO(FormaPagamentoPedidoNewDTO newDTo, Venda venda) {
+	public FormaPagamentoVenda fromFormaPagamentoPedidoNewDTO(FormaPagamentoPedidoNewDTO newDTo, Venda venda) {
 		return new FormaPagamentoVenda(null, venda, formaPagamentoService.fromDto(newDTo.getFormaPagamento()),
 				newDTo.getData(), newDTo.getValor(), getEstadoPagamentoPorFormaPagamento(newDTo.getFormaPagamento()));
 	}
 
-	public FormaPagamentoCompra fromNewFormaPagamentoPedidoDTO(FormaPagamentoPedidoNewDTO newDTo, Compra compra) {
+	public FormaPagamentoCompra fromFormaPagamentoPedidoNewDTO(FormaPagamentoPedidoNewDTO newDTo, Compra compra) {
 		return new FormaPagamentoCompra(null, compra, formaPagamentoService.fromDto(newDTo.getFormaPagamento()),
 				newDTo.getData(), newDTo.getValor(), getEstadoPagamentoPorFormaPagamento(newDTo.getFormaPagamento()));
+	}
+	
+	public FormaPagamentoVenda fromFormaPagamentoPedidoDTO(FormaPagamentoPedidoDTO dto, Venda venda) {
+		return new FormaPagamentoVenda(dto.getId(), venda, formaPagamentoService.fromDto(dto.getFormaPagamento()),
+				dto.getData(), dto.getValor(), getEstadoPagamentoPorFormaPagamento(dto.getFormaPagamento()));
+	}
+
+	public FormaPagamentoCompra fromFormaPagamentoPedidoDTO(FormaPagamentoPedidoDTO dto, Compra compra) {
+		return new FormaPagamentoCompra(dto.getId(), compra, formaPagamentoService.fromDto(dto.getFormaPagamento()),
+				dto.getData(), dto.getValor(), getEstadoPagamentoPorFormaPagamento(dto.getFormaPagamento()));
 	}
 
 	private EstadoPagamento getEstadoPagamentoPorFormaPagamento(FormaPagamentoIdDTO formaPagamento) {
@@ -94,8 +111,4 @@ public class FormaPagamentoPedidoService {
 
 	}
 
-	public List<FormaPagamentoVenda> fromDTO(List<FormaPagamentoPedidoDTO> formasPagamento) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

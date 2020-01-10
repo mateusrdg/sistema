@@ -3,9 +3,9 @@ package com.mateus.sistema.dto.pedido;
 import com.mateus.sistema.domain.enums.TipoFormaPagamento;
 import com.mateus.sistema.domain.pedido.FormaPagamento;
 
-public class FormaPagamentoDTO {
-
-	private Long id;
+public class FormaPagamentoDTO extends FormaPagamentoIdDTO{
+	private static final long serialVersionUID = 1L;
+	
 	private String descricao;
 	private TipoFormaPagamento tipo;
 
@@ -14,23 +14,15 @@ public class FormaPagamentoDTO {
 	}
 
 	public FormaPagamentoDTO(FormaPagamento formaPagamento) {
-		this.id = formaPagamento.getId();
+		super(formaPagamento);
 		this.descricao = formaPagamento.getDescricao();
 		this.tipo = formaPagamento.getTipo();
 	}
 	
 	public FormaPagamentoDTO(Long id, String descricao, TipoFormaPagamento tipo) {
-		this.id = id;
+		setId(id);
 		this.descricao = descricao;
 		this.tipo = tipo;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getDescricao() {

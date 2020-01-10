@@ -10,36 +10,52 @@ import com.mateus.sistema.domain.pedido.FormaPagamentoVenda;
 import com.mateus.sistema.domain.pedido.Parcela;
 import com.mateus.sistema.domain.pedido.ParcelaCompra;
 import com.mateus.sistema.domain.pedido.ParcelaVenda;
+import com.mateus.sistema.dto.pedido.formaPagamentoPedido.parcela.ParcelaDTO;
 import com.mateus.sistema.dto.pedido.formaPagamentoPedido.parcela.ParcelaNewDTO;
 import com.mateus.sistema.services.exceptions.BusinessException;
 
 @Service
 public class ParcelaService {
 
-	public List<ParcelaVenda> fromNewDto(List<ParcelaNewDTO> list, FormaPagamentoVenda fpp) {
+	public List<ParcelaVenda> fromNewDto(List<ParcelaNewDTO> list, FormaPagamentoVenda fpv) {
 		List<ParcelaVenda> parcelas = new ArrayList<ParcelaVenda>();
-
 		for (ParcelaNewDTO obj : list) {
-			ParcelaVenda parcela = new ParcelaVenda(null, fpp, obj.getValor(), obj.getEstado(), obj.getDataVencimento(),
+			ParcelaVenda parcela = new ParcelaVenda(null, fpv, obj.getValor(), obj.getEstado(), obj.getDataVencimento(),
 					obj.getDataPagamento());
 			parcelas.add(parcela);
 		}
-
 		return parcelas;
 	}
 
-	public List<ParcelaCompra> fromNewDto(List<ParcelaNewDTO> list, FormaPagamentoCompra fpp) {
+	public List<ParcelaCompra> fromNewDto(List<ParcelaNewDTO> list, FormaPagamentoCompra fpc) {
 		List<ParcelaCompra> parcelas = new ArrayList<ParcelaCompra>();
-
 		for (ParcelaNewDTO obj : list) {
-			ParcelaCompra parcela = new ParcelaCompra(null, fpp, obj.getValor(), obj.getEstado(),
+			ParcelaCompra parcela = new ParcelaCompra(null, fpc, obj.getValor(), obj.getEstado(),
 					obj.getDataVencimento(), obj.getDataPagamento());
 			parcelas.add(parcela);
 		} 
-
 		return parcelas;
 	}
 
+	public List<ParcelaVenda> fromDto(List<ParcelaDTO> list, FormaPagamentoVenda fpv) {
+		List<ParcelaVenda> parcelas = new ArrayList<ParcelaVenda>();
+		for (ParcelaDTO obj : list) {
+			ParcelaVenda parcela = new ParcelaVenda(obj.getId(), fpv, obj.getValor(), obj.getEstado(), obj.getDataVencimento(),
+					obj.getDataPagamento());
+			parcelas.add(parcela);
+		}
+		return parcelas;
+	}
+	
+	public List<ParcelaCompra> fromDto(List<ParcelaDTO> list, FormaPagamentoCompra fpc) {
+		List<ParcelaCompra> parcelas = new ArrayList<ParcelaCompra>();
+		for (ParcelaDTO obj : list) {
+			ParcelaCompra parcela = new ParcelaCompra(obj.getId(), fpc, obj.getValor(), obj.getEstado(), obj.getDataVencimento(),
+					obj.getDataPagamento());
+			parcelas.add(parcela);
+		}
+		return parcelas;
+	}
 	public void validaParcelas(List<? extends Parcela> parcelas) {
 		if (parcelas instanceof ParcelaVenda) {
 			@SuppressWarnings("unchecked")
@@ -60,4 +76,6 @@ public class ParcelaService {
 		}
 		
 	}
+
+	
 }
