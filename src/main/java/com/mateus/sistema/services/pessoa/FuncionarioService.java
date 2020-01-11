@@ -67,7 +67,7 @@ public class FuncionarioService {
 		newObj.setTipo(obj.getTipoFuncionario());
 	}
 
-	public Funcionario fromDto(FuncionarioNewDTO objDto) {
+	public Funcionario fromDTO(FuncionarioNewDTO objDto) {
 		Funcionario obj = new Funcionario(null, objDto.getNome(), objDto.getEmail(), objDto.getCpfCnpj(),
 				objDto.getTipoFuncionario());
 		pessoaService.enderecosFromDto(obj, objDto);
@@ -75,7 +75,7 @@ public class FuncionarioService {
 		return obj;
 	}
 
-	public Funcionario fromDto(PessoaIdDTO objDto) {
+	public Funcionario fromDTO(PessoaIdDTO objDto) {
 		return find(objDto.getId());
 	}
 

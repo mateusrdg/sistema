@@ -12,7 +12,6 @@ import com.mateus.sistema.domain.pedido.Venda;
 import com.mateus.sistema.domain.pedido.VendaItem;
 import com.mateus.sistema.domain.produto.ProdutoEstoque;
 import com.mateus.sistema.dto.pedido.item.VendaItemDTO;
-import com.mateus.sistema.dto.pedido.item.VendaItemNewDTO;
 import com.mateus.sistema.repository.produto.ProdutoEstoqueRepository;
 import com.mateus.sistema.services.exceptions.BusinessException;
 import com.mateus.sistema.services.exceptions.ObjectNotFoundException;
@@ -32,24 +31,15 @@ public class VendaItemService {
 	@Autowired
 	private ProdutoEstoqueRepository peRepo;
 
-	public List<VendaItem> fromNewDTO(List<VendaItemNewDTO> itens, Venda venda) {
-		return itens.stream()
-				.map(obj -> new VendaItem(null, venda, produtoService.fromDto(obj.getProduto()),
-						estoqueService.fromDto(obj.getEstoque()),
-						precoService.getValorByTipoPrecoAndProduto(obj.getTipoPreco().getCod(),
-								obj.getProduto().getId()),
-						obj.getQuantidade(), obj.getDesconto()))
-				.collect(Collectors.toList());
-	}
-
 	public List<VendaItem> fromDTO(List<VendaItemDTO> itens, Venda venda) {
 		return itens.stream()
-				.map(obj -> new VendaItem(obj.getId(), venda, produtoService.fromDto(obj.getProduto()),
-						estoqueService.fromDto(obj.getEstoque()),
+				.map(obj -> new VendaItem(((obj.getId() == null) ? null : obj.getId()), venda,
+						produtoService.fromDTO(obj.getProduto()), estoqueService.fromDto(obj.getEstoque()),
 						precoService.getValorByTipoPrecoAndProduto(obj.getTipoPreco().getCod(),
 								obj.getProduto().getId()),
 						obj.getQuantidade(), obj.getDesconto()))
 				.collect(Collectors.toList());
+
 	}
 
 	public void validarItens(List<? extends PedidoItem> itens) {

@@ -1,57 +1,55 @@
 package com.mateus.sistema.dto.pedido.venda;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import com.mateus.sistema.domain.pedido.Orcamento;
-import com.mateus.sistema.domain.pedido.Venda;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 import com.mateus.sistema.dto.pedido.PedidoDTO;
+import com.mateus.sistema.dto.pedido.formaPagamentoPedido.FormaPagamentoPedidoDTO;
 import com.mateus.sistema.dto.pedido.item.VendaItemDTO;
-import com.mateus.sistema.dto.pessoa.PessoaDTO;
+import com.mateus.sistema.dto.pessoa.PessoaIdDTO;
 
-public class VendaDTO extends PedidoDTO implements Serializable {
+
+public class VendaDTO extends PedidoDTO {
 	private static final long serialVersionUID = 1L;
-
-	private PessoaDTO cliente;
-	private PessoaDTO vendedor;
 	
+	@Valid
+	@NotNull(message = "preenchimento obrigatório")
+	private PessoaIdDTO cliente;
+	@Valid
+	@NotNull(message = "preenchimento obrigatório")
+	private PessoaIdDTO vendedor;
+	@Valid
+	@NotNull(message = "preenchimento obrigatório")
 	private List<VendaItemDTO> itens = new ArrayList<VendaItemDTO>();
-	
-	public VendaDTO() {
-	}
+	@Valid
+	@NotNull(message = "preenchimento obrigatório")
+	private List<FormaPagamentoPedidoDTO> formasPagamento = new ArrayList<FormaPagamentoPedidoDTO>();
 
-	public VendaDTO(Venda venda) {
-		super(venda);
-		this.cliente = new PessoaDTO(venda.getClienteFornecedor());
-		this.vendedor = new PessoaDTO(venda.getCompradorVendedor());
-		itens = venda.getItens().stream().map(obj -> new VendaItemDTO(obj))
-				.collect(Collectors.toList());
-	}
-
-	public VendaDTO(Orcamento orcamento) {
-		super(orcamento);
-		this.cliente = new PessoaDTO(orcamento.getClienteFornecedor());
-		this.vendedor = new PessoaDTO(orcamento.getCompradorVendedor());
-		itens = orcamento.getItens().stream().map(obj -> new VendaItemDTO(obj))
-				.collect(Collectors.toList());
-	}
-
-	public PessoaDTO getCliente() {
+	public PessoaIdDTO getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(PessoaDTO cliente) {
+	public void setCliente(PessoaIdDTO cliente) {
 		this.cliente = cliente;
 	}
 
-	public PessoaDTO getVendedor() {
+	public PessoaIdDTO getVendedor() {
 		return vendedor;
 	}
 
-	public void setVendedor(PessoaDTO vendedor) {
+	public void setVendedor(PessoaIdDTO vendedor) {
 		this.vendedor = vendedor;
+	}
+
+	public List<FormaPagamentoPedidoDTO> getFormasPagamento() {
+		return formasPagamento;
+	}
+
+	public void setFormasPagamento(List<FormaPagamentoPedidoDTO> formasPagamento) {
+		this.formasPagamento = formasPagamento;
 	}
 
 	public List<VendaItemDTO> getItens() {
@@ -61,7 +59,5 @@ public class VendaDTO extends PedidoDTO implements Serializable {
 	public void setItens(List<VendaItemDTO> itens) {
 		this.itens = itens;
 	}
-
-	
 
 }

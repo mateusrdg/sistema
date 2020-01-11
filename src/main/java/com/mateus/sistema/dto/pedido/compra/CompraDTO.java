@@ -5,17 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mateus.sistema.domain.pedido.Compra;
-import com.mateus.sistema.dto.pedido.PedidoDTO;
-import com.mateus.sistema.dto.pedido.item.CompraItemDTO;
+import com.mateus.sistema.dto.pedido.PedidoResponseDTO;
+import com.mateus.sistema.dto.pedido.item.CompraResponseDTO;
 import com.mateus.sistema.dto.pessoa.PessoaDTO;
 
-public class CompraDTO extends PedidoDTO implements Serializable {
+public class CompraDTO extends PedidoResponseDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private PessoaDTO fornecedor;
 	private PessoaDTO funcionario;
 	
-	private List<CompraItemDTO> itens = new ArrayList<CompraItemDTO>();
+	private List<CompraResponseDTO> itens = new ArrayList<CompraResponseDTO>();
 	
 	public CompraDTO() {
 	}
@@ -42,11 +42,11 @@ public class CompraDTO extends PedidoDTO implements Serializable {
 		this.funcionario = fornecedor;
 	}
 
-	public List<CompraItemDTO> getItens() {
+	public List<CompraResponseDTO> getItens() {
 		return itens;
 	}
 
-	public void setItens(List<CompraItemDTO> itens) {
+	public void setItens(List<CompraResponseDTO> itens) {
 		this.itens = itens;
 	}
 

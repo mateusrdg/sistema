@@ -17,7 +17,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.mateus.sistema.domain.pedido.Orcamento;
 import com.mateus.sistema.dto.pedido.orcamento.OrcamentoNewDTO;
-import com.mateus.sistema.dto.pedido.venda.VendaDTO;
+import com.mateus.sistema.dto.pedido.venda.VendaResponseDTO;
 import com.mateus.sistema.services.pedido.OrcamentoService;
 
 @RestController
@@ -27,9 +27,9 @@ public class OrcamentoResource {
 	private OrcamentoService service;
 	
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
-	public ResponseEntity<VendaDTO> find(@PathVariable Long id){
+	public ResponseEntity<VendaResponseDTO> find(@PathVariable Long id){
 		Orcamento obj = service.find(id);
-		VendaDTO objDTO = new VendaDTO(obj);
+		VendaResponseDTO objDTO = new VendaResponseDTO(obj);
 		return ResponseEntity.ok(objDTO);
 	}
 	
@@ -48,9 +48,9 @@ public class OrcamentoResource {
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<VendaDTO>> findAll() {
+	public ResponseEntity<List<VendaResponseDTO>> findAll() {
 		List<Orcamento> list = service.findAll();
-		List<VendaDTO> listDTO = list.stream().map(obj -> new VendaDTO(obj)).collect(Collectors.toList());
+		List<VendaResponseDTO> listDTO = list.stream().map(obj -> new VendaResponseDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);
 	}
 	

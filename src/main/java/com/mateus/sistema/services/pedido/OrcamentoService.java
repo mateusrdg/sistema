@@ -53,7 +53,7 @@ public class OrcamentoService {
 
 	public Orcamento fromDTO(OrcamentoNewDTO objDto) {
 		Orcamento orcamento = new Orcamento(null, clienteService.fromDto(objDto.getCliente()),
-				funcionarioService.fromDto(objDto.getVendedor()), false);
+				funcionarioService.fromDTO(objDto.getVendedor()), false);
 		orcamento.setItens(itemService.fromNewDTO(objDto.getItens(), orcamento));
 
 		return orcamento;

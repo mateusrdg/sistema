@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.mateus.sistema.domain.pedido.Venda;
+import com.mateus.sistema.dto.pedido.venda.VendaResponseDTO;
 import com.mateus.sistema.dto.pedido.venda.VendaDTO;
-import com.mateus.sistema.dto.pedido.venda.VendaNewDTO;
 import com.mateus.sistema.services.pedido.VendaService;
 
 @RestController
@@ -27,14 +27,14 @@ public class VendaResource {
 	private VendaService service;
 	
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
-	public ResponseEntity<VendaDTO> find(@PathVariable Long id){
+	public ResponseEntity<VendaResponseDTO> find(@PathVariable Long id){
 		Venda obj = service.find(id);
-		VendaDTO objDTO = new VendaDTO(obj);
+		VendaResponseDTO objDTO = new VendaResponseDTO(obj);
 		return ResponseEntity.ok(objDTO);
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert (@Valid @RequestBody VendaNewDTO objDto){
+	public ResponseEntity<Void> insert (@Valid @RequestBody VendaDTO objDto){
 		Venda obj = service.insert(objDto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("{/id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
@@ -53,9 +53,9 @@ public class VendaResource {
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<VendaDTO>> findAll() {
+	public ResponseEntity<List<VendaResponseDTO>> findAll() {
 		List<Venda> list = service.findAll();
-		List<VendaDTO> listDTO = list.stream().map(obj -> new VendaDTO(obj)).collect(Collectors.toList());
+		List<VendaResponseDTO> listDTO = list.stream().map(obj -> new VendaResponseDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);
 	}
 	

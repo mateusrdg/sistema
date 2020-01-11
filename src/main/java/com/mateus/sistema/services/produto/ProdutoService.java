@@ -66,7 +66,7 @@ public class ProdutoService {
 		newObj.setProdutoSubgrupos(obj.getProdutoSubgrupos());
 	}
 
-	public Produto fromDto(ProdutoNewDTO objDto) {
+	public Produto fromDTO(ProdutoNewDTO objDto) {
 		Produto obj = new Produto(null, objDto.getDescricao(), objDto.getReferencia());
 		obj.setPrecos(precoService.fromNewDto(objDto.getPrecos(), obj));
 		obj.setProdutoEstoques(estoqueService.fromNewDto(objDto.getEstoques(), obj));
@@ -74,7 +74,7 @@ public class ProdutoService {
 		return obj;
 	}
 
-	public Produto fromDto(ProdutoIdDTO objDto) {
+	public Produto fromDTO(ProdutoIdDTO objDto) {
 		return find(objDto.getId());
 	}
 }

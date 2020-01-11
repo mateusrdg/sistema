@@ -68,9 +68,9 @@ public class CompraService {
 
 	public Compra fromDTO(CompraNewDTO objDto) {
 		Compra compra = new Compra(null, fornecedorService.fromDto(objDto.getFornecedor()),
-				funcionarioService.fromDto(objDto.getFuncionario()));
+				funcionarioService.fromDTO(objDto.getFuncionario()));
 		compra.setItens(itemService.fromDTO(objDto.getItens(), compra));
-		compra.setFormasPagamento(fppService.fromNewDto(objDto.getFormasPagamento(), compra));
+		compra.setFormasPagamento(fppService.fromDTO(objDto.getFormasPagamento(), compra));
 		return compra;
 	}
 	

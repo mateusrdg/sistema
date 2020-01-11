@@ -23,11 +23,11 @@ public class FormaPagamentoService {
 				"Forma de pagamento não encontrada! Id: " + id + ", Tipo: " + FormaPagamento.class.getName()));
 	}
 	
-	public FormaPagamento fromDto (FormaPagamentoDTO objDto) {
+	public FormaPagamento fromDTO (FormaPagamentoDTO objDto) {
 		return new FormaPagamento(objDto.getId(), objDto.getDescricao(), objDto.getTipo());
 	}
 
-	public FormaPagamento fromDto(FormaPagamentoIdDTO formaPagamento) {
+	public FormaPagamento fromDTO(FormaPagamentoIdDTO formaPagamento) {
 		return find(formaPagamento.getId());
 	}
 }

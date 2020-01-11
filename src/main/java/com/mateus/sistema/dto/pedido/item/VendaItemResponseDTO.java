@@ -1,15 +1,19 @@
 package com.mateus.sistema.dto.pedido.item;
 
-import javax.validation.constraints.NotNull;
-
 import com.mateus.sistema.domain.enums.TipoPreco;
+import com.mateus.sistema.domain.pedido.OrcamentoItem;
+import com.mateus.sistema.domain.pedido.VendaItem;
 
-public class VendaItemNewDTO extends PedidoItemNewDTO {
+public class VendaItemResponseDTO extends PedidoItemResponseDTO {
 	private static final long serialVersionUID = 1L;
-	@NotNull(message = "Preenchimento obrigatório.")
 	private TipoPreco tipoPreco;
 
-	public VendaItemNewDTO() {
+	public VendaItemResponseDTO(VendaItem item) {
+		super(item);
+	}
+
+	public VendaItemResponseDTO(OrcamentoItem item) {
+		super(item);
 	}
 
 	public TipoPreco getTipoPreco() {

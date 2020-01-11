@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.mateus.sistema.domain.pedido.Compra;
 import com.mateus.sistema.domain.pedido.CompraItem;
-import com.mateus.sistema.dto.pedido.item.CompraItemNewDTO;
+import com.mateus.sistema.dto.pedido.item.CompraItemDTO;
 import com.mateus.sistema.services.produto.EstoqueService;
 import com.mateus.sistema.services.produto.ProdutoService;
 
@@ -20,9 +20,9 @@ public class CompraItemService {
 	@Autowired
 	private EstoqueService estoqueService;
 	
-	public List<CompraItem> fromDTO(List<CompraItemNewDTO> itens, Compra compra) {
+	public List<CompraItem> fromDTO(List<CompraItemDTO> itens, Compra compra) {
 		return itens.stream()
-				.map(obj -> new CompraItem(null, compra, produtoService.fromDto(obj.getProduto()),
+				.map(obj -> new CompraItem(null, compra, produtoService.fromDTO(obj.getProduto()),
 						estoqueService.fromDto(obj.getEstoque()), obj.getPreco(),obj.getQuantidade(), obj.getDesconto()))
 				.collect(Collectors.toList());
 	}

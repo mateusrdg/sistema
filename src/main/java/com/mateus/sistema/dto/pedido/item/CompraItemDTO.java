@@ -1,12 +1,20 @@
 package com.mateus.sistema.dto.pedido.item;
 
-import com.mateus.sistema.domain.pedido.CompraItem;
+import java.math.BigDecimal;
 
-public class CompraItemDTO extends PedidoItemDTO {
+import javax.validation.constraints.NotNull;
+
+public class CompraItemDTO extends PedidoItemDTO{
 	private static final long serialVersionUID = 1L;
 	
-	public CompraItemDTO(CompraItem item) {
-		super(item);
+	@NotNull(message = "Preenchimento obrigatório!")
+	private BigDecimal preco;
+	
+	public BigDecimal getPreco() {
+		return preco;
 	}
 
+	public void setPreco(BigDecimal preco) {
+		this.preco = preco;
+	}
 }

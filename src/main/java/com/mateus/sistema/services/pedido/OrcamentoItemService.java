@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.mateus.sistema.domain.pedido.Orcamento;
 import com.mateus.sistema.domain.pedido.OrcamentoItem;
-import com.mateus.sistema.dto.pedido.item.VendaItemNewDTO;
+import com.mateus.sistema.dto.pedido.item.VendaItemDTO;
 import com.mateus.sistema.services.produto.EstoqueService;
 import com.mateus.sistema.services.produto.PrecoService;
 import com.mateus.sistema.services.produto.ProdutoService;
@@ -23,9 +23,9 @@ public class OrcamentoItemService {
 	@Autowired
 	private PrecoService precoService;
 	
-	public List<OrcamentoItem> fromNewDTO(List<VendaItemNewDTO> itens, Orcamento orcamento) {
+	public List<OrcamentoItem> fromNewDTO(List<VendaItemDTO> itens, Orcamento orcamento) {
 		return itens.stream()
-				.map(obj -> new OrcamentoItem(null, orcamento, produtoService.fromDto(obj.getProduto()),
+				.map(obj -> new OrcamentoItem(null, orcamento, produtoService.fromDTO(obj.getProduto()),
 						estoqueService.fromDto(obj.getEstoque()),
 						precoService.getValorByTipoPrecoAndProduto(obj.getTipoPreco().getCod(),
 								obj.getProduto().getId()),

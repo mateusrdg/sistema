@@ -3,23 +3,23 @@ package com.mateus.sistema.dto.pedido.orcamento;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mateus.sistema.dto.pedido.PedidoNewDTO;
-import com.mateus.sistema.dto.pedido.formaPagamentoPedido.FormaPagamentoPedidoNewDTO;
-import com.mateus.sistema.dto.pedido.item.PedidoItemNewDTO;
-import com.mateus.sistema.dto.pedido.item.VendaItemNewDTO;
+import com.mateus.sistema.dto.pedido.PedidoDTO;
+import com.mateus.sistema.dto.pedido.formaPagamentoPedido.FormaPagamentoPedidoDTO;
+import com.mateus.sistema.dto.pedido.item.PedidoItemDTO;
+import com.mateus.sistema.dto.pedido.item.VendaItemDTO;
 import com.mateus.sistema.dto.pessoa.cliente.ClienteDTO;
 import com.mateus.sistema.dto.pessoa.funcionario.FuncionarioDTO;
 
-public class OrcamentoNewDTO extends PedidoNewDTO {
+public class OrcamentoNewDTO extends PedidoDTO {
 	private static final long serialVersionUID = 1L;
 
 	private ClienteDTO cliente;
 	private FuncionarioDTO vendedor;
 	
-	List<VendaItemNewDTO> itens = new ArrayList <VendaItemNewDTO>();
+	List<VendaItemDTO> itens = new ArrayList <VendaItemDTO>();
 	
-	public OrcamentoNewDTO(ClienteDTO cliente, FuncionarioDTO vendedor, List<PedidoItemNewDTO> itens,
-			List<FormaPagamentoPedidoNewDTO> formasPagamento) {
+	public OrcamentoNewDTO(ClienteDTO cliente, FuncionarioDTO vendedor, List<PedidoItemDTO> itens,
+			List<FormaPagamentoPedidoDTO> formasPagamento) {
 		
 		this.cliente = cliente;
 		this.vendedor = vendedor;
@@ -41,11 +41,11 @@ public class OrcamentoNewDTO extends PedidoNewDTO {
 		this.vendedor = vendedor;
 	}
 	
-	public List<VendaItemNewDTO> getItens() {
+	public List<VendaItemDTO> getItens() {
 		return itens;
 	}
 
-	public void setItens(List<VendaItemNewDTO> itens) {
+	public void setItens(List<VendaItemDTO> itens) {
 		this.itens = itens;
 	}
 
