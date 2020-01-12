@@ -1,4 +1,4 @@
-package com.mateus.sistema.services.pedido;
+package com.mateus.sistema.services.pedido.orcamento;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.mateus.sistema.domain.pedido.Orcamento;
 import com.mateus.sistema.domain.pedido.OrcamentoItem;
-import com.mateus.sistema.dto.pedido.item.VendaItemDTO;
+import com.mateus.sistema.dto.pedido.venda.VendaItemDTO;
 import com.mateus.sistema.services.produto.EstoqueService;
 import com.mateus.sistema.services.produto.PrecoService;
 import com.mateus.sistema.services.produto.ProdutoService;

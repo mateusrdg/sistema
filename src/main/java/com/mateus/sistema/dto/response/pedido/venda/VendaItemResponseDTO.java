@@ -1,8 +1,9 @@
-package com.mateus.sistema.dto.pedido.item;
+package com.mateus.sistema.dto.response.pedido.venda;
 
 import com.mateus.sistema.domain.enums.TipoPreco;
 import com.mateus.sistema.domain.pedido.OrcamentoItem;
 import com.mateus.sistema.domain.pedido.VendaItem;
+import com.mateus.sistema.dto.response.pedido.PedidoItemResponseDTO;
 
 public class VendaItemResponseDTO extends PedidoItemResponseDTO {
 	private static final long serialVersionUID = 1L;

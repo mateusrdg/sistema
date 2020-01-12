@@ -1,4 +1,4 @@
-package com.mateus.sistema.dto.pedido.venda;
+package com.mateus.sistema.dto.response.pedido.venda;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -7,9 +7,8 @@ import java.util.stream.Collectors;
 
 import com.mateus.sistema.domain.pedido.Orcamento;
 import com.mateus.sistema.domain.pedido.Venda;
-import com.mateus.sistema.dto.pedido.PedidoResponseDTO;
-import com.mateus.sistema.dto.pedido.item.VendaItemResponseDTO;
 import com.mateus.sistema.dto.pessoa.PessoaDTO;
+import com.mateus.sistema.dto.response.pedido.PedidoResponseDTO;
 
 public class VendaResponseDTO extends PedidoResponseDTO implements Serializable {
 	private static final long serialVersionUID = 1L;

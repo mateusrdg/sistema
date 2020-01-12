@@ -1,4 +1,4 @@
-package com.mateus.sistema.services.pedido;
+package com.mateus.sistema.services;
 
 import java.util.Calendar;
 import java.util.List;
@@ -15,7 +15,7 @@ import com.mateus.sistema.domain.pedido.FormaPagamentoVenda;
 import com.mateus.sistema.domain.pedido.Parcela;
 import com.mateus.sistema.domain.pedido.ParcelaCompra;
 import com.mateus.sistema.domain.pedido.ParcelaVenda;
-import com.mateus.sistema.dto.pedido.ContaNewDTO;
+import com.mateus.sistema.dto.ContaNewDTO;
 
 @Service
 public class ContaService {

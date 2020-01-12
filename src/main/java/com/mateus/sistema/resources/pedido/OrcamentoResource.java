@@ -17,8 +17,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.mateus.sistema.domain.pedido.Orcamento;
 import com.mateus.sistema.dto.pedido.orcamento.OrcamentoNewDTO;
-import com.mateus.sistema.dto.pedido.venda.VendaResponseDTO;
-import com.mateus.sistema.services.pedido.OrcamentoService;
+import com.mateus.sistema.dto.response.pedido.venda.VendaResponseDTO;
+import com.mateus.sistema.services.pedido.orcamento.OrcamentoService;
 
 @RestController
 @RequestMapping(value = "/orcamentos")

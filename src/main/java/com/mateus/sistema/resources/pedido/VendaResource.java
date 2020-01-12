@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.mateus.sistema.domain.pedido.Venda;
-import com.mateus.sistema.dto.pedido.venda.VendaResponseDTO;
 import com.mateus.sistema.dto.pedido.venda.VendaDTO;
-import com.mateus.sistema.services.pedido.VendaService;
+import com.mateus.sistema.dto.response.pedido.venda.VendaResponseDTO;
+import com.mateus.sistema.services.pedido.venda.VendaService;
 
 @RestController
 @RequestMapping(value = "/vendas")

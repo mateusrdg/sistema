@@ -1,4 +1,4 @@
-package com.mateus.sistema.dto.pedido.formaPagamentoPedido.parcela;
+package com.mateus.sistema.dto.response.pedido.formaPagamentoPedido.parcela;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -9,7 +9,7 @@ import com.mateus.sistema.domain.enums.EstadoPagamento;
 import com.mateus.sistema.domain.pedido.Parcela;
 import com.mateus.sistema.domain.pedido.ParcelaCompra;
 import com.mateus.sistema.domain.pedido.ParcelaVenda;
-import com.mateus.sistema.dto.pedido.ContaDTO;
+import com.mateus.sistema.dto.ContaDTO;
 
 public class ParcelaResponseDTO implements Serializable {
 	private static final long serialVersionUID = 1L;

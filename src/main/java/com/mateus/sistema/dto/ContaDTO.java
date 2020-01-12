@@ -1,4 +1,4 @@
-package com.mateus.sistema.dto.pedido;
+package com.mateus.sistema.dto;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -7,7 +7,6 @@ import java.util.Calendar;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mateus.sistema.domain.enums.EstadoPagamento;
 import com.mateus.sistema.domain.pedido.Conta;
-import com.mateus.sistema.dto.EntidadeId;
 
 public class ContaDTO extends EntidadeId implements Serializable {
 	private static final long serialVersionUID = 1L;

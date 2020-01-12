@@ -17,8 +17,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.mateus.sistema.domain.pedido.Compra;
 import com.mateus.sistema.dto.pedido.compra.CompraDTO;
-import com.mateus.sistema.dto.pedido.compra.CompraNewDTO;
-import com.mateus.sistema.services.pedido.CompraService;
+import com.mateus.sistema.dto.response.pedido.compra.CompraResponseDTO;
+import com.mateus.sistema.services.pedido.compra.CompraService;
 
 @RestController
 @RequestMapping(value = "/compras")
@@ -27,14 +27,14 @@ public class CompraResource {
 	private CompraService service;
 	
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
-	public ResponseEntity<CompraDTO> find(@PathVariable Long id){
+	public ResponseEntity<CompraResponseDTO> find(@PathVariable Long id){
 		Compra obj = service.find(id);
-		CompraDTO objDTO = new CompraDTO(obj);
+		CompraResponseDTO objDTO = new CompraResponseDTO(obj);
 		return ResponseEntity.ok(objDTO);
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert (@Valid @RequestBody CompraNewDTO objDto){
+	public ResponseEntity<Void> insert (@Valid @RequestBody CompraDTO objDto){
 		Compra obj = service.fromDTO(objDto);
 		service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("{/id}").buildAndExpand(obj.getId()).toUri();
@@ -48,9 +48,9 @@ public class CompraResource {
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<CompraDTO>> findAll() {
+	public ResponseEntity<List<CompraResponseDTO>> findAll() {
 		List<Compra> list = service.findAll();
-		List<CompraDTO> listDTO = list.stream().map(obj -> new CompraDTO(obj)).collect(Collectors.toList());
+		List<CompraResponseDTO> listDTO = list.stream().map(obj -> new CompraResponseDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);
 	}
 	

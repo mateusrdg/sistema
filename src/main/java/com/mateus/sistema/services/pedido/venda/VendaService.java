@@ -1,4 +1,4 @@
-package com.mateus.sistema.services.pedido;
+package com.mateus.sistema.services.pedido.venda;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,10 +10,12 @@ import org.springframework.stereotype.Service;
 import com.mateus.sistema.domain.pedido.Venda;
 import com.mateus.sistema.dto.pedido.venda.VendaDTO;
 import com.mateus.sistema.repository.pedido.VendaRepository;
+import com.mateus.sistema.services.ContaService;
 import com.mateus.sistema.services.caixa.CaixaMovimentacaoService;
 import com.mateus.sistema.services.exceptions.BusinessException;
 import com.mateus.sistema.services.exceptions.DataIntegrityException;
 import com.mateus.sistema.services.exceptions.ObjectNotFoundException;
+import com.mateus.sistema.services.pedido.formaPagamentoPedido.FormaPagamentoPedidoService;
 import com.mateus.sistema.services.pessoa.ClienteService;
 import com.mateus.sistema.services.pessoa.FuncionarioService;
 import com.mateus.sistema.services.produto.EstoqueService;

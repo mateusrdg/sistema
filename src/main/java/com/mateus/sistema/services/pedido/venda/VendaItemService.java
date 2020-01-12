@@ -1,4 +1,4 @@
-package com.mateus.sistema.services.pedido;
+package com.mateus.sistema.services.pedido.venda;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,7 +11,7 @@ import com.mateus.sistema.domain.pedido.PedidoItem;
 import com.mateus.sistema.domain.pedido.Venda;
 import com.mateus.sistema.domain.pedido.VendaItem;
 import com.mateus.sistema.domain.produto.ProdutoEstoque;
-import com.mateus.sistema.dto.pedido.item.VendaItemDTO;
+import com.mateus.sistema.dto.pedido.venda.VendaItemDTO;
 import com.mateus.sistema.repository.produto.ProdutoEstoqueRepository;
 import com.mateus.sistema.services.exceptions.BusinessException;
 import com.mateus.sistema.services.exceptions.ObjectNotFoundException;

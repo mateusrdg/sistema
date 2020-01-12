@@ -1,53 +1,61 @@
 package com.mateus.sistema.dto.pedido.compra;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mateus.sistema.domain.pedido.Compra;
-import com.mateus.sistema.dto.pedido.PedidoResponseDTO;
-import com.mateus.sistema.dto.pedido.item.CompraResponseDTO;
-import com.mateus.sistema.dto.pessoa.PessoaDTO;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
-public class CompraDTO extends PedidoResponseDTO implements Serializable {
+import com.mateus.sistema.dto.pedido.PedidoDTO;
+import com.mateus.sistema.dto.pedido.formaPagamentoPedido.FormaPagamentoPedidoDTO;
+import com.mateus.sistema.dto.pessoa.fornecedor.FornecedorDTO;
+import com.mateus.sistema.dto.pessoa.funcionario.FuncionarioDTO;
+
+public class CompraDTO extends PedidoDTO {
 	private static final long serialVersionUID = 1L;
-
-	private PessoaDTO fornecedor;
-	private PessoaDTO funcionario;
 	
-	private List<CompraResponseDTO> itens = new ArrayList<CompraResponseDTO>();
-	
-	public CompraDTO() {
-	}
+	@Valid
+	@NotNull(message = "preenchimento obrigatório")
+	private FornecedorDTO fornecedor;
+	@Valid
+	@NotNull(message = "preenchimento obrigatório")
+	private FuncionarioDTO funcionario;
+	@Valid
+	@NotNull(message = "preenchimento obrigatório")
+	List<CompraItemDTO> itens = new ArrayList<CompraItemDTO>();
+	@Valid
+	@NotNull(message = "preenchimento obrigatório")
+	private List<FormaPagamentoPedidoDTO> formasPagamento = new ArrayList<FormaPagamentoPedidoDTO>();
 
-	public CompraDTO(Compra compra) {
-		super(compra);
-		this.fornecedor = new PessoaDTO(compra.getFornecedor());
-		this.funcionario = new PessoaDTO(compra.getFuncionario());
-	}
-
-	public PessoaDTO getFornecedor() {
+	public FornecedorDTO getFornecedor() {
 		return fornecedor;
 	}
 
-	public void setFornecedor(PessoaDTO fornecedor) {
+	public void setFornecedor(FornecedorDTO fornecedor) {
 		this.fornecedor = fornecedor;
 	}
 
-	public PessoaDTO getFuncionario() {
+	public FuncionarioDTO getFuncionario() {
 		return funcionario;
 	}
 
-	public void setFuncionario(PessoaDTO fornecedor) {
-		this.funcionario = fornecedor;
+	public void setFuncionario(FuncionarioDTO funcionario) {
+		this.funcionario = funcionario;
 	}
 
-	public List<CompraResponseDTO> getItens() {
+	public List<FormaPagamentoPedidoDTO> getFormasPagamento() {
+		return formasPagamento;
+	}
+
+	public void setFormasPagamento(List<FormaPagamentoPedidoDTO> formasPagamento) {
+		this.formasPagamento = formasPagamento;
+	}
+
+	public List<CompraItemDTO> getItens() {
 		return itens;
 	}
 
-	public void setItens(List<CompraResponseDTO> itens) {
+	public void setItens(List<CompraItemDTO> itens) {
 		this.itens = itens;
 	}
-
 }

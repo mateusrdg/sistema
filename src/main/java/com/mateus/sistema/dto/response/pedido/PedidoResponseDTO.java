@@ -1,4 +1,4 @@
-package com.mateus.sistema.dto.pedido;
+package com.mateus.sistema.dto.response.pedido;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mateus.sistema.domain.pedido.Compra;
 import com.mateus.sistema.domain.pedido.Pedido;
 import com.mateus.sistema.domain.pedido.Venda;
-import com.mateus.sistema.dto.pedido.formaPagamentoPedido.FormaPagamentoPedidoResponseDTO;
+import com.mateus.sistema.dto.response.pedido.formaPagamentoPedido.FormaPagamentoPedidoResponseDTO;
 
 public class PedidoResponseDTO implements Serializable {
 	private static final long serialVersionUID = 1L;

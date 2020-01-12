@@ -1,4 +1,4 @@
-package com.mateus.sistema.services.pedido;
+package com.mateus.sistema.services.pedido.compra;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,12 +8,14 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.mateus.sistema.domain.pedido.Compra;
-import com.mateus.sistema.dto.pedido.compra.CompraNewDTO;
+import com.mateus.sistema.dto.pedido.compra.CompraDTO;
 import com.mateus.sistema.repository.pedido.CompraRepository;
+import com.mateus.sistema.services.ContaService;
 import com.mateus.sistema.services.caixa.CaixaMovimentacaoService;
 import com.mateus.sistema.services.exceptions.BusinessException;
 import com.mateus.sistema.services.exceptions.DataIntegrityException;
 import com.mateus.sistema.services.exceptions.ObjectNotFoundException;
+import com.mateus.sistema.services.pedido.formaPagamentoPedido.FormaPagamentoPedidoService;
 import com.mateus.sistema.services.pessoa.FornecedorService;
 import com.mateus.sistema.services.pessoa.FuncionarioService;
 import com.mateus.sistema.services.produto.EstoqueService;
@@ -66,7 +68,7 @@ public class CompraService {
 		}
 	}
 
-	public Compra fromDTO(CompraNewDTO objDto) {
+	public Compra fromDTO(CompraDTO objDto) {
 		Compra compra = new Compra(null, fornecedorService.fromDto(objDto.getFornecedor()),
 				funcionarioService.fromDTO(objDto.getFuncionario()));
 		compra.setItens(itemService.fromDTO(objDto.getItens(), compra));

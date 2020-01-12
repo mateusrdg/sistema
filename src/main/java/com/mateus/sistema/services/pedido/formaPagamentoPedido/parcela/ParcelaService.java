@@ -1,4 +1,4 @@
-package com.mateus.sistema.services.pedido;
+package com.mateus.sistema.services.pedido.formaPagamentoPedido.parcela;
 
 import java.util.ArrayList;
 import java.util.List;

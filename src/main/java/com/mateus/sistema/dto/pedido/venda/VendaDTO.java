@@ -8,7 +8,6 @@ import javax.validation.constraints.NotNull;
 
 import com.mateus.sistema.dto.pedido.PedidoDTO;
 import com.mateus.sistema.dto.pedido.formaPagamentoPedido.FormaPagamentoPedidoDTO;
-import com.mateus.sistema.dto.pedido.item.VendaItemDTO;
 import com.mateus.sistema.dto.pessoa.PessoaIdDTO;
 
 

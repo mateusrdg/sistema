@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mateus.sistema.dto.pedido.PedidoDTO;
+import com.mateus.sistema.dto.pedido.PedidoItemDTO;
 import com.mateus.sistema.dto.pedido.formaPagamentoPedido.FormaPagamentoPedidoDTO;
-import com.mateus.sistema.dto.pedido.item.PedidoItemDTO;
-import com.mateus.sistema.dto.pedido.item.VendaItemDTO;
+import com.mateus.sistema.dto.pedido.venda.VendaItemDTO;
 import com.mateus.sistema.dto.pessoa.cliente.ClienteDTO;
 import com.mateus.sistema.dto.pessoa.funcionario.FuncionarioDTO;
 
