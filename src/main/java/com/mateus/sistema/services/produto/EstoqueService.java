@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.mateus.sistema.domain.pedido.CompraItem;
 import com.mateus.sistema.domain.pedido.EntradaEstoque;
-import com.mateus.sistema.domain.pedido.Venda;
 import com.mateus.sistema.domain.pedido.VendaItem;
 import com.mateus.sistema.domain.produto.Estoque;
 import com.mateus.sistema.domain.produto.Produto;
@@ -36,7 +35,7 @@ public class EstoqueService {
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Estoque não encontrado! Id: " + id + ", Tipo: " + Estoque.class.getName()));
 	}
-	
+
 	public List<ProdutoEstoque> fromNewDto(List<EstoqueIdDTO> estoques, Produto obj) {
 		return estoques.stream().map(x -> new ProdutoEstoque(null, new Estoque(x.getId()), obj, null))
 				.collect(Collectors.toList());
@@ -47,8 +46,8 @@ public class EstoqueService {
 				.map(x -> new ProdutoEstoque(x.getId(), new Estoque(x.getEstoque().getId()), obj, x.getQuantidade()))
 				.collect(Collectors.toList());
 	}
-	
-	public Estoque fromDto (EstoqueIdDTO objDto) {
+
+	public Estoque fromDto(EstoqueIdDTO objDto) {
 		return find(objDto.getId());
 	}
 
@@ -60,8 +59,8 @@ public class EstoqueService {
 
 	private List<EntradaEstoque> getEntradas(List<CompraItem> itens) {
 		List<EntradaEstoque> entradas = new ArrayList<>();
-		entradas.addAll(itens.stream().map(x -> new EntradaEstoque(null, x, x.getEstoque()))
-				.collect(Collectors.toList()));
+		entradas.addAll(
+				itens.stream().map(x -> new EntradaEstoque(null, x, x.getEstoque())).collect(Collectors.toList()));
 		return entradas;
 	}
 
@@ -83,13 +82,17 @@ public class EstoqueService {
 		prodEstRepo.saveAll(list);
 	}
 
-	public void atualizaEstoque(Venda obj) {
+	public void atualizaEstoque(List<VendaItem> itens, Boolean subtrair) {
 		List<ProdutoEstoque> list = new ArrayList<ProdutoEstoque>();
-		for (VendaItem item : obj.getItens()) {
-			Optional<ProdutoEstoque> peo = prodEstRepo.findByProdutoAndEstoque(item.getProduto(),item.getEstoque());
+		for (VendaItem item : itens) {
+			Optional<ProdutoEstoque> peo = prodEstRepo.findByProdutoAndEstoque(item.getProduto(), item.getEstoque());
 			if (peo.isPresent()) {
 				ProdutoEstoque pe = peo.get();
-				pe.setQuantidade(pe.getQuantidade().subtract(item.getQuantidade()));
+				if (subtrair) {
+					pe.setQuantidade(pe.getQuantidade().subtract(item.getQuantidade()));
+				} else {
+					pe.setQuantidade(pe.getQuantidade().add(item.getQuantidade()));
+				}
 				list.add(pe);
 			} else {
 				throw new ObjectNotFoundException("Produto não possui estoque associado!");

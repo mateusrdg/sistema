@@ -52,7 +52,7 @@ public class VendaService {
 		validar(obj);
 		obj = repo.save(obj);
 		caixaMovService.geraCaixa(obj);
-		estoqueService.atualizaEstoque(obj);
+		estoqueService.atualizaEstoque(obj.getItens(), true);
 		return obj;
 	}
 
@@ -60,7 +60,9 @@ public class VendaService {
 		Venda obj = fromDTO(objDto);
 		obj.setId(id);
 		Venda newObj = find(id);
+		itemService.updateItens(obj);
 		updateData(newObj, obj);
+		estoqueService.atualizaEstoque(newObj.getItens(), true);
 		return repo.save(newObj);
 	}
 
@@ -78,7 +80,12 @@ public class VendaService {
 	}
 
 	private void updateData(Venda newObj, Venda obj) {
-		// TODO
+		newObj.setCliente(obj.getCliente());
+		newObj.setVendedor(obj.getVendedor());
+		newObj.setData(obj.getData());
+		newObj.setAtivo(obj.getAtivo());
+		newObj.setItens(obj.getItens());
+		newObj.setFormasPagamento(obj.getFormasPagamento());
 	}
 
 	public Venda fromDTO(VendaDTO objDto) {

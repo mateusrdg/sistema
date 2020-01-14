@@ -1,5 +1,6 @@
 package com.mateus.sistema.services.pedido.venda;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -12,6 +13,7 @@ import com.mateus.sistema.domain.pedido.Venda;
 import com.mateus.sistema.domain.pedido.VendaItem;
 import com.mateus.sistema.domain.produto.ProdutoEstoque;
 import com.mateus.sistema.dto.pedido.venda.VendaItemDTO;
+import com.mateus.sistema.repository.pedido.VendaItemRepository;
 import com.mateus.sistema.repository.produto.ProdutoEstoqueRepository;
 import com.mateus.sistema.services.exceptions.BusinessException;
 import com.mateus.sistema.services.exceptions.ObjectNotFoundException;
@@ -30,6 +32,10 @@ public class VendaItemService {
 	private PrecoService precoService;
 	@Autowired
 	private ProdutoEstoqueRepository peRepo;
+	@Autowired
+	private VendaService vendaService;
+	@Autowired 
+	private VendaItemRepository repo;
 
 	public List<VendaItem> fromDTO(List<VendaItemDTO> itens, Venda venda) {
 		return itens.stream()
@@ -60,6 +66,20 @@ public class VendaItemService {
 
 		}
 
+	}
+
+	public void updateItens(Venda obj) {
+		Venda atual = vendaService.find(obj.getId());
+		List<VendaItem> itensExcluidos = new ArrayList<VendaItem>();
+		for (VendaItem item : atual.getItens()) {
+			if (!obj.getItens().contains(item)) {
+				itensExcluidos.add(item);
+			}
+		}
+		estoqueService.atualizaEstoque(itensExcluidos, false);
+		for (VendaItem vendaItem : itensExcluidos) {
+			repo.deleteById(vendaItem.getId());
+		}
 	}
 
 }

@@ -35,7 +35,7 @@ public class Venda extends Pedido implements Serializable {
 	private List<VendaItem> itens = new ArrayList<VendaItem>();
 
 	@JsonManagedReference
-	@OneToMany(mappedBy = "pedido", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
+	@OneToMany(mappedBy = "pedido", cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
 	private List<FormaPagamentoVenda> formasPagamento = new ArrayList<FormaPagamentoVenda>();
 
 	public Venda() {
