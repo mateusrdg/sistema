@@ -295,8 +295,8 @@ public class DBService {
 				EstadoPagamento.PENDENTE, null, Calendar.getInstance(), null, parcela2);
 		parcela2.setContaReceber(conta4);
 
-		vendaRepo.saveAll(Arrays.asList(venda));
-		compraRepo.saveAll(Arrays.asList(compra));
+		//vendaRepo.saveAll(Arrays.asList(venda));
+		//compraRepo.saveAll(Arrays.asList(compra));
 		orcamentoRepo.saveAll(Arrays.asList(orcamento));
 
 		Caixa caixa1 = new Caixa(null, "caixa1");

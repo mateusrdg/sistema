@@ -1,6 +1,6 @@
 package com.mateus.sistema.services.pedido.venda;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -33,8 +33,6 @@ public class VendaItemService {
 	@Autowired
 	private ProdutoEstoqueRepository peRepo;
 	@Autowired
-	private VendaService vendaService;
-	@Autowired 
 	private VendaItemRepository repo;
 
 	public List<VendaItem> fromDTO(List<VendaItemDTO> itens, Venda venda) {
@@ -69,17 +67,12 @@ public class VendaItemService {
 	}
 
 	public void updateItens(Venda obj) {
-		Venda atual = vendaService.find(obj.getId());
-		List<VendaItem> itensExcluidos = new ArrayList<VendaItem>();
-		for (VendaItem item : atual.getItens()) {
+		List<VendaItem> itens = repo.findByPedido(obj);
+		for (VendaItem item : itens) {
 			if (!obj.getItens().contains(item)) {
-				itensExcluidos.add(item);
+				estoqueService.atualizaEstoque(Arrays.asList(item), false);
+				repo.delete(item);
 			}
 		}
-		estoqueService.atualizaEstoque(itensExcluidos, false);
-		for (VendaItem vendaItem : itensExcluidos) {
-			repo.deleteById(vendaItem.getId());
-		}
 	}
-
 }
