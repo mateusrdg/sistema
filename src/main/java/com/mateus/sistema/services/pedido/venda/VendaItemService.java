@@ -1,5 +1,6 @@
 package com.mateus.sistema.services.pedido.venda;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +21,7 @@ import com.mateus.sistema.services.exceptions.ObjectNotFoundException;
 import com.mateus.sistema.services.produto.EstoqueService;
 import com.mateus.sistema.services.produto.PrecoService;
 import com.mateus.sistema.services.produto.ProdutoService;
+import com.mateus.sistema.services.produto.EstoqueService.Operacao;
 
 @Service
 public class VendaItemService {
@@ -66,13 +68,16 @@ public class VendaItemService {
 
 	}
 
-	public void updateItens(Venda obj) {
-		List<VendaItem> itens = repo.findByPedido(obj);
-		for (VendaItem item : itens) {
-			if (!obj.getItens().contains(item)) {
-				estoqueService.atualizaEstoque(Arrays.asList(item), false);
-				repo.delete(item);
+	public void updateItens(Venda obj, List<VendaItem> listaNovos) {
+		// List<VendaItem> itens = repo.findByPedido(obj);
+		for (int i = obj.getItens().size() -1 ; i >= 0 ; i--) {
+			VendaItem item = obj.getItens().get(i);
+			if (listaNovos.stream().map(x -> x.getId() == item.getId()).collect(Collectors.toList()).contains(true)) {
+				obj.getItens().remove(i);
 			}
+			estoqueService.atualizaEstoque(Arrays.asList(item), Operacao.ACRESCENTAR);
+			i--;
 		}
+		
 	}
 }

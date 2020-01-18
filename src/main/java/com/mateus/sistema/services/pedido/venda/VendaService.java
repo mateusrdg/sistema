@@ -19,6 +19,7 @@ import com.mateus.sistema.services.pedido.formaPagamentoPedido.FormaPagamentoPed
 import com.mateus.sistema.services.pessoa.ClienteService;
 import com.mateus.sistema.services.pessoa.FuncionarioService;
 import com.mateus.sistema.services.produto.EstoqueService;
+import com.mateus.sistema.services.produto.EstoqueService.Operacao;
 
 @Service
 public class VendaService {
@@ -52,7 +53,7 @@ public class VendaService {
 		validar(obj);
 		obj = repo.save(obj);
 		caixaMovService.geraCaixa(obj);
-		estoqueService.atualizaEstoque(obj.getItens(), true);
+		estoqueService.atualizaEstoque(obj.getItens(), Operacao.SUBTRAIR);
 		return obj;
 	}
 
@@ -60,9 +61,9 @@ public class VendaService {
 		Venda obj = fromDTO(objDto);
 		obj.setId(id);
 		Venda newObj = find(id);
-		itemService.updateItens(obj);
+		itemService.updateItens(newObj, obj.getItens());
 		updateData(newObj, obj);
-		estoqueService.atualizaEstoque(newObj.getItens(), true);
+		estoqueService.atualizaEstoque(newObj.getItens(), Operacao.SUBTRAIR);
 		return repo.save(newObj);
 	}
 

@@ -82,13 +82,13 @@ public class EstoqueService {
 		prodEstRepo.saveAll(list);
 	}
 
-	public void atualizaEstoque(List<VendaItem> itens, Boolean subtrair) {
+	public void atualizaEstoque(List<VendaItem> itens, Operacao operacao) {
 		List<ProdutoEstoque> list = new ArrayList<ProdutoEstoque>();
 		for (VendaItem item : itens) {
 			Optional<ProdutoEstoque> peo = prodEstRepo.findByProdutoAndEstoque(item.getProduto(), item.getEstoque());
 			if (peo.isPresent()) {
 				ProdutoEstoque pe = peo.get();
-				if (subtrair) {
+				if (operacao == Operacao.SUBTRAIR) {
 					pe.setQuantidade(pe.getQuantidade().subtract(item.getQuantidade()));
 				} else {
 					pe.setQuantidade(pe.getQuantidade().add(item.getQuantidade()));
@@ -101,6 +101,10 @@ public class EstoqueService {
 
 		prodEstRepo.saveAll(list);
 
+	}
+
+	public enum Operacao {
+		ACRESCENTAR, SUBTRAIR;
 	}
 
 }
