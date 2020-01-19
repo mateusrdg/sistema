@@ -78,7 +78,6 @@ public class EstoqueService {
 						entrada.getQuantidade()));
 			}
 		}
-
 		prodEstRepo.saveAll(list);
 	}
 
@@ -98,9 +97,7 @@ public class EstoqueService {
 				throw new ObjectNotFoundException("Produto não possui estoque associado!");
 			}
 		}
-
 		prodEstRepo.saveAll(list);
-
 	}
 
 	public enum Operacao {

@@ -61,9 +61,10 @@ public class VendaService {
 		Venda obj = fromDTO(objDto);
 		obj.setId(id);
 		Venda newObj = find(id);
-		itemService.updateItens(newObj, obj.getItens());
+		itemService.updateItens(obj);
 		updateData(newObj, obj);
-		estoqueService.atualizaEstoque(newObj.getItens(), Operacao.SUBTRAIR);
+		//TODO erro ao atualizar estoque
+		//estoqueService.atualizaEstoque(newObj.getItens(), Operacao.SUBTRAIR);
 		return repo.save(newObj);
 	}
 

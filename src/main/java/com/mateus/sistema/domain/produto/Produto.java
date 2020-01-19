@@ -35,7 +35,7 @@ public class Produto implements Serializable {
 	@OneToMany(mappedBy = "produto", cascade ={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
 	private List<Preco> precos = new ArrayList<Preco>();
 
-	@OneToMany(mappedBy = "produto", cascade ={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
+	@OneToMany(mappedBy = "produto", cascade ={CascadeType.REMOVE})
 	private List<ProdutoEstoque> produtoEstoques = new ArrayList<ProdutoEstoque>();
 	
 	@OneToMany(mappedBy = "produto", cascade ={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
