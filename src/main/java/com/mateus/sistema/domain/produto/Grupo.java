@@ -30,6 +30,10 @@ public class Grupo implements Serializable {
 	public Grupo() {
 	}
 
+	public Grupo(Long id) {
+		this.id = id;
+	}
+	
 	public Grupo(Long id, String descricao) {
 		this.id = id;
 		this.descricao = descricao;

@@ -1,4 +1,4 @@
-package com.mateus.sistema.dto.produto;
+package com.mateus.sistema.dto.response.produto;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -8,11 +8,12 @@ import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mateus.sistema.domain.produto.Produto;
+import com.mateus.sistema.dto.produto.BaseProdutoDTO;
 import com.mateus.sistema.dto.produto.estoque.ProdutoEstoqueDTO;
 import com.mateus.sistema.dto.produto.preco.PrecoDTO;
-import com.mateus.sistema.dto.produto.subgrupo.ProdutoSubgrupoDTO;
+import com.mateus.sistema.dto.produto.subgrupo.SubgrupoDTO;
 
-public class ProdutoDTO extends BaseProdutoDTO implements Serializable {
+public class ProdutoResponseDTO extends BaseProdutoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@JsonFormat(pattern = "dd/MM/yyyy")
@@ -23,12 +24,12 @@ public class ProdutoDTO extends BaseProdutoDTO implements Serializable {
 
 	private List<ProdutoEstoqueDTO> estoques = new ArrayList<ProdutoEstoqueDTO>();
 
-	private List<ProdutoSubgrupoDTO> subgrupos = new ArrayList<ProdutoSubgrupoDTO>();
+	private List<SubgrupoDTO> subgrupos = new ArrayList<SubgrupoDTO>();
 
-	public ProdutoDTO() {
+	public ProdutoResponseDTO() {
 	}
 
-	public ProdutoDTO(Produto produto) {
+	public ProdutoResponseDTO(Produto produto) {
 		super(produto);
 		this.dataCadastro = produto.getDataCadastro();
 		this.ativo = produto.getAtivo();
@@ -36,7 +37,7 @@ public class ProdutoDTO extends BaseProdutoDTO implements Serializable {
 		precos = produto.getPrecos().stream().map(obj -> new PrecoDTO(obj)).collect(Collectors.toList());
 		estoques = produto.getProdutoEstoques().stream().map(obj -> new ProdutoEstoqueDTO(obj))
 				.collect(Collectors.toList());
-		subgrupos = produto.getProdutoSubgrupos().stream().map(obj -> new ProdutoSubgrupoDTO(obj))
+		subgrupos = produto.getProdutoSubgrupos().stream().map(obj -> new SubgrupoDTO(obj))
 				.collect(Collectors.toList());
 	}
 
@@ -72,11 +73,11 @@ public class ProdutoDTO extends BaseProdutoDTO implements Serializable {
 		this.estoques = estoques;
 	}
 
-	public List<ProdutoSubgrupoDTO> getSubgrupos() {
+	public List<SubgrupoDTO> getSubgrupos() {
 		return subgrupos;
 	}
 
-	public void setSubgrupos(List<ProdutoSubgrupoDTO> subgrupos) {
+	public void setSubgrupos(List<SubgrupoDTO> subgrupos) {
 		this.subgrupos = subgrupos;
 	}
 
