@@ -12,9 +12,10 @@ import com.mateus.sistema.dto.produto.estoque.EstoqueIdDTO;
 import com.mateus.sistema.dto.produto.preco.PrecoNewDTO;
 import com.mateus.sistema.dto.produto.subgrupo.SubgrupoIdDTO;
 
-public class ProdutoNewDTO implements Serializable {
+public class ProdutoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	private Long id;
 	@NotEmpty(message = "Preenchimento obrigatório.")
 	@Length(min = 5, max = 200, message = "O tamanho deve ser entre 5 e 200 caracteres")
 	private String descricao;
@@ -26,12 +27,7 @@ public class ProdutoNewDTO implements Serializable {
 	private List<SubgrupoIdDTO> subgrupos = new ArrayList<SubgrupoIdDTO>();
 
 	
-	public ProdutoNewDTO() {
-	}
-
-	public ProdutoNewDTO(String descricao, String referencia) {
-		this.descricao = descricao;
-		this.referencia = referencia;
+	public ProdutoDTO() {
 	}
 
 	public String getDescricao() {
@@ -72,6 +68,14 @@ public class ProdutoNewDTO implements Serializable {
 
 	public void setSubgrupos(List<SubgrupoIdDTO> subgrupos) {
 		this.subgrupos = subgrupos;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

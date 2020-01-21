@@ -8,8 +8,8 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.mateus.sistema.domain.produto.Produto;
+import com.mateus.sistema.dto.produto.ProdutoDTO;
 import com.mateus.sistema.dto.produto.ProdutoIdDTO;
-import com.mateus.sistema.dto.produto.ProdutoNewDTO;
 import com.mateus.sistema.repository.produto.ProdutoRepository;
 import com.mateus.sistema.services.exceptions.DataIntegrityException;
 import com.mateus.sistema.services.exceptions.ObjectNotFoundException;
@@ -31,14 +31,17 @@ public class ProdutoService {
 				"Produto não encontrado! Id: " + id + ", Tipo: " + Produto.class.getName()));
 	}
 
-	public Produto insert(Produto obj) {
+	public Produto insert(ProdutoDTO objDto) {
+		Produto obj = fromDTO(objDto);
 		obj.setId(null);
 		obj = repo.save(obj);
 		return obj;
 	}
 
-	public Produto update(Produto obj) {
-		Produto newObj = find(obj.getId());
+	public Produto update(ProdutoDTO objDto, Long id) {
+		Produto obj = fromDTO(objDto);
+		obj.setId(id);
+		Produto newObj = find(id);
 		updateData(newObj, obj);
 		return repo.save(newObj);
 	}
@@ -66,11 +69,11 @@ public class ProdutoService {
 		newObj.setProdutoSubgrupos(obj.getProdutoSubgrupos());
 	}
 
-	public Produto fromDTO(ProdutoNewDTO objDto) {
-		Produto obj = new Produto(null, objDto.getDescricao(), objDto.getReferencia());
+	public Produto fromDTO(ProdutoDTO objDto) {
+		Produto obj = new Produto(((objDto.getId() == null) ? null : objDto.getId()), objDto.getDescricao(), objDto.getReferencia());
 		obj.setPrecos(precoService.fromNewDto(objDto.getPrecos(), obj));
 		obj.setProdutoEstoques(estoqueService.fromNewDto(objDto.getEstoques(), obj));
-		obj.setProdutoSubgrupos(subgrupoService.fromNewDto(objDto.getSubgrupos(), obj));
+		obj.setProdutoSubgrupos(subgrupoService.fromDto(objDto.getSubgrupos(), obj));
 		return obj;
 	}
 

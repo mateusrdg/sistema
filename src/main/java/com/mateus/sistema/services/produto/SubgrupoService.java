@@ -2,14 +2,18 @@ package com.mateus.sistema.services.produto;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.mateus.sistema.domain.produto.Grupo;
+import com.mateus.sistema.domain.produto.Produto;
+import com.mateus.sistema.domain.produto.ProdutoSubgrupo;
 import com.mateus.sistema.domain.produto.Subgrupo;
 import com.mateus.sistema.dto.produto.subgrupo.SubgrupoDTO;
+import com.mateus.sistema.dto.produto.subgrupo.SubgrupoIdDTO;
 import com.mateus.sistema.repository.produto.SubgrupoRepository;
 import com.mateus.sistema.services.exceptions.DataIntegrityException;
 import com.mateus.sistema.services.exceptions.ObjectNotFoundException;
@@ -60,5 +64,14 @@ public class SubgrupoService {
 	public Subgrupo fromDTO(SubgrupoDTO objDto) {
 		return new Subgrupo(((objDto.getId() == null) ? null : objDto.getId()), objDto.getDescricao(),
 				new Grupo(objDto.getGrupo().getId()));
+	}
+
+	public Subgrupo fromDTO(SubgrupoIdDTO objDto) {
+		return new Subgrupo(objDto.getId());
+	}
+
+	public List<ProdutoSubgrupo> fromDto(List<SubgrupoIdDTO> subgrupos, Produto obj) {
+		return subgrupos.stream().map(x -> new ProdutoSubgrupo(null, new Subgrupo(x.getId()), obj))
+				.collect(Collectors.toList());
 	}
 }

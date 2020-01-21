@@ -17,7 +17,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.mateus.sistema.domain.produto.Produto;
 import com.mateus.sistema.dto.produto.ProdutoDTO;
-import com.mateus.sistema.dto.produto.ProdutoNewDTO;
+import com.mateus.sistema.dto.response.produto.ProdutoResponseDTO;
 import com.mateus.sistema.services.produto.ProdutoService;
 
 @RestController
@@ -27,25 +27,22 @@ public class ProdutoResource {
 	private ProdutoService service;
 	
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
-	public ResponseEntity<ProdutoDTO> find(@PathVariable Long id){
+	public ResponseEntity<ProdutoResponseDTO> find(@PathVariable Long id){
 		Produto obj = service.find(id);
-		ProdutoDTO objDTO = new ProdutoDTO(obj);
+		ProdutoResponseDTO objDTO = new ProdutoResponseDTO(obj);
 		return ResponseEntity.ok(objDTO);
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @RequestBody ProdutoNewDTO objDto){
-		Produto obj = service.fromDTO(objDto);
-		obj = service.insert(obj);
+	public ResponseEntity<Void> insert(@Valid @RequestBody ProdutoDTO objDto){
+		Produto obj = service.insert(objDto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("{/id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
 	@RequestMapping(value = "{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> update (@RequestBody ProdutoDTO objDto, @PathVariable Long id){
-		Produto obj = service.fromDTO(objDto);
-		obj.setId(id);
-		service.update(obj);
+		service.update(objDto, id);
 		return ResponseEntity.noContent().build();
 	}
 	
@@ -56,9 +53,9 @@ public class ProdutoResource {
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<ProdutoDTO>> findAll() {
+	public ResponseEntity<List<ProdutoResponseDTO>> findAll() {
 		List<Produto> list = service.findAll();
-		List<ProdutoDTO> listDto = list.stream().map(obj -> new ProdutoDTO(obj)).collect(Collectors.toList());
+		List<ProdutoResponseDTO> listDto = list.stream().map(obj -> new ProdutoResponseDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDto);
 	}
 	

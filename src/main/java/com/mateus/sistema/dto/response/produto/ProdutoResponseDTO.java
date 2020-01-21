@@ -11,7 +11,6 @@ import com.mateus.sistema.domain.produto.Produto;
 import com.mateus.sistema.dto.produto.BaseProdutoDTO;
 import com.mateus.sistema.dto.produto.estoque.ProdutoEstoqueDTO;
 import com.mateus.sistema.dto.produto.preco.PrecoDTO;
-import com.mateus.sistema.dto.produto.subgrupo.SubgrupoDTO;
 
 public class ProdutoResponseDTO extends BaseProdutoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -24,7 +23,7 @@ public class ProdutoResponseDTO extends BaseProdutoDTO implements Serializable {
 
 	private List<ProdutoEstoqueDTO> estoques = new ArrayList<ProdutoEstoqueDTO>();
 
-	private List<SubgrupoDTO> subgrupos = new ArrayList<SubgrupoDTO>();
+	private List<SubgrupoResponseDTO> subgrupos = new ArrayList<SubgrupoResponseDTO>();
 
 	public ProdutoResponseDTO() {
 	}
@@ -37,7 +36,7 @@ public class ProdutoResponseDTO extends BaseProdutoDTO implements Serializable {
 		precos = produto.getPrecos().stream().map(obj -> new PrecoDTO(obj)).collect(Collectors.toList());
 		estoques = produto.getProdutoEstoques().stream().map(obj -> new ProdutoEstoqueDTO(obj))
 				.collect(Collectors.toList());
-		subgrupos = produto.getProdutoSubgrupos().stream().map(obj -> new SubgrupoDTO(obj))
+		subgrupos = produto.getProdutoSubgrupos().stream().map(obj -> new SubgrupoResponseDTO(obj))
 				.collect(Collectors.toList());
 	}
 
@@ -73,11 +72,11 @@ public class ProdutoResponseDTO extends BaseProdutoDTO implements Serializable {
 		this.estoques = estoques;
 	}
 
-	public List<SubgrupoDTO> getSubgrupos() {
+	public List<SubgrupoResponseDTO> getSubgrupos() {
 		return subgrupos;
 	}
 
-	public void setSubgrupos(List<SubgrupoDTO> subgrupos) {
+	public void setSubgrupos(List<SubgrupoResponseDTO> subgrupos) {
 		this.subgrupos = subgrupos;
 	}
 
