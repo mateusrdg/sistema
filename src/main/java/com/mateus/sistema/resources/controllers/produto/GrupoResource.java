@@ -1,4 +1,4 @@
-package com.mateus.sistema.resources.produto;
+package com.mateus.sistema.resources.controllers.produto;
 
 import java.net.URI;
 import java.util.List;

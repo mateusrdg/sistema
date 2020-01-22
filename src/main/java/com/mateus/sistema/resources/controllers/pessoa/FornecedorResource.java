@@ -1,8 +1,7 @@
-package com.mateus.sistema.resources.pedido;
+package com.mateus.sistema.resources.controllers.pessoa;
 
 import java.net.URI;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -15,34 +14,36 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.mateus.sistema.domain.pedido.Venda;
-import com.mateus.sistema.dto.pedido.venda.VendaDTO;
-import com.mateus.sistema.dto.response.pedido.venda.VendaResponseDTO;
-import com.mateus.sistema.services.pedido.venda.VendaService;
+import com.mateus.sistema.domain.pessoa.Fornecedor;
+import com.mateus.sistema.dto.pessoa.fornecedor.FornecedorDTO;
+import com.mateus.sistema.dto.pessoa.fornecedor.FornecedorNewDTO;
+import com.mateus.sistema.services.pessoa.FornecedorService;
 
 @RestController
-@RequestMapping(value = "/vendas")
-public class VendaResource {
+@RequestMapping(value = "/fornecedores")
+public class FornecedorResource {
 	@Autowired 
-	private VendaService service;
+	private FornecedorService service;
 	
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
-	public ResponseEntity<VendaResponseDTO> find(@PathVariable Long id){
-		Venda obj = service.find(id);
-		VendaResponseDTO objDTO = new VendaResponseDTO(obj);
-		return ResponseEntity.ok(objDTO);
+	public ResponseEntity<Fornecedor> find(@PathVariable Long id){
+		Fornecedor obj = service.find(id);
+		return ResponseEntity.ok(obj);
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert (@Valid @RequestBody VendaDTO objDto){
-		Venda obj = service.insert(objDto);
+	public ResponseEntity<Void> insert(@Valid @RequestBody FornecedorNewDTO objDto){
+		Fornecedor obj = service.fromDto(objDto);
+		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("{/id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
-	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update (@Valid @RequestBody VendaDTO objDto, @PathVariable Long id){
-		service.update(objDto, id);
+	@RequestMapping(value = "{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> update (@RequestBody FornecedorDTO objDto, @PathVariable Long id){
+		Fornecedor obj = service.fromDto(objDto);
+		obj.setId(id);
+		service.update(obj);
 		return ResponseEntity.noContent().build();
 	}
 	
@@ -53,11 +54,9 @@ public class VendaResource {
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<VendaResponseDTO>> findAll() {
-		List<Venda> list = service.findAll();
-		List<VendaResponseDTO> listDTO = list.stream().map(obj -> new VendaResponseDTO(obj)).collect(Collectors.toList());
-		return ResponseEntity.ok().body(listDTO);
+	public ResponseEntity<List<Fornecedor>> findAll() {
+		List<Fornecedor> list = service.findAll();
+		return ResponseEntity.ok().body(list);
 	}
-	
 	
 }

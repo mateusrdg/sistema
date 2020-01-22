@@ -1,4 +1,4 @@
-package com.mateus.sistema.resources.produto;
+package com.mateus.sistema.resources.controllers.pessoa;
 
 import java.net.URI;
 import java.util.List;
@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,34 +16,37 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.mateus.sistema.domain.produto.Produto;
-import com.mateus.sistema.dto.produto.ProdutoDTO;
-import com.mateus.sistema.dto.response.produto.ProdutoResponseDTO;
-import com.mateus.sistema.services.produto.ProdutoService;
+import com.mateus.sistema.domain.pessoa.Funcionario;
+import com.mateus.sistema.dto.pessoa.funcionario.FuncionarioDTO;
+import com.mateus.sistema.dto.pessoa.funcionario.FuncionarioNewDTO;
+import com.mateus.sistema.services.pessoa.FuncionarioService;
 
 @RestController
-@RequestMapping(value = "/produtos")
-public class ProdutoResource {
+@CrossOrigin
+@RequestMapping(value = "/funcionarios")
+public class FuncionarioResource {
 	@Autowired 
-	private ProdutoService service;
+	private FuncionarioService service;
 	
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
-	public ResponseEntity<ProdutoResponseDTO> find(@PathVariable Long id){
-		Produto obj = service.find(id);
-		ProdutoResponseDTO objDTO = new ProdutoResponseDTO(obj);
-		return ResponseEntity.ok(objDTO);
+	public ResponseEntity<Funcionario> find(@PathVariable Long id){
+		Funcionario obj = service.find(id);
+		return ResponseEntity.ok(obj);
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @RequestBody ProdutoDTO objDto){
-		Produto obj = service.insert(objDto);
+	public ResponseEntity<Void> insert(@Valid @RequestBody FuncionarioNewDTO objDto){
+		Funcionario obj = service.fromDTO(objDto);
+		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("{/id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
 	@RequestMapping(value = "{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update (@RequestBody ProdutoDTO objDto, @PathVariable Long id){
-		service.update(objDto, id);
+	public ResponseEntity<Void> update (@RequestBody FuncionarioDTO objDto, @PathVariable Long id){
+		Funcionario obj = service.fromDTO(objDto);
+		obj.setId(id);
+		service.update(obj);
 		return ResponseEntity.noContent().build();
 	}
 	
@@ -53,11 +57,10 @@ public class ProdutoResource {
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<ProdutoResponseDTO>> findAll() {
-		List<Produto> list = service.findAll();
-		List<ProdutoResponseDTO> listDto = list.stream().map(obj -> new ProdutoResponseDTO(obj)).collect(Collectors.toList());
+	public ResponseEntity<List<FuncionarioDTO>> findAll() {
+		List<Funcionario> list = service.findAll();
+		List<FuncionarioDTO> listDto = list.stream().map(obj -> new FuncionarioDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDto);
 	}
-	
 	
 }

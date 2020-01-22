@@ -23,6 +23,9 @@ public class Grupo implements Serializable {
 	private Long id;
 	private String descricao;
 	
+	private boolean messageReceived;
+    private Integer messageCount = 0; 
+	
 	@OneToMany(mappedBy = "grupo")
 	@JsonIgnore
 	private List<Subgrupo> subGrupos = new ArrayList<Subgrupo>();
@@ -62,6 +65,22 @@ public class Grupo implements Serializable {
 	public void setSubGrupos(List<Subgrupo> subGrupos) {
 		this.subGrupos = subGrupos;
 	}
+	
+	public boolean isMessageReceived() {
+        return messageReceived;
+    }
+
+    public void setMessageReceived(boolean messageReceived) {
+        this.messageReceived = messageReceived;
+    }
+
+    public Integer getMessageCount() {
+        return messageCount;
+    }
+
+    public void setMessageCount(Integer messageCount) {
+        this.messageCount = messageCount;
+    }
 	
 	@Override
 	public int hashCode() {
