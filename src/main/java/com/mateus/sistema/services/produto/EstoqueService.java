@@ -17,7 +17,6 @@ import com.mateus.sistema.domain.produto.Produto;
 import com.mateus.sistema.domain.produto.ProdutoEstoque;
 import com.mateus.sistema.dto.produto.estoque.EstoqueDTO;
 import com.mateus.sistema.dto.produto.estoque.EstoqueIdDTO;
-import com.mateus.sistema.dto.produto.estoque.ProdutoEstoqueDTO;
 import com.mateus.sistema.repository.pedido.EntradaEstoqueRepository;
 import com.mateus.sistema.repository.produto.EstoqueRepository;
 import com.mateus.sistema.repository.produto.ProdutoEstoqueRepository;
@@ -75,14 +74,8 @@ public class EstoqueService {
 		newObj.setDescricao(obj.getDescricao());
 	}
 	
-	public List<ProdutoEstoque> fromNewDto(List<EstoqueIdDTO> estoques, Produto obj) {
+	public List<ProdutoEstoque> fromDto(List<EstoqueIdDTO> estoques, Produto obj) {
 		return estoques.stream().map(x -> new ProdutoEstoque(null, new Estoque(x.getId()), obj, null))
-				.collect(Collectors.toList());
-	}
-
-	public List<ProdutoEstoque> fromDto(List<ProdutoEstoqueDTO> estoques, Produto obj) {
-		return estoques.stream()
-				.map(x -> new ProdutoEstoque(x.getId(), new Estoque(x.getEstoque().getId()), obj, x.getQuantidade()))
 				.collect(Collectors.toList());
 	}
 

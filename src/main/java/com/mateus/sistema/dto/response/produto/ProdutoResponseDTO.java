@@ -9,8 +9,8 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mateus.sistema.domain.produto.Produto;
 import com.mateus.sistema.dto.produto.BaseProdutoDTO;
-import com.mateus.sistema.dto.produto.estoque.ProdutoEstoqueDTO;
 import com.mateus.sistema.dto.produto.preco.PrecoDTO;
+import com.mateus.sistema.dto.response.produto.estoque.ProdutoEstoqueResponseDTO;
 
 public class ProdutoResponseDTO extends BaseProdutoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -21,7 +21,7 @@ public class ProdutoResponseDTO extends BaseProdutoDTO implements Serializable {
 
 	private List<PrecoDTO> precos = new ArrayList<PrecoDTO>();
 
-	private List<ProdutoEstoqueDTO> estoques = new ArrayList<ProdutoEstoqueDTO>();
+	private List<ProdutoEstoqueResponseDTO> estoques = new ArrayList<ProdutoEstoqueResponseDTO>();
 
 	private List<SubgrupoResponseDTO> subgrupos = new ArrayList<SubgrupoResponseDTO>();
 
@@ -34,7 +34,7 @@ public class ProdutoResponseDTO extends BaseProdutoDTO implements Serializable {
 		this.ativo = produto.getAtivo();
 
 		precos = produto.getPrecos().stream().map(obj -> new PrecoDTO(obj)).collect(Collectors.toList());
-		estoques = produto.getProdutoEstoques().stream().map(obj -> new ProdutoEstoqueDTO(obj))
+		estoques = produto.getProdutoEstoques().stream().map(obj -> new ProdutoEstoqueResponseDTO(obj))
 				.collect(Collectors.toList());
 		subgrupos = produto.getProdutoSubgrupos().stream().map(obj -> new SubgrupoResponseDTO(obj))
 				.collect(Collectors.toList());
@@ -64,11 +64,11 @@ public class ProdutoResponseDTO extends BaseProdutoDTO implements Serializable {
 		this.precos = precos;
 	}
 
-	public List<ProdutoEstoqueDTO> getEstoques() {
+	public List<ProdutoEstoqueResponseDTO> getEstoques() {
 		return estoques;
 	}
 
-	public void setEstoques(List<ProdutoEstoqueDTO> estoques) {
+	public void setEstoques(List<ProdutoEstoqueResponseDTO> estoques) {
 		this.estoques = estoques;
 	}
 

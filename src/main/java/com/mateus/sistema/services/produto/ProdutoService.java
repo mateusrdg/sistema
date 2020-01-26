@@ -72,7 +72,7 @@ public class ProdutoService {
 	public Produto fromDTO(ProdutoDTO objDto) {
 		Produto obj = new Produto(((objDto.getId() == null) ? null : objDto.getId()), objDto.getDescricao(), objDto.getReferencia());
 		obj.setPrecos(precoService.fromNewDto(objDto.getPrecos(), obj));
-		obj.setProdutoEstoques(estoqueService.fromNewDto(objDto.getEstoques(), obj));
+		obj.setProdutoEstoques(estoqueService.fromDto(objDto.getEstoques(), obj));
 		obj.setProdutoSubgrupos(subgrupoService.fromDto(objDto.getSubgrupos(), obj));
 		return obj;
 	}
