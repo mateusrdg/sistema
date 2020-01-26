@@ -1,20 +1,27 @@
 package com.mateus.sistema.dto.produto.estoque;
 
-import com.mateus.sistema.domain.produto.Estoque;
+import java.io.Serializable;
 
-public class EstoqueDTO extends EstoqueIdDTO{
+import javax.validation.constraints.NotNull;
+
+public class EstoqueDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
+	private Long id;
+	@NotNull(message = "Preenchimento obrigatório.")
 	private String descricao;
 
-	public EstoqueDTO() {	
+	public EstoqueDTO() {
 	}
-	
-	public EstoqueDTO(Estoque estoque) {	
-		super(estoque);
-		this.descricao = estoque.getDescricao();
+
+	public Long getId() {
+		return id;
 	}
-	
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public String getDescricao() {
 		return descricao;
 	}
@@ -22,6 +29,5 @@ public class EstoqueDTO extends EstoqueIdDTO{
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	
-	
+
 }

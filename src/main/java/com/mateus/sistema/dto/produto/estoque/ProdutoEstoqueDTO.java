@@ -6,11 +6,12 @@ import java.math.BigDecimal;
 import com.mateus.sistema.domain.produto.Estoque;
 import com.mateus.sistema.domain.produto.ProdutoEstoque;
 import com.mateus.sistema.dto.EntidadeId;
+import com.mateus.sistema.dto.response.produto.estoque.EstoqueResponseDTO;
 
 public class ProdutoEstoqueDTO extends EntidadeId implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private EstoqueDTO estoque;
+	private EstoqueResponseDTO estoque;
 
 	private BigDecimal quantidade;
 
@@ -19,13 +20,13 @@ public class ProdutoEstoqueDTO extends EntidadeId implements Serializable {
 
 	public ProdutoEstoqueDTO(Long id, Estoque estoque, BigDecimal quantidade) {
 		super(id);
-		this.setEstoque(new EstoqueDTO(estoque));
+		this.setEstoque(new EstoqueResponseDTO(estoque));
 		this.setQuantidade(quantidade);
 	}
 	
 	public ProdutoEstoqueDTO(ProdutoEstoque produtoEstoque) {
 		super(produtoEstoque.getId());
-		this.estoque = new EstoqueDTO(produtoEstoque.getEstoque());
+		this.estoque = new EstoqueResponseDTO(produtoEstoque.getEstoque());
 		this.setQuantidade(produtoEstoque.getQuantidade());
 	}
 
@@ -37,11 +38,11 @@ public class ProdutoEstoqueDTO extends EntidadeId implements Serializable {
 		this.quantidade = quantidade;
 	}
 
-	public EstoqueDTO getEstoque() {
+	public EstoqueResponseDTO getEstoque() {
 		return estoque;
 	}
 
-	public void setEstoque(EstoqueDTO estoque) {
+	public void setEstoque(EstoqueResponseDTO estoque) {
 		this.estoque = estoque;
 	}
 }

@@ -24,7 +24,7 @@ public class GrupoService {
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Grupo.class.getName()));
 	}
 
-	public Grupo insert(com.mateus.sistema.dto.produto.subgrupo.GrupoDTO objDto) {
+	public Grupo insert(GrupoDTO objDto) {
 		Grupo obj = fromDTO(objDto);
 		obj.setId(null);
 		obj = repo.save(obj);

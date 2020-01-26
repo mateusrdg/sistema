@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.mateus.sistema.domain.pedido.CompraItem;
@@ -14,11 +15,13 @@ import com.mateus.sistema.domain.pedido.VendaItem;
 import com.mateus.sistema.domain.produto.Estoque;
 import com.mateus.sistema.domain.produto.Produto;
 import com.mateus.sistema.domain.produto.ProdutoEstoque;
+import com.mateus.sistema.dto.produto.estoque.EstoqueDTO;
 import com.mateus.sistema.dto.produto.estoque.EstoqueIdDTO;
 import com.mateus.sistema.dto.produto.estoque.ProdutoEstoqueDTO;
 import com.mateus.sistema.repository.pedido.EntradaEstoqueRepository;
 import com.mateus.sistema.repository.produto.EstoqueRepository;
 import com.mateus.sistema.repository.produto.ProdutoEstoqueRepository;
+import com.mateus.sistema.services.exceptions.DataIntegrityException;
 import com.mateus.sistema.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -35,7 +38,43 @@ public class EstoqueService {
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Estoque não encontrado! Id: " + id + ", Tipo: " + Estoque.class.getName()));
 	}
+	
+	public Estoque insert(EstoqueDTO objDto) {
+		Estoque obj = fromDTO(objDto);
+		obj.setId(null);
+		obj = repo.save(obj);
+		return obj;
+	}
 
+	public Estoque update(EstoqueDTO objDto, Long id) {
+		Estoque obj = fromDTO(objDto);
+		obj.setId(id);
+		Estoque newObj = find(id);
+		updateData(newObj, obj);
+		return repo.save(newObj);
+	}
+
+	public void delete(Long id) {
+		repo.findById(id);
+		try {
+			repo.deleteById(id);
+		} catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possível excluir!");
+		}
+	}
+
+	public List<Estoque> findAll() {
+		return repo.findAll();
+	}
+	
+	private Estoque fromDTO(EstoqueDTO objDto) {
+		return new Estoque(((objDto.getId() == null) ? null : objDto.getId()), objDto.getDescricao());
+	}
+	
+	private void updateData(Estoque newObj, Estoque obj) {
+		newObj.setDescricao(obj.getDescricao());
+	}
+	
 	public List<ProdutoEstoque> fromNewDto(List<EstoqueIdDTO> estoques, Produto obj) {
 		return estoques.stream().map(x -> new ProdutoEstoque(null, new Estoque(x.getId()), obj, null))
 				.collect(Collectors.toList());
