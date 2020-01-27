@@ -1,21 +1,18 @@
-package com.mateus.sistema.converters;
+package com.mateus.sistema.amqp.converters;
+
+import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.fasterxml.jackson.databind.util.Converter;
+import com.mateus.sistema.amqp.commands.GrupoForm;
 import com.mateus.sistema.domain.produto.Grupo;
-import com.mateus.sistema.dto.produto.subgrupo.GrupoDTO;
 
-public class GrupoDtoToGrupo implements Converter<GrupoDTO, Grupo> {
-	@Override 
-	
-	public Grupo convert(GrupoDTO GrupoDto) {
-		Grupo grupo = new Grupo();
-		if (GrupoDto.getId() != null) {
-			grupo.setId(new Long(GrupoDto.getId()));
-		}
-		grupo.setDescricao(GrupoDto.getDescricao());
-		return grupo;
+@Component
+public class GrupoToGrupoForm implements Converter<Grupo, GrupoForm> {
+	@Override
+	public GrupoForm convert(Grupo grupo) {
+		return new GrupoForm(grupo);
 	}
 
 	@Override

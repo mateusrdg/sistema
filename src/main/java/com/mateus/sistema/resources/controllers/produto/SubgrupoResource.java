@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.mateus.sistema.domain.produto.Subgrupo;
-import com.mateus.sistema.dto.produto.subgrupo.SubgrupoDTO;
+import com.mateus.sistema.dto.produto.grupo.SubgrupoDTO;
 import com.mateus.sistema.dto.response.produto.SubgrupoResponseDTO;
 import com.mateus.sistema.services.produto.SubgrupoService;
 

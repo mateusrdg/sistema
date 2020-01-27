@@ -8,7 +8,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.mateus.sistema.domain.produto.Grupo;
-import com.mateus.sistema.dto.produto.subgrupo.GrupoDTO;
+import com.mateus.sistema.dto.produto.grupo.GrupoDTO;
 import com.mateus.sistema.repository.produto.GrupoRepository;
 import com.mateus.sistema.services.exceptions.DataIntegrityException;
 import com.mateus.sistema.services.exceptions.ObjectNotFoundException;

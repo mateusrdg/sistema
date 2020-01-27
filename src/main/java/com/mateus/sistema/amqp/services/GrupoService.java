@@ -1,9 +1,9 @@
-package com.mateus.sistema.services.amqp;
+package com.mateus.sistema.amqp.services;
 
 import java.util.List;
 
+import com.mateus.sistema.amqp.commands.GrupoForm;
 import com.mateus.sistema.domain.produto.Grupo;
-import com.mateus.sistema.dto.produto.subgrupo.GrupoDTO;
 
 public interface GrupoService {
 	List<Grupo> listAll();
@@ -14,7 +14,7 @@ public interface GrupoService {
 
 	void delete(Long id);
 
-	Grupo saveOrUpdateGrupoForm(GrupoDTO grupoDTO);
+	Grupo saveOrUpdateGrupoForm(GrupoForm grupoDTO);
 
 	void sendProductMessage(String id);
 }

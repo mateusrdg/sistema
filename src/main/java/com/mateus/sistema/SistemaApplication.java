@@ -10,7 +10,8 @@ import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import com.mateus.sistema.listener.GrupoMessageListener;
+
+import com.mateus.sistema.amqp.listeners.GrupoMessageListener;
 
 @SpringBootApplication
 public class SistemaApplication {

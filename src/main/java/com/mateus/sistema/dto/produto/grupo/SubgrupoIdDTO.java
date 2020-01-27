@@ -1,4 +1,4 @@
-package com.mateus.sistema.dto.produto.subgrupo;
+package com.mateus.sistema.dto.produto.grupo;
 
 import com.mateus.sistema.dto.EntidadeId;
 

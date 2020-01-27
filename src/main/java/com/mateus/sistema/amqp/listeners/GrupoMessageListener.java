@@ -1,4 +1,4 @@
-package com.mateus.sistema.listener;
+package com.mateus.sistema.amqp.listeners;
 
 import java.util.Map;
 

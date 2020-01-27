@@ -1,4 +1,4 @@
-package com.mateus.sistema.services.amqp;
+package com.mateus.sistema.amqp.services;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,9 +11,9 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.mateus.sistema.SistemaApplication;
-import com.mateus.sistema.converters.GrupoDtoToGrupo;
+import com.mateus.sistema.amqp.commands.GrupoForm;
+import com.mateus.sistema.amqp.converters.GrupoFormToGrupo;
 import com.mateus.sistema.domain.produto.Grupo;
-import com.mateus.sistema.dto.produto.subgrupo.GrupoDTO;
 import com.mateus.sistema.repository.produto.GrupoRepository;
 
 public class GrupoServiceImpl implements GrupoService {
@@ -21,14 +21,14 @@ public class GrupoServiceImpl implements GrupoService {
 	private static final Logger log = LoggerFactory.getLogger(GrupoServiceImpl.class);
 
 	private GrupoRepository grupoRepository;
-	private GrupoDtoToGrupo grupoDtoToGrupo;
+	private GrupoFormToGrupo grupoFormToGrupo;
 	private RabbitTemplate rabbitTemplate;
 
 	@Autowired
-	public GrupoServiceImpl(GrupoRepository grupoRepository, GrupoDtoToGrupo grupoDtoToGrupo,
+	public GrupoServiceImpl(GrupoRepository grupoRepository, GrupoFormToGrupo grupoDtoToGrupo,
 			RabbitTemplate rabbitTemplate) {
 		this.grupoRepository = grupoRepository;
-		this.grupoDtoToGrupo = grupoDtoToGrupo;
+		this.grupoFormToGrupo = grupoDtoToGrupo;
 		this.rabbitTemplate = rabbitTemplate;
 	}
 
@@ -56,8 +56,8 @@ public class GrupoServiceImpl implements GrupoService {
 	}
 
 	@Override
-	public Grupo saveOrUpdateGrupoForm(GrupoDTO grupoDto) {
-		Grupo savedProduct = saveOrUpdate(grupoDtoToGrupo.convert(grupoDto));
+	public Grupo saveOrUpdateGrupoForm(GrupoForm grupoForm) {
+		Grupo savedProduct = saveOrUpdate(grupoFormToGrupo.convert(grupoForm));
 		System.out.println("Saved Product Id: " + savedProduct.getId());
 		return savedProduct;
 	}

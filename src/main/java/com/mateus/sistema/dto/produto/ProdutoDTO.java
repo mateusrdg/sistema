@@ -9,8 +9,8 @@ import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 
 import com.mateus.sistema.dto.produto.estoque.EstoqueIdDTO;
+import com.mateus.sistema.dto.produto.grupo.SubgrupoIdDTO;
 import com.mateus.sistema.dto.produto.preco.PrecoNewDTO;
-import com.mateus.sistema.dto.produto.subgrupo.SubgrupoIdDTO;
 
 public class ProdutoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
